@@ -29,23 +29,32 @@ const asigOptions = [
 ];
 
 
-const FiltersTab = () => {
-  const [selectedAsigs, setSelectedAsigs] = useState([]);
+const FiltersTab = ({selectedAsigs, setSelectedAsigs}) => {
+
   const [selectedGroup, setSelectedGroup] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedGrade, setSelectedGrade] = useState("");
+  
+  const [selectedAsigValue, setSelectedAsigValue] = useState("");  //Este estado almacena el valor (nombre completo) de la ultima asignatura seleccionada en el selector de asignaturas
 
-  const handleAsigSelect = (_, data) => {
+  const handleAsigSelect = (_, data) => {  
     const selectedKey = data.options.find(option => option.value === data.value)?.key;
+    console.log(selectedKey)
     if (selectedKey && !selectedAsigs.includes(selectedKey)) {
         setSelectedAsigs([...selectedAsigs, selectedKey]);
+        setSelectedAsigValue(data.value);
     }
   };
 
 
   const handleRemoveAsig = (asig) => {
-    setSelectedAsigs(selectedAsigs.filter((item) => item !== asig));
+    const newAsigs = selectedAsigs.filter((item) => item !== asig);
+    setSelectedAsigs(newAsigs);
+    console.log("asignatura: "  +asig + " borrada");
+    if (newAsigs.length === 0) {
+      setSelectedAsigValue("");
+  }
   };
 
   const handleGroupSelect = (group) => {
@@ -60,7 +69,7 @@ const FiltersTab = () => {
   };
 
   const handleClassSelect = (_, data) => {
-    setSelectedGroup(data.value);
+    setSelectedClass(data.value);
     console.log("Aula seleccionada:", data.value);
   };
 
@@ -126,7 +135,7 @@ const FiltersTab = () => {
         <TabPane attached={false}>
             <p>Aquí puedes filtrar en función de las asignaturas actuales en tu plan de estudios</p>
                 <div className="filters-select-container">
-                    <FiltersSelect text = {"Escoge tu asignatura"} options={asigOptions} onChange={handleAsigSelect} />
+                    <FiltersSelect text = {"Escoge tu asignatura"} options={asigOptions} onChange={handleAsigSelect} value={selectedAsigValue} />
                 </div>
                 <div className="selected-asigs-container">
                     {selectedAsigs.length > 0 ? (

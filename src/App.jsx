@@ -82,6 +82,9 @@ moment.locale('es');
 
 function App() {
   const [events, setEvents] = useState([]);
+  const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas
+  const [filteredEvents, setFilteredEvents] = useState([]); // Eventos filtrados
+
 
   useEffect(() => {
     const eventos = asignaturasJSON.map((asignatura) => {
@@ -117,10 +120,20 @@ function App() {
     setEvents(eventos);
   }, []);
 
+
+  useEffect(() => {
+    if (selectedAsigs.length === 0) {
+      setFilteredEvents([]);
+    } else {
+      setFilteredEvents(events.filter(evento => selectedAsigs.includes(evento.siglas)));
+    }
+  }, [selectedAsigs, events]);
+
+
   return (
     <>
       <div className="cabeceraDocumento">
-        <FiltersTab />
+        <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} />
         <h2 className="textoGrado">
           Grado en Ingeniería Informática, Primer Cuatrimestre, Curso 2024 - 25
         </h2>
@@ -134,7 +147,7 @@ function App() {
             <div className="calendarioContainer" style={{ flexGrow: 1 }}>
             <Calendar
                 localizer={localizer}
-                events={events}
+                events={filteredEvents}
                 startAccessor="start"
                 endAccessor="end"
                 views={{ week: true }}
