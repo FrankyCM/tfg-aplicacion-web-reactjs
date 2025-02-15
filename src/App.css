@@ -1,0 +1,114 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+.cabeceraDocumento {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos estén en columna */
+  color: rgb(0, 0, 0);
+}
+
+.cabeceraDocumento .textoGrado {
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  font-weight: 500; /* Hace que el texto sea más fino */
+  white-space: nowrap;
+  margin-top: 50px;
+}
+
+.cabeceraDocumento .textoCursoMencion {
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  font-weight: bold; /* Pone el texto en negrita */
+  white-space: nowrap;
+}
+
+.horario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+}
+
+
+.horario .diasSemana h3 {
+  margin: 0;
+  padding: 7px 0; /* Espaciado superior e inferior */
+  font-weight: bold;
+}
+
+
+
+.horario .horasYSecciones {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+
+
+
+.horario .asignaturasHorario {
+  display: grid;
+  grid-template-columns: auto auto; /* Dos columnas con ancho ajustado al contenido */
+  gap: 10px; /* Espaciado entre elementos */
+  column-gap: 10px;
+  justify-content: start; /* Alinea los elementos al inicio del contenedor */
+  width: auto; /* Permite que el div ocupe solo el espacio necesario */
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.asignaturasHorario .siglasAsignatura {
+  margin: 0;
+  font-size: medium;
+  font-weight: bold;
+  align-items: start;
+  text-align: start;
+}
+
+.asignaturasHorario .nombreCompletoAsignatura {
+  margin: 0;
+  font-size: medium;
+  align-items: center;
+}

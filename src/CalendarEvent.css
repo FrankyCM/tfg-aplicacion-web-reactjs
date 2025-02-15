@@ -1,0 +1,32 @@
+.rbc-event {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centra verticalmente */
+    align-items: center;  /* Centra horizontalmente */
+    text-align: center; /* Asegura que el texto dentro esté centrado */
+    padding: 4px; /* Evita que el texto se pegue a los bordes */
+    white-space: pre-line; /* Permite los saltos de línea correctamente */
+    overflow: hidden; /* Evita que el texto se desborde */
+}
+
+.rbc-event-label {
+    display: none !important;
+}
+
+.rbc-event-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-size: 14px; /* Ajusta el tamaño del texto si es necesario */
+    white-space: pre-line; /* Permite saltos de línea con "\n" */
+}
+
+.rbc-current-time-indicator {
+    display: none !important;
+}
+
+
