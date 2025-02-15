@@ -82,7 +82,9 @@ moment.locale('es');
 
 function App() {
   const [events, setEvents] = useState([]);
-  const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas
+  const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas en FiltersTab
+  const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado en FiltersTab
+  
   const [filteredEvents, setFilteredEvents] = useState([]); // Eventos filtrados
 
 
@@ -122,18 +124,24 @@ function App() {
 
 
   useEffect(() => {
-    if (selectedAsigs.length === 0) {
+    if (selectedAsigs.length === 0 && !selectedGroup) {
       setFilteredEvents([]);
     } else {
-      setFilteredEvents(events.filter(evento => selectedAsigs.includes(evento.siglas)));
+      setFilteredEvents(
+        events.filter(evento => 
+          (selectedAsigs.includes(evento.siglas) && selectedGroup === evento.grupo) ||  // Filtrar por siglas y grupo
+          selectedAsigs.includes(evento.siglas) ||  // Filtrar solo por siglas
+          selectedGroup === evento.grupo // Filtrar solo por grupo
+        )
+      );
     }
-  }, [selectedAsigs, events]);
+  }, [selectedAsigs, selectedGroup, events]);
 
 
   return (
     <>
       <div className="cabeceraDocumento">
-        <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} />
+        <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs}  selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}/>
         <h2 className="textoGrado">
           Grado en Ingeniería Informática, Primer Cuatrimestre, Curso 2024 - 25
         </h2>

@@ -29,13 +29,12 @@ const asigOptions = [
 ];
 
 
-const FiltersTab = ({selectedAsigs, setSelectedAsigs}) => {
+const FiltersTab = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSelectedGroup}) => {
 
-  const [selectedGroup, setSelectedGroup] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedGrade, setSelectedGrade] = useState("");
-  
+
   const [selectedAsigValue, setSelectedAsigValue] = useState("");  //Este estado almacena el valor (nombre completo) de la ultima asignatura seleccionada en el selector de asignaturas
 
   const handleAsigSelect = (_, data) => {  
@@ -130,7 +129,7 @@ const FiltersTab = ({selectedAsigs, setSelectedAsigs}) => {
         ) 
       },
     { 
-      menuItem: 'Filtro por Asignatura', 
+      menuItem: 'Filtro por Asignaturas', 
       render: () => (
         <TabPane attached={false}>
             <p>Aquí puedes filtrar en función de las asignaturas actuales en tu plan de estudios</p>
