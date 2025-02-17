@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import { CalendarEvent } from './CalendarEvent'
 import FiltersTab from './FiltersTab'
@@ -84,6 +84,9 @@ function App() {
   const [events, setEvents] = useState([]);
   const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas en FiltersTab
   const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado en FiltersTab
+  const [selectedClass, setSelectedClass] = useState(""); // Aulas seleccionadas en FiltersTab
+  
+  
   
   const [filteredEvents, setFilteredEvents] = useState([]); // Eventos filtrados
 
@@ -124,24 +127,24 @@ function App() {
 
 
   useEffect(() => {
-    if (selectedAsigs.length === 0 && !selectedGroup) {
+    if (selectedAsigs.length === 0 && !selectedGroup && !selectedClass) {
       setFilteredEvents([]);
     } else {
       setFilteredEvents(
         events.filter(evento => 
-          (selectedAsigs.includes(evento.siglas) && (!selectedGroup || evento.grupo === selectedGroup)) ||
-          (!selectedAsigs.length && evento.grupo === selectedGroup)
+          (selectedAsigs.includes(evento.siglas) && (!selectedGroup || evento.grupo === selectedGroup) && (!selectedClass || evento.aula == selectedClass )) ||
+          (!selectedAsigs.length && (evento.aula === selectedClass || evento.grupo === selectedGroup))
         )
       );
     }
-  }, [selectedAsigs, selectedGroup, events]);
+  }, [selectedAsigs, selectedGroup, selectedClass, events]);
   
 
 
   return (
     <>
       <div className="cabeceraDocumento">
-        <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs}  selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}/>
+        <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs}  selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedClass={selectedAsigs} setSelectedClass={setSelectedClass}/>
         <h2 className="textoGrado">
           Grado en Ingeniería Informática, Primer Cuatrimestre, Curso 2024 - 25
         </h2>
@@ -206,14 +209,23 @@ function App() {
               />
             </div>
           </div>
+
+
           <div className="asignaturasHorario">
-            <p className="siglasAsignatura">ADA:</p>
-            <p className="nombreCompletoAsignatura">Análisis y Diseño de Algoritmos</p>
-            <p className="siglasAsignatura">ADBD:</p>
-            <p className="nombreCompletoAsignatura">Análisis y Diseño de Bases de Datos</p>
-            <p className="siglasAsignatura">IA:</p>
-            <p className="nombreCompletoAsignatura">Inteligencia Artificial</p>
+            {filteredEvents.length > 0 ? (
+              [...new Set(filteredEvents.map(evento => evento.siglas))].map(sigla => {
+                const asignatura = asignaturasJSON.find(asig => asig.Siglas === sigla);
+                return (
+                  <div key={sigla} className="asignaturaItem">
+                    <p className="siglasAsignatura">{sigla}:</p>
+                    <p className="nombreCompletoAsignatura">{asignatura?.Asignatura || sigla}</p>
+                  </div>
+                );
+              })
+            ) : null}
           </div>
+
+
         </div>
       </div>
     </>

@@ -89,26 +89,31 @@
 
 
 .horario .asignaturasHorario {
-  display: grid;
-  grid-template-columns: auto auto; /* Dos columnas con ancho ajustado al contenido */
-  gap: 10px; /* Espaciado entre elementos */
-  column-gap: 10px;
-  justify-content: start; /* Alinea los elementos al inicio del contenedor */
-  width: auto; /* Permite que el div ocupe solo el espacio necesario */
-  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado entre filas */
+  align-items: start; /* Alinea todos los elementos al inicio */
+  width: auto;
+  margin-top: 50px;
   margin-left: 50px;
+}
+
+.asignaturasHorario .asignaturaItem {
+  display: flex;
+  align-items: center; /* Asegura alineación vertical */
+  gap: 10px; /* Espaciado entre siglas y nombre */
 }
 
 .asignaturasHorario .siglasAsignatura {
   margin: 0;
   font-size: medium;
   font-weight: bold;
-  align-items: start;
   text-align: start;
+  min-width: 50px; /* Define un ancho mínimo para alinear las siglas */
 }
 
 .asignaturasHorario .nombreCompletoAsignatura {
   margin: 0;
   font-size: medium;
-  align-items: center;
+  text-align: start;
 }

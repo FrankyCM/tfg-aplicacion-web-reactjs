@@ -29,10 +29,10 @@ const asigOptions = [
 ];
 
 
-const FiltersTab = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSelectedGroup}) => {
+const FiltersTab = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSelectedGroup, selectedClass, setSelectedClass}) => {
 
   const [selectedCourse, setSelectedCourse] = useState("");
-  const [selectedClass, setSelectedClass] = useState("");
+  
   const [selectedGrade, setSelectedGrade] = useState("");
 
   const [selectedAsigValue, setSelectedAsigValue] = useState("");  //Este estado almacena el valor (nombre completo) de la ultima asignatura seleccionada en el selector de asignaturas
