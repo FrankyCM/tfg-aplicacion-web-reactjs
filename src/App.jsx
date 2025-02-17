@@ -129,13 +129,13 @@ function App() {
     } else {
       setFilteredEvents(
         events.filter(evento => 
-          (selectedAsigs.includes(evento.siglas) && selectedGroup === evento.grupo) ||  // Filtrar por siglas y grupo
-          selectedAsigs.includes(evento.siglas) ||  // Filtrar solo por siglas
-          selectedGroup === evento.grupo // Filtrar solo por grupo
+          (selectedAsigs.includes(evento.siglas) && (!selectedGroup || evento.grupo === selectedGroup)) ||
+          (!selectedAsigs.length && evento.grupo === selectedGroup)
         )
       );
     }
   }, [selectedAsigs, selectedGroup, events]);
+  
 
 
   return (
