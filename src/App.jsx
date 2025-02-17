@@ -132,8 +132,11 @@ function App() {
     } else {
       setFilteredEvents(
         events.filter(evento => 
-          (selectedAsigs.includes(evento.siglas) && (!selectedGroup || evento.grupo === selectedGroup) && (!selectedClass || evento.aula == selectedClass )) ||
-          (!selectedAsigs.length && (evento.aula === selectedClass || evento.grupo === selectedGroup))
+          (selectedAsigs.includes(evento.siglas) && 
+           (!selectedGroup || evento.grupo === selectedGroup) && 
+           (!selectedClass || evento.aula === selectedClass)) ||
+          (!selectedAsigs.length && selectedGroup && selectedClass && 
+           evento.grupo === selectedGroup && evento.aula === selectedClass)
         )
       );
     }
