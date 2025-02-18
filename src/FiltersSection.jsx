@@ -1,0 +1,195 @@
+import React from 'react'
+import { useState,useEffect } from 'react';
+import { Container } from 'semantic-ui-react'
+import FiltersButton from './FiltersButton';
+import FiltersSelect from './FiltersSelect';
+import './FiltersSection.css';
+import { Label } from 'semantic-ui-react/dist/commonjs';
+
+
+const classOptions = [
+  { key: '01', value: '01', text: '01' },
+  { key: '02', value: '02', text: '02' },
+  { key: '03', value: '03', text: '03' },
+  { key: '04', value: '04', text: '04' },
+  { key: '05', value: '05', text: '05' },
+  { key: '06', value: '06', text: '06' },
+  { key: '07', value: '07', text: '07' },
+  { key: 'L101', value: 'L101', text: 'L101' },
+  { key: 'L102', value: 'L102', text: 'L102' },
+  { key: 'L103', value: 'L103', text: 'L103' },
+  { key: 'L104', value: 'L104', text: 'L104' }
+];
+
+const asigOptions = [
+  { key: 'ADA', value: 'Análisis y Diseño de Algoritmos', text: 'ADA - Análisis y Diseño de Algoritmos' },
+  { key: 'ADBD', value: 'Análisis y Diseño de Bases de Datos', text: 'ADBD - Análisis y Diseño de Bases de Datos' },
+  { key: 'ICON', value: 'Ingeniería del conocimiento', text: 'ICON - Ingeniería del conocimiento' },
+  { key: 'MOD', value: 'Modelado de Software', text: 'MOD - Modelado de Software' },
+  { key: 'SRS', value: 'Seguridad de Redes y Sistemas', text: 'SRS - Seguridad de Redes y Sistemas'},
+  { key: 'AMAT', value: 'Ampliación de Matemáticas', text: 'AMAT - Ampliación de Matemáticas'},
+  { key: 'FMAT', value: 'Fundamentos de Matemáticas', text: 'FMAT - Fundamentos de Matemáticas'}
+];
+
+
+
+
+const FiltersSection = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSelectedGroup}) => {
+  const [selectedAsigValue, setSelectedAsigValue] = useState("");
+
+  const [selectedCourse, setSelectedCourse] = useState("");
+    
+    const [selectedGrade, setSelectedGrade] = useState("");
+
+  const [selectedGradeButton, setSelectedGradeButton] = useState(null);
+  const [selectedSemesterButton, setSelectedSemesterButton] = useState(null);
+  const [selectedCourseButton, setSelectedCourseButton] = useState(null);
+  const [selectedGroupButton, setSelectedGroupButton] = useState(null);
+  const [selectedMentionButton, setSelectedMentionButton] = useState(null);
+
+  const handleAsigSelect = (_, data) => {  
+    const selectedKey = data.options.find(option => option.value === data.value)?.key;
+    console.log(selectedKey);
+    if (selectedKey && !selectedAsigs.includes(selectedKey)) {
+      setSelectedAsigs([...selectedAsigs, selectedKey]);
+      setSelectedAsigValue(data.value);
+    }
+  };
+
+  const handleRemoveAsig = (asig) => {
+    const newAsigs = selectedAsigs.filter((item) => item !== asig);
+    setSelectedAsigs(newAsigs);
+    console.log("asignatura: " + asig + " borrada");
+    if (newAsigs.length === 0) {
+      setSelectedAsigValue("");
+    }
+  };
+
+  const handleGroupSelect = (group) => {
+    setSelectedGroup(group);
+    console.log("Grupo seleccionado:", group);
+  };
+
+
+  const handleCourseSelect = (course) => {
+    setSelectedCourse(course);
+    console.log(course);
+  };
+
+  const handleCourseSelectButton = (course) => {
+    setSelectedCourseButton(course);
+    console.log(grade);
+  };
+
+  const handleGradeSelect = (grade) => {
+    setSelectedGrade(grade);
+    console.log(grade);
+  };
+
+  const handleGradeSelectButton = (grade) => {
+    setSelectedGradeButton(grade);
+    console.log(grade);
+  };
+
+  const handleSemesterSelectButton = (semester) => {
+    setSelectedSemesterButton(semester);
+    console.log(semester);
+  }
+
+  return (
+    <Container>
+
+      <div className="filters-container-section">
+        <div className="grade-section">
+          {['INF', 'EST', 'I + E', 'Master'].map((text) => (
+            <FiltersButton 
+              key={text} 
+              content={text} 
+              onClick={() => {
+                handleGradeSelect(text);
+                handleGradeSelectButton(text);
+              }} 
+            />
+          ))}
+        </div>
+
+        {selectedGradeButton && (
+          <div className="semester-section">
+            {selectedGradeButton !== "Master" && (
+              <>
+                <FiltersButton key={"1ºC"} content={"1ºC"} onClick={() => {handleSemesterSelectButton("1ºC");}} />
+                <FiltersButton key={"2ºC"} content={"2ºC"} onClick={() => {handleSemesterSelectButton("2ºC");}} />
+              </>
+            )}
+            {selectedGradeButton === "Master" && (
+              <>
+                <FiltersButton className="first-semester-button" key={"1er Semestre"} content={"1er Semestre"} onClick={() =>{handleSemesterSelectButton("1er Semestre");} } />
+                <FiltersButton className="second-semester-button" key={"2º Semestre"} content={"2º Semestre"} onClick={() => {handleSemesterSelectButton("2º Semestre");}} />
+              </>
+            )}
+          </div>
+        )}
+
+        {selectedGradeButton && selectedSemesterButton && (
+          <div className="course-section">
+            <FiltersButton key={"1º"} content={"1º"} onClick={() => {
+              handleCourseSelect("1º");
+              handleCourseSelectButton("1º");
+            }}/>
+            <FiltersButton key={"2º"} content={"2º"} onClick={() => {
+              handleCourseSelect("2º");
+              handleCourseSelectButton("2º");
+            }}/>
+            <FiltersButton key={"3º"} content={"3º"} onClick={() => {
+              handleCourseSelect("3º");
+              handleCourseSelectButton("3º");
+            }}/>
+            <FiltersButton key={"4º"} content={"4º"} onClick={() => {
+              handleCourseSelect("4º");
+              handleCourseSelectButton("4º");
+            }}/>
+            <FiltersButton className= "fifth-course-button" key={"5º"} content={"5º"} onClick={() => {
+              handleCourseSelect("5º");
+              handleCourseSelectButton("5º");
+            }}/>
+          </div>
+        )}
+
+        {selectedGradeButton && selectedSemesterButton && selectedCourseButton && (
+          <div className="group-section">
+            <FiltersButton key={"T1"} content={"T1"} onClick={() => handleGroupSelect("T1")}/>
+            <FiltersButton key={"T2"} content={"T2"} onClick={() => handleGroupSelect("T2")}/>
+            <FiltersButton className = "third-group-button" key={"T3"} content={"T3"} onClick={() => handleGroupSelect("T3")}/>
+        </div>
+        )}
+        
+
+        <div className="mention-section">
+            <FiltersButton key={"IS"} content={"IS"} onClick={() => handleMentionSelect("IS")}/>
+            <FiltersButton key={"CO"} content={"CO"} onClick={() => handleMentionSelect("CO")}/>
+            <FiltersButton key={"TI"} content={"TI"} onClick={() => handleMentionSelect("TI")}/>
+        </div>
+
+        <div className="filters-select-container">
+            <FiltersSelect text={"Escoge tu asignatura"} options={asigOptions} onChange={handleAsigSelect} value={selectedAsigValue} />
+        </div>
+        <div className="selected-asigs-container">
+          {selectedAsigs.length > 0 ? (
+            selectedAsigs.map((asig) => (
+              <Label key={asig} onClick={() => handleRemoveAsig(asig)} className="filters-select-asig-label">
+                {asig}
+                <Label.Detail className="filters-select-container-label-detail">X</Label.Detail>
+              </Label>
+            ))
+          ) : (
+            <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
+          )}
+        </div>
+
+      </div>
+
+    </Container>
+  );
+};
+
+export default FiltersSection;

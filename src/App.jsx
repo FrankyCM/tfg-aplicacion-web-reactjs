@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import { CalendarEvent } from './CalendarEvent'
 import FiltersTab from './FiltersTab'
+import FiltersSection from './FiltersSection'
 import 'semantic-ui-css/semantic.min.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -10,6 +11,7 @@ import 'moment/locale/es';
 import { Views } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStyles.css'
+
 
 const asignaturasJSON = [
   {
@@ -170,6 +172,7 @@ function App() {
     <>
       <div className="cabeceraDocumento">
         <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs}  selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedClass={selectedAsigs} setSelectedClass={setSelectedClass}/>
+        <FiltersSection selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}/>
         <h2 className="textoGrado">
           Grado en Ingeniería Informática, Primer Cuatrimestre, Curso 2024 - 25
         </h2>
@@ -194,7 +197,7 @@ function App() {
                 max={new Date(2023, 0, 1, 21, 0)}
                 showCurrentTimeIndicator={false}
                 dayLayoutAlgorithm="no-overlap"
-                
+
                 formats={{
                   dayFormat: (date, culture, localizer) => localizer.format(date, "dddd", culture),
                   weekdayFormat: (date, culture, localizer) => localizer.format(date, "dddd", culture)

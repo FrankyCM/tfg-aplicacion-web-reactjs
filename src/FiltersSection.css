@@ -1,0 +1,73 @@
+.filters-container-section {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  /* Centra verticalmente */
+    gap: 10px;
+    margin-top: 40px;
+    width: 100%;  /* Asegura que el contenedor ocupa el ancho completo */
+    text-align: center;  /* Si hay texto dentro, lo centra */
+  }
+
+  .filters-container-section .grade-section  {
+    margin-bottom: 10px;
+}
+
+
+.filters-container-section .semester-section  {
+    margin-bottom: 10px;
+    flex-direction: row;
+}
+.filters-container-section .semester-section .master-section {
+    flex-direction: row;
+}
+
+.filters-container-section .course-section  {
+    margin-bottom: 10px;
+}
+
+.filters-container-section .group-section  {
+    margin-bottom: 10px;
+}
+
+.filters-container-section .mention-section  {
+    margin-bottom: 20px;
+}
+
+
+.filters-select-container {
+    margin-top: 10px;
+}
+   
+  
+.selected-asigs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+  
+.filters-select-asig-label {
+    pointer-events: none;
+    color: blue;
+}
+  
+.selected-asigs-container .filters-select-default-text {
+    justify-content: start;
+    color: rgb(119, 119, 119)
+}
+  
+  
+.filters-select-container-label-detail {
+    pointer-events: all;
+    cursor: pointer;
+    color: rgb(37, 37, 37);
+}
+  
+.filters-select-container-label-detail:hover {
+    pointer-events: all;
+    cursor: pointer;
+    color: rgb(27, 111, 170);
+}
