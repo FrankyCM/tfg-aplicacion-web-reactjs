@@ -140,27 +140,46 @@ const FiltersSection = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSele
               handleCourseSelect("2º");
               handleCourseSelectButton("2º");
             }}/>
-            <FiltersButton key={"3º"} content={"3º"} onClick={() => {
-              handleCourseSelect("3º");
-              handleCourseSelectButton("3º");
-            }}/>
-            <FiltersButton key={"4º"} content={"4º"} onClick={() => {
-              handleCourseSelect("4º");
-              handleCourseSelectButton("4º");
-            }}/>
-            <FiltersButton className= "fifth-course-button" key={"5º"} content={"5º"} onClick={() => {
-              handleCourseSelect("5º");
-              handleCourseSelectButton("5º");
-            }}/>
+            {selectedGradeButton !== "Master" && (
+              <>
+                <FiltersButton key={"3º"} content={"3º"} onClick={() => {
+                    handleCourseSelect("3º");
+                    handleCourseSelectButton("3º");
+                  }}/>
+                <FiltersButton key={"4º"} content={"4º"} onClick={() => {
+                    handleCourseSelect("4º");
+                    handleCourseSelectButton("4º");
+                  }}/>
+              </>
+              )
+            }
+            
+            {selectedGradeButton === "I + E" && (
+              <>
+                <FiltersButton className= "fifth-course-button" key={"5º"} content={"5º"} onClick={() => {
+                  handleCourseSelect("5º");
+                  handleCourseSelectButton("5º");
+                }}/>
+              </>
+            )
+
+            }
+            
           </div>
         )}
 
         {selectedGradeButton && selectedSemesterButton && selectedCourseButton && (
           <div className="group-section">
-            <FiltersButton key={"T1"} content={"T1"} onClick={() => handleGroupSelect("T1")}/>
-            <FiltersButton key={"T2"} content={"T2"} onClick={() => handleGroupSelect("T2")}/>
-            <FiltersButton className = "third-group-button" key={"T3"} content={"T3"} onClick={() => handleGroupSelect("T3")}/>
-        </div>
+              <>
+              <FiltersButton key={"T1"} content={"T1"} onClick={() => handleGroupSelect("T1")}/>
+            {selectedCourseButton !== "3º" || selectedCourseButton !== "4º" || selectedCourseButton !== "5º" && (
+              <FiltersButton key={"T2"} content={"T2"} onClick={() => handleGroupSelect("T2")}/>
+            )}
+            {selectedCourseButton === "1º" && (
+                <FiltersButton className = "third-group-button" key={"T3"} content={"T3"} onClick={() => handleGroupSelect("T3")}/>
+            )}
+              </>    
+          </div>
         )}
         
 
