@@ -66,6 +66,28 @@ const asignaturasJSON = [
     "HoraInicio": "17:00",
     "Duracion": "2",
     "Color": "#BEE9DD"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Asignatura": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grupo": "T1",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Asignatura": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grupo": "T1",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
   }
 ]
 
@@ -171,7 +193,8 @@ function App() {
                 min={new Date(2023, 0, 1, 8, 0)}
                 max={new Date(2023, 0, 1, 21, 0)}
                 showCurrentTimeIndicator={false}
-
+                dayLayoutAlgorithm="no-overlap"
+                
                 formats={{
                   dayFormat: (date, culture, localizer) => localizer.format(date, "dddd", culture),
                   weekdayFormat: (date, culture, localizer) => localizer.format(date, "dddd", culture)
@@ -202,8 +225,6 @@ function App() {
                       color: "#000", // Ajusta el color del texto si es necesario
                       borderRadius: "8px", // Bordes redondeados
                       border: "1px solid rgba(0, 0, 0, 0.2)", // Borde ligero para contraste
-                      width: "90%", // Reduce el tamaño del evento dentro de la celda
-                      height: "90%", // También reduce su altura
                       marginLeft: 5, // Centra el elemento en la celda
                     }
                   };

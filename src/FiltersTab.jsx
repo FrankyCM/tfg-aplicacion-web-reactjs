@@ -25,7 +25,9 @@ const asigOptions = [
     { key: 'ADBD', value: 'Análisis y Diseño de Bases de Datos', text: 'ADBD - Análisis y Diseño de Bases de Datos' },
     { key: 'ICON', value: 'Ingeniería del conocimiento', text: 'ICON - Ingeniería del conocimiento' },
     { key: 'MOD', value: 'Modelado de Software', text: 'MOD - Modelado de Software' },
-    { key: 'SRS', value: 'Seguridad de Redes y Sistemas', text: 'SRS - Seguridad de Redes y Sistemas'}
+    { key: 'SRS', value: 'Seguridad de Redes y Sistemas', text: 'SRS - Seguridad de Redes y Sistemas'},
+    { key: 'AMAT', value: 'Ampliación de Matemáticas', text: 'AMAT - Ampliación de Matemáticas'},
+    { key: 'FMAT', value: 'Fundamentos de Matemáticas', text: 'FMAT - Fundamentos de Matemáticas'}
 ];
 
 
@@ -84,7 +86,7 @@ const FiltersTab = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSelected
         <TabPane>
           <p>Aquí puedes filtrar en función de tus estudios</p>
           <div className="filters-container">
-            {['IS', 'TI', 'CO', 'Est', 'I+E', 'Master'].map((text) => (
+            {['INF - IS', 'INF - TI', 'INF - CO', 'Est', 'I + E', 'Master'].map((text) => (
               <FiltersButton key={text} content={text} onClick={() => handleGradeSelect(text)}/>
             ))}
           </div>
