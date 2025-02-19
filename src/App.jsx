@@ -15,10 +15,14 @@ import './CalendarStyles.css'
 
 const asignaturasJSON = [
   {
-    "Codigo de asignatura" : "44338",
+    "Codigo de asignatura": "44338",
     "Asignatura": "Análisis y Diseño de Algoritmos",
     "Siglas": "ADA",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
     "Grupo": "T1",
+    "Mencion": "IS",
     "Clase": "02",
     "Dia": "Miercoles",
     "HoraInicio": "10:00",
@@ -29,7 +33,11 @@ const asignaturasJSON = [
     "Codigo de asignatura" : "43618",
     "Asignatura": "Análisis y Diseño de Bases de Datos",
     "Siglas": "ADBD",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
     "Grupo": "T1",
+    "Mencion": "IS",
     "Clase": "103",
     "Dia": "Martes",
     "HoraInicio": "10:00",
@@ -40,7 +48,41 @@ const asignaturasJSON = [
     "Codigo de asignatura" : "47378",
     "Asignatura": "Ingeniería del conocimiento",
     "Siglas": "ICON",
-    "Grupo": "T2",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "Mencion": "IS",
+    "Clase": "07",
+    "Dia": "Lunes",
+    "HoraInicio": "11:00",
+    "Duracion": "1",
+    "Color" : "#CDD6F6"
+  },
+  {
+    "Codigo de asignatura" : "47378",
+    "Asignatura": "Ingeniería del conocimiento",
+    "Siglas": "ICON",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "Mencion": "CO",
+    "Clase": "07",
+    "Dia": "Lunes",
+    "HoraInicio": "11:00",
+    "Duracion": "1",
+    "Color" : "#CDD6F6"
+  },
+  {
+    "Codigo de asignatura" : "47378",
+    "Asignatura": "Ingeniería del conocimiento",
+    "Siglas": "ICON",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "Mencion": "TI",
     "Clase": "07",
     "Dia": "Lunes",
     "HoraInicio": "11:00",
@@ -51,7 +93,24 @@ const asignaturasJSON = [
     "Codigo de asignatura" : "45658",
     "Asignatura": "Modelado de Software",
     "Siglas": "MOD",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "2º",
     "Grupo": "T1",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "45658",
+    "Asignatura": "Modelado de Software",
+    "Siglas": "MOD",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "2º",
+    "Grupo": "T2",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -73,6 +132,51 @@ const asignaturasJSON = [
     "Codigo de asignatura" : "41240",
     "Asignatura": "Ampliación de matemáticas",
     "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Asignatura": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T2",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Asignatura": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T3",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Asignatura": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
     "Grupo": "T1",
     "Clase": "07",
     "Dia": "Jueves",
@@ -84,7 +188,24 @@ const asignaturasJSON = [
     "Codigo de asignatura" : "41240",
     "Asignatura": "Fundamentos de Matemáticas",
     "Siglas": "FMAT",
-    "Grupo": "T1",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T2",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Asignatura": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T3",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -106,8 +227,13 @@ moment.locale('es');
 
 function App() {
   const [events, setEvents] = useState([]);
+  const [selectedGrade, setSelectedGrade] = useState(""); // Grado seleccionado por el alumno
+  const [selectedSemester, setSelectedSemester] = useState(""); // Semestre o cuatrimestre seleccionado por el alumno
+  const [selectedCourse, setSelectedCourse] = useState([]); // Curso/s seleccionado por el alumno
+  const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado por el alumno
+  const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno
   const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas en FiltersTab
-  const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado en FiltersTab
+  
   const [selectedClass, setSelectedClass] = useState(""); // Aulas seleccionadas en FiltersTab
   
   
@@ -172,7 +298,7 @@ function App() {
     <>
       <div className="cabeceraDocumento">
         <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs}  selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedClass={selectedAsigs} setSelectedClass={setSelectedClass}/>
-        <FiltersSection selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}/>
+        <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} />
         <h2 className="textoGrado">
           Grado en Ingeniería Informática, Primer Cuatrimestre, Curso 2024 - 25
         </h2>
