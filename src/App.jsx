@@ -422,7 +422,7 @@ useEffect(() => {
                 return (
                   <div key={sigla} className="asignaturaItem">
                     <p className="siglasAsignatura">{sigla}:</p>
-                    <p className="nombreCompletoAsignatura">{asignatura?.Asignatura || sigla}</p>
+                    <p className="nombreCompletoAsignatura">{asignatura?.Nombre || sigla}</p>
                   </div>
                 );
               })
