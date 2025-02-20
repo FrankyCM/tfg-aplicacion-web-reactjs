@@ -36,7 +36,7 @@ const asignaturasJSON = [
     "Grado": "INF",
     "Semestre": "1ºC",
     "Curso": "3º",
-    "Grupo": "T1",
+    "Grupo": "T2",
     "Mencion": "IS",
     "Clase": "103",
     "Dia": "Martes",
@@ -46,7 +46,7 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "47378",
-    "Asignatura": "Ingeniería del conocimiento",
+    "Nombre": "Ingeniería del conocimiento",
     "Siglas": "ICON",
     "Grado": "INF",
     "Semestre": "1ºC",
@@ -121,7 +121,11 @@ const asignaturasJSON = [
     "Codigo de asignatura" : "45678",
     "Nombre": "Seguridad de Redes y Sistemas",
     "Siglas": "SRS",
-    "Grupo": "T3",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "Mencion": "IS",
     "Clase": "03",
     "Dia": "Viernes",
     "HoraInicio": "17:00",
@@ -136,37 +140,6 @@ const asignaturasJSON = [
     "Semestre": "2ºC",
     "Curso": "1º",
     "Grupo": "T1",
-    "Mencion": "IS",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Ampliación de matemáticas",
-    "Siglas": "AMAT",
-    "Grado": "INF",
-    "Semestre": "2ºC",
-    "Curso": "1º",
-    "Grupo": "T1",
-    "Mencion": "CO",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Ampliación de matemáticas",
-    "Siglas": "AMAT",
-    "Grado": "INF",
-    "Semestre": "2ºC",
-    "Curso": "1º",
-    "Grupo": "T1",
-    "Mencion": "TI",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -181,37 +154,6 @@ const asignaturasJSON = [
     "Semestre": "2ºC",
     "Curso": "1º",
     "Grupo": "T2",
-    "Mencion": "IS",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Ampliación de matemáticas",
-    "Siglas": "AMAT",
-    "Grado": "INF",
-    "Semestre": "2ºC",
-    "Curso": "1º",
-    "Grupo": "T2",
-    "Mencion": "CO",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Ampliación de matemáticas",
-    "Siglas": "AMAT",
-    "Grado": "INF",
-    "Semestre": "2ºC",
-    "Curso": "1º",
-    "Grupo": "T2",
-    "Mencion": "TI",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -226,37 +168,6 @@ const asignaturasJSON = [
     "Semestre": "2ºC",
     "Curso": "1º",
     "Grupo": "T3",
-    "Mencion": "IS",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Ampliación de matemáticas",
-    "Siglas": "AMAT",
-    "Grado": "INF",
-    "Semestre": "2ºC",
-    "Curso": "1º",
-    "Grupo": "T3",
-    "Mencion": "CO",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Ampliación de matemáticas",
-    "Siglas": "AMAT",
-    "Grado": "INF",
-    "Semestre": "2ºC",
-    "Curso": "1º",
-    "Grupo": "T3",
-    "Mencion": "TI",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -271,37 +182,6 @@ const asignaturasJSON = [
     "Semestre": "1ºC",
     "Curso": "1º",
     "Grupo": "T1",
-    "Mencion": "IS",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Fundamentos de Matemáticas",
-    "Siglas": "FMAT",
-    "Grado": "INF",
-    "Semestre": "1ºC",
-    "Curso": "1º",
-    "Grupo": "T1",
-    "Mencion": "CO",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Fundamentos de Matemáticas",
-    "Siglas": "FMAT",
-    "Grado": "INF",
-    "Semestre": "1ºC",
-    "Curso": "1º",
-    "Grupo": "T1",
-    "Mencion": "TI",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -316,37 +196,6 @@ const asignaturasJSON = [
     "Semestre": "1ºC",
     "Curso": "1º",
     "Grupo": "T2",
-    "Mencion": "IS",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Fundamentos de Matemáticas",
-    "Siglas": "FMAT",
-    "Grado": "INF",
-    "Semestre": "1ºC",
-    "Curso": "1º",
-    "Grupo": "T2",
-    "Mencion": "CO",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Fundamentos de Matemáticas",
-    "Siglas": "FMAT",
-    "Grado": "INF",
-    "Semestre": "1ºC",
-    "Curso": "1º",
-    "Grupo": "T2",
-    "Mencion": "TI",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -361,37 +210,6 @@ const asignaturasJSON = [
     "Semestre": "1ºC",
     "Curso": "1º",
     "Grupo": "T3",
-    "Mencion": "IS",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Fundamentos de Matemáticas",
-    "Siglas": "FMAT",
-    "Grado": "INF",
-    "Semestre": "1ºC",
-    "Curso": "1º",
-    "Grupo": "T3",
-    "Mencion": "CO",
-    "Clase": "07",
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
-    "Duracion": "2",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Codigo de asignatura" : "41240",
-    "Nombre": "Fundamentos de Matemáticas",
-    "Siglas": "FMAT",
-    "Grado": "INF",
-    "Semestre": "1ºC",
-    "Curso": "1º",
-    "Grupo": "T3",
-    "Mencion": "TI",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -460,6 +278,7 @@ function App() {
         semestre: asignatura.Semestre,
         curso: asignatura.Curso,
         grupo: asignatura.Grupo,
+        mencion: asignatura.Mencion,
         aula: asignatura.Clase,
         color: asignatura.Color
       };
@@ -471,42 +290,45 @@ function App() {
 
   useEffect(() => {
     if (!selectedGrade && !selectedSemester && selectedCourse.length === 0 && !selectedGroup) {
-      setAsigOptions([]);
+        setAsigOptions([]);
     } else {
+        // Filtrar eventos según los criterios
+        const eventosFiltrados = events.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            selectedCourse.includes(evento.curso) &&
+            evento.grupo === selectedGroup &&
+            (!selectedMention || evento.mencion === selectedMention)
+        );
 
-      // Eventos creados en base a filtros
-      const eventosFiltrados = events.filter(evento => 
-        (evento.grado === selectedGrade) && 
-        (evento.semestre === selectedSemester) &&
-        (selectedCourse.includes(evento.curso)) &&
-        (evento.grupo === selectedGroup) &&  
-        (!selectedMention || evento.mencion === selectedMention)
-      );
+        // Crear la lista de opciones de asignaturas con el formato adecuado
+        const asigOptions = eventosFiltrados.map(evento => {
+            const key = ["3º", "4º"].includes(evento.curso) 
+                ? `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.mencion}`
+                : `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`;
 
+            return {
+                key,
+                value: `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`,
+                text: `${evento.siglas} - ${evento.grupo}`
+            };
+        });
 
-      // Crear la lista de opciones de asignaturas en base a los eventos filtrados
-      const asigOptions = eventosFiltrados.map(evento => ({
-      key: `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`,
-      value: evento.nombre,
-      text: `${evento.siglas} - ${evento.grupo}`
-      }));
-
-      setAsigOptions(asigOptions);
+        setAsigOptions(asigOptions);
     }
-    
-    
-    
-
   }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]);
+
   
 
-  useEffect(() => {
+useEffect(() => {
     if (selectedAsigs.length === 0) {
         setFilteredEvents([]);
     } else {
         const eventosFiltrados = events.filter(evento => {
-            const asigFormato = `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`;
-            return selectedAsigs.includes(asigFormato);
+            const asigFormato1 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`;
+            const asigFormato2 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.mencion}`;
+            
+            return selectedAsigs.includes(asigFormato1) || selectedAsigs.includes(asigFormato2);
         });
 
         setFilteredEvents(eventosFiltrados);
@@ -517,6 +339,7 @@ function App() {
         });
     }
   }, [selectedAsigs, events]);
+
 
 
 
