@@ -1,38 +1,31 @@
 .filters-container-section {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;  /* Centra horizontalmente */
     align-items: center;  /* Centra verticalmente */
-    gap: 10px;
+    gap: 15px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
     width: 100%;  /* Asegura que el contenedor ocupa el ancho completo */
     text-align: center;  /* Si hay texto dentro, lo centra */
   }
 
-  .filters-container-section .grade-section  {
+.filters-container-section .grade-section  {
     margin-bottom: 10px;
 }
 
 
-.filters-container-section .semester-section  {
+.grade-section, .semester-section, .course-section, 
+.group-section, .mention-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
     margin-bottom: 10px;
-    flex-direction: row;
-}
-.filters-container-section .semester-section .master-section {
-    flex-direction: row;
-}
-
-.filters-container-section .course-section  {
-    margin-bottom: 10px;
-}
-
-.filters-container-section .group-section  {
-    margin-bottom: 10px;
-}
-
-.filters-container-section .mention-section  {
-    margin-bottom: 20px;
 }
 
 
@@ -40,7 +33,7 @@
     margin-top: 10px;
 }
    
-  
+
 .selected-asigs-container {
     display: flex;
     flex-wrap: wrap;
