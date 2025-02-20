@@ -21,7 +21,7 @@ const classOptions = [
   { key: 'L104', value: 'L104', text: 'L104' }
 ];
 
-const asigOptions = [
+const asigOptionssss = [
   { key: 'ADA', value: 'Análisis y Diseño de Algoritmos', text: 'ADA - Análisis y Diseño de Algoritmos' },
   { key: 'ADBD', value: 'Análisis y Diseño de Bases de Datos', text: 'ADBD - Análisis y Diseño de Bases de Datos' },
   { key: 'ICON', value: 'Ingeniería del conocimiento', text: 'ICON - Ingeniería del conocimiento' },
@@ -34,7 +34,7 @@ const asigOptions = [
 
 
 
-const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention, selectedAsigs, setSelectedAsigs}) => {
+const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention, selectedAsigs, setSelectedAsigs, asigOptions}) => {
   
   const [selectedAsigValue, setSelectedAsigValue] = useState("");
 
@@ -49,47 +49,54 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
 
   const handleGradeSelect = (grade) => {
     setSelectedGrade(grade);
-    console.log(grade);
+    //console.log(grade);
   };
 
   const handleGradeSelectButton = (grade) => {
     setSelectedGradeButton(grade);
-    console.log(grade);
+    //console.log(grade);
   };
+
+  const handleSemesterSelect = (semester) => {
+    setSelectedSemester(semester);
+    //console.log(semester);
+  }
 
   const handleSemesterSelectButton = (semester) => {
     setSelectedSemesterButton(semester);
-    console.log(semester);
+    //console.log(semester);
   }
 
   const handleCourseSelect = (course) => {
-    setSelectedCourse(course);
-    console.log(course);
+    if (!selectedCourse.includes(course)) {
+      setSelectedCourse([...selectedCourse, course]);
+    }
+    //console.log("Cursos seleccionados:", selectedCourse);
   };
 
   const handleCourseSelectButton = (course) => {
     setSelectedCourseButton(course);
-    console.log(course);
+    //console.log(course);
   };
 
   const handleGroupSelect = (group) => {
     setSelectedGroup(group);
-    console.log("Grupo seleccionado:", group);
+    //console.log("Grupo seleccionado:", group);
   };
 
   const handleGroupSelectButton = (group) => {
     setSelectedGroupButton(group);
-    console.log("Grupo seleccionado:", group);
+    //console.log("Grupo seleccionado:", group);
   }
 
   const handleMentionSelect = (mention) => {
     setSelectedMention(mention);
-    console.log("Mención seleccionada:", mention);
+    //console.log("Mención seleccionada:", mention);
   };
 
   const handleMentionSelectButton = (mention) => {
     setSelectedMentionButton(mention);
-    console.log("Mención seleccionada:", mention);
+    //console.log("Mención seleccionada:", mention);
   };
 
   const handleAsigSelect = (_, data) => {  
@@ -110,14 +117,7 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
     }
   };
 
-  
 
-
-  
-
-  
-
-  
 
   return (
     <Container>
@@ -140,14 +140,14 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
           <div className="semester-section">
             {selectedGradeButton !== "Master" && (
               <>
-                <FiltersButton key={"1ºC"} content={"1ºC"} onClick={() => {handleSemesterSelectButton("1ºC");}} />
-                <FiltersButton key={"2ºC"} content={"2ºC"} onClick={() => {handleSemesterSelectButton("2ºC");}} />
+                <FiltersButton key={"1ºC"} content={"1ºC"} onClick={() => {handleSemesterSelectButton("1ºC"); handleSemesterSelect("1ºC");}} />
+                <FiltersButton key={"2ºC"} content={"2ºC"} onClick={() => {handleSemesterSelectButton("2ºC"); handleSemesterSelect("2ºC");}} />
               </>
             )}
             {selectedGradeButton === "Master" && (
               <>
-                <FiltersButton className="first-semester-button" key={"1er Semestre"} content={"1er Semestre"} onClick={() =>{handleSemesterSelectButton("1er Semestre");} } />
-                <FiltersButton className="second-semester-button" key={"2º Semestre"} content={"2º Semestre"} onClick={() => {handleSemesterSelectButton("2º Semestre");}} />
+                <FiltersButton className="first-semester-button" key={"1er Semestre"} content={"1er Semestre"} onClick={() =>{handleSemesterSelectButton("1er Semestre"); handleSemesterSelect("1er Semestre");} } />
+                <FiltersButton className="second-semester-button" key={"2º Semestre"} content={"2º Semestre"} onClick={() => {handleSemesterSelectButton("2º Semestre"); handleSemesterSelect("2º Semestre");}} />
               </>
             )}
           </div>

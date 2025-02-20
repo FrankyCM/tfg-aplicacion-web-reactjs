@@ -16,7 +16,7 @@ import './CalendarStyles.css'
 const asignaturasJSON = [
   {
     "Codigo de asignatura": "44338",
-    "Asignatura": "Análisis y Diseño de Algoritmos",
+    "Nombre": "Análisis y Diseño de Algoritmos",
     "Siglas": "ADA",
     "Grado": "INF",
     "Semestre": "1ºC",
@@ -31,7 +31,7 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "43618",
-    "Asignatura": "Análisis y Diseño de Bases de Datos",
+    "Nombre": "Análisis y Diseño de Bases de Datos",
     "Siglas": "ADBD",
     "Grado": "INF",
     "Semestre": "1ºC",
@@ -61,7 +61,7 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "47378",
-    "Asignatura": "Ingeniería del conocimiento",
+    "Nombre": "Ingeniería del conocimiento",
     "Siglas": "ICON",
     "Grado": "INF",
     "Semestre": "1ºC",
@@ -76,7 +76,7 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "47378",
-    "Asignatura": "Ingeniería del conocimiento",
+    "Nombre": "Ingeniería del conocimiento",
     "Siglas": "ICON",
     "Grado": "INF",
     "Semestre": "1ºC",
@@ -91,7 +91,7 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "45658",
-    "Asignatura": "Modelado de Software",
+    "Nombre": "Modelado de Software",
     "Siglas": "MOD",
     "Grado": "INF",
     "Semestre": "1ºC",
@@ -105,7 +105,7 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "45658",
-    "Asignatura": "Modelado de Software",
+    "Nombre": "Modelado de Software",
     "Siglas": "MOD",
     "Grado": "INF",
     "Semestre": "1ºC",
@@ -119,7 +119,7 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "45678",
-    "Asignatura": "Seguridad de Redes y Sistemas",
+    "Nombre": "Seguridad de Redes y Sistemas",
     "Siglas": "SRS",
     "Grupo": "T3",
     "Clase": "03",
@@ -130,12 +130,13 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "41240",
-    "Asignatura": "Ampliación de matemáticas",
+    "Nombre": "Ampliación de matemáticas",
     "Siglas": "AMAT",
     "Grado": "INF",
     "Semestre": "2ºC",
     "Curso": "1º",
     "Grupo": "T1",
+    "Mencion": "IS",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -144,12 +145,43 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "41240",
-    "Asignatura": "Ampliación de matemáticas",
+    "Nombre": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "Mencion": "CO",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "Mencion": "TI",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Ampliación de matemáticas",
     "Siglas": "AMAT",
     "Grado": "INF",
     "Semestre": "2ºC",
     "Curso": "1º",
     "Grupo": "T2",
+    "Mencion": "IS",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -158,12 +190,43 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "41240",
-    "Asignatura": "Ampliación de matemáticas",
+    "Nombre": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T2",
+    "Mencion": "CO",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T2",
+    "Mencion": "TI",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Ampliación de matemáticas",
     "Siglas": "AMAT",
     "Grado": "INF",
     "Semestre": "2ºC",
     "Curso": "1º",
     "Grupo": "T3",
+    "Mencion": "IS",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -172,12 +235,43 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "41240",
-    "Asignatura": "Fundamentos de Matemáticas",
+    "Nombre": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T3",
+    "Mencion": "CO",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Ampliación de matemáticas",
+    "Siglas": "AMAT",
+    "Grado": "INF",
+    "Semestre": "2ºC",
+    "Curso": "1º",
+    "Grupo": "T3",
+    "Mencion": "TI",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
     "Siglas": "FMAT",
     "Grado": "INF",
     "Semestre": "1ºC",
     "Curso": "1º",
     "Grupo": "T1",
+    "Mencion": "IS",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -186,12 +280,43 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "41240",
-    "Asignatura": "Fundamentos de Matemáticas",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "Mencion": "CO",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "Mencion": "TI",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
     "Siglas": "FMAT",
     "Grado": "INF",
     "Semestre": "1ºC",
     "Curso": "1º",
     "Grupo": "T2",
+    "Mencion": "IS",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -200,12 +325,73 @@ const asignaturasJSON = [
   },
   {
     "Codigo de asignatura" : "41240",
-    "Asignatura": "Fundamentos de Matemáticas",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T2",
+    "Mencion": "CO",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T2",
+    "Mencion": "TI",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
     "Siglas": "FMAT",
     "Grado": "INF",
     "Semestre": "1ºC",
     "Curso": "1º",
     "Grupo": "T3",
+    "Mencion": "IS",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T3",
+    "Mencion": "CO",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T3",
+    "Mencion": "TI",
     "Clase": "07",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
@@ -232,8 +418,11 @@ function App() {
   const [selectedCourse, setSelectedCourse] = useState([]); // Curso/s seleccionado por el alumno
   const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado por el alumno
   const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno
-  const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas en FiltersTab
   
+  const [asigOptions, setAsigOptions] = useState([]);     // Listado de asignaturas creada en base a filtros
+  
+  const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas en FiltersSection
+
   const [selectedClass, setSelectedClass] = useState(""); // Aulas seleccionadas en FiltersTab
   
   
@@ -265,7 +454,11 @@ function App() {
         title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
         start: inicio,
         end: fin,
+        nombre: asignatura.Nombre,
         siglas: asignatura.Siglas, // Extra info para el componente personalizado
+        grado: asignatura.Grado,
+        semestre: asignatura.Semestre,
+        curso: asignatura.Curso,
         grupo: asignatura.Grupo,
         aula: asignatura.Clase,
         color: asignatura.Color
@@ -277,28 +470,63 @@ function App() {
 
 
   useEffect(() => {
-    if (selectedAsigs.length === 0 && !selectedGroup && !selectedClass) {
-      setFilteredEvents([]);
+    if (!selectedGrade && !selectedSemester && selectedCourse.length === 0 && !selectedGroup) {
+      setAsigOptions([]);
     } else {
-      setFilteredEvents(
-        events.filter(evento => 
-          (selectedAsigs.includes(evento.siglas) && 
-           (!selectedGroup || evento.grupo === selectedGroup) && 
-           (!selectedClass || evento.aula === selectedClass)) ||
-          (!selectedAsigs.length && selectedGroup && selectedClass && 
-           evento.grupo === selectedGroup && evento.aula === selectedClass)
-        )
+
+      // Eventos creados en base a filtros
+      const eventosFiltrados = events.filter(evento => 
+        (evento.grado === selectedGrade) && 
+        (evento.semestre === selectedSemester) &&
+        (selectedCourse.includes(evento.curso)) &&
+        (evento.grupo === selectedGroup) &&  
+        (!selectedMention || evento.mencion === selectedMention)
       );
+
+
+      // Crear la lista de opciones de asignaturas en base a los eventos filtrados
+      const asigOptions = eventosFiltrados.map(evento => ({
+      key: `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`,
+      value: evento.nombre,
+      text: `${evento.siglas} - ${evento.grupo}`
+      }));
+
+      setAsigOptions(asigOptions);
     }
-  }, [selectedAsigs, selectedGroup, selectedClass, events]);
+    
+    
+    
+
+  }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]);
   
+
+  useEffect(() => {
+    if (selectedAsigs.length === 0) {
+        setFilteredEvents([]);
+    } else {
+        const eventosFiltrados = events.filter(evento => {
+            const asigFormato = `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`;
+            return selectedAsigs.includes(asigFormato);
+        });
+
+        setFilteredEvents(eventosFiltrados);
+
+        console.log("Asignaturas filtradas:");
+        eventosFiltrados.forEach(evento => {
+            console.log(`${evento.siglas} - ${evento.nombre} - ${evento.grupo}`);
+        });
+    }
+  }, [selectedAsigs, events]);
+
+
+
 
 
   return (
     <>
       <div className="cabeceraDocumento">
         <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs}  selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedClass={selectedAsigs} setSelectedClass={setSelectedClass}/>
-        <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} />
+        <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions}/>
         <h2 className="textoGrado">
           Grado en Ingeniería Informática, Primer Cuatrimestre, Curso 2024 - 25
         </h2>
