@@ -229,7 +229,7 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
                     </Label>
                   ))
                   ) : (
-                      <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
+                    <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
                   )}
               </div>
             </>

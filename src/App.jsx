@@ -320,7 +320,7 @@ function App() {
 
   
 
-useEffect(() => {
+  useEffect(() => {
     if (selectedAsigs.length === 0) {
         setFilteredEvents([]);
     } else {
@@ -342,19 +342,68 @@ useEffect(() => {
 
 
 
+  const gradeMap = {
+    "INF": "Grado en Ingeniería Informática",
+    "EST": "Grado en Estadística",
+    "I + E": "Grado en Indat",
+    "Master": "Master en Ingeniería Informática"
+  };
+
+  const semesterMap = {
+    "1ºC": "Primer Cuatrimestre",
+    "2ºC": "Segundo Cuatrimestre",
+    "1er Semestre": "Primer Semestre",
+    "2º Semestre": "Segundo Semestre"
+  };
+
+  const courseMap = {
+    "1º": "Primer Curso",
+    "2º": "Segundo Curso",
+    "3º": "Tercer Curso",
+    "4º": "Cuarto Curso",
+    "5º": "Quinto Curso"
+  };
+
+  const mentionMap = {
+    "IS": "Mención Ingeniería de Software",
+    "CO": "Mención Computación",
+    "TI": "Mención Tecnologías de la Información"
+  };
+
+  const getTextoGrado = () => {
+    if (!selectedGrade || !selectedSemester) return "";
+    return `${gradeMap[selectedGrade]}, ${semesterMap[selectedSemester]}, Curso 2024/25`;
+  };
+
+  const getTextoCursoMencion = () => {
+    let selectedCoursesText = selectedCourse.map(course => courseMap[course]).join(" y ");
+    const cursosUnicos = [...new Set(filteredEvents.map(evento => evento.curso))];
+    if (cursosUnicos.length === selectedCourse.length) {
+      selectedCoursesText = selectedCourse.map(course => courseMap[course]).join(" y ");
+    }
+
+    let mentionText = "";
+    if (selectedMention && selectedCourse.length === 1 && ["3º", "4º"].includes(selectedCourse[0]) && selectedGrade === "INF") {
+      mentionText = mentionMap[selectedMention] || "";
+    }
+
+    return mentionText ? `${selectedCoursesText}, ${mentionText}` : selectedCoursesText;
+  };
+
+
+  
 
 
 
   return (
     <>
       <div className="cabeceraDocumento">
-        <FiltersTab selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs}  selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedClass={selectedAsigs} setSelectedClass={setSelectedClass}/>
         <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions}/>
         <h2 className="textoGrado">
-          Grado en Ingeniería Informática, Primer Cuatrimestre, Curso 2024 - 25
+          {getTextoGrado()}
         </h2>
         <h2 className="textoCursoMencion">
-          Tercer Curso, Mención Ingeniería de Software
+          {getTextoCursoMencion()}
         </h2>
         <div className="horario">
           

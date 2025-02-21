@@ -7,15 +7,13 @@
     padding: 20px;
     background: #f9f9f9;
     border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
     width: 100%;  /* Asegura que el contenedor ocupa el ancho completo */
     text-align: center;  /* Si hay texto dentro, lo centra */
-  }
-
-.filters-container-section .grade-section  {
-    margin-bottom: 10px;
 }
+
 
 
 .grade-section, .semester-section, .course-section, 
@@ -26,9 +24,18 @@
     gap: 12px;
     width: 100%;
     margin-bottom: 10px;
+    border: 0.5px solid rgb(220, 220, 220); /* Borde negro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    background-color: #fff; /* Fondo blanco para destacarlas */
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); /* Sombra ligera */
 }
 
 
+
+.filters-select .default.text {
+    color: rgb(37, 37, 37) !important;
+}
 .filters-select-container {
     margin-top: 10px;
 }
@@ -44,12 +51,12 @@
   
 .filters-select-asig-label {
     pointer-events: none;
-    color: blue;
+    border: 1px solid rgb(182, 181, 181) !important;
 }
   
-.selected-asigs-container .filters-select-default-text {
+.filters-select-container .filters-select-default-text{
     justify-content: start;
-    color: rgb(119, 119, 119)
+    color: rgb(0, 0, 0) !important;
 }
   
   

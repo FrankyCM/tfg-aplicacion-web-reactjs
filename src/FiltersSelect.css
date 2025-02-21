@@ -1,0 +1,21 @@
+.filters-select {
+  appearance: none !important;
+  background-color: #FAFBFC !important;
+  border: 1px solid rgba(27, 31, 35, 0.15) !important;
+  border-radius: 6px !important;
+  border-color: rgb(115, 115, 115) !important;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset !important;
+  box-sizing: border-box !important;
+  color: #24292E !important;
+  cursor: pointer !important;
+}
+
+.filters-select-container select {
+  color: black !important; /* Letra en negro para el valor por defecto */
+}
+
+.filters-select:hover {
+  background-color: #F3F4F6 !important;
+  text-decoration: none !important;
+  transition-duration: 0.1s !important;
+}
