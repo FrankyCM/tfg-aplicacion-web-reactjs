@@ -32,6 +32,15 @@
   transition-duration: 0.1s !important;
 }
 
+.filters-button.selected {
+  background-color: rgb(147, 250, 156) !important; 
+  color: #24292E !important;
+}
+
+.filters-button:not(.selected) {
+  background-color: #FAFBFC !important; /* Asegura que vuelve al color original al deseleccionar */
+}
+
 .filters-button:disabled {
   background-color: #FAFBFC !important;
   border-color: rgba(27, 31, 35, 0.15) !important;

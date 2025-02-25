@@ -376,17 +376,20 @@ function App() {
   };
 
   const getTextoCursoMencion = () => {
+    if (selectedCourse.length === 0) return ""; // Si no hay cursos seleccionados, devuelve vacío
+  
     let selectedCoursesText = selectedCourse.map(course => courseMap[course]).join(" y ");
     const cursosUnicos = [...new Set(filteredEvents.map(evento => evento.curso))];
+  
     if (cursosUnicos.length === selectedCourse.length) {
       selectedCoursesText = selectedCourse.map(course => courseMap[course]).join(" y ");
     }
-
+  
     let mentionText = "";
     if (selectedMention && selectedCourse.length === 1 && ["3º", "4º"].includes(selectedCourse[0]) && selectedGrade === "INF") {
       mentionText = mentionMap[selectedMention] || "";
     }
-
+  
     return mentionText ? `${selectedCoursesText}, ${mentionText}` : selectedCoursesText;
   };
 
