@@ -92,12 +92,12 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
   }
 
   const handleMentionSelect = (mention) => {
-    setSelectedGroup(selectedMention === mention ? "" : mention);
+    setSelectedMention(selectedMention === mention ? "" : mention);
     //console.log("Mención seleccionada:", mention);
   };
 
   const handleMentionSelectButton = (mention) => {
-    setSelectedMentionButton(setSelectedMentionButton === mention ? null : mention);
+    setSelectedMentionButton(selectedMentionButton === mention ? null : mention);
     console.log("Mención seleccionada:", mention);
   };
 
@@ -206,21 +206,21 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
           </div>
         )}
 
-        {selectedGradeButton && selectedSemesterButton && selectedCourseButton && (
+        {selectedGradeButton && selectedSemesterButton && (selectedCourseButton.length !== 0) && (
           <div className="group-section">
               <>
               <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1"); handleGroupSelectButton("T1")}} isSelected={selectedGroupButton === "T1"}/>
-            {(selectedCourseButton !== "3º" && selectedCourseButton !== "4º" && selectedCourseButton !== "5º") && selectedGradeButton === "INF" && (
+            {(selectedCourseButton.includes("1º") || selectedCourseButton.includes("2º"))  && selectedGradeButton === "INF" && (
               <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2"); handleGroupSelectButton("T2")}} isSelected={selectedGroupButton === "T2"}/>
             )}
-            {selectedCourseButton === "1º" && selectedGradeButton === "INF" && (
+            {selectedCourseButton.includes("1º") && selectedGradeButton === "INF" && (
                 <FiltersButton className = "third-group-button" key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3"); handleGroupSelectButton("T3")}} isSelected={selectedGroupButton === "T3"}/>
             )}
               </>    
           </div>
         )}
         
-        {selectedGradeButton === "INF" && selectedSemesterButton && (selectedCourseButton === "3º" || selectedCourseButton === "4º") && selectedGroupButton && (
+        {selectedGradeButton === "INF" && selectedSemesterButton && (selectedCourseButton.includes("3º") || selectedCourseButton.includes("4º")) && selectedGroupButton && (
             <div className="mention-section">
               <FiltersButton key={"IS"} content={"IS"} onClick={() => {handleMentionSelect("IS"); handleMentionSelectButton("IS")}} isSelected={selectedMentionButton === "IS"}/>
               <FiltersButton key={"CO"} content={"CO"} onClick={() => {handleMentionSelect("CO"); handleMentionSelectButton("CO")}} isSelected={selectedMentionButton === "CO"}/>
@@ -229,7 +229,7 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
           )
         }
         
-        {selectedGradeButton && selectedSemesterButton && selectedCourseButton  && selectedGroupButton && (
+        {selectedGradeButton && selectedSemesterButton && (selectedCourseButton.length !== 0)  && selectedGroupButton && (
             <>
               <div className="filters-select-container">
                 <FiltersSelect text={"Escoge tu asignatura"} options={asigOptions} onChange={handleAsigSelect} value={selectedAsigValue} />

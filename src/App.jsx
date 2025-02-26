@@ -245,8 +245,8 @@ function App() {
   
   
   
-  const [filteredEvents, setFilteredEvents] = useState([]); // Eventos filtrados
-
+  const [filteredEvents, setFilteredEvents] = useState([]); // Eventos filtrados 
+  const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos filtrados de asignaturas que cumplen los valores seleccionados
 
   useEffect(() => {
     const eventos = asignaturasJSON.map((asignatura) => {
@@ -303,14 +303,19 @@ function App() {
 
         // Crear la lista de opciones de asignaturas con el formato adecuado
         const asigOptions = eventosFiltrados.map(evento => {
+            
             const key = ["3º", "4º"].includes(evento.curso) 
                 ? `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.mencion}`
                 : `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`;
+            
+            const text = ["3º", "4º"].includes(evento.curso)
+                ? `${evento.siglas} - ${evento.grupo} - ${evento.mencion}`
+                : `${evento.siglas} - ${evento.grupo}`;
 
             return {
                 key,
                 value: `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`,
-                text: `${evento.siglas} - ${evento.grupo}`
+                text
             };
         });
 
@@ -339,6 +344,26 @@ function App() {
         });
     }
   }, [selectedAsigs, events]);
+
+
+  useEffect(() => {
+    if (!selectedGrade || !selectedSemester || selectedCourse.length === 0 || !selectedGroup) {
+      setFilteredAsigs([]);
+    } else {
+      const asignaturasFiltradas = events.filter(evento => 
+        evento.grado === selectedGrade &&
+        evento.semestre === selectedSemester &&
+        selectedCourse.includes(evento.curso) &&
+        evento.grupo === selectedGroup &&
+        (!selectedMention || evento.mencion === selectedMention)
+      );
+  
+      setFilteredAsigs(asignaturasFiltradas);
+    }
+  }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, events]);
+
+
+
 
 
 
@@ -415,7 +440,7 @@ function App() {
             <div className="calendarioContainer" style={{ flexGrow: 1 }}>
             <Calendar
                 localizer={localizer}
-                events={filteredEvents}
+                events={selectedAsigs.length === 0 ? filteredAsigs : filteredEvents}
                 startAccessor="start"
                 endAccessor="end"
                 views={{ week: true }}
