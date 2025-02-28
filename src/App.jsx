@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import { CalendarEvent } from './CalendarEvent'
-import FiltersTab from './FiltersTab'
 import FiltersSection from './FiltersSection'
+import FiltersSectionCustom from './FiltersSectionCustom'
 import 'semantic-ui-css/semantic.min.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -248,6 +248,16 @@ function App() {
   const [filteredEvents, setFilteredEvents] = useState([]); // Eventos filtrados 
   const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos filtrados de asignaturas que cumplen los valores seleccionados
 
+
+
+
+  const [selectedFirstGroup, setSelectedFirstGroup] = useState(null);
+  const [selectedSecondGroup, setSelectedSecondGroup] = useState(null);
+  const [selectedThirdMention, setSelectedThirdMention] = useState(null);
+  const [selectedFourthMention, setSelectedFourthMention] = useState(null);
+  const [selectedFifthGroup, setSelectedFifthGroup] = useState(null);
+
+
   useEffect(() => {
     const eventos = asignaturasJSON.map((asignatura) => {
       const diaSemana = diasSemana[asignatura.Dia];
@@ -427,6 +437,7 @@ function App() {
     <>
       <div className="cabeceraDocumento">
         <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions}/>
+        <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions}/>
         <h2 className="textoGrado">
           {getTextoGrado()}
         </h2>
