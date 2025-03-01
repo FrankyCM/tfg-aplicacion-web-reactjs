@@ -34,7 +34,7 @@ const asigOptionssss = [
 
 
 
-const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedFirstGroup, setSelectedFirstGroup, selectedSecondGroup, setSelectedSecondGroup, selectedThirdMention, setSelectedThirdMention, selectedFourthMention, setSelectedFourthMention, selectedFifthGroup, setSelectedFifthGroup, selectedAsigs, setSelectedAsigs, asigOptions}) => {
+const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourses, setSelectedCourses, selectedFirstGroup, setSelectedFirstGroup, selectedSecondGroup, setSelectedSecondGroup, selectedThirdMention, setSelectedThirdMention, selectedFourthMention, setSelectedFourthMention, selectedFifthGroup, setSelectedFifthGroup, selectedAsigs, setSelectedAsigs, asigOptions}) => {
   
   const [selectedAsigValue, setSelectedAsigValue] = useState("");
 
@@ -42,7 +42,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
 
   const [selectedGradeButton, setSelectedGradeButton] = useState(null);
   const [selectedSemesterButton, setSelectedSemesterButton] = useState(null);
-  const [selectedCourseButton, setSelectedCourseButton] = useState([]);
+  const [selectedCoursesButton, setSelectedCoursesButton] = useState([]);
 
   const [selectedFirstGroupButton, setSelectedFirstGroupButton] = useState(null);
   const [selectedSecondGroupButton, setSelectedSecondGroupButton] = useState(null);
@@ -68,19 +68,19 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
     //console.log(semester);
   }
 
-  const handleCourseSelect = (course) => {
-    setSelectedCourse(
-      selectedCourse.includes(course)
-        ? selectedCourse.filter(c => c !== course) // Si ya está seleccionado, lo elimina
-        : [...selectedCourse, course] // Si no está seleccionado, lo agrega
+  const handleCoursesSelect = (course) => {
+    setSelectedCourses(
+      selectedCourses.includes(course)
+        ? selectedCourses.filter(c => c !== course) // Si ya está seleccionado, lo elimina
+        : [...selectedCourses, course] // Si no está seleccionado, lo agrega
     );
   };
 
-  const handleCourseSelectButton = (course) => {
-    if (selectedCourseButton.includes(course)) {
-      setSelectedCourseButton(selectedCourseButton.filter(c => c !== course)); // Deseleccionar si ya estaba seleccionado
+  const handleCoursesSelectButton = (course) => {
+    if (selectedCoursesButton.includes(course)) {
+      setSelectedCoursesButton(selectedCoursesButton.filter(c => c !== course)); // Deseleccionar si ya estaba seleccionado
     } else {
-      setSelectedCourseButton([...selectedCourseButton, course]); // Agregar si no estaba seleccionado
+      setSelectedCoursesButton([...selectedCoursesButton, course]); // Agregar si no estaba seleccionado
     }
   };
 
@@ -188,30 +188,30 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
         {selectedGradeButton && selectedSemesterButton && (
           <div className="course-section">
             <FiltersButton key={"1º"} content={"1º"} onClick={() => {
-              handleCourseSelect("1º");
-              handleCourseSelectButton("1º");
+              handleCoursesSelect("1º");
+              handleCoursesSelectButton("1º");
             }}
-            isSelected={selectedCourseButton.includes("1º")}
+            isSelected={selectedCoursesButton.includes("1º")}
             />
             <FiltersButton key={"2º"} content={"2º"} onClick={() => {
-              handleCourseSelect("2º");
-              handleCourseSelectButton("2º");
+              handleCoursesSelect("2º");
+              handleCoursesSelectButton("2º");
             }}
-            isSelected={selectedCourseButton.includes("2º")}
+            isSelected={selectedCoursesButton.includes("2º")}
             />
             {selectedGradeButton !== "Master" && (
               <>
                 <FiltersButton key={"3º"} content={"3º"} onClick={() => {
-                    handleCourseSelect("3º");
-                    handleCourseSelectButton("3º");
+                    handleCoursesSelect("3º");
+                    handleCoursesSelectButton("3º");
                   }}
-                  isSelected={selectedCourseButton.includes("3º")}
+                  isSelected={selectedCoursesButton.includes("3º")}
                   />
                 <FiltersButton key={"4º"} content={"4º"} onClick={() => {
-                    handleCourseSelect("4º");
-                    handleCourseSelectButton("4º");
+                    handleCoursesSelect("4º");
+                    handleCoursesSelectButton("4º");
                   }}
-                  isSelected={selectedCourseButton.includes("4º")}
+                  isSelected={selectedCoursesButton.includes("4º")}
                   />
               </>
               )
@@ -222,10 +222,10 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
             {selectedGradeButton === "I + E" && (
               <>
                 <FiltersButton className= "fifth-course-button" key={"5º"} content={"5º"} onClick={() => {
-                  handleCourseSelect("5º");
-                  handleCourseSelectButton("5º");
+                  handleCoursesSelect("5º");
+                  handleCoursesSelectButton("5º");
                 }}
-                isSelected={selectedCourseButton.includes("5º")}
+                isSelected={selectedCoursesButton.includes("5º")}
                 />
               </>
             )
@@ -234,9 +234,9 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
           </div>
         )}
 
-        {selectedGradeButton && selectedSemesterButton && selectedCourseButton.length !== 0 && (
+        {selectedGradeButton && selectedSemesterButton && selectedCoursesButton.length !== 0 && (
         <div className="group-or-mention-section">
-            {selectedCourseButton.includes("1º") && (
+            {selectedCoursesButton.includes("1º") && (
             <div className="group-container">
                 <p>Grupos de primer curso</p>
                 <div className="group-buttons">
@@ -247,7 +247,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
             </div>
             )}
 
-            {selectedCourseButton.includes("2º") && (
+            {selectedCoursesButton.includes("2º") && (
             <div className="group-container">
                 <p>Grupos de segundo curso</p>
                 <div className="group-buttons">
@@ -257,7 +257,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
             </div>
             )}
 
-            {selectedCourseButton.includes("3º") && (
+            {selectedCoursesButton.includes("3º") && (
             <div className="group-container">
                 <p>Menciones de tercer curso</p>
                 <div className="group-buttons">
@@ -268,7 +268,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
             </div>
             )}
 
-            {selectedCourseButton.includes("4º") && (
+            {selectedCoursesButton.includes("4º") && (
             <div className="group-container">
                 <p>Menciones de cuarto curso</p>
                 <div className="group-buttons">
@@ -279,7 +279,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
             </div>
             )}
 
-            {selectedCourseButton.includes("5º") && (
+            {selectedCoursesButton.includes("5º") && (
             <div className="group-container">
                 <p>Grupos de quinto curso</p>
                 <div className="group-buttons">
@@ -291,7 +291,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
         )}
         
         
-        {selectedGradeButton && selectedSemesterButton && (selectedCourseButton.length !== 0) && selectedCourseButton.every((course) =>
+        {selectedGradeButton && selectedSemesterButton && (selectedCoursesButton.length !== 0) && selectedCoursesButton.every((course) =>
         (course.includes("1º") && selectedFirstGroupButton !== null) ||
         (course.includes("2º") && selectedSecondGroupButton !== null) ||
         (course.includes("3º") && selectedThirdMentionButton !== null) ||

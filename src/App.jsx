@@ -233,9 +233,9 @@ function App() {
   const [events, setEvents] = useState([]);
   const [selectedGrade, setSelectedGrade] = useState(""); // Grado seleccionado por el alumno
   const [selectedSemester, setSelectedSemester] = useState(""); // Semestre o cuatrimestre seleccionado por el alumno
-  const [selectedCourse, setSelectedCourse] = useState([]); // Curso/s seleccionado por el alumno
+  const [selectedCourse, setSelectedCourse] = useState(""); // Curso/s seleccionado por el alumno para FiltersSection
   const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado por el alumno
-  const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno
+  const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno para FiltersSection
   
   const [asigOptions, setAsigOptions] = useState([]);     // Listado de asignaturas creada en base a filtros
   
@@ -250,12 +250,12 @@ function App() {
 
 
 
-
-  const [selectedFirstGroup, setSelectedFirstGroup] = useState(null);
-  const [selectedSecondGroup, setSelectedSecondGroup] = useState(null);
-  const [selectedThirdMention, setSelectedThirdMention] = useState(null);
-  const [selectedFourthMention, setSelectedFourthMention] = useState(null);
-  const [selectedFifthGroup, setSelectedFifthGroup] = useState(null);
+  const [selectedCourses, setSelectedCourses] = useState([]); // Curso/s seleccionado por el alumno para FiltersSectionCustom
+  const [selectedFirstGroup, setSelectedFirstGroup] = useState(null); // Grupo de asignaturas de primer curso
+  const [selectedSecondGroup, setSelectedSecondGroup] = useState(null); // Grupo de asignaturas de segundo curso
+  const [selectedThirdMention, setSelectedThirdMention] = useState(null); // Mencion de asignaturas de tercer curso
+  const [selectedFourthMention, setSelectedFourthMention] = useState(null); // Mencion de asignaturas de cuarto curso
+  const [selectedFifthGroup, setSelectedFifthGroup] = useState(null); // Grupo de asignaturas de quinto curso (solo para I + E)
 
 
   useEffect(() => {
@@ -297,20 +297,27 @@ function App() {
     setEvents(eventos);
   }, []);
 
-
+  // useEffect para la creación de la lista de asignaturas que se muestra en el desplegable
+  // de visualización personalizada de horarios
   useEffect(() => {
-    if (!selectedGrade && !selectedSemester && selectedCourse.length === 0 && !selectedGroup) {
+    if (!selectedGrade && !selectedSemester && selectedCourses.length === 0 && !selectedFirstGroup && !selectedSecondGroup && !selectedThirdMention && !selectedFourthMention && !selectedFifthGroup) {
         setAsigOptions([]);
     } else {
-        // Filtrar eventos según los criterios
-        const eventosFiltrados = events.filter(evento => 
-            evento.grado === selectedGrade &&
-            evento.semestre === selectedSemester &&
-            selectedCourse.includes(evento.curso) &&
-            evento.grupo === selectedGroup &&
-            (!selectedMention || evento.mencion === selectedMention)
-        );
-
+        // Filtrar eventos según los criterios actualizados
+        const eventosFiltrados = events.filter((evento) => 
+        evento.grado === selectedGrade &&
+        evento.semestre === selectedSemester &&
+        selectedCourses.includes(evento.curso) &&
+        (
+          (selectedCourses.includes("1º") && evento.grupo === selectedFirstGroup && evento.curso === "1º") ||
+          (selectedCourses.includes("2º") && evento.grupo === selectedSecondGroup && evento.curso === "2º") ||
+          (selectedCourses.includes("5º") && evento.grupo === selectedFifthGroup && evento.curso === "5º") ||
+          (["3º", "4º"].includes(evento.curso) &&
+            (selectedCourses.includes("3º") && evento.mencion === selectedThirdMention && evento.curso === "3º") ||
+            (selectedCourses.includes("4º") && evento.mencion === selectedFourthMention && evento.curso === "4º"))
+        )
+    );
+    
         // Crear la lista de opciones de asignaturas con el formato adecuado
         const asigOptions = eventosFiltrados.map(evento => {
             
@@ -331,10 +338,11 @@ function App() {
 
         setAsigOptions(asigOptions);
     }
-  }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]);
+  }, [selectedGrade, selectedSemester, selectedCourses, selectedFirstGroup, selectedSecondGroup, selectedThirdMention, selectedFourthMention, selectedFifthGroup, events]);
 
   
-
+  // useEffect para el filtrado de eventos de asignaturas que hayan sido seleccionadas en el desplegable
+  // de visualizacion personalizada de horarios
   useEffect(() => {
     if (selectedAsigs.length === 0) {
         setFilteredEvents([]);
@@ -355,7 +363,7 @@ function App() {
     }
   }, [selectedAsigs, events]);
 
-
+  // useEffect para la parte de visualizacion de calendarios genericos
   useEffect(() => {
     if (!selectedGrade || !selectedSemester || selectedCourse.length === 0 || !selectedGroup) {
       setFilteredAsigs([]);
@@ -437,7 +445,7 @@ function App() {
     <>
       <div className="cabeceraDocumento">
         <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions}/>
-        <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions}/>
+        <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions}/>
         <h2 className="textoGrado">
           {getTextoGrado()}
         </h2>
