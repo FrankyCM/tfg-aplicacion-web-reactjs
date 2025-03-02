@@ -51,6 +51,22 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const [selectedFifthGroupButton, setSelectedFifthGroupButton] = useState(null);
 
   const handleGradeSelect = (grade) => {
+    if(selectedGrade === grade){
+        setSelectedSemester("");
+        setSelectedCourses([]);
+        setSelectedFirstGroup("");
+        setSelectedSecondGroup("");
+        setSelectedThirdMention("");
+        setSelectedFourthMention("");
+        setSelectedFifthGroup("");
+        setSelectedSemesterButton(null);
+        setSelectedCoursesButton([]);
+        setSelectedFirstGroupButton(null);
+        setSelectedSecondGroupButton(null);
+        setSelectedThirdMentionButton(null);
+        setSelectedFourthMentionButton(null);
+        setSelectedFifthGroupButton(null);
+    }
     setSelectedGrade(selectedGrade === grade ? "" : grade);
   };
 
@@ -59,6 +75,21 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   };
 
   const handleSemesterSelect = (semester) => {
+    if(selectedSemester === semester){
+        setSelectedCourses([]);
+        setSelectedFirstGroup("");
+        setSelectedSecondGroup("");
+        setSelectedThirdMention("");
+        setSelectedFourthMention("");
+        setSelectedFifthGroup("");
+        setSelectedCoursesButton([]);
+        setSelectedFirstGroupButton(null);
+        setSelectedSecondGroupButton(null);
+        setSelectedThirdMentionButton(null);
+        setSelectedFourthMentionButton(null);
+        setSelectedFifthGroupButton(null);
+    }
+    
     setSelectedSemester(selectedSemester === semester ? "" : semester);
   };
   
@@ -69,11 +100,44 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   }
 
   const handleCoursesSelect = (course) => {
-    setSelectedCourses(
-      selectedCourses.includes(course)
-        ? selectedCourses.filter(c => c !== course) // Si ya está seleccionado, lo elimina
-        : [...selectedCourses, course] // Si no está seleccionado, lo agrega
-    );
+    
+    const updatedCourses = selectedCourses.includes(course)
+    ? selectedCourses.filter(c => c !== course) // Si ya está seleccionado, lo elimina
+    : [...selectedCourses, course] // Si no está seleccionado, lo agrega
+    
+    setSelectedCourses(updatedCourses);
+
+    if(selectedCourses.includes(course)){
+        switch (course) {
+            case "1º":
+              setSelectedFirstGroup("");
+              setSelectedFirstGroupButton(null);
+              break;
+            case "2º":
+              setSelectedSecondGroup("");
+              setSelectedSecondGroupButton(null);
+              break;
+            case "3º":
+              setSelectedThirdMention("");
+              setSelectedThirdMentionButton(null);
+              break;
+            case "4º":
+              setSelectedFourthMention("");
+              setSelectedFourthMentionButton(null);
+              break;
+            case "5º":
+              setSelectedFifthGroup("");
+              setSelectedFifthGroupButton(null);
+              break;
+            default:
+              break;
+          }
+    }
+
+    if(updatedCourses.length === 0){
+        setSelectedAsigs([]);
+        setSelectedAsigValue("");
+    }
   };
 
   const handleCoursesSelectButton = (course) => {
@@ -86,29 +150,64 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
 
   const handleFirstGroupSelect = (group) => {
     setSelectedFirstGroup(selectedFirstGroup === group ? "" : group);
+    if(selectedFirstGroup === group && checkNoSelectedGroups()){
+        setSelectedAsigs([]);
+        setSelectedAsigValue("");
+    }
     //console.log("Grupo seleccionado:", group);
   };
 
   const handleSecondGroupSelect = (group) => {
     setSelectedSecondGroup(selectedSecondGroup === group ? "" : group);
+    if(selectedSecondGroup === group && checkNoSelectedGroups()){
+        setSelectedAsigs([]);
+        setSelectedAsigValue("");
+    }  
     //console.log("Grupo seleccionado:", group);
   };
 
   const handleThirdMentionSelect = (mention) => {
     setSelectedThirdMention(selectedThirdMention === mention ? "" : mention);
+    if(selectedThirdMention === group && checkNoSelectedGroups()){
+        setSelectedAsigs([]);
+        setSelectedAsigValue("");
+    }
     //console.log("Grupo seleccionado:", group);
   };
 
   const handleFourthMentionSelect = (mention) => {
     setSelectedFourthMention(selectedFourthMention === mention ? "" : mention);
+    if(selectedFourthMention === group && checkNoSelectedGroups()){
+        setSelectedAsigs([]);
+        setSelectedAsigValue("");
+    }
     //console.log("Grupo seleccionado:", group);
   };
 
   const handleFifthGroupSelect = (group) => {
     setSelectedFifthGroup(selectedFifthGroup === group ? "" : group);
+    if(selectedFifthGroup === group && checkNoSelectedGroups()){
+        setSelectedAsigs([]);
+        setSelectedAsigValue("");
+    } // convertir actualizacion de estado en actualizacion sincrona
     //console.log("Grupo seleccionado:", group);
   };
 
+  // Funcion que devuelve true en caso de que todos los cursos no tengan su grupo o mencion 
+  // seleccionados
+  // Esta funcion sirve para borrar las asignaturas seleccionadas en el select en caso de
+  // deseleccionarse todos los grupos
+
+  const checkNoSelectedGroups = () => {
+    return (
+      (selectedFirstGroup === "" && 
+        selectedSecondGroup === "" &&
+        selectedThirdMention === "" &&
+        selectedFourthMention === "" &&
+        selectedFifthGroup === "") 
+    );
+  };
+  
   const handleFirstGroupSelectButton = (group) => {
     setSelectedFirstGroupButton(selectedFirstGroupButton === group ? null : group);
   };

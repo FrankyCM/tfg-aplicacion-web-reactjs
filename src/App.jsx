@@ -385,7 +385,7 @@ function App() {
             (!selectedGroup || evento.grupo === selectedGroup)
           );
         }
-  
+        console.log("Eventos filtrados:", asignaturasFiltradas);
       setFilteredAsigs(asignaturasFiltradas);
     }
   }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]);
@@ -475,6 +475,19 @@ function App() {
                 defaultView={Views.WEEK}
                 toolbar={false}
                 style={{ height: 1000, width: "100%" }}
+                defaultDate={(() => {     // Por alguna razon esto es necesario porque si es 
+                                          // domingo no se muestran los eventos en el calendario (?)
+                  const today = new Date();
+                  const dayOfWeek = today.getDay();
+                  if (dayOfWeek === 0) {
+                    // Si hoy es domingo, mover la vista al lunes pasado
+                    return new Date(today.setDate(today.getDate() - 6));
+                  } else if (dayOfWeek === 6) {
+                    // Si hoy es sábado, mover la vista al lunes pasado
+                    return new Date(today.setDate(today.getDate() - 5));
+                  }
+                  return today;
+                })()}
                 min={new Date(2023, 0, 1, 8, 0)}
                 max={new Date(2023, 0, 1, 21, 0)}
                 showCurrentTimeIndicator={false}
@@ -497,6 +510,7 @@ function App() {
                     return {
                       style: {
                         display: 'none',
+
                       },
                     };
                   }

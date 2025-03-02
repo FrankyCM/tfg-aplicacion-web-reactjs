@@ -2,10 +2,7 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import { Container } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';
-import FiltersSelect from './FiltersSelect';
 import './FiltersSection.css';
-import { Label } from 'semantic-ui-react/dist/commonjs';
-
 
 const classOptions = [
   { key: '01', value: '01', text: '01' },
@@ -45,6 +42,16 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
 
 
   const handleGradeSelect = (grade) => {
+    if (selectedGrade === grade) {
+      setSelectedSemester("");
+      setSelectedCourse("");
+      setSelectedGroup("");
+      setSelectedMention("");
+      setSelectedSemesterButton(null);
+      setSelectedCourseButton(null);
+      setSelectedGroupButton(null);
+      setSelectedMentionButton(null);
+    }
     setSelectedGrade(selectedGrade === grade ? "" : grade);
   };
 
@@ -53,6 +60,14 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
   };
 
   const handleSemesterSelect = (semester) => {
+    if (selectedSemester === semester) {
+      setSelectedCourse("");
+      setSelectedGroup("");
+      setSelectedMention("");
+      setSelectedCourseButton(null);
+      setSelectedGroupButton(null);
+      setSelectedMentionButton(null);
+    }
     setSelectedSemester(selectedSemester === semester ? "" : semester);
   };
   
@@ -63,7 +78,13 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
   }
 
   const handleCourseSelect = (course) => {
-    setSelectedCourse(selectedCourse === course ? null : course);
+    if (selectedCourse === course) {
+      setSelectedGroup("");
+      setSelectedMention("");
+      setSelectedGroupButton(null);
+      setSelectedMentionButton(null);
+    }
+    setSelectedCourse(selectedCourse === course ? "" : course);
   };
 
   const handleCourseSelectButton = (course) => {
@@ -77,7 +98,7 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
     }
   }, [selectedCourse]);
 
-  
+
   const handleGroupSelect = (group) => {
     setSelectedGroup(selectedGroup === group ? "" : group);
     //console.log("Grupo seleccionado:", group);
