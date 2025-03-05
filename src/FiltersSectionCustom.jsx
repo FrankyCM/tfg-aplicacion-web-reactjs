@@ -151,6 +151,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const handleFirstGroupSelect = (group) => {
     setSelectedFirstGroup(selectedFirstGroup === group ? "" : group);
     if(selectedFirstGroup === group && checkNoSelectedGroups()){
+        console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     }
@@ -160,6 +161,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const handleSecondGroupSelect = (group) => {
     setSelectedSecondGroup(selectedSecondGroup === group ? "" : group);
     if(selectedSecondGroup === group && checkNoSelectedGroups()){
+        console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     }  
@@ -168,7 +170,8 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
 
   const handleThirdMentionSelect = (mention) => {
     setSelectedThirdMention(selectedThirdMention === mention ? "" : mention);
-    if(selectedThirdMention === group && checkNoSelectedGroups()){
+    if(selectedThirdMention === mention && checkNoSelectedGroups()){
+        console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     }
@@ -177,16 +180,34 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
 
   const handleFourthMentionSelect = (mention) => {
     setSelectedFourthMention(selectedFourthMention === mention ? "" : mention);
-    if(selectedFourthMention === group && checkNoSelectedGroups()){
+    if(selectedFourthMention === mention && checkNoSelectedGroups()){
+        console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     }
     //console.log("Grupo seleccionado:", group);
   };
 
+  /*
+  useEffect(() => {
+    if (selectedCourses.includes("3º") && selectedCourses.includes("4º")) {
+        if (selectedThirdMention !== selectedFourthMention) {
+            if (selectedThirdMention && selectedThirdMention !== selectedFourthMention) {
+                setSelectedFourthMention(selectedThirdMention);
+                setSelectedFourthMentionButton(selectedThirdMention);
+            } else if (selectedFourthMention && selectedFourthMention !== selectedThirdMention) {
+                setSelectedThirdMention(selectedFourthMention);
+                setSelectedThirdMentionButton(selectedFourthMention);
+            }
+        }
+    }
+}, [selectedThirdMention, selectedFourthMention, selectedCourses]); */
+
+
   const handleFifthGroupSelect = (group) => {
     setSelectedFifthGroup(selectedFifthGroup === group ? "" : group);
     if(selectedFifthGroup === group && checkNoSelectedGroups()){
+        console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     } // convertir actualizacion de estado en actualizacion sincrona
@@ -200,11 +221,11 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
 
   const checkNoSelectedGroups = () => {
     return (
-      (selectedFirstGroup === "" && 
-        selectedSecondGroup === "" &&
-        selectedThirdMention === "" &&
-        selectedFourthMention === "" &&
-        selectedFifthGroup === "") 
+      (selectedFirstGroup === null && 
+        selectedSecondGroup === null &&
+        selectedThirdMention === null &&
+        selectedFourthMention === null &&
+        selectedFifthGroup === null) 
     );
   };
   

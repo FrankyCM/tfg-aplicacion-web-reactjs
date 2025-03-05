@@ -1,0 +1,93 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+.img-fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('uva-1024x616.jpg') no-repeat center center/cover;
+    filter: blur(5px); /* Aplica desenfoque */
+    z-index: -1; /* Lo envía al fondo */
+}
+
+
+.contenido-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  /* Centra verticalmente */
+    gap: 15px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+    width: 30%;  /* Asegura que el contenedor ocupa el ancho completo */
+    text-align: center;  /* Si hay texto dentro, lo centra */
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cuestionario-login {
+    display: flex;
+    flex-direction: column;
+}
+
+.cuestionario-login .info-organizacion-login {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: flex-start; /* Asegura que los textos queden juntos */
+    gap: 10px;
+    white-space: nowrap; /* Evita que los textos se dividan en varias líneas */
+    max-width: fit-content;
+    margin: 0;
+}
+
+.cuestionario-login .info-organizacion-login h2 {
+    display: flex; /* O prueba con inline-block */
+    margin: 0; /* Asegura que no haya márgenes extra */
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.cuestionario-login .info-inicio-de-sesion-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+.cuestionario-login .info-inicio-de-sesion-login h2{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.cuestionario-login .campos-cuestionario-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.cuestionario-login .campos-cuestionario-login p{
+    align-self: flex-start !important;
+    margin-bottom: 3px;
+    padding: 0;
+    
+}

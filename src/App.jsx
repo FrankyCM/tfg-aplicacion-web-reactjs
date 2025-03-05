@@ -440,9 +440,30 @@ function App() {
       selectedGrade === "INF"
     ) {
       mentionText = mentionMap[selectedMention] || "";
+      
     }
 
     return mentionText ? `${selectedCourseText}, ${mentionText}` : selectedCourseText;
+  };
+
+  const getTextoCursosMencion = () => {
+    if (selectedCourses.length === 0) return ""; // Si no hay cursos seleccionados, devuelve vacío
+
+    const selectedCoursesText = selectedCourses.map(course => courseMap[course] || "").join(", "); // Obtener el texto de los cursos seleccionados
+    let mentionText = "";
+
+    if (
+      (selectedThirdMention || selectedFourthMention) &&
+      selectedCourses.some(course => ["3º", "4º"].includes(course)) &&
+      selectedGrade === "INF"
+    ) {
+      mentionText = mentionMap[(selectedThirdMention || selectedFourthMention)] || "";
+    }
+
+    return mentionText && selectedCourses.length > 0 && 
+    selectedCourses.every(course => ["3º", "4º"].includes(course)) 
+    ? `${selectedCoursesText}, ${mentionText}` 
+    : selectedCoursesText;
   };
 
 
@@ -459,7 +480,7 @@ function App() {
           {getTextoGrado()}
         </h2>
         <h2 className="textoCursoMencion">
-          {getTextoCursoMencion()}
+          {getTextoCursosMencion()}
         </h2>
         <div className="horario">
           

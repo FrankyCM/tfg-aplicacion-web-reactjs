@@ -1,0 +1,14 @@
+/* Cambiar el color y estilo del placeholder */
+input::placeholder {
+    color: rgb(77, 77, 77) !important; /* Cambia el color */
+    font-size: 14px; /* Tamaño del texto */
+    opacity: 1; /* Asegura que el texto no sea transparente */
+    
+}
+
+.ui.input {
+    width: 100% !important;
+    margin-bottom: 20px;
+    border-radius: 20px !important;
+}
+
