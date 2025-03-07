@@ -1,10 +1,10 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
-import { Container } from 'semantic-ui-react'
+import { useState } from 'react';
+import { Container, Label } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';
 import FiltersSelect from './FiltersSelect';
 import './FiltersSectionCustom.css';
-import { Label } from 'semantic-ui-react/dist/commonjs';
+
 
 
 const classOptions = [
@@ -271,7 +271,6 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
 
   return (
     <Container>
-
       <div className="filters-container-section">
         <div className="grade-section">
           {['INF', 'EST', 'I + E', 'Master'].map((text) => (

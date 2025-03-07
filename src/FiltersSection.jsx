@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Container } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';
 import './FiltersSection.css';

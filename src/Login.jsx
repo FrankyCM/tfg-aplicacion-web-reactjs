@@ -10,9 +10,11 @@ export const Login = () => {
         <div className="img-fondo"></div>
         <div className="contenido-login">
             <div className="cuestionario-login">
+                <div className="contenido-imagen-login">
+                    <ImageContainer picturePath={`src/LogoRojoEscuela-288x300.png`} size={`tiny`} />
+                </div>
                 <div className="info-organizacion-login">
-                    <h2>Universidad de Valladolid</h2>
-                    <ImageContainer picturePath={`src/Logotipo_de_la_Universidad_de_Valladolid.png`} size={`mini`}/>
+                    <h2>Escuela de Ingeniería Informática</h2>
                 </div>
                 <div className="info-inicio-de-sesion-login">
                     <p>Inicio de sesión</p>

@@ -11,6 +11,7 @@ import 'moment/locale/es';
 import { Views } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStyles.css'
+import { Login } from './Login'
 
 
 const asignaturasJSON = [
