@@ -11,7 +11,7 @@ export const Login = () => {
         <div className="contenido-login">
             <div className="cuestionario-login">
                 <div className="contenido-imagen-login">
-                    <ImageContainer picturePath={`src/LogoRojoEscuela-288x300.png`} size={`tiny`} />
+                    <ImageContainer picturePath={`src/LogoRojoEscuela-288x300.png`} size={`tiny`} isCircular={true}/>
                 </div>
                 <div className="info-organizacion-login">
                     <h2>Escuela de Ingeniería Informática</h2>
@@ -22,7 +22,7 @@ export const Login = () => {
                 <div className="campos-cuestionario-login">
                     <p>Introduzca su credencial</p>
                     <LoginInput icon={`key`} placeholder={`Credencial...`}></LoginInput>
-                    <LoginButton color={`orange`} text={`Iniciar sesión`}></LoginButton>
+                    <LoginButton color={`#edbeba`} text={`Iniciar sesión`}></LoginButton>
                 </div>
             </div>
         </div>

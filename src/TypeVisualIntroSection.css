@@ -1,0 +1,29 @@
+.contenido-informativo-tipo-visualizacion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  /* Centra verticalmente */
+    gap: 15px;
+    padding: 20px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+    width: 30%;  
+    text-align: center;  /* Si hay texto dentro, lo centra */
+    margin-top: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.contenido-informativo-tipo-visualizacion .tipo-visualizacion p{
+    font-size: 18px;
+}
+
+.contenido-informativo-tipo-visualizacion .detalle-tipo-visualizacion {
+    justify-content: center;
+    text-align: justify;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

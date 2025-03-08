@@ -1,0 +1,55 @@
+
+
+.contenido-seccion-introduccion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Situa el contenido al inicio (izquierda) de la pantalla*/
+    height: 100vh; /* Usa toda la altura de la pantalla */
+    width: 100%;
+}
+
+.contenido-seccion-introduccion .contenido-cabecera {
+    align-self: flex-start; /* Hace que solo esta sección se alinee a la izquierda */
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Alinea los elementos verticalmente */
+    justify-content: flex-start; /* Alinea la imagen y el texto a la izquierda */
+    width: auto; /* Ajusta el ancho según el contenido */
+    max-width: 800px; /* Limita el tamaño si es necesario */
+    padding-top: 20px; /* Agrega un poco de espacio */
+}
+
+.contenido-seccion-introduccion .contenido-cabecera p{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 8px;
+    margin-left: 20px;
+}
+
+.contenido-seccion-introduccion .contenido-introduccion {
+    max-width: 800px; /* Controla el ancho del texto */
+    text-align: center; /* Centra el texto */
+    font-size: 18px;
+    margin-top: 45px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.contenido-seccion-introduccion .contenido-introduccion .texto-cursiva {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-style: italic;
+    font-size: 16px;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.contenido-seccion-introduccion .contenido-seccion-tipo-visualizacion {
+    align-items: center;    
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}

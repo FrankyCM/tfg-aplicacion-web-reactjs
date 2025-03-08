@@ -5,10 +5,10 @@
     align-items: center;  /* Centra verticalmente */
     gap: 15px;
     padding: 20px;
-    background: #f9f9f9;
+    background: #f7f5dd;
     border-radius: 10px;
-    border: 0.5px solid rgb(220, 220, 220);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid rgb(199, 199, 199);;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
     width: 100%;  /* Asegura que el contenedor ocupa el ancho completo */
     text-align: center;  /* Si hay texto dentro, lo centra */
@@ -27,7 +27,7 @@
     border: 0.5px solid rgb(220, 220, 220); /* Borde negro */
     border-radius: 8px; /* Bordes redondeados */
     padding: 15px; /* Espaciado interno */
-    background-color: #fff; /* Fondo blanco para destacarlas */
+    background-color: #f2fedc; /* Fondo blanco para destacarlas */
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); /* Sombra ligera */
 }
 

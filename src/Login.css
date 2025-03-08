@@ -6,6 +6,7 @@ html, body {
     justify-content: center;
     align-items: center;
     background: none;
+    background-color: transparent !important;
 }
 
 .img-fondo {
@@ -39,7 +40,7 @@ html, body {
     padding: 20px;
     background: #f9f9f9;
     border-radius: 10px;
-    border: 0.5px solid rgb(220, 220, 220);
+    border: 1px solid rgb(200, 200, 200);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
     width: 30%;  
