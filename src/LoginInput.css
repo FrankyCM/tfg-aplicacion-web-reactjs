@@ -7,8 +7,9 @@ input::placeholder {
 }
 
 .ui.input {
-    width: 120% !important;
-    margin-bottom: 20px;
+    width: 130% !important;
+    margin-bottom: 25px;
+    align-items: center;
     border-radius: 20px !important;
 }
 

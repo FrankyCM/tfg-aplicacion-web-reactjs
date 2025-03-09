@@ -7,23 +7,32 @@
     padding: 4px; /* Evita que el texto se pegue a los bordes */
     white-space: pre-line; /* Permite los saltos de línea correctamente */
     overflow: hidden; /* Evita que el texto se desborde */
-    
 }
 
 .rbc-event-label {
     display: none !important;
 }
 
-.rbc-event-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centra verticalmente */
-    align-items: center; /* Centra horizontalmente */
-    text-align: center;
+.rbc-event-content .evento-calendario {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; /* Centra verticalmente */
+    align-items: center !important; /* Centra horizontalmente */
+    text-align: center !important;
     width: 100%;
     height: 100%;
-    font-size: 13px; /* Ajusta el tamaño del texto si es necesario */
-    white-space: pre-line; /* Permite saltos de línea con "\n" */
+    font-size: 13px !important; /* Ajusta el tamaño del texto si es necesario */
+    white-space: pre-line !important; /* Permite saltos de línea con "\n" */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.rbc-event-content .evento-calendario .siglas-evento {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.rbc-event-content .evento-calendario .grupo-aula-evento {
+    font-size: 14px;
 }
 
 .rbc-current-time-indicator {

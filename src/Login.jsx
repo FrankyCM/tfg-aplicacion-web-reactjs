@@ -14,13 +14,15 @@ export const Login = () => {
                     <ImageContainer picturePath={`src/LogoRojoEscuela-288x300.png`} size={`tiny`} isCircular={true}/>
                 </div>
                 <div className="info-organizacion-login">
-                    <h2>Escuela de Ingeniería Informática</h2>
+                    <p>Escuela de Ingeniería Informática</p>
                 </div>
                 <div className="info-inicio-de-sesion-login">
                     <p>Inicio de sesión</p>
                 </div>
                 <div className="campos-cuestionario-login">
-                    <p>Introduzca su credencial</p>
+                    <div className="campo-introducir-credencial">
+                        <p>Introduzca su credencial</p>
+                    </div>
                     <LoginInput icon={`key`} placeholder={`Credencial...`}></LoginInput>
                     <LoginButton color={`#edbeba`} text={`Iniciar sesión`}></LoginButton>
                 </div>

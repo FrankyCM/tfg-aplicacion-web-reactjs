@@ -5,6 +5,7 @@
   text-align: center;
 }
 
+
 .cabeceraDocumento {
   max-height: 80vh; /* Limita la altura del contenedor principal */
   display: flex;

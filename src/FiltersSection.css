@@ -7,7 +7,7 @@
     padding: 20px;
     background: #f7f5dd;
     border-radius: 10px;
-    border: 0.5px solid rgb(199, 199, 199);;
+    border: 2px solid rgb(199, 199, 199);;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
     width: 100%;  /* Asegura que el contenedor ocupa el ancho completo */
@@ -24,7 +24,7 @@
     gap: 12px;
     width: 100%;
     margin-bottom: 10px;
-    border: 0.5px solid rgb(220, 220, 220); /* Borde negro */
+    border: 1.5px solid rgb(220, 220, 220); /* Borde negro */
     border-radius: 8px; /* Bordes redondeados */
     padding: 15px; /* Espaciado interno */
     background-color: #f2fedc; /* Fondo blanco para destacarlas */

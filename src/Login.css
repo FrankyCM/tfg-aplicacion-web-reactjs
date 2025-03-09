@@ -49,6 +49,7 @@ html, body {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .cuestionario-login {
@@ -69,11 +70,12 @@ html, body {
     margin-top: 30px;
 }
 
-.cuestionario-login .info-organizacion-login h2 {
+.cuestionario-login .info-organizacion-login p {
     display: flex; /* O prueba con inline-block */
     margin: 0; /* Asegura que no haya márgenes extra */
+    margin-top: 20px;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
 }
 
 .cuestionario-login .info-inicio-de-sesion-login {
@@ -81,27 +83,30 @@ html, body {
     flex-direction: column;
     align-items: center;
     margin-top: 60px;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-}
-
-.cuestionario-login .info-inicio-de-sesion-login h2{
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .cuestionario-login .campos-cuestionario-login {
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-top: 40px;
-    font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 10px;
+    align-items: center;
 }
 
 
-.cuestionario-login .campos-cuestionario-login p{
-    align-self: flex-start !important;
-    margin-bottom: 3px;
+.cuestionario-login .campos-cuestionario-login .campo-introducir-credencial {
+    display: flex; /* Asegura que el div use flexbox */
+    flex-direction: column; /* Apila elementos verticalmente */
+    align-items: flex-start !important; /* Alinea el texto a la izquierda */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
     padding: 0;
-    
+    margin-bottom: 5px;
+}
+
+.campo-introducir-credencial p {
+    text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+    width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+    margin: 0;
+    padding: 0;
 }

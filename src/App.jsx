@@ -26,6 +26,7 @@ const asignaturasJSON = [
     "Mencion": "IS",
     "Clase": "02",
     "Dia": "Miercoles",
+    "Profesor": "César Gonzalez",
     "HoraInicio": "10:00",
     "Duracion": "1",
     "Color" : "#AFC3C4"
@@ -41,6 +42,7 @@ const asignaturasJSON = [
     "Mencion": "IS",
     "Clase": "103",
     "Dia": "Martes",
+    "Profesor": "Manuel Barrios",
     "HoraInicio": "10:00",
     "Duracion": "1",
     "Color" : "#FFEFAE"
@@ -56,6 +58,7 @@ const asignaturasJSON = [
     "Mencion": "IS",
     "Clase": "07",
     "Dia": "Lunes",
+    "Profesor": "Belarmino Pulido",
     "HoraInicio": "11:00",
     "Duracion": "1",
     "Color" : "#CDD6F6"
@@ -71,6 +74,7 @@ const asignaturasJSON = [
     "Mencion": "CO",
     "Clase": "07",
     "Dia": "Lunes",
+    "Profesor": "Belarmino Pulido",
     "HoraInicio": "11:00",
     "Duracion": "1",
     "Color" : "#CDD6F6"
@@ -86,6 +90,7 @@ const asignaturasJSON = [
     "Mencion": "TI",
     "Clase": "07",
     "Dia": "Lunes",
+    "Profesor": "Belarmino Pulido",
     "HoraInicio": "11:00",
     "Duracion": "1",
     "Color" : "#CDD6F6"
@@ -100,6 +105,7 @@ const asignaturasJSON = [
     "Grupo": "T1",
     "Clase": "07",
     "Dia": "Jueves",
+    "Profesor": "Yania Crespo",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -114,6 +120,7 @@ const asignaturasJSON = [
     "Grupo": "T2",
     "Clase": "07",
     "Dia": "Jueves",
+    "Profesor": "Yania Crespo",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -129,6 +136,7 @@ const asignaturasJSON = [
     "Mencion": "IS",
     "Clase": "03",
     "Dia": "Viernes",
+    "Profesor": "Profesor de SRS",
     "HoraInicio": "17:00",
     "Duracion": "2",
     "Color": "#BEE9DD"
@@ -143,6 +151,7 @@ const asignaturasJSON = [
     "Grupo": "T1",
     "Clase": "07",
     "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -157,6 +166,7 @@ const asignaturasJSON = [
     "Grupo": "T2",
     "Clase": "07",
     "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -171,6 +181,7 @@ const asignaturasJSON = [
     "Grupo": "T3",
     "Clase": "07",
     "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -185,6 +196,7 @@ const asignaturasJSON = [
     "Grupo": "T1",
     "Clase": "07",
     "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -199,6 +211,7 @@ const asignaturasJSON = [
     "Grupo": "T2",
     "Clase": "07",
     "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -213,6 +226,7 @@ const asignaturasJSON = [
     "Grupo": "T3",
     "Clase": "07",
     "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -242,9 +256,6 @@ function App() {
   
   const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas en FiltersSection
 
-  const [selectedClass, setSelectedClass] = useState(""); // Aulas seleccionadas en FiltersTab
-  
-  
   
   const [filteredEvents, setFilteredEvents] = useState([]); // Eventos filtrados 
   const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas en FiltersSection
@@ -291,6 +302,7 @@ function App() {
         grupo: asignatura.Grupo,
         mencion: asignatura.Mencion,
         aula: asignatura.Clase,
+        profesor: asignatura.Profesor,
         color: asignatura.Color
       };
     }).filter(Boolean);
@@ -375,14 +387,14 @@ function App() {
           asignaturasFiltradas = events.filter(evento => 
             evento.grado === selectedGrade &&
             evento.semestre === selectedSemester &&
-            selectedCourse === evento.curso &&
+            evento.curso === selectedCourse &&
             evento.mencion === selectedMention
           );
         } else {
           asignaturasFiltradas = events.filter(evento => 
             evento.grado === selectedGrade &&
             evento.semestre === selectedSemester &&
-            selectedCourse === evento.curso &&
+            evento.curso ===  selectedCourse &&
             (!selectedGroup || evento.grupo === selectedGroup)
           );
         }
@@ -521,7 +533,7 @@ function App() {
                 }}
 
                 components={{
-                  evento: CalendarEvent,
+                  event: CalendarEvent,
                 }}
 
                 // Utiliza la propiedad `eventPropGetter` para controlar qué días mostrar

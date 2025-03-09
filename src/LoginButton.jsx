@@ -7,7 +7,7 @@ const LoginButton = ({color, text}) => (
         className="login-button"
         fluid
         style={{
-            width: "120%",
+            width: "130%",
             fontFamily: "Arial, Helvetica, sans-serif",
             backgroundColor: color, // Cambia el color de fondo con el valor pasado por `color`
             borderColor: color,     // Opcionalmente, también puedes cambiar el color del borde
