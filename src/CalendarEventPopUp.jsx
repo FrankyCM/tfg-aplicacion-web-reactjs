@@ -1,17 +1,23 @@
 import React from "react";
 import "./CalendarEventPopUp.css";
 
-const CalendarEventPopUp = ({ event, position }) => {
+const CalendarEventPopUp = ({ event, position, backgroundColor, setHoveredEvent }) => {
   if (!event) return null;
+
+  // Función para manejar el mouse enter y leave sobre el popup
+  const handleMouseEnterPopUp = () => {
+    setHoveredEvent(event); // Mantenemos el evento cuando el ratón está sobre el popup
+  };
+
+  const handleMouseLeavePopUp = () => {
+    setHoveredEvent(null);
+  };
 
   return (
     <div
-      className="evento-popup"
-      style={{
-        top: position.y,
-        left: position.x,
-      }}
-    >
+      className="evento-popup" style={{ top: position.y, left: position.x, backgroundColor: backgroundColor}} 
+      onMouseEnter={handleMouseEnterPopUp}
+      onMouseLeave={handleMouseLeavePopUp}>
       <div className="informacion-popup">
         <p className="informacion-nombre-siglas">{event.nombre} - {event.siglas}</p>
         <div className="informacion-grupo-aula">
@@ -37,8 +43,8 @@ const CalendarEventPopUp = ({ event, position }) => {
             )}
         </div>
         <div className="informacion-profesor">
-        <p>Profesor:</p>
-        <p>{event.profesor}</p>
+            <p>Profesor:</p>
+            <p>{event.profesor}</p>
         </div>
         
       </div>

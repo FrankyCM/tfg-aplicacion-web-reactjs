@@ -5,6 +5,7 @@ import { useState } from 'react';
 export const CalendarEvent = ({event}) => {
     const [hoveredEvent, setHoveredEvent] = useState(null);
     const [popUpPosition, setPopUpPosition] = useState({ x: 0, y: 0 });
+    
     const handleMouseEnter = (e) => {
         setHoveredEvent(event);
         console.log("encima evento");
@@ -26,7 +27,7 @@ export const CalendarEvent = ({event}) => {
                 <span className="grupo-aula-evento">{event.aula}</span>
             )}
 
-            {hoveredEvent && <CalendarEventPopUp event={hoveredEvent} position={popUpPosition} />}
+            {hoveredEvent && <CalendarEventPopUp event={hoveredEvent} position={popUpPosition} backgroundColor={event.color} setHoveredEvent={setHoveredEvent}/>}
         </div>
     )
 }
