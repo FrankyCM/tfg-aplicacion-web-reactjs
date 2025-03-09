@@ -12,20 +12,35 @@ const CalendarEventPopUp = ({ event, position }) => {
         left: position.x,
       }}
     >
-      <h3>{event.siglas}</h3>
       <div className="informacion-popup">
-        {!event.aula.startsWith("L") && (
-            <>
-            <p>Grupo:{event.grupo}</p>
-            <p>Aula:{event.aula}</p>
-            </>
-        )}
-        {event.aula.startsWith("L") && (
-            <>
-            <p>Aula:{event.aula}</p>
-            </>
-        )}
-        <p><strong>Horario:</strong> {event.start.toLocaleTimeString()} - {event.end.toLocaleTimeString()}</p>
+        <p className="informacion-nombre-siglas">{event.nombre} - {event.siglas}</p>
+        <div className="informacion-grupo-aula">
+            {!event.aula.startsWith("L") && (
+                <>
+                <div className="informacion-grupo">
+                    <p>Grupo:</p>
+                    <p>{event.grupo}</p>
+                </div>
+                <div className="informacion-aula">
+                    <p>Aula:</p>
+                    <p>{event.aula}</p>
+                </div>
+                </>
+            )}
+            {event.aula.startsWith("L") && (
+                <>
+                <div className="informacion-aula">
+                    <p>Aula:</p>
+                    <p>{event.aula}</p>
+                </div>
+                </>
+            )}
+        </div>
+        <div className="informacion-profesor">
+        <p>Profesor:</p>
+        <p>{event.profesor}</p>
+        </div>
+        
       </div>
       
       

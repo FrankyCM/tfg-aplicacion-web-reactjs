@@ -12,10 +12,24 @@
     font-size: 14px;
     white-space: nowrap;
     font-family: Arial, Helvetica, sans-serif;
+    width: 30%;
 }
 
 .informacion-popup {
     display: flex;
-    flex-direction: column; /* Antes estaba en row */
+    flex-direction: column; 
     gap: 5px; /* Espacio entre líneas */
+    margin-left: 5px;
+}
+
+.informacion-popup .informacion-nombre-siglas {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    
+}
+
+.informacion-popup .informacion-grupo, .informacion-aula, .informacion-profesor{
+    display: flex;
+    flex-direction: row; 
+    gap: 5px;
 }
