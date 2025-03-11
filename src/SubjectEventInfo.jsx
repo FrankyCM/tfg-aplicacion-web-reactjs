@@ -1,4 +1,4 @@
-import './SubjectInfo.css'
+import './SubjectEventInfo.css'
 
 
 const SubjectInfo = ({event,backgroundColor, setEventClicked, setHoveredEvent}) => {
@@ -48,4 +48,4 @@ const SubjectInfo = ({event,backgroundColor, setEventClicked, setHoveredEvent}) 
     );
 };
 
-export default SubjectInfo;
+export default SubjectEventInfo;

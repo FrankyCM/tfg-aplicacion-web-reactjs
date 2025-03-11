@@ -1,7 +1,7 @@
 import './CalendarEvent.css'
 import CalendarEventPopUp from './CalendarEventPopUp';
-import SubjectInfo from './Subjectinfo';
-import { useState, useEffect } from 'react';
+import SubjectEventInfo from './SubjectEventinfo';
+import { useState } from 'react';
 
 export const CalendarEvent = ({event}) => {
     const [hoveredEvent, setHoveredEvent] = useState(null);
@@ -38,7 +38,7 @@ export const CalendarEvent = ({event}) => {
             {eventClicked && (
                 <div className="overlay">
                     <>
-                    <SubjectInfo event={eventClicked} backgroundColor={event.color} setEventClicked={setEventClicked} setHoveredEvent={setHoveredEvent}/>
+                    <SubjectEventInfo event={eventClicked} backgroundColor={event.color} setEventClicked={setEventClicked} setHoveredEvent={setHoveredEvent}/>
                     </>   
                  </div>
             )}
