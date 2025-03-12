@@ -1,0 +1,92 @@
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  
+  .cabeceraDocumento {
+    max-height: 80vh; /* Limita la altura del contenedor principal */
+    display: flex;
+    flex-direction: column; 
+    color: rgb(0, 0, 0);
+  }
+  
+  /* .cabeceraDocumento {
+    display: flex;
+    flex-direction: column; 
+    color: rgb(0, 0, 0);
+  }*/
+  
+  .cabeceraDocumento .textoGrado {
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    font-weight: 500; /* Hace que el texto sea más fino */
+    white-space: nowrap;
+    margin-top: 50px;
+  }
+  
+  .cabeceraDocumento .textoCursoMencion {
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    font-weight: bold; /* Pone el texto en negrita */
+    white-space: nowrap;
+  }
+  
+  .horario {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  
+  .horario .diasSemana h3 {
+    margin: 0;
+    padding: 7px 0; /* Espaciado superior e inferior */
+    font-weight: bold;
+  }
+  
+  
+  
+  .horario .horasYSecciones {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+  
+  
+  
+  
+  .horario .asignaturasHorario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaciado entre filas */
+    align-items: start; /* Alinea todos los elementos al inicio */
+    width: auto;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-bottom: 30px;
+  }
+  
+  .asignaturasHorario .asignaturaItem {
+    display: flex;
+    align-items: center; /* Asegura alineación vertical */
+    gap: 10px; /* Espaciado entre siglas y nombre */
+  }
+  
+  .asignaturasHorario .siglasAsignatura {
+    margin: 0;
+    font-size: medium;
+    font-weight: bold;
+    text-align: start;
+    min-width: 50px; /* Define un ancho mínimo para alinear las siglas */
+  }
+  
+  .asignaturasHorario .nombreCompletoAsignatura {
+    margin: 0;
+    font-size: medium;
+    text-align: start;
+  }
+  

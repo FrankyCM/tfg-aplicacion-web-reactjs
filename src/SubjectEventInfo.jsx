@@ -1,14 +1,27 @@
+import { Button } from 'semantic-ui-react';
 import './SubjectEventInfo.css'
+import { useState } from 'react';
+import ImageContainer from './ImageContainer';
 
 
-const SubjectInfo = ({event,backgroundColor, setEventClicked, setHoveredEvent}) => {
+const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEvent}) => {
+
+    const [classMapButtonClicked, setClassMapButtonClicked] = useState(false);
+    const [buttonText, setButtonText] = useState("Mostrar mapa de aulas");
 
     const handleCloseClick = () => {
         setTimeout(() => {
         setEventClicked(null);
         setHoveredEvent(null);
+        setClassMapButtonClicked(false);
+        setButtonText("Mostrar mapa de aulas");
     }, 0);
     }
+
+    const toggleClassMap = () => {
+        setClassMapButtonClicked((prev) => !prev);
+        setButtonText((prev) => (prev === "Mostrar mapa de aulas" ? "Ocultar mapa de aulas" : "Mostrar mapa de aulas"));
+    };
 
     return(
         <div className="cuadro-evento-asignatura" style = {{backgroundColor: backgroundColor}}>
@@ -38,6 +51,29 @@ const SubjectInfo = ({event,backgroundColor, setEventClicked, setHoveredEvent}) 
                                 <p>{event.aula}</p>
                             </div>
                         )}
+                </div>
+
+                <div className="cuadro-evento-mapa-aulas">
+                    <Button className="cuadro-evento-boton-mostrar-mapa-aulas" onClick={toggleClassMap}>
+                        {buttonText}
+                    </Button>
+
+                    {classMapButtonClicked === true && (
+                        !event.aula.startsWith("L") ? (
+                            <>
+                                <div className="cuadro-evento-imagen-mapa-aulas-planta-baja">
+                                    <ImageContainer bgColor={`white`} picturePath={`/mapa-clases-UVa.png`} size={`big`} isCircular={false}/>
+                                </div>
+                            </>
+                        ) : (   
+                            <>
+                                <div className="cuadro-evento-imagen-mapa-aulas-primera-planta">
+                                    <ImageContainer bgColor={`white`} picturePath={`/mapa-clases-UVa.png`} size={`medium`} isCircular={false}/>
+                                </div>
+                            </>
+                        )     
+                    )}
+                    
                 </div>
 
                 

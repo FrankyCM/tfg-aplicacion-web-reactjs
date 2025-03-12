@@ -8,7 +8,7 @@ export const IntroSection = () => {
         <>
             <div className = "contenido-seccion-introduccion">
                 <div className = "contenido-cabecera">
-                    <ImageContainer bgColor="#red" picturePath={`src/LogoRojoEscuela-288x300.png`} size={`tiny`} isCircular={false}/>
+                    <ImageContainer bgColor="#red" picturePath={`public/LogoRojoEscuela-288x300.png`} size={`tiny`} isCircular={false}/>
                     <p>Escuela de Ingeniería Informática</p>
                 </div>
                 <div className = "contenido-introduccion">

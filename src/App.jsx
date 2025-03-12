@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import './App.css'
+import './Common.css'
 import { CalendarEvent } from './CalendarEvent'
 import FiltersSection from './FiltersSection'
 import FiltersSectionCustom from './FiltersSectionCustom'
@@ -12,7 +13,7 @@ import { Views } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStyles.css'
 import { Login } from './Login'
-
+import { GenericVisualization } from './GenericVisualization'
 
 const asignaturasJSON = [
   {
@@ -241,6 +242,34 @@ const diasSemana = {
   "Viernes": 5
 };
 
+const gradeMap = {
+  "INF": "Grado en Ingeniería Informática",
+  "EST": "Grado en Estadística",
+  "I + E": "Grado en Indat",
+  "Master": "Master en Ingeniería Informática"
+};
+
+const semesterMap = {
+  "1ºC": "Primer Cuatrimestre",
+  "2ºC": "Segundo Cuatrimestre",
+  "1er Semestre": "Primer Semestre",
+  "2º Semestre": "Segundo Semestre"
+};
+
+const courseMap = {
+  "1º": "Primer Curso",
+  "2º": "Segundo Curso",
+  "3º": "Tercer Curso",
+  "4º": "Cuarto Curso",
+  "5º": "Quinto Curso"
+};
+
+const mentionMap = {
+  "IS": "Mención Ingeniería de Software",
+  "CO": "Mención Computación",
+  "TI": "Mención Tecnologías de la Información"
+};
+
 const localizer = momentLocalizer(moment);
 moment.locale('es');
 
@@ -251,17 +280,17 @@ function App() {
   const [selectedCourse, setSelectedCourse] = useState(""); // Curso/s seleccionado por el alumno para FiltersSection
   const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado por el alumno
   const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno para FiltersSection
+  const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas en FiltersSection
   
-  const [asigOptions, setAsigOptions] = useState([]);     // Listado de asignaturas creada en base a filtros
   
-  const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas en FiltersSection
-
+  
+  
   
   const [filteredEvents, setFilteredEvents] = useState([]); // Eventos filtrados 
-  const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas en FiltersSection
+  
 
-
-
+  const [asigOptions, setAsigOptions] = useState([]);     // Listado de asignaturas creada en base a filtros en FiltersSectionCustom
+  const [selectedAsigs, setSelectedAsigs] = useState([]); // Asignaturas seleccionadas en FiltersSectionCustom
   const [selectedCourses, setSelectedCourses] = useState([]); // Curso/s seleccionado por el alumno para FiltersSectionCustom
   const [selectedFirstGroup, setSelectedFirstGroup] = useState(null); // Grupo de asignaturas de primer curso
   const [selectedSecondGroup, setSelectedSecondGroup] = useState(null); // Grupo de asignaturas de segundo curso
@@ -408,33 +437,7 @@ function App() {
 
 
 
-  const gradeMap = {
-    "INF": "Grado en Ingeniería Informática",
-    "EST": "Grado en Estadística",
-    "I + E": "Grado en Indat",
-    "Master": "Master en Ingeniería Informática"
-  };
-
-  const semesterMap = {
-    "1ºC": "Primer Cuatrimestre",
-    "2ºC": "Segundo Cuatrimestre",
-    "1er Semestre": "Primer Semestre",
-    "2º Semestre": "Segundo Semestre"
-  };
-
-  const courseMap = {
-    "1º": "Primer Curso",
-    "2º": "Segundo Curso",
-    "3º": "Tercer Curso",
-    "4º": "Cuarto Curso",
-    "5º": "Quinto Curso"
-  };
-
-  const mentionMap = {
-    "IS": "Mención Ingeniería de Software",
-    "CO": "Mención Computación",
-    "TI": "Mención Tecnologías de la Información"
-  };
+  
 
   const getTextoGrado = () => {
     if (!selectedGrade || !selectedSemester) return "";
@@ -508,7 +511,14 @@ function App() {
                 views={{ week: true }}
                 defaultView={Views.WEEK}
                 toolbar={false}
-                style={{ height: 1000, width: "100%" }}
+                style={{ 
+                  height: 1000, // Se adapta mejor a la pantalla
+                  width: "100%",
+                  backgroundColor: "#f8f9fa", // Un gris claro para suavizar la interfaz
+                  borderRadius: "12px", // Bordes más redondeados
+                  padding: "10px", // Espaciado interno
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // Sombra ligera para destacar
+                }}
                 defaultDate={(() => {     // Por alguna razon esto es necesario porque si es 
                                           // domingo no se muestran los eventos en el calendario (?)
                   const today = new Date();
