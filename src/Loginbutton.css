@@ -1,10 +1,14 @@
 .ui.button.login-button {
-    color: rgba(0, 0, 0, .6) !important;
+    color: rgba(0, 0, 0, .65) !important;
+    background-color: #f0b2ad !important;
     transition: background-color 0.6s ease, color 0.6s ease;
+    border: 1px solid #eca29c !important;
     border-radius: 5px;
+    width: fit-content !important;
 }
 
 .ui.button.login-button:hover {
     color: rgba(0, 0, 0, .75) !important;
-    background-color: #f0b2ad !important;
+    background-color: #ec958f !important;
+    border: 1px solid #e57b74 !important;
 }

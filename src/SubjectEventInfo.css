@@ -57,13 +57,13 @@
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .cuadro-evento-informacion-grupo {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .cuadro-evento-informacion-aula {
@@ -87,7 +87,7 @@
     color: rgba(0, 0, 0, .65) !important;
     background-color: #f0b2ad !important;
     transition: background-color 0.6s ease, color 0.6s ease;
-    border: 1px solid #ed8d87 !important;
+    border: 1px solid #eca29c !important;
     border-radius: 5px;
     width: fit-content !important;
     margin-bottom: 20px;
@@ -96,12 +96,12 @@
 .ui.button.cuadro-evento-boton-mostrar-mapa-aulas:hover {
     color: rgba(0, 0, 0, .75) !important;
     background-color: #ec958f !important;
-    border: 1px solid #e55e55 !important;
+    border: 1px solid #e57b74 !important;
 }   
 
 
 .cuadro-evento-imagen-mapa-aulas-planta-baja, .cuadro-evento-imagen-mapa-aulas-primera-planta {
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 

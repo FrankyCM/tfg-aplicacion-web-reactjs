@@ -2,7 +2,7 @@ import React from 'react';
 import './IntroButton.css';
 import { useNavigate } from "react-router-dom";
 
-const IntroButton = ({text}) => {
+const IntroButton = ({text, link}) => {
   
   const navigate = useNavigate();
 

@@ -3,7 +3,7 @@ import './IntroSection.css'
 import './Common.css'
 import { TypeVisualIntroSection } from './TypeVisualIntroSection'
 
-export const IntroSection = () => {
+const IntroSection = () => {
     return(
         <>
             <div className = "contenido-seccion-introduccion">
@@ -19,8 +19,8 @@ export const IntroSection = () => {
                     </div>
                 </div>
                 <div className = "contenido-seccion-tipo-visualizacion">
-                    <TypeVisualIntroSection visualizationType={"Visualización de horario genérica"} visualizationTypeDescription={"Esta sección ofrece la visualización de horarios de manera genérica, compuesto por una selección de asignaturas adaptadas a los criterios del alumno y separados en los distintos cursos o menciones de cada grado."}></TypeVisualIntroSection>
-                    <TypeVisualIntroSection visualizationType={"Visualización de horario personalizada"} visualizationTypeDescription={"Esta sección ofrece la visualización de un horario personalizado, formado por una selección de asignaturas a elección del alumno, pudiendo crear horarios adaptados a sus necesidades."}></TypeVisualIntroSection>
+                    <TypeVisualIntroSection visualizationType={"Visualización de horario genérica"} visualizationTypeDescription={"Esta sección ofrece la visualización de horarios de manera genérica, compuesto por una selección de asignaturas adaptadas a los criterios del alumno y separados en los distintos cursos o menciones de cada grado."} link="/horarios-genericos"></TypeVisualIntroSection>
+                    <TypeVisualIntroSection visualizationType={"Visualización de horario personalizada"} visualizationTypeDescription={"Esta sección ofrece la visualización de un horario personalizado, formado por una selección de asignaturas a elección del alumno, pudiendo crear horarios adaptados a sus necesidades."} link="/horarios-personalizados"></TypeVisualIntroSection>
                 </div>
                 
 
@@ -29,3 +29,5 @@ export const IntroSection = () => {
         </>
     )
 }
+
+export default IntroSection;

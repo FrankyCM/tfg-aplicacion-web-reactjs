@@ -11,7 +11,7 @@ export const Login = () => {
         <div className="contenido-login">
             <div className="cuestionario-login">
                 <div className="contenido-imagen-login">
-                    <ImageContainer picturePath={`src/LogoRojoEscuela-288x300.png`} size={`tiny`} isCircular={true}/>
+                    <ImageContainer picturePath={`/LogoRojoEscuela-288x300.png`} size={`tiny`} isCircular={true}/>
                 </div>
                 <div className="info-organizacion-login">
                     <p>Escuela de Ingeniería Informática</p>
