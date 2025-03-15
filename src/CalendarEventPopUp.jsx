@@ -38,8 +38,12 @@ const handleMouseLeave = () => {
             )}
             {event.aula.startsWith("L") && (
                 <>
+                <div className="informacion-grupo">
+                    <p>Grupo de laboratorio:</p>
+                    <p>{event.grupo}</p>
+                </div>
                 <div className="informacion-aula">
-                    <p>Aula:</p>
+                    <p>Aula de laboratorio:</p>
                     <p>{event.aula}</p>
                 </div>
                 </>

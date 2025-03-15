@@ -69,7 +69,7 @@
 .cuadro-evento-informacion-aula {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .texto-grupo-aula {
@@ -90,7 +90,7 @@
     border: 1px solid #eca29c !important;
     border-radius: 5px;
     width: fit-content !important;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .ui.button.cuadro-evento-boton-mostrar-mapa-aulas:hover {
@@ -101,7 +101,7 @@
 
 
 .cuadro-evento-imagen-mapa-aulas-planta-baja, .cuadro-evento-imagen-mapa-aulas-primera-planta {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 

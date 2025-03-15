@@ -49,7 +49,7 @@ export const GenericVisualization = ({asignaturasJSON, diasSemana, gradeMap, sem
             start: inicio,
             end: fin,
             nombre: asignatura.Nombre,
-            siglas: asignatura.Siglas, // Extra info para el componente personalizado
+            siglas: asignatura.Siglas, 
             grado: asignatura.Grado,
             semestre: asignatura.Semestre,
             curso: asignatura.Curso,
@@ -67,26 +67,43 @@ export const GenericVisualization = ({asignaturasJSON, diasSemana, gradeMap, sem
 
     // useEffect para la parte de visualizacion de calendarios genericos
     useEffect(() => {
-    if (!selectedGrade || !selectedSemester || !selectedCourse) {
+    if (!selectedGrade || !selectedSemester) {
         setFilteredAsigs([]);
     } else {
         let asignaturasFiltradas;
-    
-        if (selectedCourse === "3º" || selectedCourse === "4º") {
+
+        if(selectedGrade === "INF"){
+          if (selectedCourse === "3º" || selectedCourse === "4º") {
             asignaturasFiltradas = events.filter(evento => 
             evento.grado === selectedGrade &&
             evento.semestre === selectedSemester &&
             evento.curso === selectedCourse &&
             evento.mencion === selectedMention
             );
-        } else {
+          } else {
             asignaturasFiltradas = events.filter(evento => 
             evento.grado === selectedGrade &&
             evento.semestre === selectedSemester &&
             evento.curso ===  selectedCourse &&
             (!selectedGroup || evento.grupo === selectedGroup)
             );
+          }
         }
+
+        if(selectedGrade === "EST" || selectedGrade === "I + E"){
+          asignaturasFiltradas = events.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse);
+        }
+        console.log(selectedGrade);
+        if(selectedGrade === "Master"){
+          asignaturasFiltradas = events.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === "1º");
+        }
+        
         console.log("Eventos filtrados:", asignaturasFiltradas);
         setFilteredAsigs(asignaturasFiltradas);
     }
@@ -98,22 +115,28 @@ export const GenericVisualization = ({asignaturasJSON, diasSemana, gradeMap, sem
     };
     
     const getTextoCursoMencion = () => {
-        if (!selectedCourse) return ""; // Si no hay curso seleccionado, devuelve vacío
-    
-        const selectedCourseText = courseMap[selectedCourse] || ""; // Obtener el texto del curso seleccionado
-        let mentionText = "";
-    
-        if (
+      let selectedCourseText = ""; 
+      let mentionText = "";
+  
+      if (selectedGrade === "Master" && selectedSemester) {
+          selectedCourseText = courseMap["1º"]; // Asignar el primer curso del máster directamente
+      } else if (selectedCourse) {
+          selectedCourseText = courseMap[selectedCourse] || ""; // Solo buscar si hay un curso seleccionado
+      } else {
+          return ""; // Si no es master y no hay curso, retornar vacío
+      }
+  
+      if (
           selectedMention &&
           ["3º", "4º"].includes(selectedCourse) &&
           selectedGrade === "INF"
-        ) {
+      ) {
           mentionText = mentionMap[selectedMention] || "";
-          
-        }
+      }
+  
+      return mentionText ? `${selectedCourseText}, ${mentionText}` : selectedCourseText;
+    };
     
-        return mentionText ? `${selectedCourseText}, ${mentionText}` : selectedCourseText;
-    };  
 
     
     return (

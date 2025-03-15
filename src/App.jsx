@@ -8,6 +8,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { Login } from './Login'
 import { GenericVisualization } from './GenericVisualization'
 import { CustomVisualization } from './CustomVisualization'
+import ScheduleCreation from './ScheduleCreation';
 
 const asignaturasJSON = [
   {
@@ -33,13 +34,13 @@ const asignaturasJSON = [
     "Grado": "INF",
     "Semestre": "1ºC",
     "Curso": "3º",
-    "Grupo": "T2",
+    "Grupo": "L1",
     "Mencion": "IS",
-    "Clase": "103",
+    "Clase": "L103",
     "Dia": "Martes",
     "Profesor": "Manuel Barrios",
     "HoraInicio": "10:00",
-    "Duracion": "1",
+    "Duracion": "2",
     "Color" : "#FFEFAE"
   },
   {
@@ -225,6 +226,51 @@ const asignaturasJSON = [
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "EST",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "I + E",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo de asignatura" : "41240",
+    "Nombre": "Fundamentos de Matemáticas",
+    "Siglas": "FMAT",
+    "Grado": "Master",
+    "Semestre": "1er Semestre",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "Clase": "07",
+    "Dia": "Jueves",
+    "Profesor": "Alfonso Población",
+    "HoraInicio": "13:00",
+    "Duracion": "2",
+    "Color": "#FFD4B4"
   }
 ]
 
@@ -247,7 +293,9 @@ const semesterMap = {
   "1ºC": "Primer Cuatrimestre",
   "2ºC": "Segundo Cuatrimestre",
   "1er Semestre": "Primer Semestre",
-  "2º Semestre": "Segundo Semestre"
+  "2º Semestre": "Segundo Semestre",
+  "3er Semestre": "Tercer Semestre",
+  "4º Semestre": "Cuarto Semestre"
 };
 
 const courseMap = {
@@ -275,6 +323,7 @@ function App() {
           <Route path='/admin' element={<Login />} />
           <Route path="/horarios-genericos" element={<GenericVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
           <Route path="/horarios-personalizados" element={<CustomVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
+          <Route path="/creacion-horarios" element={<ScheduleCreation/>} />
         </Routes>
       </Router>
     </>

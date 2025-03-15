@@ -2,9 +2,14 @@ import './Login.css'
 import ImageContainer from './ImageContainer'
 import LoginInput from './LoginInput'
 import LoginButton from './LoginButton'
-
+import { useState } from 'react'
 
 export const Login = () => {
+
+    const [failedAttempt, setFailedAttempt] = useState(false);
+    const [link, setLink] = useState("/creacion-horarios");
+    const [credential, setCredential] = useState("");
+
     return(
         <>
         <div className="img-fondo"></div>
@@ -23,8 +28,13 @@ export const Login = () => {
                     <div className="campo-introducir-credencial">
                         <p>Introduzca su credencial</p>
                     </div>
-                    <LoginInput icon={`key`} placeholder={`Credencial...`}></LoginInput>
-                    <LoginButton color={`#edbeba`} text={`Iniciar sesión`}></LoginButton>
+                    <LoginInput icon={`key`} placeholder={`Credencial...`} onChange={(e) => setCredential(e.target.value)}></LoginInput>
+                    {failedAttempt === true &&(
+                        <div className="info-inicio-de-sesion-erroneo">
+                            <p>Credenciales erroneas, pruebe de nuevo.</p>
+                        </div>      
+                    )}
+                    <LoginButton color={`#edbeba`} text={`Iniciar sesión`} link={link} setLink={setLink} setFailedAttempt={setFailedAttempt} credential={credential}></LoginButton>
                 </div>
             </div>
         </div>

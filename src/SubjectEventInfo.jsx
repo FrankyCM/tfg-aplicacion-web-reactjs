@@ -46,10 +46,16 @@ const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEve
                                 </div>
                             </>
                         ) : (
-                            <div className="cuadro-evento-informacion-aula">
-                                <p>Aula:</p>
-                                <p>{event.aula}</p>
-                            </div>
+                            <>
+                                <div className="cuadro-evento-informacion-grupo">
+                                    <p>Grupo de laboratorio:</p>
+                                    <p className="texto-grupo-aula">{event.grupo}</p>
+                                </div>
+                                <div className="cuadro-evento-informacion-aula">
+                                    <p>Aula de laboratorio:</p>
+                                    <p className="texto-grupo-aula">{event.aula}</p>
+                                </div>
+                            </>
                         )}
                 </div>
 
@@ -62,13 +68,13 @@ const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEve
                         !event.aula.startsWith("L") ? (
                             <>
                                 <div className="cuadro-evento-imagen-mapa-aulas-planta-baja">
-                                    <ImageContainer bgColor={`white`} picturePath={`/mapa-clases-UVa.png`} size={`big`} isCircular={false}/>
+                                    <ImageContainer bgColor={`white`} picturePath={`/mapa-clases-UVa-planta-baja.png`} size={`big`} isCircular={false}/>
                                 </div>
                             </>
                         ) : (   
                             <>
                                 <div className="cuadro-evento-imagen-mapa-aulas-primera-planta">
-                                    <ImageContainer bgColor={`white`} picturePath={`/mapa-clases-UVa.png`} size={`medium`} isCircular={false}/>
+                                    <ImageContainer bgColor={`white`} picturePath={`/mapa-clases-UVa-primera-planta.jpeg`} size={`big`} isCircular={false}/>
                                 </div>
                             </>
                         )     
