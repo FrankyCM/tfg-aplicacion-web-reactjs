@@ -71,23 +71,65 @@ export const CustomVisualization = ({asignaturasJSON, diasSemana, gradeMap, seme
     // useEffect para la creación de la lista de asignaturas que se muestra en el desplegable
     // de visualización personalizada de horarios
     useEffect(() => {
-        if (!selectedGrade && !selectedSemester && selectedCourses.length === 0 && !selectedFirstGroup && !selectedSecondGroup && !selectedThirdMention && !selectedFourthMention && !selectedFifthGroup) {
+        if (!selectedGrade && !selectedSemester) {
             setAsigOptions([]);
         } else {
-            // Filtrar eventos según los criterios actualizados
-            const eventosFiltrados = events.filter((evento) => 
-            evento.grado === selectedGrade &&
-            evento.semestre === selectedSemester &&
-            selectedCourses.includes(evento.curso) &&
-            (
-              (selectedCourses.includes("1º") && evento.grupo === selectedFirstGroup && evento.curso === "1º") ||
-              (selectedCourses.includes("2º") && evento.grupo === selectedSecondGroup && evento.curso === "2º") ||
-              (selectedCourses.includes("5º") && evento.grupo === selectedFifthGroup && evento.curso === "5º") ||
-              (["3º", "4º"].includes(evento.curso) &&
-                (selectedCourses.includes("3º") && evento.mencion === selectedThirdMention && evento.curso === "3º") ||
-                (selectedCourses.includes("4º") && evento.mencion === selectedFourthMention && evento.curso === "4º"))
-            )
-        );
+            let eventosFiltrados;
+            if(selectedGrade === "INF"){
+              // Filtrar eventos según los criterios actualizados
+               eventosFiltrados = events.filter((evento) => 
+                evento.grado === selectedGrade &&
+                evento.semestre === selectedSemester &&
+                selectedCourses.includes(evento.curso) &&
+                  (
+                    (selectedCourses.includes("1º") && evento.grupo === selectedFirstGroup && evento.curso === "1º") ||
+                    (selectedCourses.includes("2º") && evento.grupo === selectedSecondGroup && evento.curso === "2º") ||
+                    (["3º", "4º"].includes(evento.curso) &&
+                      (selectedCourses.includes("3º") && evento.mencion === selectedThirdMention && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && evento.mencion === selectedFourthMention && evento.curso === "4º"))
+                  )
+                );
+            }
+            
+            if(selectedGrade === "EST"){
+              // Filtrar eventos según los criterios actualizados
+                eventosFiltrados = events.filter((evento) => 
+                evento.grado === selectedGrade &&
+                evento.semestre === selectedSemester &&
+                selectedCourses.includes(evento.curso) &&
+                  (
+                    (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.curso === "1º") ||
+                    (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.curso === "2º") ||
+                    (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.curso === "3º") ||
+                    (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.curso === "4º")
+                  )
+                );
+            }
+
+            if(selectedGrade === "I + E"){
+                // Filtrar eventos según los criterios actualizados
+                eventosFiltrados = events.filter((evento) => 
+                evento.grado === selectedGrade &&
+                evento.semestre === selectedSemester &&
+                selectedCourses.includes(evento.curso) &&
+                  (
+                    (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.curso === "1º") ||
+                    (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.curso === "2º") ||
+                    (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.curso === "3º") ||
+                    (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.curso === "4º") ||
+                    (selectedCourses.includes("5º") && evento.grupo === "T1" && evento.curso === "5º")
+                  )
+                );
+            }
+
+            if(selectedGrade === "Master"){
+              // Filtrar eventos según los criterios actualizados
+              eventosFiltrados = events.filter((evento) => 
+                evento.grado === selectedGrade &&
+                evento.semestre === selectedSemester &&
+                evento.grupo === "T1" &&
+                evento.curso === "1º");
+            }
     
             // Crear la lista de opciones de asignaturas con el formato adecuado
             const asigOptions = eventosFiltrados.map(evento => {
@@ -108,7 +150,7 @@ export const CustomVisualization = ({asignaturasJSON, diasSemana, gradeMap, seme
             });
     
             setAsigOptions(asigOptions);
-        }
+          }
     }, [selectedGrade, selectedSemester, selectedCourses, selectedFirstGroup, selectedSecondGroup, selectedThirdMention, selectedFourthMention, selectedFifthGroup, events]);
     
       
@@ -122,7 +164,7 @@ export const CustomVisualization = ({asignaturasJSON, diasSemana, gradeMap, seme
                 const asigFormato1 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`;
                 const asigFormato2 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.mencion}`;
                 
-                return selectedAsigs.includes(asigFormato1) || selectedAsigs.includes(asigFormato2);
+                return (selectedAsigs.includes(asigFormato1) && selectedGrade === evento.grado) || (selectedAsigs.includes(asigFormato2) && selectedGrade === evento.grado);
             });
     
             setFilteredEvents(eventosFiltrados);
@@ -132,7 +174,7 @@ export const CustomVisualization = ({asignaturasJSON, diasSemana, gradeMap, seme
                 console.log(`${evento.siglas} - ${evento.nombre} - ${evento.grupo}`);
             });
         }
-    }, [selectedAsigs, events]);
+    }, [selectedAsigs, selectedGrade, events]);
 
 
     const getTextoGrado = () => {
@@ -141,31 +183,40 @@ export const CustomVisualization = ({asignaturasJSON, diasSemana, gradeMap, seme
     };
 
     const getTextoCursosMencion = () => {
-        if (selectedCourses.length === 0) return ""; // Si no hay cursos seleccionados, devuelve vacío
-    
-        const selectedCoursesText = selectedCourses.map(course => courseMap[course] || "").join(", "); // Obtener el texto de los cursos seleccionados
-        let mentionText = "";
-    
-        if (
+      let selectedCoursesText = ""; 
+      let mentionText = "";
+  
+      if (selectedGrade === "Master") {
+          console.log("Entra en máster");
+          selectedCoursesText = courseMap["1º"]; // Asigna el primer curso del máster directamente
+          console.log(selectedCoursesText);
+      } else if (selectedCourses.length > 0) {
+          selectedCoursesText = selectedCourses.map(course => courseMap[course] || "").join(", ");
+      } else {
+          return ""; // Si no es máster y no hay cursos seleccionados, retorna vacío
+      }
+  
+      if (
           (selectedThirdMention || selectedFourthMention) &&
           selectedCourses.some(course => ["3º", "4º"].includes(course)) &&
           selectedGrade === "INF"
-        ) {
+      ) {
           mentionText = mentionMap[(selectedThirdMention || selectedFourthMention)] || "";
-        }
-    
-        return mentionText && selectedCourses.length > 0 && 
-        selectedCourses.every(course => ["3º", "4º"].includes(course)) 
-        ? `${selectedCoursesText}, ${mentionText}` 
-        : selectedCoursesText;
+      }
+  
+      return mentionText && selectedCourses.length > 0 && 
+          selectedCourses.every(course => ["3º", "4º"].includes(course)) 
+          ? `${selectedCoursesText}, ${mentionText}` 
+          : selectedCoursesText;
     };
+  
 
 
 
     return (
         <>
           <div className="cabeceraDocumento">
-            <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions}/>
+            <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions} setFilteredEvents={setFilteredEvents}/>
             <h2 className="textoGrado">
               {getTextoGrado()}
             </h2>

@@ -96,7 +96,7 @@ export const GenericVisualization = ({asignaturasJSON, diasSemana, gradeMap, sem
             evento.semestre === selectedSemester &&
             evento.curso === selectedCourse);
         }
-        console.log(selectedGrade);
+
         if(selectedGrade === "Master"){
           asignaturasFiltradas = events.filter(evento => 
             evento.grado === selectedGrade &&

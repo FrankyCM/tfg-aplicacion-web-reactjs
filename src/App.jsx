@@ -237,7 +237,7 @@ const asignaturasJSON = [
     "Grupo": "T1",
     "Clase": "07",
     "Dia": "Jueves",
-    "Profesor": "Alfonso Población",
+    "Profesor": "Profesor EST",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -252,7 +252,7 @@ const asignaturasJSON = [
     "Grupo": "T1",
     "Clase": "07",
     "Dia": "Jueves",
-    "Profesor": "Alfonso Población",
+    "Profesor": "Profesor I + E",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
@@ -267,7 +267,7 @@ const asignaturasJSON = [
     "Grupo": "T1",
     "Clase": "07",
     "Dia": "Jueves",
-    "Profesor": "Alfonso Población",
+    "Profesor": "profesor master",
     "HoraInicio": "13:00",
     "Duracion": "2",
     "Color": "#FFD4B4"
