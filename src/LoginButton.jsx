@@ -1,10 +1,9 @@
-import React from "react";
 import { Button } from "semantic-ui-react";
 import "./LoginButton.css";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthProvider";
 
-const LoginButton = ({ color, text, link, setLink, setFailedAttempt, credential }) => {
-    const navigate = useNavigate();
+const LoginButton = ({ color, text, credential, setFailedAttempt }) => {
+    const { login } = useAuth();
 
     const hashCredential = async (input) => {
         const encoder = new TextEncoder();
@@ -13,21 +12,19 @@ const LoginButton = ({ color, text, link, setLink, setFailedAttempt, credential 
         return Array.from(new Uint8Array(hashBuffer))
             .map(byte => byte.toString(16).padStart(2, "0"))
             .join("")
-            .toUpperCase(); // Para que coincida con el formato en JSON
+            .toUpperCase();
     };
 
     const handleClick = async () => {
         try {
-            const response = await fetch("/credenciales.json"); 
+            const response = await fetch("/credenciales.json");
             const data = await response.json();
             const hashedInput = await hashCredential(credential);
-            console.log(hashedInput);
+
             if (hashedInput === data.admin.credenciales) {
-                navigate(link);
+                login();
             } else {
-                setLink("/admin");
                 setFailedAttempt(true);
-                navigate("/admin");
             }
         } catch (error) {
             console.error("Error al validar credenciales:", error);
@@ -39,12 +36,7 @@ const LoginButton = ({ color, text, link, setLink, setFailedAttempt, credential 
         <Button
             className="login-button"
             fluid
-            style={{
-                width: "130%",
-                fontFamily: "Arial, Helvetica, sans-serif",
-                backgroundColor: color,
-                borderColor: color,
-            }}
+            style={{ backgroundColor: color, borderColor: color }}
             onClick={handleClick}
         >
             {text}

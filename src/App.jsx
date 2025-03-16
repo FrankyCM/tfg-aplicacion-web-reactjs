@@ -1,6 +1,4 @@
-
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import IntroSection from './IntroSection';
 import './App.css'
 import './Common.css'
@@ -9,6 +7,9 @@ import { Login } from './Login'
 import { GenericVisualization } from './GenericVisualization'
 import { CustomVisualization } from './CustomVisualization'
 import ScheduleCreation from './ScheduleCreation';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./AuthProvider";
+import PrivateRoute from "./PrivateRoute";
 
 const asignaturasJSON = [
   {
@@ -318,14 +319,22 @@ function App() {
   return (
     <>
       <Router>
-        <Routes>
-          <Route path="/" element={<IntroSection />} />
-          <Route path='/admin' element={<Login />} />
-          <Route path="/horarios-genericos" element={<GenericVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
-          <Route path="/horarios-personalizados" element={<CustomVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
-          <Route path="/creacion-horarios" element={<ScheduleCreation/>} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<IntroSection />} />
+            <Route path='/admin' element={<Login />} />
+            <Route path="/horarios-genericos" element={<GenericVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
+            <Route path="/horarios-personalizados" element={<CustomVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
+            <Route path="/creacion-horarios" element={
+                        <PrivateRoute>
+                            <ScheduleCreation />
+                        </PrivateRoute>
+                    } />
+          </Routes>
+        </AuthProvider>
       </Router>
+    
+      
     </>
   );
 }

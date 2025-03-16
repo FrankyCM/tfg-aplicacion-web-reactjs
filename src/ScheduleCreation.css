@@ -1,0 +1,4 @@
+.creacion-horarios {
+    display: flex;
+    flex-direction: column;
+}

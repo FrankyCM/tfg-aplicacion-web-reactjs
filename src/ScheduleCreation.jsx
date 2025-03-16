@@ -1,4 +1,5 @@
-import './Common.css'
+import './Common.css';
+import './ScheduleCreation.css';
 
 const ScheduleCreation = () => {
     return(
