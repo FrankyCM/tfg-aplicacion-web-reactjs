@@ -1,0 +1,97 @@
+.contenido-tab-modificar-horario {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.contenido-tab-modificar-horario p{
+    padding: 0;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.contenido-tab-modificar-horario-seccion-grado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  /* Centra verticalmente */
+    gap: 15px;
+    padding: 15px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;  
+    text-align: center;  /* Si hay texto dentro, lo centra */
+    margin-bottom: 20px;
+}
+
+.contenido-tab-modificar-horario-seccion-grado-botones {
+    display: flex;
+    flex-direction: row;
+}
+
+.contenido-tab-modificar-horario-seccion-semestre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  /* Centra verticalmente */
+    gap: 15px;
+    padding: 15px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;  
+    text-align: center;  /* Si hay texto dentro, lo centra */
+    margin-bottom: 20px;
+}
+
+.contenido-tab-modificar-horario-seccion-semestre-botones {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.contenido-tab-modificar-horario-seccion-curso {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  /* Centra verticalmente */
+    gap: 15px;
+    padding: 15px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;  
+    text-align: center;  /* Si hay texto dentro, lo centra */
+    margin-bottom: 20px;
+}
+
+.contenido-tab-modificar-horario-seccion-curso-botones {
+    display: flex;
+    flex-direction: row;
+}
+
+.contenido-tab-modificar-horario-seccion-grupo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  /* Centra verticalmente */
+    gap: 15px;
+    padding: 15px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;  
+    text-align: center;  /* Si hay texto dentro, lo centra */
+    margin-bottom: 20px;
+}
+
+.contenido-tab-modificar-horario-seccion-grupo-botones {
+    display: flex;
+    flex-direction: row;
+}

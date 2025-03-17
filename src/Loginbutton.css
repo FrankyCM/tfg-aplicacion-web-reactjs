@@ -5,6 +5,7 @@
     border: 1px solid #eca29c !important;
     border-radius: 5px;
     width: fit-content !important;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .ui.button.login-button:hover {

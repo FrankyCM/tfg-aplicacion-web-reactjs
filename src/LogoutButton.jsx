@@ -1,6 +1,6 @@
 // LogoutButton.jsx
 import { Button } from "semantic-ui-react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./AuthProvider";
 import "./LogoutButton.css";
 
 const LogoutButton = ({ color, text }) => {
