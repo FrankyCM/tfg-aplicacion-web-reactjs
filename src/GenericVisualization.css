@@ -13,11 +13,6 @@
     color: rgb(0, 0, 0);
   }
   
-  /* .cabeceraDocumento {
-    display: flex;
-    flex-direction: column; 
-    color: rgb(0, 0, 0);
-  }*/
   
   .cabeceraDocumento .textoGrado {
     justify-content: center; /* Centra los elementos horizontalmente */

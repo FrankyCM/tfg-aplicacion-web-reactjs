@@ -327,7 +327,7 @@ function App() {
             <Route path="/horarios-personalizados" element={<CustomVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
             <Route path="/creacion-horarios" element={
                         <PrivateRoute>
-                            <ScheduleCreation />
+                            <ScheduleCreation asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap}/>
                         </PrivateRoute>
                     } />
           </Routes>

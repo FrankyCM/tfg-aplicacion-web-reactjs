@@ -7,9 +7,14 @@ input::placeholder {
 }
 
 .ui.input {
-    width: 130% !important;
+    width: 250px !important; /* Ajusta este valor según el diseño deseado */
+    max-width: 250px !important;
+    min-width: 250px !important;
     margin-bottom: 25px;
     align-items: center;
     border-radius: 20px !important;
 }
 
+.ui.fluid.icon.input {
+    width: 250px !important;
+}

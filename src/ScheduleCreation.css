@@ -11,7 +11,7 @@ html, body, #root {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh; /* Ocupa toda la pantalla */
+    min-height: 100vh; /* Permite crecer más allá de la pantalla */
 }
 
 .creacion-horarios-cerrar-sesion {
@@ -24,15 +24,14 @@ html, body, #root {
 
 .creacion-horarios-menu-y-horario {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 80px;
 }
+
 
 .creacion-horarios-menu {
     display: flex;
     flex-direction: column;
-    justify-content: center;  /* Centra horizontalmente */
-    align-items: center;  /* Centra verticalmente */
     gap: 15px;
     padding: 20px;
     background: #f7f5dd;
@@ -40,6 +39,71 @@ html, body, #root {
     border: 0.5px solid rgb(220, 220, 220);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
     text-align: center;  /* Si hay texto dentro, lo centra */
-    margin-top: 80px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.creacion-horarios-horario {
+    margin-top: 40px;
+}
+
+.creacion-horarios-horario-cabeceraDocumento {
+    max-height: 80vh; /* Limita la altura del contenedor principal */
+    display: flex;
+    flex-direction: column; 
+    color: rgb(0, 0, 0);
+}
+
+.creacion-horarios-horario-textoGrado {
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    font-weight: 500; /* Hace que el texto sea más fino */
+    white-space: nowrap;
+    margin-top: 50px;
+} 
+
+.creacion-horarios-horario-textoCursoMencion {
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    font-weight: bold; /* Pone el texto en negrita */
+    white-space: nowrap;
+}
+
+.creacion-horarios-horario-horario {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.creacion-horarios-horario-asignaturasHorario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaciado entre filas */
+    align-items: start; /* Alinea todos los elementos al inicio */
+    width: auto;
+    margin-top: 50px;
+    margin-left: 50px;
+    padding-bottom: 40px;
+
+}
+
+
+.creacion-horarios-horario-asignaturasHorario .asignaturaItem {
+    display: flex;
+    align-items: center; /* Asegura alineación vertical */
+    gap: 10px; /* Espaciado entre siglas y nombre */
+}
+  
+.creacion-horarios-horario-asignaturasHorario .siglasAsignatura {
+    margin: 0;
+    font-size: medium;
+    font-weight: bold;
+    text-align: start;
+    min-width: 50px; /* Define un ancho mínimo para alinear las siglas */
+}
+  
+.creacion-horarios-horario-asignaturasHorario .nombreCompletoAsignatura {
+    margin: 0;
+    font-size: medium;
+    text-align: start;
 }

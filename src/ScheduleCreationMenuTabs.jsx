@@ -13,11 +13,11 @@ const Tabs = ({ panes }) => {
   );
 };
 
-const ScheduleCreationMenuTabs = () => {
+const ScheduleCreationMenuTabs = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention}) => {
   const panes = [
     {
       menuItem: { key: 'calendar outline', icon: 'calendar outline', content: 'Gestión de horarios  ' },
-      children: <ScheduleCreationMenuCalendarTab />,
+      children: <ScheduleCreationMenuCalendarTab selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention}/>,
     },
     {
       menuItem: { key: 'add circle', icon: 'add circle', content: 'Crear asignaturas'  },

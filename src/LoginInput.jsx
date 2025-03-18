@@ -1,7 +1,14 @@
-import React from 'react'
-import { Input } from 'semantic-ui-react'
-import './LoginInput.css'
+import React from 'react';
+import { Input } from 'semantic-ui-react';
+import './LoginInput.css';
 
-const LoginInput = ({icon, placeholder}) => <Input icon={icon} placeholder={placeholder} fluid/>
+const LoginInput = ({ icon, placeholder, onChange }) => (
+    <Input 
+        icon={icon} 
+        placeholder={placeholder} 
+        fluid 
+        onChange={onChange} // Aquí pasamos el evento correctamente
+    />
+);
 
-export default LoginInput
+export default LoginInput;

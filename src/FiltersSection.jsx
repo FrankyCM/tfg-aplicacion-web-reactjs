@@ -162,32 +162,24 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
             }}
             isSelected={selectedCourseButton === "1º"}
             />
-            
-            {selectedGradeButton !== "Master" && (
-              <>
-                <FiltersButton key={"2º"} content={"2º"} onClick={() => {
-                  handleCourseSelect("2º");
-                  handleCourseSelectButton("2º");
-                }}
-                isSelected={selectedCourseButton === "2º"}
-                />
-                <FiltersButton key={"3º"} content={"3º"} onClick={() => {
-                    handleCourseSelect("3º");
-                    handleCourseSelectButton("3º");
-                  }}
-                  isSelected={selectedCourseButton === "3º"}
-                  />
-                <FiltersButton key={"4º"} content={"4º"} onClick={() => {
-                    handleCourseSelect("4º");
-                    handleCourseSelectButton("4º");
-                  }}
-                  isSelected={selectedCourseButton === "4º"}
-                  />
-              </>
-              )
-
-
-            }
+            <FiltersButton key={"2º"} content={"2º"} onClick={() => {
+              handleCourseSelect("2º");
+              handleCourseSelectButton("2º");
+            }}
+            isSelected={selectedCourseButton === "2º"}
+            />
+            <FiltersButton key={"3º"} content={"3º"} onClick={() => {
+              handleCourseSelect("3º");
+              handleCourseSelectButton("3º");
+            }}
+            isSelected={selectedCourseButton === "3º"}
+            />
+            <FiltersButton key={"4º"} content={"4º"} onClick={() => {
+              handleCourseSelect("4º");
+              handleCourseSelectButton("4º");
+            }}
+            isSelected={selectedCourseButton === "4º"}
+            />
             
             {selectedGradeButton === "I + E" && (
               <>
@@ -198,8 +190,8 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
                 isSelected={selectedCourseButton === "5º"}
                 />
               </>
-            )
-            }
+            )}
+            
             
           </div>
         )}
@@ -209,7 +201,7 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
             <div className="group-section">
               <>
                 <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1"); handleGroupSelectButton("T1")}} isSelected={selectedGroupButton === "T1"}/>
-                {(selectedCourseButton === "1º" || selectedCourseButton === "2º")  && selectedGradeButton === "INF" && (
+                {(selectedCourseButton === "1º" || selectedCourseButton === "2º") && (
                   <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2"); handleGroupSelectButton("T2")}} isSelected={selectedGroupButton === "T2"}/>
                 )}
                 {selectedCourseButton === "1º" && (
