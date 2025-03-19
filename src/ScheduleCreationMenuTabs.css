@@ -1,0 +1,22 @@
+.custom-tabs-menu.menu {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #ddd;
+    background: #fdf9d5 !important;
+  }
+  
+
+  
+  .custom-tabs-menu.menu .item:hover {
+    background: #f6f6f6 !important; /* Color de fondo al pasar el mouse */
+  }
+  
+  .custom-tabs-menu.menu .active.item {
+    background: #fdf9d5 !important; /* Color de fondo para la pestaña activa */
+  }
+
+  .ui.bottom.attached.segment.active.tab {
+    margin-bottom: 15px;
+    
+  }
+  

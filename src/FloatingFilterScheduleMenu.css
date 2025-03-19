@@ -1,0 +1,57 @@
+.floating-filter-menu {
+    position: absolute;
+    width: 400px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Estilos de Draggable cuando está estático y cuando se mueve */
+.floating-filter-menu.react-draggable,
+.floating-filter-menu.react-draggable.react-draggable-dragged {
+    position: absolute;
+    width: 400px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Cabecera arrastrable */
+.filter-menu-header {
+    cursor: grab;
+    display: flex;
+    justify-content: flex-end !important; /* Alinea la X completamente a la derecha */
+    padding-top: 5px;
+    padding-bottom: 10px;
+    background: #f7f5dd;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+/* Contenedor interno de la cabecera para que la X quede bien */
+.filter-menu-header-content {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end !important;
+}
+
+/* Botón de cierre (X) */
+.filter-menu-close {
+    background: none;
+    border: none;
+    color: rgb(50, 50, 50);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.filter-menu-close:hover {
+    color: #ff4d4d;
+}

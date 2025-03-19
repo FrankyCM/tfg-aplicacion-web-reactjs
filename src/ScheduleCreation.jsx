@@ -11,6 +11,8 @@ import { Views } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStyles.css';
 import { CalendarEvent } from './CalendarEvent';
+import FloatingFilterScheduleMenu from './FloatingFilterScheduleMenu';
+
 
 const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     const [events, setEvents] = useState([]);
@@ -143,9 +145,13 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
                     <LogoutButton color={`#edbeba`} text={`Cerrar sesión`}/>
                 </div>
                 <div className="creacion-horarios-menu-y-horario">
-                <div className="creacion-horarios-menu">
-                        <ScheduleCreationMenuTabs selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention}/>
-                    </div>
+                <FloatingFilterScheduleMenu
+            selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade}
+            selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester}
+            selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse}
+            selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}
+            selectedMention={selectedMention} setSelectedMention={setSelectedMention}
+            />
                     <div className="creacion-horarios-horario">
                         <div className="creacion-horarios-horario-cabeceraDocumento">
                             <h2 className="creacion-horarios-horario-textoGrado">
