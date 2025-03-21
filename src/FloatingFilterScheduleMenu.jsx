@@ -11,7 +11,8 @@ const FloatingFilterScheduleMenu = ({
   selectedSemester, setSelectedSemester,
   selectedCourse, setSelectedCourse,
   selectedGroup, setSelectedGroup,
-  selectedMention, setSelectedMention
+  selectedMention, setSelectedMention,
+  warningMessage
 }) => {
   const [isVisible, setIsVisible] = useState(true);
   const nodeRef = useRef(null); // Necesario para evitar warnings en React 18
@@ -42,6 +43,7 @@ const FloatingFilterScheduleMenu = ({
             selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse}
             selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}
             selectedMention={selectedMention} setSelectedMention={setSelectedMention}
+            warningMessage={warningMessage}
           />
         </div>
       </Draggable>

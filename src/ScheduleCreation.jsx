@@ -24,7 +24,7 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
     const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado
     const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas
-
+    const [warningMessage, setWarningMessage] = useState(null); // Mensaje de aviso en situaciones de incompatibilidad
     const localizer = momentLocalizer(moment);
     moment.locale('es');
     const DnDCalendar = withDragAndDrop(Calendar);
@@ -50,6 +50,7 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
               const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
           
               return {
+                id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
                 title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
                 start: inicio,
                 end: fin,
@@ -142,12 +143,79 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
     };
 
     const onEventDrop = ({ event, start, end }) => {
-        setEvents((prevEvents) =>
-          prevEvents.map((e) =>
-            e.id === event.id ? { ...e, start, end } : e
-          )
-        );
-      };
+        const compatible = compruebaCompatibilidadEventos({ event, start, end });
+        
+        if (compatible) {
+            setEvents((prevEvents) =>
+                prevEvents.map((e) =>
+                    e.id === event.id ? { ...e, start, end } : e
+                )
+            );
+        }
+    };
+      
+    const compruebaCompatibilidadEventos = ({ event, start, end }) => {
+        let conflictMessage = "";
+        let eventosFiltrados = [];
+
+        if (selectedGrade === "INF") {
+            if (selectedCourse === "3º" || selectedCourse === "4º") {
+                eventosFiltrados = events.filter(e =>
+                    e.grado === selectedGrade &&
+                    e.semestre === selectedSemester &&
+                    e.curso === selectedCourse &&
+                    e.mencion === selectedMention
+                );
+            } else {
+                eventosFiltrados = events.filter(e =>
+                    e.grado === selectedGrade &&
+                    e.semestre === selectedSemester &&
+                    e.curso === selectedCourse &&
+                    (!selectedGroup || e.grupo === selectedGroup)
+                );
+            }
+        } else if (selectedGrade === "EST" || selectedGrade === "I + E") {
+            eventosFiltrados = events.filter(e =>
+                e.grado === selectedGrade &&
+                e.semestre === selectedSemester &&
+                e.curso === selectedCourse
+            );
+        } else if (selectedGrade === "Master") {
+            eventosFiltrados = events.filter(e =>
+                e.grado === selectedGrade &&
+                e.semestre === selectedSemester &&
+                e.curso === "1º"
+            );
+        }
+
+        const hasConflict = eventosFiltrados.some((e) => {
+            const isSameTime = e.start < end && e.end > start; // Verifica superposición de tiempo
+            
+            if (isSameTime) {
+                console.log("e.profesor: " + e.profesor + " y event.profesor: " + event.profesor)
+                console.log("e.aula: " + e.aula + " y event.aula: " + event.aula)
+                if(e.profesor === event.profesor && e.aula === event.aula){
+                    conflictMessage = `Incompatibilidad horaria, eventos distintos no pueden tener al profesor ${event.profesor} impartiendo al mismo tiempo y usando el mismo aula.`
+                    return true;
+                }
+                if (e.profesor === event.profesor) {
+                    conflictMessage = `Incompatibilidad horaria, eventos distintos no pueden tener al profesor ${event.profesor} impartiendo al mismo tiempo.`;
+                    return true;
+                }
+                if (e.aula === event.aula) {
+                    conflictMessage = `Incompatibilidad horaria, eventos distintos no pueden emplear el aula ${event.aula} al mismo tiempo.`;
+                    return true;
+                }
+            }
+            return false;
+        });
+        
+        if (hasConflict) {
+            setWarningMessage(conflictMessage);
+            return false;
+        }
+        return true;
+    };
 
     return(
         <>
@@ -162,6 +230,7 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
                     selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse}
                     selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}
                     selectedMention={selectedMention} setSelectedMention={setSelectedMention}
+                    warningMessage={warningMessage}
                     />
                     <div className="creacion-horarios-horario">
                         <div className="creacion-horarios-horario-cabeceraDocumento">

@@ -14,11 +14,11 @@ const Tabs = ({ panes }) => {
     );
   };
 
-const ScheduleCreationMenuTabs = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention}) => {
+const ScheduleCreationMenuTabs = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention, warningMessage}) => {
   const panes = [
     {
       menuItem: { key: 'calendar outline', icon: 'calendar outline', content: 'Gestión de horarios  ' },
-      children: <ScheduleCreationMenuCalendarTab selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention}/>,
+      children: <ScheduleCreationMenuCalendarTab selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} warningMessage={warningMessage}/>,
     },
     {
       menuItem: { key: 'add circle', icon: 'add circle', content: 'Crear asignaturas'  },

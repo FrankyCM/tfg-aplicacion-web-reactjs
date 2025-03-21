@@ -1,8 +1,9 @@
 import './ScheduleCreationMenuCalendarTab.css';
 import FiltersButton from './FiltersButton';
 import { useState, useEffect } from 'react';
+import ScheduleCreationMenuWarningsField from './ScheduleCreationMenuWarningsField';
 
-const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention}) => {
+const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention, warningMessage}) => {
 
 
     const [selectedGradeButton, setSelectedGradeButton] = useState(null);
@@ -160,47 +161,79 @@ const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selec
                         />
                         {selectedGradeButton === "I + E" && (
                             <FiltersButton key={"5º"} content={"5º"} onClick={() => {
-                                handleCourseSelect("5º");
-                                handleCourseSelectButton("5º");
-                                }}
-                                isSelected={selectedCourseButton === "5º"}
+                            handleCourseSelect("5º");
+                            handleCourseSelectButton("5º");
+                            }}
+                            isSelected={selectedCourseButton === "5º"}
                             />
                         )}
                         
                     </div>
                 </div>
             )}
-            
+
+            {(selectedGradeButton === "EST" || selectedGradeButton === "I + E") && selectedSemesterButton && selectedCourseButton && warningMessage !== null && (
+                <div>
+                    <ScheduleCreationMenuWarningsField text={warningMessage}/> 
+                </div> 
+            )}
+
+            {selectedGradeButton === "Master" && selectedSemesterButton && warningMessage !== null && (
+                <div>
+                    <ScheduleCreationMenuWarningsField text={`Hola`}/> 
+                </div> 
+            )}
 
             {selectedGradeButton === "INF" && selectedSemesterButton && selectedCourseButton && (
-            (selectedCourseButton !== "3º" && selectedCourseButton !== "4º") && (
-                <div className="contenido-tab-modificar-horario-seccion-grupo">
-                    <p>Grupos</p>  
-                    <div className="contenido-tab-modificar-horario-seccion-grupo-botones">
-                        <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1"); handleGroupSelectButton("T1")}} isSelected={selectedGroupButton === "T1"} />
-                        {(selectedCourseButton === "1º" || selectedCourseButton === "2º") && (
-                            <>
-                                <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2"); handleGroupSelectButton("T2")}} isSelected={selectedGroupButton === "T2"} />
-                            </>
-                        )}
-                        {selectedCourseButton === "1º" && (
-                            <FiltersButton key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3"); handleGroupSelectButton("T3")}} isSelected={selectedGroupButton === "T3"} />
-                        )}
-                        
-                    </div>      
-                </div>
+            (selectedCourseButton !== "3º" && selectedCourseButton !== "4º") && warningMessage !== null &&  (
+                <>
+                    <div className="contenido-tab-modificar-horario-seccion-grupo">
+                        <p>Grupos</p>  
+                        <div className="contenido-tab-modificar-horario-seccion-grupo-botones">
+                            <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1"); handleGroupSelectButton("T1")}} isSelected={selectedGroupButton === "T1"} />
+                            {(selectedCourseButton === "1º" || selectedCourseButton === "2º") && (
+                                <>
+                                    <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2"); handleGroupSelectButton("T2")}} isSelected={selectedGroupButton === "T2"} />
+                                </>
+                            )}
+                            {selectedCourseButton === "1º" && (
+                                <FiltersButton key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3"); handleGroupSelectButton("T3")}} isSelected={selectedGroupButton === "T3"} />
+                            )}
+                            
+                        </div>      
+                    </div>
+                    
+                    
+                    
+                       <ScheduleCreationMenuWarningsField text={warningMessage}/> 
+                    
+                </>
+                
+                
             ))}
             
-            {selectedGradeButton === "INF" && selectedSemesterButton && selectedCourseButton && (selectedCourseButton === "3º" || selectedCourseButton === "4º") && (
-                <div className="contenido-tab-modificar-horario-seccion-mencion">
-                    <p>Menciones</p>
-                    <div className="contenido-tab-modificar-horario-seccion-mencion-botones">
-                        <FiltersButton key={"IS"} content={"IS"} onClick={() => {handleMentionSelect("IS"); handleMentionSelectButton("IS")}} isSelected={selectedMentionButton === "IS"} />
-                        <FiltersButton key={"CO"} content={"CO"} onClick={() => {handleMentionSelect("CO"); handleMentionSelectButton("CO")}} isSelected={selectedMentionButton === "CO"} />
-                        <FiltersButton key={"TI"} content={"TI"} onClick={() => {handleMentionSelect("TI"); handleMentionSelectButton("TI")}} isSelected={selectedMentionButton === "TI"} />
+            {selectedGradeButton === "INF" && selectedSemesterButton && selectedCourseButton && 
+            (selectedCourseButton === "3º" || selectedCourseButton === "4º") && warningMessage !== null && (
+                <>
+                    <div className="contenido-tab-modificar-horario-seccion-mencion">
+                        <p>Menciones</p>
+                        <div className="contenido-tab-modificar-horario-seccion-mencion-botones">
+                            <FiltersButton key={"IS"} content={"IS"} onClick={() => {handleMentionSelect("IS"); handleMentionSelectButton("IS")}} isSelected={selectedMentionButton === "IS"} />
+                            <FiltersButton key={"CO"} content={"CO"} onClick={() => {handleMentionSelect("CO"); handleMentionSelectButton("CO")}} isSelected={selectedMentionButton === "CO"} />
+                            <FiltersButton key={"TI"} content={"TI"} onClick={() => {handleMentionSelect("TI"); handleMentionSelectButton("TI")}} isSelected={selectedMentionButton === "TI"} />
+                        </div>
                     </div>
-                </div>
+                    {selectedMentionButton && (
+                        <div>
+                            <ScheduleCreationMenuWarningsField text={warningMessage}/> 
+                        </div>
+                    )}
+                    
+                </>
+                
             )}
+
+            
             
 
         </div>
