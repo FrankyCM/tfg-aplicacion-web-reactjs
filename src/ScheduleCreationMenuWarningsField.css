@@ -1,0 +1,9 @@
+.ui.form textarea, 
+.ui.form textarea:focus,
+.ui.form textarea:not(:focus) {
+    color: black !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 16px !important;
+    background: rgb(246, 246, 246) !important; /* Asegura que no haya fondo gris */
+    border-color: 0.5px solid rgb(130, 130, 130) !important;
+}

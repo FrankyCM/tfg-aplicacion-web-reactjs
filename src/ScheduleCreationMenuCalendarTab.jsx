@@ -185,7 +185,7 @@ const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selec
             )}
 
             {selectedGradeButton === "INF" && selectedSemesterButton && selectedCourseButton && (
-            (selectedCourseButton !== "3º" && selectedCourseButton !== "4º") && warningMessage !== null &&  (
+            (selectedCourseButton !== "3º" && selectedCourseButton !== "4º") &&  (
                 <>
                     <div className="contenido-tab-modificar-horario-seccion-grupo">
                         <p>Grupos</p>  
@@ -201,19 +201,17 @@ const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selec
                             )}
                             
                         </div>      
-                    </div>
-                    
-                    
-                    
-                       <ScheduleCreationMenuWarningsField text={warningMessage}/> 
-                    
+                    </div> 
+                    {warningMessage !== null && (
+                        <div>
+                            <ScheduleCreationMenuWarningsField text={warningMessage}/> 
+                        </div>
+                    )}  
                 </>
-                
-                
             ))}
             
             {selectedGradeButton === "INF" && selectedSemesterButton && selectedCourseButton && 
-            (selectedCourseButton === "3º" || selectedCourseButton === "4º") && warningMessage !== null && (
+            (selectedCourseButton === "3º" || selectedCourseButton === "4º")  && (
                 <>
                     <div className="contenido-tab-modificar-horario-seccion-mencion">
                         <p>Menciones</p>
@@ -223,7 +221,7 @@ const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selec
                             <FiltersButton key={"TI"} content={"TI"} onClick={() => {handleMentionSelect("TI"); handleMentionSelectButton("TI")}} isSelected={selectedMentionButton === "TI"} />
                         </div>
                     </div>
-                    {selectedMentionButton && (
+                    {selectedMentionButton && warningMessage !== null && (
                         <div>
                             <ScheduleCreationMenuWarningsField text={warningMessage}/> 
                         </div>

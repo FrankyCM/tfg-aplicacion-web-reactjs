@@ -323,11 +323,11 @@ function App() {
           <Routes>
             <Route path="/" element={<IntroSection />} />
             <Route path='/admin' element={<Login />} />
-            <Route path="/horarios-genericos" element={<GenericVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
-            <Route path="/horarios-personalizados" element={<CustomVisualization asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
+            <Route path="/horarios-genericos" element={<GenericVisualization diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
+            <Route path="/horarios-personalizados" element={<CustomVisualization diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
             <Route path="/creacion-horarios" element={
                         <PrivateRoute>
-                            <ScheduleCreation asignaturasJSON={asignaturasJSON} diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap}/>
+                            <ScheduleCreation diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap}/>
                         </PrivateRoute>
                     } />
           </Routes>

@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import ScheduleCreationMenuTabs from './ScheduleCreationMenuTabs';
 import { X } from 'lucide-react'; // Icono de cierre
 import './FloatingFilterScheduleMenu.css';
-import { useRef } from "react";
+import IconButton from './IconButton';
 
 const FloatingFilterScheduleMenu = ({
   selectedGrade, setSelectedGrade,
@@ -12,10 +12,9 @@ const FloatingFilterScheduleMenu = ({
   selectedCourse, setSelectedCourse,
   selectedGroup, setSelectedGroup,
   selectedMention, setSelectedMention,
-  warningMessage
+  warningMessage, setSave
 }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const nodeRef = useRef(null); // Necesario para evitar warnings en React 18
 
   const handleClose = () => {
     setIsVisible(false);
@@ -34,6 +33,9 @@ const FloatingFilterScheduleMenu = ({
                 <X size={20} />
               </button>
             </div>
+          </div>
+          <div>
+            <IconButton name={`save outline`} setSave={setSave}/>
           </div>
 
           {/* Contenido del menú */}

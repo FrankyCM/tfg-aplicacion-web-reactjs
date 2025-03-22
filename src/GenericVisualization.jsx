@@ -10,7 +10,7 @@ import { Views } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStyles.css';
 
-export const GenericVisualization = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
+export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     const [events, setEvents] = useState([]);
     const [selectedGrade, setSelectedGrade] = useState(""); // Grado seleccionado por el alumno
     const [selectedSemester, setSelectedSemester] = useState(""); // Semestre o cuatrimestre seleccionado por el alumno
@@ -19,50 +19,65 @@ export const GenericVisualization = ({asignaturasJSON, diasSemana, gradeMap, sem
     const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno para FiltersSection
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas en FiltersSection 
 
-
+    const [asignaturas, setAsignaturas] = useState([]);
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
 
     useEffect(() => {
-        const eventos = asignaturasJSON.map((asignatura) => {
-          const diaSemana = diasSemana[asignatura.Dia];
-          if (diaSemana === undefined) return null;
-      
-          const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
-      
-          // Obtener el lunes de la semana actual
-          const hoy = moment();
-          const lunesSemanaActual = hoy.clone().startOf('isoWeek'); // Lunes de la semana actual
-      
-          // Calcular la fecha del día de la asignatura dentro de esta semana
-          const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
-            hour: hora,
-            minute: minutos,
-            second: 0
-          }).toDate();
-      
-          const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
-      
-          return {
-            title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
-            start: inicio,
-            end: fin,
-            nombre: asignatura.Nombre,
-            siglas: asignatura.Siglas, 
-            grado: asignatura.Grado,
-            semestre: asignatura.Semestre,
-            curso: asignatura.Curso,
-            grupo: asignatura.Grupo,
-            mencion: asignatura.Mencion,
-            aula: asignatura.Clase,
-            profesor: asignatura.Profesor,
-            color: asignatura.Color
-          };
-        }).filter(Boolean);
-      
-        setEvents(eventos);
-      }, []);
+      const cargarAsignaturas = async () => {
+        try {
+          const response = await fetch("/asignaturas.json");
+          const data = await response.json();
+  
+          setAsignaturas(data); // Guardar asignaturas en el estado
+  
+          const eventos = data.map((asignatura) => {
+            const diaSemana = diasSemana[asignatura.Dia];
+            if (diaSemana === undefined) return null;
+  
+            const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
+  
+            // Obtener el lunes de la semana actual
+            const hoy = moment();
+            const lunesSemanaActual = hoy.clone().startOf("isoWeek");
+  
+            // Calcular la fecha del día de la asignatura dentro de esta semana
+            const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+              hour: hora,
+              minute: minutos,
+              second: 0,
+            }).toDate();
+  
+            const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+  
+            return {
+              id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+              title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
+              start: inicio,
+              end: fin,
+              nombre: asignatura.Nombre,
+              siglas: asignatura.Siglas,
+              grado: asignatura.Grado,
+              semestre: asignatura.Semestre,
+              curso: asignatura.Curso,
+              grupo: asignatura.Grupo,
+              mencion: asignatura.Mencion,
+              aula: asignatura.Clase,
+              profesor: asignatura.Profesor,
+              color: asignatura.Color,
+              dia: asignatura.Dia
+            };
+          }).filter(Boolean);
+  
+          setEvents(eventos);
+        } catch (error) {
+          console.error("Error cargando los datos del JSON:", error);
+        }
+      };
+  
+      cargarAsignaturas();
+    }, []);
 
 
     // useEffect para la parte de visualizacion de calendarios genericos
@@ -232,7 +247,7 @@ export const GenericVisualization = ({asignaturasJSON, diasSemana, gradeMap, sem
           <div className="asignaturasHorario">
             {filteredAsigs.length > 0 ? (
               [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
-                const asignatura = asignaturasJSON.find(asig => asig.Siglas === sigla);
+                const asignatura = asignaturas.find(asig => asig.Siglas === sigla);
                 return (
                   <div key={sigla} className="asignaturaItem">
                     <p className="siglasAsignatura">{sigla}:</p>

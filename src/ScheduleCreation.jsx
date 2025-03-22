@@ -16,7 +16,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
+const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     const [events, setEvents] = useState([]);
     const [selectedGrade, setSelectedGrade] = useState(""); // Grado seleccionado
     const [selectedSemester, setSelectedSemester] = useState(""); // Semestre o cuatrimestre seleccionado 
@@ -25,50 +25,71 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
     const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas
     const [warningMessage, setWarningMessage] = useState(null); // Mensaje de aviso en situaciones de incompatibilidad
+    const [save, setSave] = useState(false)     // Si se decide guardar el horario modificado
+    
+    
     const localizer = momentLocalizer(moment);
     moment.locale('es');
+
+    const [asignaturas, setAsignaturas] = useState([]);
+
     const DnDCalendar = withDragAndDrop(Calendar);
 
     useEffect(() => {
-        const eventos = asignaturasJSON.map((asignatura) => {
-            const diaSemana = diasSemana[asignatura.Dia];
-            if (diaSemana === undefined) return null;
+              const cargarAsignaturas = async () => {
+                try {
+                  const response = await fetch("/asignaturas.json");
+                  const data = await response.json();
           
-              const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
+                  setAsignaturas(data); // Guardar asignaturas en el estado
           
-              // Obtener el lunes de la semana actual
-              const hoy = moment();
-              const lunesSemanaActual = hoy.clone().startOf('isoWeek'); // Lunes de la semana actual
+                  const eventos = data.map((asignatura) => {
+                    const diaSemana = diasSemana[asignatura.Dia];
+                    if (diaSemana === undefined) return null;
           
-              // Calcular la fecha del día de la asignatura dentro de esta semana
-              const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
-                hour: hora,
-                minute: minutos,
-                second: 0
-              }).toDate();
+                    const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
           
-              const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+                    // Obtener el lunes de la semana actual
+                    const hoy = moment();
+                    const lunesSemanaActual = hoy.clone().startOf("isoWeek");
           
-              return {
-                id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
-                title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
-                start: inicio,
-                end: fin,
-                nombre: asignatura.Nombre,
-                siglas: asignatura.Siglas, 
-                grado: asignatura.Grado,
-                semestre: asignatura.Semestre,
-                curso: asignatura.Curso,
-                grupo: asignatura.Grupo,
-                mencion: asignatura.Mencion,
-                aula: asignatura.Clase,
-                profesor: asignatura.Profesor,
-                color: asignatura.Color
+                    // Calcular la fecha del día de la asignatura dentro de esta semana
+                    const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+                      hour: hora,
+                      minute: minutos,
+                      second: 0,
+                    }).toDate();
+          
+                    const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+          
+                    return {
+                      id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+                      title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
+                      start: inicio,
+                      end: fin,
+                      nombre: asignatura.Nombre,
+                      siglas: asignatura.Siglas,
+                      grado: asignatura.Grado,
+                      semestre: asignatura.Semestre,
+                      curso: asignatura.Curso,
+                      grupo: asignatura.Grupo,
+                      mencion: asignatura.Mencion,
+                      aula: asignatura.Clase,
+                      profesor: asignatura.Profesor,
+                      color: asignatura.Color,
+                      dia: asignatura.Dia
+                    };
+                  }).filter(Boolean);
+          
+                  setEvents(eventos);
+                } catch (error) {
+                  console.error("Error cargando los datos del JSON:", error);
+                }
               };
-            }).filter(Boolean);
           
-            setEvents(eventos);
+              cargarAsignaturas();
     }, []);
+    
 
     // useEffect para la parte de visualizacion de calendarios genericos
     useEffect(() => {
@@ -114,6 +135,47 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
         }
     }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]);
 
+    useEffect(() => {
+        if (save == false) return;
+      
+        const actualizarAsignaturasJSON = async () => {
+          try {
+            // Obtener eventos actualizados del estado
+            const eventosActualizados = events.map(evento => ({
+              Dia: evento.dia, // Día ya guardado en el estado de eventos
+              HoraInicio: moment(evento.start).format("HH:mm"),
+              Duracion: moment(evento.end).diff(moment(evento.start), "hours"),
+              Siglas: evento.siglas,
+              Nombre: evento.nombre,
+              Grado: evento.grado,
+              Semestre: evento.semestre,
+              Curso: evento.curso,
+              Grupo: evento.grupo,
+              Mencion: evento.mencion,
+              Clase: evento.aula,
+              Profesor: evento.profesor,
+              Color: evento.color
+            }));
+      
+            // Escribir el JSON actualizado en el archivo
+            const response = await fetch("http://localhost:5000/asignaturas", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(eventosActualizados, null, 2)
+            });
+      
+            if (!response.ok) throw new Error("Error al actualizar asignaturas.json");
+      
+            console.log("Asignaturas actualizadas con éxito.");
+          } catch (error) {
+            console.error("Error al actualizar los eventos en JSON:", error);
+          }
+        };
+      
+        actualizarAsignaturasJSON();
+    }, [save]);
+      
+
     const getTextoGrado = () => {
         if (!selectedGrade || !selectedSemester) return "";
         return `${gradeMap[selectedGrade]}, ${semesterMap[selectedSemester]}, Curso 2024/25`;
@@ -144,13 +206,25 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
 
     const onEventDrop = ({ event, start, end }) => {
         const compatible = compruebaCompatibilidadEventos({ event, start, end });
-        
         if (compatible) {
+            // Obtener el nuevo día de la semana basado en 'start'
+            const nuevoDiaSemana = moment(start).isoWeekday(); // 1 (Lunes) - 7 (Domingo)
+            const nuevoDia = Object.keys(diasSemana).find(key => diasSemana[key] === nuevoDiaSemana);
+    
+            console.log("🛠 Evento desplazado:");
+            console.log("🔹 Siglas:", event.siglas);
+            console.log("📅 Nuevo Día:", nuevoDia);
+            console.log("🕒 Nueva Hora de Inicio:", moment(start).format("YYYY-MM-DD HH:mm"));
+            console.log("⏳ Nueva Hora de Fin:", moment(end).format("YYYY-MM-DD HH:mm"));
+    
+            // Actualizar el evento con 'start', 'end' y el nuevo día
             setEvents((prevEvents) =>
                 prevEvents.map((e) =>
-                    e.id === event.id ? { ...e, start, end } : e
+                    e.id === event.id ? { ...e, start, end, dia: nuevoDia } : e
                 )
             );
+
+            setSave(false);
         }
     };
       
@@ -194,18 +268,22 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
             if (isSameTime) {
                 console.log("e.profesor: " + e.profesor + " y event.profesor: " + event.profesor)
                 console.log("e.aula: " + e.aula + " y event.aula: " + event.aula)
-                if(e.profesor === event.profesor && e.aula === event.aula){
+                if(e.id !== event.id && e.profesor === event.profesor && e.aula === event.aula){
                     conflictMessage = `Incompatibilidad horaria, eventos distintos no pueden tener al profesor ${event.profesor} impartiendo al mismo tiempo y usando el mismo aula.`
+                    console.log(conflictMessage + "primer if");
                     return true;
                 }
-                if (e.profesor === event.profesor) {
+                if (e.id !== event.id && e.profesor === event.profesor) {
                     conflictMessage = `Incompatibilidad horaria, eventos distintos no pueden tener al profesor ${event.profesor} impartiendo al mismo tiempo.`;
+                    console.log(conflictMessage + "segundo if");
                     return true;
                 }
-                if (e.aula === event.aula) {
+                if (e.id !== event.id && e.aula === event.aula) {
                     conflictMessage = `Incompatibilidad horaria, eventos distintos no pueden emplear el aula ${event.aula} al mismo tiempo.`;
+                    console.log(conflictMessage + "tercer if");
                     return true;
                 }
+                
             }
             return false;
         });
@@ -214,6 +292,7 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
             setWarningMessage(conflictMessage);
             return false;
         }
+        console.log("hay comp")
         return true;
     };
 
@@ -230,7 +309,7 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
                     selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse}
                     selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}
                     selectedMention={selectedMention} setSelectedMention={setSelectedMention}
-                    warningMessage={warningMessage}
+                    warningMessage={warningMessage} setSave={setSave}
                     />
                     <div className="creacion-horarios-horario">
                         <div className="creacion-horarios-horario-cabeceraDocumento">
@@ -325,7 +404,7 @@ const ScheduleCreation = ({asignaturasJSON, diasSemana, gradeMap, semesterMap, c
                                 <div className="creacion-horarios-horario-asignaturasHorario">
                                     {filteredAsigs.length > 0 ? (
                                     [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
-                                        const asignatura = asignaturasJSON.find(asig => asig.Siglas === sigla);
+                                        const asignatura = asignaturas.find(asig => asig.Siglas === sigla);
                                             return (
                                                 <div key={sigla} className="asignaturaItem">
                                                     <p className="siglasAsignatura">{sigla}:</p>

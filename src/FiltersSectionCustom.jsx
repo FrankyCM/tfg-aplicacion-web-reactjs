@@ -7,33 +7,6 @@ import './FiltersSectionCustom.css';
 
 
 
-const classOptions = [
-  { key: '01', value: '01', text: '01' },
-  { key: '02', value: '02', text: '02' },
-  { key: '03', value: '03', text: '03' },
-  { key: '04', value: '04', text: '04' },
-  { key: '05', value: '05', text: '05' },
-  { key: '06', value: '06', text: '06' },
-  { key: '07', value: '07', text: '07' },
-  { key: 'L101', value: 'L101', text: 'L101' },
-  { key: 'L102', value: 'L102', text: 'L102' },
-  { key: 'L103', value: 'L103', text: 'L103' },
-  { key: 'L104', value: 'L104', text: 'L104' }
-];
-
-const asigOptionssss = [
-  { key: 'ADA', value: 'Análisis y Diseño de Algoritmos', text: 'ADA - Análisis y Diseño de Algoritmos' },
-  { key: 'ADBD', value: 'Análisis y Diseño de Bases de Datos', text: 'ADBD - Análisis y Diseño de Bases de Datos' },
-  { key: 'ICON', value: 'Ingeniería del conocimiento', text: 'ICON - Ingeniería del conocimiento' },
-  { key: 'MOD', value: 'Modelado de Software', text: 'MOD - Modelado de Software' },
-  { key: 'SRS', value: 'Seguridad de Redes y Sistemas', text: 'SRS - Seguridad de Redes y Sistemas'},
-  { key: 'AMAT', value: 'Ampliación de Matemáticas', text: 'AMAT - Ampliación de Matemáticas'},
-  { key: 'FMAT', value: 'Fundamentos de Matemáticas', text: 'FMAT - Fundamentos de Matemáticas'}
-];
-
-
-
-
 const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourses, setSelectedCourses, selectedFirstGroup, setSelectedFirstGroup, selectedSecondGroup, setSelectedSecondGroup, selectedThirdMention, setSelectedThirdMention, selectedFourthMention, setSelectedFourthMention, selectedFifthGroup, setSelectedFifthGroup, selectedAsigs, setSelectedAsigs, asigOptions, setFilteredEvents}) => {
   
   const [selectedAsigValue, setSelectedAsigValue] = useState("");

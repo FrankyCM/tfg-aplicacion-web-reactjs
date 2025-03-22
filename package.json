@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "lucide-react": "^0.483.0",
     "moment": "^2.30.1",
     "proyecto-tfg": "file:",
@@ -34,5 +36,14 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "vite": "^6.0.5"
-  }
+  },
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.inf.uva.es/fracura/tfg-aplicacion-web-reactjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
