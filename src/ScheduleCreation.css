@@ -54,6 +54,7 @@ html, body, #root {
 }
 
 .creacion-horarios-horario-textoGrado {
+    display: flex;
     justify-content: center; /* Centra los elementos horizontalmente */
     align-items: center; /* Centra los elementos verticalmente */
     font-weight: 500; /* Hace que el texto sea más fino */
@@ -62,6 +63,7 @@ html, body, #root {
 } 
 
 .creacion-horarios-horario-textoCursoMencion {
+    display: flex;
     justify-content: center; /* Centra los elementos horizontalmente */
     align-items: center; /* Centra los elementos verticalmente */
     font-weight: bold; /* Pone el texto en negrita */
@@ -75,6 +77,12 @@ html, body, #root {
     margin-top: 20px;
 }
 
+.creacion-horarios-horario-calendarioContainer {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
 .creacion-horarios-horario-asignaturasHorario {
     display: flex;
     flex-direction: column;
@@ -84,26 +92,27 @@ html, body, #root {
     margin-top: 50px;
     margin-left: 50px;
     padding-bottom: 40px;
-
 }
 
 
-.creacion-horarios-horario-asignaturasHorario .asignaturaItem {
+.creacion-horarios-horario-asignaturasHorario .creacion-horarios-asignaturaItem {
     display: flex;
     align-items: center; /* Asegura alineación vertical */
     gap: 10px; /* Espaciado entre siglas y nombre */
 }
   
-.creacion-horarios-horario-asignaturasHorario .siglasAsignatura {
+.creacion-horarios-horario-asignaturasHorario .creacion-horarios-siglasAsignatura {
     margin: 0;
     font-size: medium;
     font-weight: bold;
     text-align: start;
     min-width: 50px; /* Define un ancho mínimo para alinear las siglas */
+    font-size: 20px;
 }
   
-.creacion-horarios-horario-asignaturasHorario .nombreCompletoAsignatura {
+.creacion-horarios-horario-asignaturasHorario .creacion-horarios-nombreCompletoAsignatura {
     margin: 0;
     font-size: medium;
     text-align: start;
+    font-size: 20px;
 }

@@ -43,6 +43,9 @@
     justify-content: flex-end !important;
 }
 
+.filter-menu-save-export-actions-content{
+    margin: 5px;
+}
 /* Botón de cierre (X) */
 .filter-menu-close {
     background: none;

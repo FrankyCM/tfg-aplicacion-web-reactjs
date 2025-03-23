@@ -1,12 +1,7 @@
 import React from 'react'
 import { Button, Icon } from 'semantic-ui-react'
 import './IconButton.css'
-const IconButton = ({name, setSave}) => {
-
-    const handleClick = () =>{
-        setSave(true);
-    }
-
+const IconButton = ({name, handleClick}) => {
     return(
         <Button icon onClick={handleClick}>
             <Icon name={name} size='big'/>

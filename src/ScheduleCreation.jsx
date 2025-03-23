@@ -15,6 +15,7 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import html2pdf from "html2pdf.js";
 
 const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     const [events, setEvents] = useState([]);
@@ -26,12 +27,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas
     const [warningMessage, setWarningMessage] = useState(null); // Mensaje de aviso en situaciones de incompatibilidad
     const [save, setSave] = useState(false)     // Si se decide guardar el horario modificado
-    
+    const [exportPDF, setExportPDF] = useState(false)   // Si se decide exportar a PDF
     
     const localizer = momentLocalizer(moment);
     moment.locale('es');
 
     const [asignaturas, setAsignaturas] = useState([]);
+
 
     const DnDCalendar = withDragAndDrop(Calendar);
 
@@ -90,6 +92,60 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               cargarAsignaturas();
     }, []);
     
+    useEffect(() => {
+        if (!exportPDF) return; // Evita ejecutar si exportPDF es false
+
+        const contenido = document.getElementById("creacion-horarios-horario-cabeceraDocumento");
+
+        if (!contenido) {
+            console.error("No se encontró el elemento con ID 'creacion-horarios-horario-cabeceraDocumento'");
+            return;
+        }
+
+        // 🔹 Obtener valores mapeados
+        const curso = courseMap[selectedCourse] || selectedCourse;
+        const semestre = semesterMap[selectedSemester] || selectedSemester;
+        
+        // 🔹 Generar año académico en formato "2024/25"
+        const añoActual = new Date().getFullYear() - 1;
+        const añoSiguiente = (añoActual + 1) % 100; // Solo los dos últimos dígitos
+        const anho = `${añoActual}/${añoSiguiente}`;
+
+        let extraInfo = "";
+
+        if (selectedGrade === "INF") {
+            if (selectedCourse === "1º" || selectedCourse === "2º") {
+                extraInfo = selectedGroup ? `${selectedGroup}` : "";
+            } else if (selectedCourse === "3º" || selectedCourse === "4º") {
+                extraInfo = selectedMention ? `${selectedMention}` : "";
+            }
+        }
+
+        const filename = `Horario_${selectedGrade}_${curso}_${semestre}_${extraInfo}_${anho}.pdf`;
+
+        const parametrosPDF = {
+            margin: 10,  // Aumenta el margen si deseas más espacio alrededor
+            filename: filename,
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { 
+                scale: 4, 
+                scrollY: 0, 
+                windowWidth: document.documentElement.scrollWidth, 
+                windowHeight: document.documentElement.scrollHeight 
+            },
+            jsPDF: { 
+                unit: "mm", 
+                format: "a4",  // Cambia el formato a A3
+                orientation: "landscape" 
+            },
+        };
+        
+
+        html2pdf().set(parametrosPDF).from(contenido).save().then(() => {
+            setExportPDF(false); // Resetea el estado después de exportar
+        });
+
+    }, [exportPDF]);
 
     // useEffect para la parte de visualizacion de calendarios genericos
     useEffect(() => {
@@ -136,7 +192,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]);
 
     useEffect(() => {
-        if (save == false) return;
+        if (save === false) return;
       
         const actualizarAsignaturasJSON = async () => {
           try {
@@ -173,12 +229,19 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         };
       
         actualizarAsignaturasJSON();
+        setSave(false);
     }, [save]);
       
 
     const getTextoGrado = () => {
         if (!selectedGrade || !selectedSemester) return "";
-        return `${gradeMap[selectedGrade]}, ${semesterMap[selectedSemester]}, Curso 2024/25`;
+
+        // 🔹 Generar año académico en formato "2024/25"
+        const añoActual = new Date().getFullYear() - 1;
+        const añoSiguiente = (añoActual + 1) % 100; // Solo los dos últimos dígitos
+        const anho = `${añoActual}/${añoSiguiente}`;
+
+        return `${gradeMap[selectedGrade]}, ${semesterMap[selectedSemester]}, Curso ${anho}`;
     };
     
     const getTextoCursoMencion = () => {
@@ -223,8 +286,6 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     e.id === event.id ? { ...e, start, end, dia: nuevoDia } : e
                 )
             );
-
-            setSave(false);
         }
     };
       
@@ -309,10 +370,10 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse}
                     selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}
                     selectedMention={selectedMention} setSelectedMention={setSelectedMention}
-                    warningMessage={warningMessage} setSave={setSave}
+                    warningMessage={warningMessage} setSave={setSave} setExportPDF={setExportPDF}
                     />
-                    <div className="creacion-horarios-horario">
-                        <div className="creacion-horarios-horario-cabeceraDocumento">
+                    <div className="creacion-horarios-horario" id="creacion-horarios-horario">
+                        <div className="creacion-horarios-horario-cabeceraDocumento" id="creacion-horarios-horario-cabeceraDocumento">
                             <h2 className="creacion-horarios-horario-textoGrado">
                             {getTextoGrado()}
                             </h2>
@@ -320,7 +381,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                             {getTextoCursoMencion()}
                             </h2>
                             <div className="creacion-horarios-horario-horario">                        
-                                <div className="calendarioContainer" style={{ flexGrow: 1 }}>
+                                <div className="creacion-horarios-horario-calendarioContainer" style={{ flexGrow: 1 }}>
                                     <DndProvider backend={HTML5Backend}>
                                         <DnDCalendar
                                             localizer={localizer}
@@ -331,12 +392,12 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                                             defaultView={Views.WEEK}
                                             toolbar={false}
                                             style={{ 
-                                            height: 1000, // Se adapta mejor a la pantalla
-                                            width: "100%",
-                                            backgroundColor: "#f8f9fa", // Un gris claro para suavizar la interfaz
-                                            borderRadius: "12px", // Bordes más redondeados
-                                            padding: "10px", // Espaciado interno
-                                            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // Sombra ligera para destacar
+                                                height: exportPDF ? "1000px" : "1000px",  // Si se exporta, reducimos altura
+                                                width: "100%", 
+                                                backgroundColor: "#f8f9fa", // Un gris claro para suavizar la interfaz
+                                                borderRadius: "12px", // Bordes más redondeados
+                                                padding: "10px", // Espaciado interno
+                                                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // Sombra ligera para destacar
                                             }}
                                             defaultDate={(() => {     // Por alguna razon esto es necesario porque si es 
                                                                     // domingo no se muestran los eventos en el calendario (?)
@@ -401,14 +462,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                                 </div>
 
 
-                                <div className="creacion-horarios-horario-asignaturasHorario">
+                                <div className="creacion-horarios-horario-asignaturasHorario" id="creacion-horarios-horario-asignaturasHorario">
                                     {filteredAsigs.length > 0 ? (
                                     [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
                                         const asignatura = asignaturas.find(asig => asig.Siglas === sigla);
                                             return (
-                                                <div key={sigla} className="asignaturaItem">
-                                                    <p className="siglasAsignatura">{sigla}:</p>
-                                                    <p className="nombreCompletoAsignatura">{asignatura?.Nombre || sigla}</p>
+                                                <div key={sigla} className="creacion-horarios-asignaturaItem">
+                                                    <p className="creacion-horarios-siglasAsignatura">{sigla}:</p>
+                                                    <p className="creacion-horarios-nombreCompletoAsignatura">{asignatura?.Nombre || sigla}</p>
                                                 </div>
                                             );
                                     })

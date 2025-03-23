@@ -12,13 +12,21 @@ const FloatingFilterScheduleMenu = ({
   selectedCourse, setSelectedCourse,
   selectedGroup, setSelectedGroup,
   selectedMention, setSelectedMention,
-  warningMessage, setSave
+  warningMessage, setSave, setExportPDF
 }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleClose = () => {
     setIsVisible(false);
   };
+
+  const handleSave = () => {
+    setSave(true);
+  }
+
+  const handleExportPDF = () => {
+    setExportPDF(true);
+  }
 
   if (!isVisible) return null;
 
@@ -34,8 +42,9 @@ const FloatingFilterScheduleMenu = ({
               </button>
             </div>
           </div>
-          <div>
-            <IconButton name={`save outline`} setSave={setSave}/>
+          <div className="filter-menu-save-export-actions-content">
+            <IconButton name={`save outline`} handleClick={handleSave}/>
+            <IconButton name={`file pdf outline`} handleClick={handleExportPDF}/>
           </div>
 
           {/* Contenido del menú */}
