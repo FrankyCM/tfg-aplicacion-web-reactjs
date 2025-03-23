@@ -93,7 +93,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     }, []);
     
     useEffect(() => {
-        if (!exportPDF) return; // Evita ejecutar si exportPDF es false
+        if (!exportPDF || !filteredAsigs || !asignaturas) return; // Evita ejecutar si exportPDF es false
 
         const contenido = document.getElementById("creacion-horarios-horario-cabeceraDocumento");
 
@@ -145,7 +145,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             setExportPDF(false); // Resetea el estado después de exportar
         });
 
-    }, [exportPDF]);
+    }, [exportPDF, filteredAsigs, asignaturas]);
 
     // useEffect para la parte de visualizacion de calendarios genericos
     useEffect(() => {
@@ -462,7 +462,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                                 </div>
 
 
-                                <div className="creacion-horarios-horario-asignaturasHorario" id="creacion-horarios-horario-asignaturasHorario">
+                                <div className="creacion-horarios-horario-asignaturasHorario">
                                     {filteredAsigs.length > 0 ? (
                                     [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
                                         const asignatura = asignaturas.find(asig => asig.Siglas === sigla);

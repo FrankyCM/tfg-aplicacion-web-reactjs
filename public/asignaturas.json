@@ -15,6 +15,36 @@
     "Color": "#AFC3C4"
   },
   {
+    "Dia": "Miercoles",
+    "HoraInicio": "11:00",
+    "Duracion": 1,
+    "Siglas": "DIS",
+    "Nombre": "Diseño de Software",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "Mencion": "IS",
+    "Clase": "02",
+    "Profesor": "Yania Crespo",
+    "Color": "#FFC3C4"
+  },
+  {
+    "Dia": "Miercoles",
+    "HoraInicio": "12:00",
+    "Duracion": 1,
+    "Siglas": "TDS",
+    "Nombre": "Tecnologías para el Desarrollo de Sofware",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "Mencion": "IS",
+    "Clase": "02",
+    "Profesor": "Profesor de TDS",
+    "Color": "#EFC3C4"
+  },
+  {
     "Dia": "Martes",
     "HoraInicio": "10:00",
     "Duracion": 2,
@@ -28,6 +58,21 @@
     "Clase": "L103",
     "Profesor": "Manuel Barrios",
     "Color": "#FFEFAE"
+  },
+  {
+    "Dia": "Miercoles",
+    "HoraInicio": "13:00",
+    "Duracion": 1,
+    "Siglas": "ATG",
+    "Nombre": "Asignatura de tercero generica",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "Mencion": "IS",
+    "Clase": "02",
+    "Profesor": "César Gonzalez",
+    "Color": "#AFC3C4"
   },
   {
     "Dia": "Lunes",
