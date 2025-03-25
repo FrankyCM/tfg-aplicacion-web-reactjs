@@ -10,7 +10,7 @@ const IncludeLabsCheckbox = ({text, includeLabs, setIncludeLabs}) =>{
 
     return (
         <div className = "contenido-checkbox-labs">
-            <Checkbox slider onClick={handleClick}/>
+            <Checkbox slider onClick={handleClick} checked={includeLabs}/>
             <p>{text}</p>
         </div>
         

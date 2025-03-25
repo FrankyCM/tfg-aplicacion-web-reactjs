@@ -90,12 +90,27 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
         console.log(includeLabs);
         if(selectedGrade === "INF"){
           if (selectedCourse === "3º" || selectedCourse === "4º") {
-            asignaturasFiltradas = events.filter(evento => 
-            evento.grado === selectedGrade &&
-            evento.semestre === selectedSemester &&
-            evento.curso === selectedCourse &&
-            evento.mencion === selectedMention
-            );
+            if(includeLabs){
+              asignaturasFiltradas = events.filter(evento => 
+                evento.grado === selectedGrade &&
+                evento.semestre === selectedSemester &&
+                evento.curso === selectedCourse &&
+                evento.mencion === selectedMention &&
+                (evento.grupo.startsWith("L") ||
+                evento.grupo.startsWith("W") ||
+                evento.grupo.startsWith("T"))
+                );
+            } else {
+              asignaturasFiltradas = events.filter(evento => 
+                evento.grado === selectedGrade &&
+                evento.semestre === selectedSemester &&
+                evento.curso === selectedCourse &&
+                evento.mencion === selectedMention &&
+                evento.grupo.startsWith("T")
+                );
+            } 
+            
+            
           } else {
 
               if (!selectedGroup && !includeLabs) {
@@ -145,7 +160,29 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
           }
         }
 
-        if(selectedGrade === "EST" || selectedGrade === "I + E"){
+        if(selectedGrade === "EST"){
+          if(includeLabs){
+            asignaturasFiltradas = events.filter(evento => 
+              evento.grado === selectedGrade &&
+              evento.semestre === selectedSemester &&
+              evento.curso === selectedCourse &&
+              (evento.grupo === "T1" || 
+              evento.grupo.startsWith("T/L") ||
+              evento.grupo.startsWith("L") ||
+              evento.grupo.startsWith("X") ||
+              evento.grupo.startsWith("J") ||
+              evento.grupo.startsWith("TL")));
+          } else {
+            asignaturasFiltradas = events.filter(evento => 
+              evento.grado === selectedGrade &&
+              evento.semestre === selectedSemester &&
+              evento.curso === selectedCourse &&
+              evento.grupo === "T1");
+          }
+          
+        }
+
+        if(selectedGrade === "I + E"){
           asignaturasFiltradas = events.filter(evento => 
             evento.grado === selectedGrade &&
             evento.semestre === selectedSemester &&
