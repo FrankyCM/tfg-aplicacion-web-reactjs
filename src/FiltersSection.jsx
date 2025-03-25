@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Container } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';
 import './FiltersSection.css';
+import IncludeLabsCheckbox from './IncludeLabsCheckbox';
 
 const classOptions = [
   { key: '01', value: '01', text: '01' },
@@ -31,7 +32,7 @@ const asigOptionssss = [
 
 
 
-const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention}) => {
+const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention, includeLabs, setIncludeLabs}) => {
   
 
   const [selectedGradeButton, setSelectedGradeButton] = useState(null);
@@ -207,6 +208,11 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
                 {selectedCourseButton === "1º" && (
                   <FiltersButton className="third-group-button" key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3"); handleGroupSelectButton("T3")}} isSelected={selectedGroupButton === "T3"}/>
                 )}
+                <IncludeLabsCheckbox 
+                  text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
+                  includeLabs={includeLabs} 
+                  setIncludeLabs={setIncludeLabs} 
+                />
               </>
             </div>
           )

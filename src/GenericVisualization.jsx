@@ -18,8 +18,9 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
     const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado por el alumno
     const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno para FiltersSection
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas en FiltersSection 
+    const [subjects, setSubjects] = useState([]); // Almacena las asignaturas leidas que cumplen los criterios
+    const [includeLabs, setIncludeLabs] = useState(false);
 
-    const [asignaturas, setAsignaturas] = useState([]);
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
@@ -30,7 +31,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
           const response = await fetch("/asignaturas.json");
           const data = await response.json();
   
-          setAsignaturas(data); // Guardar asignaturas en el estado
+          setSubjects(data); // Guardar asignaturas en el estado
   
           const eventos = data.map((asignatura) => {
             const diaSemana = diasSemana[asignatura.Dia];
@@ -86,7 +87,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
         setFilteredAsigs([]);
     } else {
         let asignaturasFiltradas;
-
+        console.log(includeLabs);
         if(selectedGrade === "INF"){
           if (selectedCourse === "3º" || selectedCourse === "4º") {
             asignaturasFiltradas = events.filter(evento => 
@@ -96,12 +97,51 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
             evento.mencion === selectedMention
             );
           } else {
-            asignaturasFiltradas = events.filter(evento => 
-            evento.grado === selectedGrade &&
-            evento.semestre === selectedSemester &&
-            evento.curso ===  selectedCourse &&
-            (!selectedGroup || evento.grupo === selectedGroup)
-            );
+
+              if (!selectedGroup && !includeLabs) {
+                // Caso 1: No hay selectedGroup y includeLabs === false
+                asignaturasFiltradas = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === selectedCourse &&
+                    evento.grupo.startsWith("T")
+                );
+            } else if (!selectedGroup && includeLabs) {
+                // Caso 2: No hay selectedGroup y includeLabs === true
+                asignaturasFiltradas = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === selectedCourse &&
+                    (evento.grupo.startsWith("X") || 
+                    evento.grupo.startsWith("L") || 
+                    evento.grupo.startsWith("AS") || 
+                    evento.grupo.startsWith("J") ||
+                    evento.grupo.startsWith("K") ||
+                    evento.grupo.startsWith("T"))
+                );
+            } else if (selectedGroup && !includeLabs) {
+                // Caso 3: Hay selectedGroup y includeLabs === false
+                asignaturasFiltradas = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === selectedCourse &&
+                    evento.grupo === selectedGroup
+                );
+            } else if (selectedGroup && includeLabs) {
+                // Caso 4: Hay selectedGroup y includeLabs === true
+                asignaturasFiltradas = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === selectedCourse &&
+                    (evento.grupo === selectedGroup || 
+                    evento.grupo.startsWith("X") ||  
+                    evento.grupo.startsWith("L") || 
+                    evento.grupo.startsWith("AS") || 
+                    evento.grupo.startsWith("J") ||
+                    evento.grupo.startsWith("K"))
+                );
+            }
+
           }
         }
 
@@ -122,7 +162,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
         console.log("Eventos filtrados:", asignaturasFiltradas);
         setFilteredAsigs(asignaturasFiltradas);
     }
-    }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]); 
+    }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, includeLabs, events]); 
       
     const getTextoGrado = () => {
         if (!selectedGrade || !selectedSemester) return "";
@@ -157,7 +197,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
     return (
         <>
         <div className="cabeceraDocumento">
-            <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention}/>
+            <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} includeLabs={includeLabs} setIncludeLabs={setIncludeLabs}/>
         <h2 className="textoGrado">
           {getTextoGrado()}
         </h2>
@@ -247,7 +287,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
           <div className="asignaturasHorario">
             {filteredAsigs.length > 0 ? (
               [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
-                const asignatura = asignaturas.find(asig => asig.Siglas === sigla);
+                const asignatura = subjects.find(asig => asig.Siglas === sigla);
                 return (
                   <div key={sigla} className="asignaturaItem">
                     <p className="siglasAsignatura">{sigla}:</p>

@@ -18,6 +18,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import html2pdf from "html2pdf.js";
 
 const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
+    
+    
+    // MODIFICAR HORARIO
     const [events, setEvents] = useState([]);
     const [selectedGrade, setSelectedGrade] = useState(""); // Grado seleccionado
     const [selectedSemester, setSelectedSemester] = useState(""); // Semestre o cuatrimestre seleccionado 
@@ -26,14 +29,21 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas
     const [warningMessage, setWarningMessage] = useState(null); // Mensaje de aviso en situaciones de incompatibilidad
-    const [save, setSave] = useState(false)     // Si se decide guardar el horario modificado
-    const [exportPDF, setExportPDF] = useState(false)   // Si se decide exportar a PDF
+    const [save, setSave] = useState(false);     // Si se decide guardar el horario modificado
+    const [exportPDF, setExportPDF] = useState(false);  // Si se decide exportar a PDF
+    const [subjects, setSubjects] = useState([]); // Almacena las asig que cumplen los criterios de seleccion
+
+    // CREAR O MODIFICAR ASIGNATURAS
+    const [asigCode, setAsigCode] = useState(null);
+    const [asigDay, setAsigDay] = useState(null);
     
+    
+
+
     const localizer = momentLocalizer(moment);
     moment.locale('es');
 
-    const [asignaturas, setAsignaturas] = useState([]);
-
+    
 
     const DnDCalendar = withDragAndDrop(Calendar);
 
@@ -43,7 +53,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                   const response = await fetch("/asignaturas.json");
                   const data = await response.json();
           
-                  setAsignaturas(data); // Guardar asignaturas en el estado
+                  setSubjects(data); // Guardar asignaturas en el estado
           
                   const eventos = data.map((asignatura) => {
                     const diaSemana = diasSemana[asignatura.Dia];
@@ -93,7 +103,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     }, []);
     
     useEffect(() => {
-        if (!exportPDF || !filteredAsigs || !asignaturas) return; // Evita ejecutar si exportPDF es false
+        if (!exportPDF || !filteredAsigs || !subjects) return; // Evita ejecutar si exportPDF es false
 
         const contenido = document.getElementById("creacion-horarios-horario-cabeceraDocumento");
 
@@ -145,7 +155,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             setExportPDF(false); // Resetea el estado después de exportar
         });
 
-    }, [exportPDF, filteredAsigs, asignaturas]);
+    }, [exportPDF, filteredAsigs, subjects]);
 
     // useEffect para la parte de visualizacion de calendarios genericos
     useEffect(() => {
@@ -288,7 +298,30 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             );
         }
     };
-      
+    
+    const onEventResize = ({ event, start, end }) => {
+        const compatible = compruebaCompatibilidadEventos({ event, start, end });
+    
+        if (compatible) {
+            // Obtener el nuevo día de la semana basado en 'start'
+            const nuevoDiaSemana = moment(start).isoWeekday(); // 1 (Lunes) - 7 (Domingo)
+            const nuevoDia = Object.keys(diasSemana).find(key => diasSemana[key] === nuevoDiaSemana);
+    
+            console.log("📏 Evento redimensionado:");
+            console.log("🔹 Siglas:", event.siglas);
+            console.log("📅 Nuevo Día:", nuevoDia);
+            console.log("🕒 Nueva Hora de Inicio:", moment(start).format("YYYY-MM-DD HH:mm"));
+            console.log("⏳ Nueva Hora de Fin:", moment(end).format("YYYY-MM-DD HH:mm"));
+    
+            // Actualizar el evento con 'start', 'end' y el nuevo día
+            setEvents((prevEvents) =>
+                prevEvents.map((e) =>
+                    e.id === event.id ? { ...e, start, end, dia: nuevoDia } : e
+                )
+            );
+        }
+    };
+
     const compruebaCompatibilidadEventos = ({ event, start, end }) => {
         let conflictMessage = "";
         let eventosFiltrados = [];
@@ -454,7 +487,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                                             }}
 
                                             onEventDrop={onEventDrop}
-
+                                            resizable
+                                            onEventResize={onEventResize}
                                         />
                                     </DndProvider>
                                     
@@ -465,7 +499,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                                 <div className="creacion-horarios-horario-asignaturasHorario">
                                     {filteredAsigs.length > 0 ? (
                                     [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
-                                        const asignatura = asignaturas.find(asig => asig.Siglas === sigla);
+                                        const asignatura = subjects.find(asig => asig.Siglas === sigla);
                                             return (
                                                 <div key={sigla} className="creacion-horarios-asignaturaItem">
                                                     <p className="creacion-horarios-siglasAsignatura">{sigla}:</p>

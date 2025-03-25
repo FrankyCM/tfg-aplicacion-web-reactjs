@@ -1,0 +1,9 @@
+.contenido-checkbox-labs{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenido-checkbox-labs p {
+    font-size: 16px;
+}
