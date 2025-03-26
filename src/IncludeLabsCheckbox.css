@@ -8,3 +8,70 @@
 .contenido-checkbox-labs p {
     font-size: 16px;
 }
+
+
+/* Estiliza el checkbox de Semantic UI */
+.contenido-checkbox-labs .ui.fitted.slider.checkbox {
+    width: 60px;
+    height: 34px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Oculta el input nativo */
+.contenido-checkbox-labs .ui.fitted.slider.checkbox input {
+    display: none;
+}
+
+/* Fondo del switch */
+.contenido-checkbox-labs .ui.fitted.slider.checkbox label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #b9b9b9;
+    border-radius: 34px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+/* Evita la doble superposición eliminando el contenido de ::after */
+.contenido-checkbox-labs .ui.fitted.slider.checkbox label::after {
+    content: "";
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    background-color: white;
+    border-radius: 50%;
+    left: 5.5px; /* Centrado dentro del círculo grande */
+    top: 5.5px;
+    transition: transform 0.4s;
+}
+
+/* Círculo deslizante */
+.contenido-checkbox-labs .ui.fitted.slider.checkbox label::before {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background-color: white;
+    border-radius: 50%;
+    left: 4px;
+    top: 4px;
+    transition: transform 0.4s;
+}
+
+/* Cambio de color cuando está activado */
+.contenido-checkbox-labs .ui.fitted.slider.checkbox input:checked + label {
+    background-color: #66bb6a;
+}
+
+/* Movimiento del círculo al activarse */
+.contenido-checkbox-labs .ui.fitted.slider.checkbox input:checked + label::after {
+    transform: translateX(26px);
+}
+
+/* Movimiento del círculo al activarse */
+.contenido-checkbox-labs .ui.fitted.slider.checkbox input:checked + label::before {
+    transform: translateX(26px);
+}
