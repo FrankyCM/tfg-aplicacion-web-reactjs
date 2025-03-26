@@ -18,8 +18,8 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
     const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado por el alumno
     const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno para FiltersSection
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas en FiltersSection 
-    const [subjects, setSubjects] = useState([]); // Almacena las asignaturas leidas que cumplen los criterios
-    const [includeLabs, setIncludeLabs] = useState(false);
+    const [subjects, setSubjects] = useState([]); // Almacena las asignaturas que cumplen los criterios
+    const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
 
 
     const localizer = momentLocalizer(moment);

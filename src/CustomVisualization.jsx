@@ -24,7 +24,8 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     const [selectedFourthMention, setSelectedFourthMention] = useState(null); // Mencion de asignaturas de cuarto curso
     const [selectedFifthGroup, setSelectedFifthGroup] = useState(null); // Grupo de asignaturas de quinto curso (solo para I + E)
 
-    const [asignaturas, setAsignaturas] = useState([]);
+    const [subjects, setSubjects] = useState([]); // Almacena las asignaturas que cumplen los criterios
+    const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
@@ -35,7 +36,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
               const response = await fetch("/asignaturas.json");
               const data = await response.json();
       
-              setAsignaturas(data); // Guardar asignaturas en el estado
+              setSubjects(data); // Guardar asignaturas en el estado
       
               const eventos = data.map((asignatura) => {
                 const diaSemana = diasSemana[asignatura.Dia];
@@ -92,8 +93,22 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
         } else {
             let eventosFiltrados;
             if(selectedGrade === "INF"){
-              // Filtrar eventos según los criterios actualizados
-               eventosFiltrados = events.filter((evento) => 
+              if(includeLabs){
+                eventosFiltrados = events.filter((evento) => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  selectedCourses.includes(evento.curso) &&
+                  (
+                    (selectedCourses.includes("1º") && (evento.grupo === selectedFirstGroup || evento.grupo.startsWith("X") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("J") || evento.grupo.startsWith("K") || evento.grupo.startsWith("Y")) && evento.curso === "1º") ||
+                    (selectedCourses.includes("2º") && (evento.grupo === selectedSecondGroup || evento.grupo.startsWith("X") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("J") || evento.grupo.startsWith("K") || evento.grupo.startsWith("Y")) && evento.curso === "2º") ||
+                    (["3º", "4º"].includes(evento.curso) &&
+                      (selectedCourses.includes("3º") && (evento.mencion === selectedThirdMention || evento.grupo.startsWith("L") || evento.grupo.startsWith("W")) && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && (evento.mencion === selectedFourthMention || evento.grupo.startsWith("L") || evento.grupo.startsWith("W")) && evento.curso === "4º"))
+                  )
+                );
+              } else {
+                // Filtrar eventos según los criterios actualizados
+                eventosFiltrados = events.filter((evento) => 
                 evento.grado === selectedGrade &&
                 evento.semestre === selectedSemester &&
                 selectedCourses.includes(evento.curso) &&
@@ -101,10 +116,12 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                     (selectedCourses.includes("1º") && evento.grupo === selectedFirstGroup && evento.curso === "1º") ||
                     (selectedCourses.includes("2º") && evento.grupo === selectedSecondGroup && evento.curso === "2º") ||
                     (["3º", "4º"].includes(evento.curso) &&
-                      (selectedCourses.includes("3º") && evento.mencion === selectedThirdMention && evento.curso === "3º") ||
-                      (selectedCourses.includes("4º") && evento.mencion === selectedFourthMention && evento.curso === "4º"))
+                      (selectedCourses.includes("3º") && evento.mencion === selectedThirdMention && evento.grupo.startsWith("T") && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && evento.mencion === selectedFourthMention && evento.grupo.startsWith("T") && evento.curso === "4º"))
                   )
                 );
+              }
+              
             }
             
             if(selectedGrade === "EST"){
@@ -167,7 +184,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     
             setAsigOptions(asigOptions);
           }
-    }, [selectedGrade, selectedSemester, selectedCourses, selectedFirstGroup, selectedSecondGroup, selectedThirdMention, selectedFourthMention, selectedFifthGroup, events]);
+    }, [selectedGrade, selectedSemester, selectedCourses, selectedFirstGroup, selectedSecondGroup, selectedThirdMention, selectedFourthMention, selectedFifthGroup, includeLabs, events]);
     
       
     // useEffect para el filtrado de eventos de asignaturas que hayan sido seleccionadas en el desplegable
@@ -232,7 +249,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     return (
         <>
           <div className="cabeceraDocumento">
-            <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions} setFilteredEvents={setFilteredEvents}/>
+            <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions} setFilteredEvents={setFilteredEvents} includeLabs={includeLabs} setIncludeLabs={setIncludeLabs}/>
             <h2 className="textoGrado">
               {getTextoGrado()}
             </h2>
@@ -322,7 +339,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
               <div className="asignaturasHorario">
                 {filteredEvents.length > 0 ? (
                   [...new Set(filteredEvents.map(evento => evento.siglas))].map(sigla => {
-                    const asignatura = asignaturas.find(asig => asig.Siglas === sigla);
+                    const asignatura = subjects.find(asig => asig.Siglas === sigla);
                     return (
                       <div key={sigla} className="asignaturaItem">
                         <p className="siglasAsignatura">{sigla}:</p>
