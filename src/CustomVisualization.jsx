@@ -125,43 +125,83 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
             }
             
             if(selectedGrade === "EST"){
-              // Filtrar eventos según los criterios actualizados
+              if(includeLabs){
                 eventosFiltrados = events.filter((evento) => 
-                evento.grado === selectedGrade &&
-                evento.semestre === selectedSemester &&
-                selectedCourses.includes(evento.curso) &&
-                  (
-                    (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.curso === "1º") ||
-                    (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.curso === "2º") ||
-                    (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.curso === "3º") ||
-                    (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.curso === "4º")
-                  )
-                );
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  selectedCourses.includes(evento.curso) &&
+                    (
+                      (selectedCourses.includes("1º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") ||evento.grupo.startsWith("L") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("TL")) && evento.curso === "1º") ||
+                      (selectedCourses.includes("2º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") ||evento.grupo.startsWith("L") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("TL")) && evento.curso === "2º") ||
+                      (selectedCourses.includes("3º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") ||evento.grupo.startsWith("L") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("TL")) && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") ||evento.grupo.startsWith("L") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("TL")) && evento.curso === "4º")
+                    )
+                  );
+              } else {
+                // Filtrar eventos según los criterios actualizados
+                eventosFiltrados = events.filter((evento) => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  selectedCourses.includes(evento.curso) &&
+                    (
+                      (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.curso === "1º") ||
+                      (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.curso === "2º") ||
+                      (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.curso === "4º")
+                    )
+                  );
+              }
+              
             }
 
             if(selectedGrade === "I + E"){
+              if(includeLabs){
+                eventosFiltrados = events.filter((evento) => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  selectedCourses.includes(evento.curso) &&
+                    (
+                      (selectedCourses.includes("1º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "1º") ||
+                      (selectedCourses.includes("2º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "2º") ||
+                      (selectedCourses.includes("3º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "4º") ||
+                      (selectedCourses.includes("5º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "5º")
+                    )
+                  );
+              } else {
                 // Filtrar eventos según los criterios actualizados
                 eventosFiltrados = events.filter((evento) => 
-                evento.grado === selectedGrade &&
-                evento.semestre === selectedSemester &&
-                selectedCourses.includes(evento.curso) &&
-                  (
-                    (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.curso === "1º") ||
-                    (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.curso === "2º") ||
-                    (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.curso === "3º") ||
-                    (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.curso === "4º") ||
-                    (selectedCourses.includes("5º") && evento.grupo === "T1" && evento.curso === "5º")
-                  )
-                );
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  selectedCourses.includes(evento.curso) &&
+                    (
+                      (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.curso === "1º") ||
+                      (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.curso === "2º") ||
+                      (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.curso === "4º") ||
+                      (selectedCourses.includes("5º") && evento.grupo === "T1" && evento.curso === "5º")
+                    )
+                  );
+              }
+                
             }
 
             if(selectedGrade === "Master"){
-              // Filtrar eventos según los criterios actualizados
-              eventosFiltrados = events.filter((evento) => 
-                evento.grado === selectedGrade &&
-                evento.semestre === selectedSemester &&
-                evento.grupo === "T1" &&
-                evento.curso === "1º");
+              if(includeLabs){
+                eventosFiltrados = events.filter((evento) => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  (evento.grupo === "T1" ||evento.grupo.startsWith("L")) &&
+                  evento.curso === "1º");
+              } else {
+                // Filtrar eventos según los criterios actualizados
+                eventosFiltrados = events.filter((evento) => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  evento.grupo === "T1" &&
+                  evento.curso === "1º");
+              }
+              
             }
     
             // Crear la lista de opciones de asignaturas con el formato adecuado
