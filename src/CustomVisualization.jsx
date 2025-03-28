@@ -191,7 +191,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                 eventosFiltrados = events.filter((evento) => 
                   evento.grado === selectedGrade &&
                   evento.semestre === selectedSemester &&
-                  (evento.grupo === "T1" ||evento.grupo.startsWith("L")) &&
+                  (evento.grupo === "T1" || evento.grupo.startsWith("L")) &&
                   evento.curso === "1º");
               } else {
                 // Filtrar eventos según los criterios actualizados

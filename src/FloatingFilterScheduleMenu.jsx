@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Draggable from 'react-draggable';
 import { createPortal } from 'react-dom';
 import ScheduleCreationMenuTabs from './ScheduleCreationMenuTabs';
@@ -15,25 +15,63 @@ const FloatingFilterScheduleMenu = ({
   warningMessage, setSave, setExportPDF
 }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [size, setSize] = useState({ width: 400, height: 350 }); // Estado del tamaño
+  const [isResizing, setIsResizing] = useState(false);
+  const resizeRef = useRef(null);
 
-  const handleClose = () => {
-    setIsVisible(false);
+  const handleClose = () => setIsVisible(false);
+  const handleSave = () => setSave(true);
+  const handleExportPDF = () => setExportPDF(true);
+
+  // Iniciar el redimensionamiento
+  const handleMouseDownResize = (e) => {
+    setIsResizing(true);
+    resizeRef.current = { startX: e.clientX, startY: e.clientY, startWidth: size.width, startHeight: size.height };
   };
 
-  const handleSave = () => {
-    setSave(true);
-  }
+  // Ajustar tamaño en tiempo real
+  const handleMouseMoveResize = (e) => {
+    if (!isResizing) return;
 
-  const handleExportPDF = () => {
-    setExportPDF(true);
-  }
+    const { startX, startY, startWidth, startHeight } = resizeRef.current;
+    const newWidth = startWidth + (e.clientX - startX);
+    const newHeight = startHeight + (e.clientY - startY);
+
+    setSize({
+      width: Math.max(newWidth, 200), // Mínimo 200px
+      height: Math.max(newHeight, 200),
+    });
+  };
+
+  // Finalizar el redimensionamiento
+  const handleMouseUpResize = () => {
+    setIsResizing(false);
+  };
+
+  // Agregar y quitar eventos globales para el redimensionamiento
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMoveResize);
+      document.addEventListener("mouseup", handleMouseUpResize);
+    } else {
+      document.removeEventListener("mousemove", handleMouseMoveResize);
+      document.removeEventListener("mouseup", handleMouseUpResize);
+    }
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMoveResize);
+      document.removeEventListener("mouseup", handleMouseUpResize);
+    };
+  }, [isResizing]);
 
   if (!isVisible) return null;
 
   return createPortal(
     <div style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
       <Draggable handle=".filter-menu-header">
-        <div className="floating-filter-menu" style={{ position: "fixed", pointerEvents: "auto" }}>
+        <div
+          className="floating-filter-menu"
+          style={{ width: size.width, height: size.height, pointerEvents: "auto" }}
+        >
           {/* Cabecera arrastrable con la X bien alineada */}
           <div className="filter-menu-header">
             <div className="filter-menu-header-content">
@@ -42,9 +80,10 @@ const FloatingFilterScheduleMenu = ({
               </button>
             </div>
           </div>
+
           <div className="filter-menu-save-export-actions-content">
-            <IconButton name={`save outline`} handleClick={handleSave}/>
-            <IconButton name={`file pdf outline`} handleClick={handleExportPDF}/>
+            <IconButton name="save outline" handleClick={handleSave} />
+            <IconButton name="file pdf outline" handleClick={handleExportPDF} />
           </div>
 
           {/* Contenido del menú */}
@@ -56,6 +95,9 @@ const FloatingFilterScheduleMenu = ({
             selectedMention={selectedMention} setSelectedMention={setSelectedMention}
             warningMessage={warningMessage}
           />
+
+          {/* Esquinas de redimensionamiento */}
+          <div className="resize-handle" onMouseDown={handleMouseDownResize} />
         </div>
       </Draggable>
     </div>,

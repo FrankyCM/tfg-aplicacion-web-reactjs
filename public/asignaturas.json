@@ -251,7 +251,7 @@
   },
   {
     "Dia": "Martes",
-    "HoraInicio": "11:00",
+    "HoraInicio": "09:00",
     "Duracion": 2,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -264,8 +264,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Jueves",
-    "HoraInicio": "13:00",
+    "Dia": "Viernes",
+    "HoraInicio": "11:00",
     "Duracion": 2,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -278,8 +278,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Jueves",
-    "HoraInicio": "16:00",
+    "Dia": "Martes",
+    "HoraInicio": "17:00",
     "Duracion": 2,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -488,8 +488,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Jueves",
-    "HoraInicio": "8:00",
+    "Dia": "Miercoles",
+    "HoraInicio": "08:30",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -502,8 +502,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Jueves",
-    "HoraInicio": "9:00",
+    "Dia": "Martes",
+    "HoraInicio": "13:30",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -517,7 +517,7 @@
   },
   {
     "Dia": "Viernes",
-    "HoraInicio": "10:00",
+    "HoraInicio": "08:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -530,8 +530,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Viernes",
-    "HoraInicio": "11:00",
+    "Dia": "Jueves",
+    "HoraInicio": "09:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -545,7 +545,7 @@
   },
   {
     "Dia": "Viernes",
-    "HoraInicio": "12:00",
+    "HoraInicio": "15:30",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -558,22 +558,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Jueves",
-    "HoraInicio": "8:00",
-    "Duracion": 1,
-    "Siglas": "FMAT",
-    "Nombre": "Fundamentos de Matemáticas",
-    "Grado": "INF",
-    "Semestre": "1ºC",
-    "Curso": "1º",
-    "Grupo": "L2",
-    "Clase": "07",
-    "Profesor": "profesor FMAT",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Dia": "Jueves",
-    "HoraInicio": "9:00",
+    "Dia": "Martes",
+    "HoraInicio": "13:30",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -587,7 +573,7 @@
   },
   {
     "Dia": "Viernes",
-    "HoraInicio": "10:00",
+    "HoraInicio": "08:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -600,8 +586,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Viernes",
-    "HoraInicio": "11:00",
+    "Dia": "Jueves",
+    "HoraInicio": "09:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -629,7 +615,7 @@
   },
   {
     "Dia": "Jueves",
-    "HoraInicio": "9:00",
+    "HoraInicio": "09:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -656,10 +642,10 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Jueves",
-    "HoraInicio": "8:00",
+    "Dia": "Martes",
+    "HoraInicio": "09:00",
     "Duracion": 1,
-    "Siglas": "I + E",
+    "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
     "Grado": "INF",
     "Semestre": "1ºC",
@@ -670,8 +656,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Jueves",
-    "HoraInicio": "9:00",
+    "Dia": "Martes",
+    "HoraInicio": "13:30",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -685,7 +671,7 @@
   },
   {
     "Dia": "Viernes",
-    "HoraInicio": "10:00",
+    "HoraInicio": "08:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -698,8 +684,8 @@
     "Color": "#FFD4B4"
   },
   {
-    "Dia": "Viernes",
-    "HoraInicio": "11:00",
+    "Dia": "Jueves",
+    "HoraInicio": "09:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -727,7 +713,7 @@
   },
   {
     "Dia": "Jueves",
-    "HoraInicio": "9:00",
+    "HoraInicio": "09:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
