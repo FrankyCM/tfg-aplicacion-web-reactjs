@@ -103,7 +103,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     }, []);
     
     useEffect(() => {
-        if (!exportPDF || !filteredAsigs || !subjects) return; // Evita ejecutar si exportPDF es false
+        if (!exportPDF || !filteredAsigs || !subjects) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
 
         const contenido = document.getElementById("creacion-horarios-horario-cabeceraDocumento");
 

@@ -9,6 +9,7 @@ import 'moment/locale/es';
 import { Views } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStyles.css';
+import html2pdf from "html2pdf.js";
 
 export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     const [events, setEvents] = useState([]);
@@ -20,7 +21,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas en FiltersSection 
     const [subjects, setSubjects] = useState([]); // Almacena las asignaturas que cumplen los criterios
     const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
-
+    const [exportPDF, setExportPDF] = useState(false); // Opcion -> si se decide exportar a PDF
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
@@ -79,6 +80,62 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
   
       cargarAsignaturas();
     }, []);
+
+
+    useEffect(() => {
+            if (!exportPDF || !filteredAsigs || !subjects) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
+    
+            const contenido = document.getElementById("cabecera-documento-generic");
+    
+            if (!contenido) {
+                console.error("No se encontró el elemento con ID 'cabecera-documento-generic'");
+                return;
+            }
+    
+            // 🔹 Obtener valores mapeados
+            const curso = courseMap[selectedCourse] || selectedCourse;
+            const semestre = semesterMap[selectedSemester] || selectedSemester;
+            
+            // 🔹 Generar año académico en formato "2024/25"
+            const añoActual = new Date().getFullYear() - 1;
+            const añoSiguiente = (añoActual + 1) % 100; // Solo los dos últimos dígitos
+            const anho = `${añoActual}/${añoSiguiente}`;
+    
+            let extraInfo = "";
+    
+            if (selectedGrade === "INF") {
+                if (selectedCourse === "1º" || selectedCourse === "2º") {
+                    extraInfo = selectedGroup ? `${selectedGroup}` : "";
+                } else if (selectedCourse === "3º" || selectedCourse === "4º") {
+                    extraInfo = selectedMention ? `${selectedMention}` : "";
+                }
+            }
+    
+            const filename = `Horario_${selectedGrade}_${curso}_${semestre}_${extraInfo}_${anho}.pdf`;
+    
+            const parametrosPDF = {
+                margin: 10,  // Aumenta el margen si deseas más espacio alrededor
+                filename: filename,
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { 
+                    scale: 4, 
+                    scrollY: 0, 
+                    windowWidth: document.documentElement.scrollWidth, 
+                    windowHeight: document.documentElement.scrollHeight 
+                },
+                jsPDF: { 
+                    unit: "mm", 
+                    format: "a4",  // Cambia el formato a A3
+                    orientation: "landscape" 
+                },
+            };
+            
+    
+            html2pdf().set(parametrosPDF).from(contenido).save().then(() => {
+                setExportPDF(false); // Resetea el estado después de exportar
+            });
+    
+    }, [exportPDF, filteredAsigs, subjects]);
 
 
     // useEffect para la parte de visualizacion de calendarios genericos
@@ -269,12 +326,12 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
     
     return (
         <>
-        <div className="cabeceraDocumento">
-            <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} includeLabs={includeLabs} setIncludeLabs={setIncludeLabs}/>
-        <h2 className="textoGrado">
+        <div className="cabeceraDocumento" id="cabecera-documento-generic">
+            <FiltersSection selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} selectedMention={selectedMention} setSelectedMention={setSelectedMention} includeLabs={includeLabs} setIncludeLabs={setIncludeLabs} setExportPDF={setExportPDF}/>
+        <h2 className="textoGrado-generic">
           {getTextoGrado()}
         </h2>
-        <h2 className="textoCursoMencion">
+        <h2 className="textoCursoMencion-generic">
           {getTextoCursoMencion()}
         </h2>
         <div className="horario">
@@ -357,7 +414,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
           </div>
 
 
-          <div className="asignaturasHorario">
+          <div className = "asignaturasHorario" style={{ paddingBottom: exportPDF ? "400px" : "40px" }}>
             {filteredAsigs.length > 0 ? (
               [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
                 const asignatura = subjects.find(asig => asig.Siglas === sigla);

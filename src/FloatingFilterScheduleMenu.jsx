@@ -82,8 +82,8 @@ const FloatingFilterScheduleMenu = ({
           </div>
 
           <div className="filter-menu-save-export-actions-content">
-            <IconButton name="save outline" handleClick={handleSave} />
-            <IconButton name="file pdf outline" handleClick={handleExportPDF} />
+            <IconButton name="save outline" size={`big`} handleClick={handleSave} />
+            <IconButton name="file pdf outline" size={`big`} handleClick={handleExportPDF} />
           </div>
 
           {/* Contenido del menú */}

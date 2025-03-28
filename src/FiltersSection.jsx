@@ -1,11 +1,14 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Container } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';
 import './FiltersSection.css';
 import IncludeLabsCheckbox from './IncludeLabsCheckbox';
+import Draggable from 'react-draggable';
+import { createPortal } from 'react-dom';
+import IconButton from './IconButton';
 
-const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention, includeLabs, setIncludeLabs}) => {
+const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention, includeLabs, setIncludeLabs, setExportPDF}) => {
   
 
   const [selectedGradeButton, setSelectedGradeButton] = useState(null);
@@ -14,6 +17,9 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
   const [selectedGroupButton, setSelectedGroupButton] = useState(null);
   const [selectedMentionButton, setSelectedMentionButton] = useState(null);
 
+  const [size, setSize] = useState({ width: 500, height: 250 }); 
+  const [isResizing, setIsResizing] = useState(false);
+  const resizeRef = useRef(null);
 
   const handleGradeSelect = (grade) => {
     setSelectedGrade(selectedGrade === grade ? "" : grade);
@@ -93,146 +99,210 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
     console.log("Mención seleccionada:", mention);
   };
 
+  // Iniciar el redimensionamiento
+    const handleMouseDownResize = (e) => {
+      setIsResizing(true);
+      resizeRef.current = { startX: e.clientX, startY: e.clientY, startWidth: size.width, startHeight: size.height };
+    };
+  
+    // Ajustar tamaño en tiempo real
+    const handleMouseMoveResize = (e) => {
+      if (!isResizing) return;
+  
+      const { startX, startY, startWidth, startHeight } = resizeRef.current;
+      const newWidth = startWidth + (e.clientX - startX);
+      const newHeight = startHeight + (e.clientY - startY);
+  
+      setSize({
+        width: Math.max(newWidth, 200), // Mínimo 200px
+        height: Math.max(newHeight, 200),
+      });
+    };
+  
+    // Finalizar el redimensionamiento
+    const handleMouseUpResize = () => {
+      setIsResizing(false);
+    };
+  
+    // Agregar y quitar eventos globales para el redimensionamiento
+    useEffect(() => {
+      if (isResizing) {
+        document.addEventListener("mousemove", handleMouseMoveResize);
+        document.addEventListener("mouseup", handleMouseUpResize);
+      } else {
+        document.removeEventListener("mousemove", handleMouseMoveResize);
+        document.removeEventListener("mouseup", handleMouseUpResize);
+      }
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMoveResize);
+        document.removeEventListener("mouseup", handleMouseUpResize);
+      };
+    }, [isResizing]);
+  
 
-  return (
-    <Container>
+    const handleExportPDF = () => {
+      setExportPDF(true);
+    }
 
-      <div className="filters-container-section">
-        <div className="grade-section">
-          {['INF', 'EST', 'I + E', 'Master'].map((text) => (
-            <FiltersButton 
-              key={text} 
-              content={text} 
-              onClick={() => {
-                handleGradeSelect(text);
-                handleGradeSelectButton(text);
-              }
-            } 
-            isSelected={selectedGradeButton === text}
-            />
-          ))}
-        </div>
+  return createPortal(
+    <div style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+      <Draggable handle=".filter-menu-header">
+      <div
+          className="floating-filter-menu"
+          style={{ width: size.width, height: size.height, pointerEvents: "auto" }}
+        >
+          <div className="filter-menu-header">
+            <IconButton name={`hand paper outline`} size={`large`}></IconButton>
+          </div>
 
-        {selectedGradeButton && (
-          <>
-            <div className="semester-section">
-              {selectedGradeButton !== "Master" && (
+          <div className="filter-menu-save-export-actions-content-generic">
+            <IconButton name="file pdf outline" size={`big`} handleClick={handleExportPDF} />
+          </div>
+
+          <div>
+            <div className="filters-container-section-generic">
+              <div className="grade-section-generic">
+                {['INF', 'EST', 'I + E', 'Master'].map((text) => (
+                  <FiltersButton 
+                    key={text} 
+                    content={text} 
+                    onClick={() => {
+                      handleGradeSelect(text);
+                      handleGradeSelectButton(text);
+                    }
+                  } 
+                  isSelected={selectedGradeButton === text}
+                  />
+                ))}
+              </div>
+
+              {selectedGradeButton && (
                 <>
-                  <FiltersButton key={"1ºC"} content={"1ºC"} onClick={() => {handleSemesterSelectButton("1ºC"); handleSemesterSelect("1ºC");}} isSelected={selectedSemesterButton === "1ºC"} />
-                  <FiltersButton key={"2ºC"} content={"2ºC"} onClick={() => {handleSemesterSelectButton("2ºC"); handleSemesterSelect("2ºC");}} isSelected={selectedSemesterButton === "2ºC"}/>
+                  <div className="semester-section-generic">
+                    {selectedGradeButton !== "Master" && (
+                      <>
+                        <FiltersButton key={"1ºC"} content={"1ºC"} onClick={() => {handleSemesterSelectButton("1ºC"); handleSemesterSelect("1ºC");}} isSelected={selectedSemesterButton === "1ºC"} />
+                        <FiltersButton key={"2ºC"} content={"2ºC"} onClick={() => {handleSemesterSelectButton("2ºC"); handleSemesterSelect("2ºC");}} isSelected={selectedSemesterButton === "2ºC"}/>
+                      </>
+                    )}
+                    {selectedGradeButton === "Master" && (
+                      <>
+                        <FiltersButton className="first-semester-button" key={"1er Semestre"} content={"1er Semestre"} onClick={() =>{handleSemesterSelectButton("1er Semestre"); handleSemesterSelect("1er Semestre");} } isSelected={selectedSemesterButton === "1er Semestre"} />
+                        <FiltersButton className="second-semester-button" key={"2º Semestre"} content={"2º Semestre"} onClick={() => {handleSemesterSelectButton("2º Semestre"); handleSemesterSelect("2º Semestre");}} isSelected={selectedSemesterButton === "2º Semestre"}/>
+                        <FiltersButton className="third-semester-button" key={"3er Semestre"} content={"3er Semestre"} onClick={() =>{handleSemesterSelectButton("3er Semestre"); handleSemesterSelect("3er Semestre");} } isSelected={selectedSemesterButton === "3er Semestre"} />
+                        <FiltersButton className="third-semester-button" key={"4º Semestre"} content={"4º Semestre"} onClick={() => {handleSemesterSelectButton("4º Semestre"); handleSemesterSelect("4º Semestre");}} isSelected={selectedSemesterButton === "4º Semestre"}/>
+                      </>
+                    )}
+                  </div>
+                  {selectedGradeButton === "Master" && selectedSemesterButton && (
+                      <IncludeLabsCheckbox 
+                        text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
+                        includeLabs={includeLabs} 
+                        setIncludeLabs={setIncludeLabs} 
+                      />
+                  )}
                 </>
-              )}
-              {selectedGradeButton === "Master" && (
-                <>
-                  <FiltersButton className="first-semester-button" key={"1er Semestre"} content={"1er Semestre"} onClick={() =>{handleSemesterSelectButton("1er Semestre"); handleSemesterSelect("1er Semestre");} } isSelected={selectedSemesterButton === "1er Semestre"} />
-                  <FiltersButton className="second-semester-button" key={"2º Semestre"} content={"2º Semestre"} onClick={() => {handleSemesterSelectButton("2º Semestre"); handleSemesterSelect("2º Semestre");}} isSelected={selectedSemesterButton === "2º Semestre"}/>
-                  <FiltersButton className="third-semester-button" key={"3er Semestre"} content={"3er Semestre"} onClick={() =>{handleSemesterSelectButton("3er Semestre"); handleSemesterSelect("3er Semestre");} } isSelected={selectedSemesterButton === "3er Semestre"} />
-                  <FiltersButton className="third-semester-button" key={"4º Semestre"} content={"4º Semestre"} onClick={() => {handleSemesterSelectButton("4º Semestre"); handleSemesterSelect("4º Semestre");}} isSelected={selectedSemesterButton === "4º Semestre"}/>
-                </>
-              )}
-            </div>
-            {selectedGradeButton === "Master" && selectedSemesterButton && (
-                <IncludeLabsCheckbox 
-                  text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
-                  includeLabs={includeLabs} 
-                  setIncludeLabs={setIncludeLabs} 
-                />
-            )}
-          </>
-          
-        )}
-
-        {selectedGradeButton !== "Master" && selectedSemesterButton && (
-          <>
-            <div className="course-section">
-              <FiltersButton key={"1º"} content={"1º"} onClick={() => {
-                handleCourseSelect("1º");
-                handleCourseSelectButton("1º");
-              }}
-              isSelected={selectedCourseButton === "1º"}
-              />
-              <FiltersButton key={"2º"} content={"2º"} onClick={() => {
-                handleCourseSelect("2º");
-                handleCourseSelectButton("2º");
-              }}
-              isSelected={selectedCourseButton === "2º"}
-              />
-              <FiltersButton key={"3º"} content={"3º"} onClick={() => {
-                handleCourseSelect("3º");
-                handleCourseSelectButton("3º");
-              }}
-              isSelected={selectedCourseButton === "3º"}
-              />
-              <FiltersButton key={"4º"} content={"4º"} onClick={() => {
-                handleCourseSelect("4º");
-                handleCourseSelectButton("4º");
-              }}
-              isSelected={selectedCourseButton === "4º"}
-              />
-              
-              {selectedGradeButton === "I + E" && (
                 
-                  <FiltersButton className= "fifth-course-button" key={"5º"} content={"5º"} onClick={() => {
-                    handleCourseSelect("5º");
-                    handleCourseSelectButton("5º");
-                  }}
-                  isSelected={selectedCourseButton === "5º"}
-                  />   
-              )} 
+              )}
+
+              {selectedGradeButton !== "Master" && selectedSemesterButton && (
+                <>
+                  <div className="course-section-generic">
+                    <FiltersButton key={"1º"} content={"1º"} onClick={() => {
+                      handleCourseSelect("1º");
+                      handleCourseSelectButton("1º");
+                    }}
+                    isSelected={selectedCourseButton === "1º"}
+                    />
+                    <FiltersButton key={"2º"} content={"2º"} onClick={() => {
+                      handleCourseSelect("2º");
+                      handleCourseSelectButton("2º");
+                    }}
+                    isSelected={selectedCourseButton === "2º"}
+                    />
+                    <FiltersButton key={"3º"} content={"3º"} onClick={() => {
+                      handleCourseSelect("3º");
+                      handleCourseSelectButton("3º");
+                    }}
+                    isSelected={selectedCourseButton === "3º"}
+                    />
+                    <FiltersButton key={"4º"} content={"4º"} onClick={() => {
+                      handleCourseSelect("4º");
+                      handleCourseSelectButton("4º");
+                    }}
+                    isSelected={selectedCourseButton === "4º"}
+                    />
+                    
+                    {selectedGradeButton === "I + E" && (
+                      
+                        <FiltersButton className= "fifth-course-button" key={"5º"} content={"5º"} onClick={() => {
+                          handleCourseSelect("5º");
+                          handleCourseSelectButton("5º");
+                        }}
+                        isSelected={selectedCourseButton === "5º"}
+                        />   
+                    )} 
+                  </div>
+
+                  {(selectedGradeButton === "EST" || selectedGradeButton === "I + E") && selectedCourseButton && (
+                    <IncludeLabsCheckbox 
+                      text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
+                      includeLabs={includeLabs} 
+                      setIncludeLabs={setIncludeLabs} 
+                    />
+                  )}
+                </>
+              )}
+
+              {selectedGradeButton === "INF" && selectedSemesterButton && selectedCourseButton && (
+                (selectedCourseButton !== "3º" && selectedCourseButton !== "4º") && (
+                  <>
+                    <div className="group-section-generic">
+                        <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1"); handleGroupSelectButton("T1")}} isSelected={selectedGroupButton === "T1"}/>
+                        {(selectedCourseButton === "1º" || selectedCourseButton === "2º") && (
+                          <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2"); handleGroupSelectButton("T2")}} isSelected={selectedGroupButton === "T2"}/>
+                        )}
+                        {selectedCourseButton === "1º" && (
+                          <FiltersButton className="third-group-button" key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3"); handleGroupSelectButton("T3")}} isSelected={selectedGroupButton === "T3"}/>
+                        )}
+                    </div>
+                    <IncludeLabsCheckbox 
+                      text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
+                      includeLabs={includeLabs} 
+                      setIncludeLabs={setIncludeLabs} 
+                    />
+                  </>
+                )
+              )}
+              
+              {selectedGradeButton === "INF" && selectedSemesterButton && (selectedCourseButton === "3º" || selectedCourseButton === "4º") && (
+                  <>
+                    <div className="mention-section-generic">
+                      <FiltersButton key={"IS"} content={"IS"} onClick={() => {handleMentionSelect("IS"); handleMentionSelectButton("IS")}} isSelected={selectedMentionButton === "IS"}/>
+                      <FiltersButton key={"CO"} content={"CO"} onClick={() => {handleMentionSelect("CO"); handleMentionSelectButton("CO")}} isSelected={selectedMentionButton === "CO"}/>
+                      <FiltersButton key={"TI"} content={"TI"} onClick={() => {handleMentionSelect("TI"); handleMentionSelectButton("TI")}} isSelected={selectedMentionButton === "TI"}/>
+                    </div>
+                      <IncludeLabsCheckbox 
+                        text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
+                        includeLabs={includeLabs} 
+                        setIncludeLabs={setIncludeLabs} 
+                      />
+                  </>
+                  
+                )
+              }
+              
+
             </div>
 
-            {(selectedGradeButton === "EST" || selectedGradeButton === "I + E") && selectedCourseButton && (
-              <IncludeLabsCheckbox 
-                text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
-                includeLabs={includeLabs} 
-                setIncludeLabs={setIncludeLabs} 
-              />
-            )}
-          </>
-        )}
+          </div>
 
-        {selectedGradeButton === "INF" && selectedSemesterButton && selectedCourseButton && (
-          (selectedCourseButton !== "3º" && selectedCourseButton !== "4º") && (
-            <>
-              <div className="group-section">
-                  <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1"); handleGroupSelectButton("T1")}} isSelected={selectedGroupButton === "T1"}/>
-                  {(selectedCourseButton === "1º" || selectedCourseButton === "2º") && (
-                    <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2"); handleGroupSelectButton("T2")}} isSelected={selectedGroupButton === "T2"}/>
-                  )}
-                  {selectedCourseButton === "1º" && (
-                    <FiltersButton className="third-group-button" key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3"); handleGroupSelectButton("T3")}} isSelected={selectedGroupButton === "T3"}/>
-                  )}
-              </div>
-              <IncludeLabsCheckbox 
-                text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
-                includeLabs={includeLabs} 
-                setIncludeLabs={setIncludeLabs} 
-              />
-            </>
-          )
-        )}
-        
-        {selectedGradeButton === "INF" && selectedSemesterButton && (selectedCourseButton === "3º" || selectedCourseButton === "4º") && (
-            <>
-              <div className="mention-section">
-                <FiltersButton key={"IS"} content={"IS"} onClick={() => {handleMentionSelect("IS"); handleMentionSelectButton("IS")}} isSelected={selectedMentionButton === "IS"}/>
-                <FiltersButton key={"CO"} content={"CO"} onClick={() => {handleMentionSelect("CO"); handleMentionSelectButton("CO")}} isSelected={selectedMentionButton === "CO"}/>
-                <FiltersButton key={"TI"} content={"TI"} onClick={() => {handleMentionSelect("TI"); handleMentionSelectButton("TI")}} isSelected={selectedMentionButton === "TI"}/>
-              </div>
-                <IncludeLabsCheckbox 
-                  text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
-                  includeLabs={includeLabs} 
-                  setIncludeLabs={setIncludeLabs} 
-                />
-            </>
-            
-          )
-        }
-         
-
-      </div>
-
-    </Container>
+          <div className="resize-handle" onMouseDown={handleMouseDownResize} />
+        </div>
+      </Draggable>
+    </div>,
+    document.body
+    
   );
 };
 

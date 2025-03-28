@@ -1,34 +1,98 @@
-.filters-container-section {
+.floating-filter-menu {
+    position: fixed;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    min-width: 200px;
+    min-height: 200px;
+}
+
+/* Estilos de Draggable cuando está estático y cuando se mueve */
+.floating-filter-menu.react-draggable,
+.floating-filter-menu.react-draggable.react-draggable-dragged {
+    position: absolute;
+    width: 400px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Cabecera arrastrable */
+.filter-menu-header {
+    cursor: grab;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+    background: #f7f5dd;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgb(220, 220, 220);
+
+}
+
+.filter-menu-save-export-actions-content-generic{
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+.filters-container-section-generic {
     display: flex;
     flex-direction: column;
     justify-content: center;  /* Centra horizontalmente */
     align-items: center;  /* Centra verticalmente */
     gap: 15px;
     padding: 20px;
-    background: #f7f5dd;
-    border-radius: 10px;
+    background: #ffffff;
     border: 2px solid rgb(199, 199, 199);;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 40px;
     width: 100%;  /* Asegura que el contenedor ocupa el ancho completo */
     text-align: center;  /* Si hay texto dentro, lo centra */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+.textoGrado-generic {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    font-weight: 500; /* Hace que el texto sea más fino */
+    white-space: nowrap;
+    margin-top: 50px;
+    padding-top: 40px;
+  }
+  
+.textoCursoMencion-generic {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    font-weight: bold; /* Pone el texto en negrita */
+    white-space: nowrap;
+}
 
-
-.grade-section, .semester-section, .course-section, 
-.group-section, .mention-section {
+.grade-section-generic, .semester-section-generic, .course-section-generic, 
+.group-section-generic, .mention-section-generic {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
-    width: 100%;
+    align-items: center;  /* Centra verticalmente */
+    gap: 15px;
+    width: 80%;
+    background: #f7f5dd;
+    border-radius: 10px; /* Bordes redondeados */
+    border: 0.5px solid rgb(220, 220, 220); /* Borde negro */
     margin-bottom: 10px;
-    border: 1.5px solid rgb(220, 220, 220); /* Borde negro */
-    border-radius: 8px; /* Bordes redondeados */
     padding: 15px; /* Espaciado interno */
-    background-color: #f2fedc; /* Fondo blanco para destacarlas */
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    
 }
 
 
