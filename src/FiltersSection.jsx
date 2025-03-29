@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState, useRef, useEffect } from 'react';
-import { Container } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';
 import './FiltersSection.css';
 import IncludeLabsCheckbox from './IncludeLabsCheckbox';
@@ -100,49 +99,49 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
   };
 
   // Iniciar el redimensionamiento
-    const handleMouseDownResize = (e) => {
-      setIsResizing(true);
-      resizeRef.current = { startX: e.clientX, startY: e.clientY, startWidth: size.width, startHeight: size.height };
+  const handleMouseDownResize = (e) => {
+    setIsResizing(true);
+    resizeRef.current = { startX: e.clientX, startY: e.clientY, startWidth: size.width, startHeight: size.height };
+  };
+  
+  // Ajustar tamaño en tiempo real
+  const handleMouseMoveResize = (e) => {
+    if (!isResizing) return;
+  
+    const { startX, startY, startWidth, startHeight } = resizeRef.current;
+    const newWidth = startWidth + (e.clientX - startX);
+    const newHeight = startHeight + (e.clientY - startY);
+  
+    setSize({
+      width: Math.max(newWidth, 200), // Mínimo 200px
+      height: Math.max(newHeight, 200),
+    });
+  };
+  
+  // Finalizar el redimensionamiento
+  const handleMouseUpResize = () => {
+    setIsResizing(false);
+  };
+  
+  // Agregar y quitar eventos globales para el redimensionamiento
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMoveResize);
+      document.addEventListener("mouseup", handleMouseUpResize);
+    } else {
+      document.removeEventListener("mousemove", handleMouseMoveResize);
+      document.removeEventListener("mouseup", handleMouseUpResize);
+    }
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMoveResize);
+      document.removeEventListener("mouseup", handleMouseUpResize);
     };
-  
-    // Ajustar tamaño en tiempo real
-    const handleMouseMoveResize = (e) => {
-      if (!isResizing) return;
-  
-      const { startX, startY, startWidth, startHeight } = resizeRef.current;
-      const newWidth = startWidth + (e.clientX - startX);
-      const newHeight = startHeight + (e.clientY - startY);
-  
-      setSize({
-        width: Math.max(newWidth, 200), // Mínimo 200px
-        height: Math.max(newHeight, 200),
-      });
-    };
-  
-    // Finalizar el redimensionamiento
-    const handleMouseUpResize = () => {
-      setIsResizing(false);
-    };
-  
-    // Agregar y quitar eventos globales para el redimensionamiento
-    useEffect(() => {
-      if (isResizing) {
-        document.addEventListener("mousemove", handleMouseMoveResize);
-        document.addEventListener("mouseup", handleMouseUpResize);
-      } else {
-        document.removeEventListener("mousemove", handleMouseMoveResize);
-        document.removeEventListener("mouseup", handleMouseUpResize);
-      }
-      return () => {
-        document.removeEventListener("mousemove", handleMouseMoveResize);
-        document.removeEventListener("mouseup", handleMouseUpResize);
-      };
-    }, [isResizing]);
+  }, [isResizing]);
   
 
-    const handleExportPDF = () => {
-      setExportPDF(true);
-    }
+  const handleExportPDF = () => {
+    setExportPDF(true);
+  }
 
   return createPortal(
     <div style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>

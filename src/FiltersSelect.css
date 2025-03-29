@@ -10,6 +10,7 @@
   cursor: pointer !important;
 }
 
+
 .filters-select-container select {
   color: black !important; /* Letra en negro para el valor por defecto */
 }

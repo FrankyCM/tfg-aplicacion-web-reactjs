@@ -53,30 +53,14 @@
     gap: 15px;
     padding: 20px;
     background: #ffffff;
-    border: 2px solid rgb(199, 199, 199);;
+    border: 2px solid rgb(199, 199, 199);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;  /* Asegura que el contenedor ocupa el ancho completo */
     text-align: center;  /* Si hay texto dentro, lo centra */
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.textoGrado-generic {
-    display: flex;
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center; /* Centra los elementos verticalmente */
-    font-weight: 500; /* Hace que el texto sea más fino */
-    white-space: nowrap;
-    margin-top: 50px;
-    padding-top: 40px;
-  }
-  
-.textoCursoMencion-generic {
-    display: flex;
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center; /* Centra los elementos verticalmente */
-    font-weight: bold; /* Pone el texto en negrita */
-    white-space: nowrap;
-}
+
 
 .grade-section-generic, .semester-section-generic, .course-section-generic, 
 .group-section-generic, .mention-section-generic {

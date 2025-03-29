@@ -12,27 +12,25 @@
     flex-direction: column; 
     color: rgb(0, 0, 0);
   }
+
   
-  /* .cabeceraDocumento {
-    display: flex;
-    flex-direction: column; 
-    color: rgb(0, 0, 0);
-  }*/
+.textoGrado-custom {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  font-weight: 500; /* Hace que el texto sea más fino */
+  white-space: nowrap;
+  margin-top: 50px;
+  padding-top: 40px;
+}
   
-  .cabeceraDocumento .textoGrado {
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center; /* Centra los elementos verticalmente */
-    font-weight: 500; /* Hace que el texto sea más fino */
-    white-space: nowrap;
-    margin-top: 50px;
-  }
-  
-  .cabeceraDocumento .textoCursoMencion {
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center; /* Centra los elementos verticalmente */
-    font-weight: bold; /* Pone el texto en negrita */
-    white-space: nowrap;
-  }
+.textoCursoMencion-custom {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  font-weight: bold; /* Pone el texto en negrita */
+  white-space: nowrap;
+}
   
   .horario {
     display: flex;
@@ -67,7 +65,6 @@
     width: 100%;
     margin-top: 50px;
     margin-left: 50px;
-    padding-bottom: 200px;
   }
   
   .asignaturasHorario .asignaturaItem {

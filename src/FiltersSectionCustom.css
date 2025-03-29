@@ -1,62 +1,114 @@
-.filters-container-section {
+.floating-filter-menu {
+    position: fixed;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    min-width: 200px;
+    min-height: 200px;
+}
+
+/* Estilos de Draggable cuando está estático y cuando se mueve */
+.floating-filter-menu.react-draggable,
+.floating-filter-menu.react-draggable.react-draggable-dragged {
+    position: absolute;
+    width: 400px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Cabecera arrastrable */
+.filter-menu-header {
+    cursor: grab;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+    background: #f7f5dd;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgb(220, 220, 220);
+
+}
+
+.filter-menu-save-export-actions-content-custom{
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+
+.filters-container-section-custom {
     display: flex;
     flex-direction: column;
     justify-content: center;  /* Centra horizontalmente */
     align-items: center;  /* Centra verticalmente */
     gap: 15px;
     padding: 20px;
-    background: #f7f5dd;
-    border-radius: 10px;
-    border: 0.5px solid rgb(199, 199, 199);
+    background: #ffffff;
+    border: 2px solid rgb(199, 199, 199);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 40px;
-    width: 100%;  /* Asegura que el contenedor ocupa el ancho completo */
+    width: 99%;  /* Asegura que el contenedor ocupa el ancho completo */
     text-align: center;  /* Si hay texto dentro, lo centra */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 
 
-.grade-section, .semester-section, .course-section {
+.grade-section-custom, .semester-section-custom, .course-section-custom {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 12px;
-    width: 100%;
+    width: 80%;
+    background: #f7f5dd;
+    border: 1.5px solid rgb(220, 220, 220); /* Borde negro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    margin-bottom: 10px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.group-or-mention-section-custom {
+    display: flex;
+    flex-direction: row; /* Apila los grupos en columnas */
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Espacio entre grupos */
+    width: 80%;
     margin-bottom: 10px;
     border: 1.5px solid rgb(220, 220, 220); /* Borde negro */
     border-radius: 8px; /* Bordes redondeados */
     padding: 15px; /* Espaciado interno */
-    background-color: #f2fedc; /* Fondo blanco para destacarlas */
+    background-color: #f7f5dd; /* Fondo blanco */
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-}
-
-.group-or-mention-section {
-    display: flex;
-    flex-direction: column; /* Apila los grupos en columnas */
-    gap: 20px; /* Espacio entre grupos */
-    width: 100%;
-    margin-bottom: 10px;
-    border: 1.5px solid rgb(220, 220, 220); /* Borde negro */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 15px; /* Espaciado interno */
-    background-color: #f2fedc; /* Fondo blanco */
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-}
-
-.group-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra los elementos */
     
 }
 
-.group-container p {
+.group-container-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos */
+}
+
+.group-container-custom p {
     font-weight: bold;
     font-size: 15px;
     text-align: center;
+    font-weight: 100;
 }
 
-.group-buttons {
+.group-buttons-custom {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

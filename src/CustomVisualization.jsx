@@ -7,7 +7,9 @@ import moment from 'moment';
 import 'moment/locale/es';
 import { Views } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import './CalendarStyles.css'
+import './CalendarStyles.css';
+import './CustomVisualization.css';
+import html2pdf from "html2pdf.js";
 
 export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     const [events, setEvents] = useState([]);
@@ -26,6 +28,8 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
 
     const [subjects, setSubjects] = useState([]); // Almacena las asignaturas que cumplen los criterios
     const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
+    const [exportPDF, setExportPDF] = useState(false); // Opcion -> si se decide exportar a PDF
+    
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
@@ -84,6 +88,77 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
       
           cargarAsignaturas();
     }, []);
+
+    useEffect(() => {
+      if (!exportPDF || !filteredEvents || !subjects) return;
+  
+      // Verificar si faltan grupos o menciones
+      const missingGroups = [];
+      const missingMentions = [];
+  
+      if (selectedCourses.includes("1º") && !selectedFirstGroup) missingGroups.push("1º");
+      if (selectedCourses.includes("2º") && !selectedSecondGroup) missingGroups.push("2º");
+      if (selectedCourses.includes("3º") && !selectedThirdMention) missingMentions.push("3º");
+      if (selectedCourses.includes("4º") && !selectedFourthMention) missingMentions.push("4º");
+      if (selectedCourses.includes("5º") && !selectedFifthGroup) missingGroups.push("5º");
+  
+      if (missingGroups.length > 0 || missingMentions.length > 0) {
+          let alertMessage = "";
+          if (missingGroups.length > 0) {
+              alertMessage += `Seleccione los grupos de los siguientes cursos: ${missingGroups.join(", ")}.\n`;
+          }
+          if (missingMentions.length > 0) {
+              alertMessage += `Seleccione la mención de los siguientes cursos: ${missingMentions.join(" y ")}.`;
+          }
+          alert(alertMessage.trim());
+          setExportPDF(false);
+          return;
+      }
+  
+      const contenido = document.getElementById("cabecera-documento-custom");
+  
+      if (!contenido) {
+          console.error("No se encontró el elemento con ID 'cabecera-documento-custom'");
+          return;
+      }
+  
+      // Generar variable cursosYGrupos con los valores correspondientes
+      const cursosYGrupos = [
+          selectedFirstGroup ? `1º_${selectedFirstGroup}` : "",
+          selectedSecondGroup ? `2º_${selectedSecondGroup}` : "",
+          selectedThirdMention ? `3º_${selectedThirdMention}` : "",
+          selectedFourthMention ? `4º_${selectedFourthMention}` : "",
+          selectedFifthGroup ? `5º_${selectedFifthGroup}` : ""
+      ].filter(Boolean).join("_");
+  
+      // 🔹 Generar año académico en formato "2024/25"
+      const añoActual = new Date().getFullYear() - 1;
+      const añoSiguiente = (añoActual + 1) % 100; // Solo los dos últimos dígitos
+      const anho = `${añoActual}/${añoSiguiente}`;
+  
+      const filename = `Horario_${selectedGrade}_${selectedSemester}_${cursosYGrupos}_${anho}.pdf`;
+  
+      const parametrosPDF = {
+          margin: 10,
+          filename: filename,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: {
+              scale: 4,
+              scrollY: 0,
+              windowWidth: document.documentElement.scrollWidth,
+              windowHeight: document.documentElement.scrollHeight
+          },
+          jsPDF: {
+              unit: "mm",
+              format: "a4",
+              orientation: "landscape"
+          },
+      };
+  
+      html2pdf().set(parametrosPDF).from(contenido).save().then(() => {
+          setExportPDF(false); // Resetea el estado después de exportar
+      });
+  }, [exportPDF, filteredEvents, subjects, selectedCourses, selectedFirstGroup, selectedSecondGroup, selectedThirdMention, selectedFourthMention, selectedFifthGroup]);
 
     // useEffect para la creación de la lista de asignaturas que se muestra en el desplegable
     // de visualización personalizada de horarios
@@ -288,12 +363,12 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
 
     return (
         <>
-          <div className="cabeceraDocumento">
-            <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions} setFilteredEvents={setFilteredEvents} includeLabs={includeLabs} setIncludeLabs={setIncludeLabs}/>
-            <h2 className="textoGrado">
+          <div className="cabeceraDocumento" id = "cabecera-documento-custom">
+            <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions} setFilteredEvents={setFilteredEvents} includeLabs={includeLabs} setIncludeLabs={setIncludeLabs} setExportPDF={setExportPDF}/>
+            <h2 className="textoGrado-custom">
               {getTextoGrado()}
             </h2>
-            <h2 className="textoCursoMencion">
+            <h2 className="textoCursoMencion-custom">
               {getTextoCursosMencion()}
             </h2>
             <div className="horario">
@@ -376,7 +451,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
               </div>
     
     
-              <div className="asignaturasHorario">
+              <div className="asignaturasHorario" style={{ paddingBottom: exportPDF ? "350px" : "40px" }}>
                 {filteredEvents.length > 0 ? (
                   [...new Set(filteredEvents.map(evento => evento.siglas))].map(sigla => {
                     const asignatura = subjects.find(asig => asig.Siglas === sigla);

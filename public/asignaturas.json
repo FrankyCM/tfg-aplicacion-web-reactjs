@@ -643,20 +643,6 @@
   },
   {
     "Dia": "Martes",
-    "HoraInicio": "09:00",
-    "Duracion": 1,
-    "Siglas": "FMAT",
-    "Nombre": "Fundamentos de Matemáticas",
-    "Grado": "INF",
-    "Semestre": "1ºC",
-    "Curso": "1º",
-    "Grupo": "L2",
-    "Clase": "07",
-    "Profesor": "profesor FMAT",
-    "Color": "#FFD4B4"
-  },
-  {
-    "Dia": "Martes",
     "HoraInicio": "13:30",
     "Duracion": 1,
     "Siglas": "FMAT",
