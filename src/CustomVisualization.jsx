@@ -90,7 +90,15 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     }, []);
 
     useEffect(() => {
-      if (!exportPDF || !filteredEvents || !subjects) return;
+      if(exportPDF && selectedAsigs.length === 0){
+        alert("El horario está vacío".trim());
+        setExportPDF(false);
+        return;
+      }
+
+      if (!exportPDF || !filteredEvents || !subjects){
+        return;
+      } 
   
       // Verificar si faltan grupos o menciones
       const missingGroups = [];
@@ -121,6 +129,8 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
           console.error("No se encontró el elemento con ID 'cabecera-documento-custom'");
           return;
       }
+
+      const semestre = semesterMap[selectedSemester] || selectedSemester;
   
       // Generar variable cursosYGrupos con los valores correspondientes
       const cursosYGrupos = [
@@ -136,7 +146,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
       const añoSiguiente = (añoActual + 1) % 100; // Solo los dos últimos dígitos
       const anho = `${añoActual}/${añoSiguiente}`;
   
-      const filename = `Horario_${selectedGrade}_${selectedSemester}_${cursosYGrupos}_${anho}.pdf`;
+      const filename = `Horario_${selectedGrade}_${semestre}_${cursosYGrupos}_${anho}.pdf`;
   
       const parametrosPDF = {
           margin: 10,

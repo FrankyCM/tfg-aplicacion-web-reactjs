@@ -83,7 +83,26 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
 
 
     useEffect(() => {
-            if (!exportPDF || !filteredAsigs || !subjects) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
+      if (exportPDF) {
+        if (selectedGrade && selectedSemester) {
+            if (!selectedCourse) {
+                alert("El horario está vacío".trim());
+                setExportPDF(false);
+                return;
+            }
+            if ((selectedCourse === "3º" || selectedCourse === "4º") && !selectedMention) {
+                alert("El horario está vacío".trim());
+                setExportPDF(false);
+                return;
+            }
+        } else if (!selectedGrade && !selectedSemester) {
+            alert("El horario está vacío".trim());
+            setExportPDF(false);
+            return;
+        }
+      }
+
+      if (!exportPDF || !filteredAsigs || !subjects ) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
     
             const contenido = document.getElementById("cabecera-documento-generic");
     
@@ -93,7 +112,6 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
             }
     
             // 🔹 Obtener valores mapeados
-            const curso = courseMap[selectedCourse] || selectedCourse;
             const semestre = semesterMap[selectedSemester] || selectedSemester;
             
             // 🔹 Generar año académico en formato "2024/25"
@@ -111,7 +129,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                 }
             }
     
-            const filename = `Horario_${selectedGrade}_${curso}_${semestre}_${extraInfo}_${anho}.pdf`;
+            const filename = `Horario_${selectedGrade}_${semestre}_${selectedCourse}_${extraInfo}_${anho}.pdf`;
     
             const parametrosPDF = {
                 margin: 10,  // Aumenta el margen si deseas más espacio alrededor
@@ -133,7 +151,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
     
             html2pdf().set(parametrosPDF).from(contenido).save().then(() => {
                 setExportPDF(false); // Resetea el estado después de exportar
-            });
+            });       
     
     }, [exportPDF, filteredAsigs, subjects]);
 
