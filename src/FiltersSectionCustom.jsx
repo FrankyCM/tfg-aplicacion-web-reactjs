@@ -1,6 +1,6 @@
 import React from 'react'
-import { useState, useRef, useEffect } from 'react';
-import { Container, Label } from 'semantic-ui-react'
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { Label } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';
 import FiltersSelect from './FiltersSelect';
 import './FiltersSectionCustom.css';
@@ -28,7 +28,8 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const [size, setSize] = useState({ width: 500, height: 250 }); 
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef(null);
-
+  const containerRef = useRef(null);
+  
   const handleGradeSelect = (grade) => {
     setFilteredEvents([]);  // Reset de eventos del horario de asig seleccionadas
     setSelectedAsigs([]); // Reset de asignaturas seleccionadas para que no aparezcan sus eventos en el horario
@@ -295,8 +296,68 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
     setExportPDF(true);
   }
 
+  const calculateNewHeight = () => {
+    let newHeight = 300; // Altura mínima base
+    console.log("🔍 Altura base:", newHeight);
+  
+    if (selectedGradeButton) {
+      newHeight += 50;
+      console.log("➕ Sección Semestres:", newHeight);
+    }
+  
+    if (selectedSemesterButton) {
+      newHeight += 80;
+      console.log("➕ Sección Cursos:", newHeight);
+    }
+  
+    if (selectedCoursesButton.length !== 0) {
+      newHeight += 130 * selectedCoursesButton.length;
+      console.log("➕ Sección Grupos/Menciones:", newHeight);
+      
+      // Verificar si los botones de grupos/menciones están seleccionados
+      if (selectedFirstGroupButton || selectedSecondGroupButton || selectedThirdMentionButton || selectedFourthMentionButton) {
+          newHeight += 150;
+          console.log("➕ Primer grupo seleccionado:", newHeight);
+      }
+    }
+    
+
+    if (selectedAsigs.length > 0) {
+      newHeight += 40 * selectedAsigs.length;
+      console.log("➕ Lista de Asignaturas:", newHeight);
+    }
+  
+    if (includeLabs) {
+      newHeight += 40;
+      console.log("➕ Laboratorios:", newHeight);
+    }
+  
+    console.log("✅ Altura final calculada:", newHeight);
+    return newHeight;
+  };
+
+  useEffect(() => {
+    console.log("🔥 useEffect ejecutado");
+  
+    if (containerRef.current) {
+      console.log("📌 containerRef.current existe");
+  
+      const newHeight = calculateNewHeight();
+      console.log("Nueva altura calculada:", newHeight);
+  
+      setSize((prevSize) => {
+        console.log("Altura anterior:", prevSize.height);
+        return {
+          ...prevSize,
+          height: Math.max(prevSize.height, newHeight),
+        };
+      });
+    }
+  }, [selectedGradeButton, selectedSemesterButton, selectedCoursesButton, selectedFirstGroupButton, selectedSecondGroupButton, selectedThirdMentionButton, selectedFourthMentionButton, selectedAsigs]);
+
+  
   return createPortal(
-    <div style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+    <div ref={containerRef} style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
       <Draggable handle=".filter-menu-header">
       <div
           className="floating-filter-menu"
@@ -305,6 +366,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
           <div className="filter-menu-header">
             <IconButton name={`hand paper outline`} size={`large`}></IconButton>
           </div>
+          
 
           <div className="filter-menu-save-export-actions-content-custom">
             <IconButton name="file pdf outline" size={`big`} handleClick={handleExportPDF} />

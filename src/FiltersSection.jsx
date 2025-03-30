@@ -16,9 +16,11 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
   const [selectedGroupButton, setSelectedGroupButton] = useState(null);
   const [selectedMentionButton, setSelectedMentionButton] = useState(null);
 
-  const [size, setSize] = useState({ width: 500, height: 250 }); 
+  const [size, setSize] = useState({ width: 550, height: 200 }); 
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef(null);
+  const containerRef = useRef(null);
+
 
   const handleGradeSelect = (grade) => {
     setSelectedGrade(selectedGrade === grade ? "" : grade);
@@ -143,8 +145,58 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
     setExportPDF(true);
   }
 
+  const calculateNewHeight = () => {
+    let newHeight = 300; // Altura mínima base
+    console.log("🔍 Altura base:", newHeight);
+  
+    if (selectedGradeButton) {
+      newHeight += 50;
+      console.log("➕ Sección Semestres:", newHeight);
+    }
+  
+    if (selectedSemesterButton) {
+      newHeight += 80;
+      console.log("➕ Sección Cursos:", newHeight);
+    }
+  
+    if (selectedCourseButton) {
+      if(selectedGrade !== "INF"){
+        newHeight += 100;
+      } else {
+        newHeight += 80;
+      }
+      console.log("➕ Sección Grupos/Menciones:", newHeight);
+    }
+
+    if(selectedGroupButton || selectedMentionButton){
+      newHeight += 120;
+    }
+
+    console.log("✅ Altura final calculada:", newHeight);
+    return newHeight;
+  };
+
+  useEffect(() => {
+      console.log("🔥 useEffect ejecutado");
+    
+      if (containerRef.current) {
+        console.log("📌 containerRef.current existe");
+    
+        const newHeight = calculateNewHeight();
+        console.log("Nueva altura calculada:", newHeight);
+    
+        setSize((prevSize) => {
+          console.log("Altura anterior:", prevSize.height);
+          return {
+            ...prevSize,
+            height: Math.max(prevSize.height, newHeight),
+          };
+        });
+      }
+    }, [selectedGradeButton, selectedSemesterButton, selectedCourseButton, selectedGroupButton,selectedMentionButton]);
+
   return createPortal(
-    <div style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+    <div ref={containerRef} style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
       <Draggable handle=".filter-menu-header">
       <div
           className="floating-filter-menu"
