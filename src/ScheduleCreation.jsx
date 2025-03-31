@@ -85,6 +85,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                       semestre: asignatura.Semestre,
                       curso: asignatura.Curso,
                       grupo: asignatura.Grupo,
+                      grupoLaboratorio: asignatura.GrupoLaboratorio,
                       mencion: asignatura.Mencion,
                       aula: asignatura.Clase,
                       profesor: asignatura.Profesor,
@@ -170,30 +171,85 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 evento.grado === selectedGrade &&
                 evento.semestre === selectedSemester &&
                 evento.curso === selectedCourse &&
-                evento.mencion === selectedMention
+                evento.mencion === selectedMention &&
+                evento.grupo.startsWith("T") &&
+                (evento.grupoLaboratorio.startsWith("L") ||
+                evento.grupoLaboratorio.startsWith("W") ||
+                evento.grupoLaboratorio === "")
                 );
               } else {
-                asignaturasFiltradas = events.filter(evento => 
-                evento.grado === selectedGrade &&
-                evento.semestre === selectedSemester &&
-                evento.curso ===  selectedCourse &&
-                (!selectedGroup || evento.grupo === selectedGroup)
-                );
+                if(!selectedGroup){
+                    asignaturasFiltradas = events.filter(evento => 
+                        evento.grado === selectedGrade &&
+                        evento.semestre === selectedSemester &&
+                        evento.curso === selectedCourse &&
+                        evento.grupo.startsWith("T") &&
+                        (evento.grupoLaboratorio.startsWith("X") || 
+                        evento.grupoLaboratorio.startsWith("L") || 
+                        evento.grupoLaboratorio.startsWith("AS") || 
+                        evento.grupoLaboratorio.startsWith("J") ||
+                        evento.grupoLaboratorio.startsWith("K") ||
+                        evento.grupoLaboratorio.startsWith("Y") ||
+                        evento.grupoLaboratorio === "")
+                    );
+                } else {
+                    asignaturasFiltradas = events.filter(evento => 
+                        evento.grado === selectedGrade &&
+                        evento.semestre === selectedSemester &&
+                        evento.curso === selectedCourse &&
+                        (evento.grupo === selectedGroup && 
+                        (evento.grupoLaboratorio.startsWith("X") ||  
+                        evento.grupoLaboratorio.startsWith("L")  || 
+                        evento.grupoLaboratorio.startsWith("AS") || 
+                        evento.grupoLaboratorio.startsWith("J")  ||
+                        evento.grupoLaboratorio.startsWith("K")  ||
+                        evento.grupoLaboratorio.startsWith("Y")  ||
+                        evento.grupoLaboratorio === ""))
+                    );
+                }
               }
             }
     
-            if(selectedGrade === "EST" || selectedGrade === "I + E"){
-              asignaturasFiltradas = events.filter(evento => 
-                evento.grado === selectedGrade &&
-                evento.semestre === selectedSemester &&
-                evento.curso === selectedCourse);
+            if(selectedGrade === "EST"){
+                asignaturasFiltradas = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === selectedCourse &&
+                    (evento.grupo.startsWith("T") && 
+                    (evento.grupoLaboratorio.startsWith("T/L") ||
+                    evento.grupoLaboratorio.startsWith("L") ||
+                    evento.grupoLaboratorio.startsWith("X") ||
+                    evento.grupoLaboratorio.startsWith("J") ||
+                    evento.grupoLaboratorio.startsWith("TL") ||
+                    evento.grupoLaboratorio === ""))
+                    );      
+            }
+            if(selectedGrade === "I + E"){
+                asignaturasFiltradas = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === selectedCourse &&
+                    (evento.grupo.startsWith("T") &&
+                    (evento.grupoLaboratorio.startsWith("T/L") ||
+                    evento.grupoLaboratorio.startsWith("L") ||
+                    evento.grupoLaboratorio.startsWith("AS") || 
+                    evento.grupoLaboratorio.startsWith("X") ||
+                    evento.grupoLaboratorio.startsWith("J") ||
+                    evento.grupoLaboratorio.startsWith("Y") ||
+                    evento.grupoLaboratorio.startsWith("K") ||
+                    evento.grupoLaboratorio === ""))
+                );
             }
     
             if(selectedGrade === "Master"){
-              asignaturasFiltradas = events.filter(evento => 
-                evento.grado === selectedGrade &&
-                evento.semestre === selectedSemester &&
-                evento.curso === "1º");
+                asignaturasFiltradas = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === "1º" &&
+                    (evento.grupo.startsWith("T") &&
+                    (evento.grupoLaboratorio.startsWith("L") ||
+                     evento.grupoLaboratorio === ""))
+                );
             }
             
             console.log("Eventos filtrados:", asignaturasFiltradas);
