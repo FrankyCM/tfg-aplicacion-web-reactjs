@@ -29,7 +29,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef(null);
   const containerRef = useRef(null);
-  
+
   const handleGradeSelect = (grade) => {
     setFilteredEvents([]);  // Reset de eventos del horario de asig seleccionadas
     setSelectedAsigs([]); // Reset de asignaturas seleccionadas para que no aparezcan sus eventos en el horario
@@ -297,56 +297,38 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   }
 
   const calculateNewHeight = () => {
-    let newHeight = 300; // Altura mínima base
-    console.log("🔍 Altura base:", newHeight);
-  
+    let newHeight = 300;
+
     if (selectedGradeButton) {
       newHeight += 50;
-      console.log("➕ Sección Semestres:", newHeight);
     }
   
     if (selectedSemesterButton) {
-      newHeight += 80;
-      console.log("➕ Sección Cursos:", newHeight);
+      newHeight += 90;
     }
   
     if (selectedCoursesButton.length !== 0) {
       newHeight += 130 * selectedCoursesButton.length;
-      console.log("➕ Sección Grupos/Menciones:", newHeight);
-      
-      // Verificar si los botones de grupos/menciones están seleccionados
       if (selectedFirstGroupButton || selectedSecondGroupButton || selectedThirdMentionButton || selectedFourthMentionButton) {
           newHeight += 150;
-          console.log("➕ Primer grupo seleccionado:", newHeight);
       }
     }
     
 
     if (selectedAsigs.length > 0) {
       newHeight += 40 * selectedAsigs.length;
-      console.log("➕ Lista de Asignaturas:", newHeight);
     }
   
     if (includeLabs) {
       newHeight += 40;
-      console.log("➕ Laboratorios:", newHeight);
     }
-  
-    console.log("✅ Altura final calculada:", newHeight);
     return newHeight;
   };
 
   useEffect(() => {
-    console.log("🔥 useEffect ejecutado");
-  
     if (containerRef.current) {
-      console.log("📌 containerRef.current existe");
-  
-      const newHeight = calculateNewHeight();
-      console.log("Nueva altura calculada:", newHeight);
-  
+      const newHeight = calculateNewHeight(); 
       setSize((prevSize) => {
-        console.log("Altura anterior:", prevSize.height);
         return {
           ...prevSize,
           height: Math.max(prevSize.height, newHeight),

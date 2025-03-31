@@ -72,6 +72,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                   semestre: asignatura.Semestre,
                   curso: asignatura.Curso,
                   grupo: asignatura.Grupo,
+                  grupoLaboratorio: asignatura.GrupoLaboratorio,
                   mencion: asignatura.Mencion,
                   aula: asignatura.Clase,
                   profesor: asignatura.Profesor,
@@ -184,12 +185,12 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                   evento.semestre === selectedSemester &&
                   selectedCourses.includes(evento.curso) &&
                   (
-                    (selectedCourses.includes("1º") && (evento.grupo === selectedFirstGroup || evento.grupo.startsWith("X") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("J") || evento.grupo.startsWith("K") || evento.grupo.startsWith("Y")) && evento.curso === "1º") ||
-                    (selectedCourses.includes("2º") && (evento.grupo === selectedSecondGroup || evento.grupo.startsWith("X") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("J") || evento.grupo.startsWith("K") || evento.grupo.startsWith("Y")) && evento.curso === "2º") ||
+                    (selectedCourses.includes("1º") && (evento.grupo === selectedFirstGroup && (evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("AS") || evento.grupoLaboratorio.startsWith("J") || evento.grupo.startsWith("K") || evento.grupoLaboratorio.startsWith("Y") || evento.grupoLaboratorio === "")) && evento.curso === "1º") ||
+                    (selectedCourses.includes("2º") && (evento.grupo === selectedSecondGroup && (evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("AS") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("K") || evento.grupoLaboratorio.startsWith("Y") || evento.grupoLaboratorio === "")) && evento.curso === "2º") ||
                     (["3º", "4º"].includes(evento.curso) &&
-                      (selectedCourses.includes("3º") && (evento.mencion === selectedThirdMention || evento.grupo.startsWith("L") || evento.grupo.startsWith("W")) && evento.curso === "3º") ||
-                      (selectedCourses.includes("4º") && (evento.mencion === selectedFourthMention || evento.grupo.startsWith("L") || evento.grupo.startsWith("W")) && evento.curso === "4º"))
-                  )
+                      (selectedCourses.includes("3º") && (evento.mencion === selectedThirdMention && (evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("W") || evento.grupoLaboratorio === "") && evento.curso === "3º")) ||
+                      (selectedCourses.includes("4º") && (evento.mencion === selectedFourthMention && (evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("W") || evento.grupoLaboratorio === "") && evento.curso === "4º"))
+                  ))
                 );
               } else {
                 // Filtrar eventos según los criterios actualizados
@@ -198,11 +199,11 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                 evento.semestre === selectedSemester &&
                 selectedCourses.includes(evento.curso) &&
                   (
-                    (selectedCourses.includes("1º") && evento.grupo === selectedFirstGroup && evento.curso === "1º") ||
-                    (selectedCourses.includes("2º") && evento.grupo === selectedSecondGroup && evento.curso === "2º") ||
+                    (selectedCourses.includes("1º") && evento.grupo === selectedFirstGroup && evento.grupoLaboratorio === "" && evento.curso === "1º") ||
+                    (selectedCourses.includes("2º") && evento.grupo === selectedSecondGroup && evento.grupoLaboratorio === "" && evento.curso === "2º") ||
                     (["3º", "4º"].includes(evento.curso) &&
-                      (selectedCourses.includes("3º") && evento.mencion === selectedThirdMention && evento.grupo.startsWith("T") && evento.curso === "3º") ||
-                      (selectedCourses.includes("4º") && evento.mencion === selectedFourthMention && evento.grupo.startsWith("T") && evento.curso === "4º"))
+                      (selectedCourses.includes("3º") && evento.mencion === selectedThirdMention && evento.grupo.startsWith("T") && evento.grupoLaboratorio === "" && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && evento.mencion === selectedFourthMention && evento.grupo.startsWith("T") && evento.grupoLaboratorio === "" && evento.curso === "4º"))
                   )
                 );
               }
@@ -216,10 +217,10 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                   evento.semestre === selectedSemester &&
                   selectedCourses.includes(evento.curso) &&
                     (
-                      (selectedCourses.includes("1º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") ||evento.grupo.startsWith("L") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("TL")) && evento.curso === "1º") ||
-                      (selectedCourses.includes("2º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") ||evento.grupo.startsWith("L") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("TL")) && evento.curso === "2º") ||
-                      (selectedCourses.includes("3º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") ||evento.grupo.startsWith("L") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("TL")) && evento.curso === "3º") ||
-                      (selectedCourses.includes("4º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") ||evento.grupo.startsWith("L") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("TL")) && evento.curso === "4º")
+                      (selectedCourses.includes("1º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("TL") || evento.grupoLaboratorio === "")) && evento.curso === "1º") ||
+                      (selectedCourses.includes("2º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("TL") || evento.grupoLaboratorio === "")) && evento.curso === "2º") ||
+                      (selectedCourses.includes("3º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("TL") || evento.grupoLaboratorio === "")) && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("TL") || evento.grupoLaboratorio === "")) && evento.curso === "4º")
                     )
                   );
               } else {
@@ -229,10 +230,10 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                   evento.semestre === selectedSemester &&
                   selectedCourses.includes(evento.curso) &&
                     (
-                      (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.curso === "1º") ||
-                      (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.curso === "2º") ||
-                      (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.curso === "3º") ||
-                      (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.curso === "4º")
+                      (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "1º") ||
+                      (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "2º") ||
+                      (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "4º")
                     )
                   );
               }
@@ -246,11 +247,11 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                   evento.semestre === selectedSemester &&
                   selectedCourses.includes(evento.curso) &&
                     (
-                      (selectedCourses.includes("1º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "1º") ||
-                      (selectedCourses.includes("2º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "2º") ||
-                      (selectedCourses.includes("3º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "3º") ||
-                      (selectedCourses.includes("4º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "4º") ||
-                      (selectedCourses.includes("5º") && (evento.grupo === "T1" || evento.grupo.startsWith("T/L") || evento.grupo.startsWith("L") || evento.grupo.startsWith("AS") || evento.grupo.startsWith("X") || evento.grupo.startsWith("J") || evento.grupo.startsWith("Y") || evento.grupo.startsWith("K")) && evento.curso === "5º")
+                      (selectedCourses.includes("1º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("AS") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("Y") || evento.grupoLaboratorio.startsWith("K") || evento.grupoLaboratorio === "")) && evento.curso === "1º") ||
+                      (selectedCourses.includes("2º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("AS") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("Y") || evento.grupoLaboratorio.startsWith("K") || evento.grupoLaboratorio === "")) && evento.curso === "2º") ||
+                      (selectedCourses.includes("3º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("AS") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("Y") || evento.grupoLaboratorio.startsWith("K") || evento.grupoLaboratorio === "")) && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("AS") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("Y") || evento.grupoLaboratorio.startsWith("K") || evento.grupoLaboratorio === "")) && evento.curso === "4º") ||
+                      (selectedCourses.includes("5º") && (evento.grupo === "T1" && (evento.grupoLaboratorio.startsWith("T/L") || evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio.startsWith("AS") || evento.grupoLaboratorio.startsWith("X") || evento.grupoLaboratorio.startsWith("J") || evento.grupoLaboratorio.startsWith("Y") || evento.grupoLaboratorio.startsWith("K") || evento.grupoLaboratorio === "")) && evento.curso === "5º")
                     )
                   );
               } else {
@@ -260,11 +261,11 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                   evento.semestre === selectedSemester &&
                   selectedCourses.includes(evento.curso) &&
                     (
-                      (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.curso === "1º") ||
-                      (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.curso === "2º") ||
-                      (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.curso === "3º") ||
-                      (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.curso === "4º") ||
-                      (selectedCourses.includes("5º") && evento.grupo === "T1" && evento.curso === "5º")
+                      (selectedCourses.includes("1º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "1º") ||
+                      (selectedCourses.includes("2º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "2º") ||
+                      (selectedCourses.includes("3º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "3º") ||
+                      (selectedCourses.includes("4º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "4º") ||
+                      (selectedCourses.includes("5º") && evento.grupo === "T1" && evento.grupoLaboratorio === "" && evento.curso === "5º")
                     )
                   );
               }
@@ -276,14 +277,15 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                 eventosFiltrados = events.filter((evento) => 
                   evento.grado === selectedGrade &&
                   evento.semestre === selectedSemester &&
-                  (evento.grupo === "T1" || evento.grupo.startsWith("L")) &&
-                  evento.curso === "1º");
+                  (evento.grupo === "T1" & (evento.grupoLaboratorio.startsWith("L") || evento.grupoLaboratorio === "") &&
+                  evento.curso === "1º"));
               } else {
                 // Filtrar eventos según los criterios actualizados
                 eventosFiltrados = events.filter((evento) => 
                   evento.grado === selectedGrade &&
                   evento.semestre === selectedSemester &&
                   evento.grupo === "T1" &&
+                  evento.grupoLaboratorio === "" &&
                   evento.curso === "1º");
               }
               
@@ -292,17 +294,25 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
             // Crear la lista de opciones de asignaturas con el formato adecuado
             const asigOptions = eventosFiltrados.map(evento => {
                 
-                const key = ["3º", "4º"].includes(evento.curso) 
-                    ? `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.mencion}`
-                    : `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`;
-                
-                const text = ["3º", "4º"].includes(evento.curso)
-                    ? `${evento.siglas} - ${evento.grupo} - ${evento.mencion}`
-                    : `${evento.siglas} - ${evento.grupo}`;
+              const key = ["3º", "4º"].includes(evento.curso) 
+              ? evento.grupoLaboratorio === ""
+                  ? `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.mencion}`
+                  : `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.grupoLaboratorio} - ${evento.mencion}`
+              : evento.grupoLaboratorio === ""
+                  ? `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`
+                  : `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.grupoLaboratorio}`;
+          
+              const text = ["3º", "4º"].includes(evento.curso)
+              ? evento.grupoLaboratorio === ""
+                  ? `${evento.siglas} - ${evento.grupo} - ${evento.mencion}`
+                  : `${evento.siglas} - ${evento.grupo} - ${evento.grupoLaboratorio} - ${evento.mencion}`
+              : evento.grupoLaboratorio === ""
+                  ? `${evento.siglas} - ${evento.grupo}`
+                  : `${evento.siglas} - ${evento.grupo} - ${evento.grupoLaboratorio}`;
     
                 return {
                     key,
-                    value: `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`,
+                    value: `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.grupoLaboratorio}`,
                     text
                 };
             });
@@ -320,9 +330,12 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
         } else {
             const eventosFiltrados = events.filter(evento => {
                 const asigFormato1 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo}`;
-                const asigFormato2 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.mencion}`;
+                const asigFormato2 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.grupoLaboratorio}`;
+                const asigFormato3 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.mencion}`;
+                const asigFormato4 = `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.grupoLaboratorio} - ${evento.mencion}`;
                 
-                return (selectedAsigs.includes(asigFormato1) && selectedGrade === evento.grado) || (selectedAsigs.includes(asigFormato2) && selectedGrade === evento.grado);
+                return (selectedAsigs.includes(asigFormato1) && selectedGrade === evento.grado && evento.grupoLaboratorio === "") || (selectedAsigs.includes(asigFormato2) && selectedGrade === evento.grado && evento.grupoLaboratorio !== "")
+                || (selectedAsigs.includes(asigFormato3) && selectedGrade === evento.grado && evento.grupoLaboratorio === "") || (selectedAsigs.includes(asigFormato4) && selectedGrade === evento.grado && evento.grupoLaboratorio !== "");
             });
     
             setFilteredEvents(eventosFiltrados);

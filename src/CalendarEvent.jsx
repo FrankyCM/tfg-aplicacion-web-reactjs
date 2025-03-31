@@ -26,17 +26,19 @@ export const CalendarEvent = ({event}) => {
     return (
         <div className="evento-calendario" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} title="" onClick={handleEventClick}>
             <strong className="evento-calendario-siglas">{event.siglas}</strong>
-            {!event.aula.startsWith("L") && (
+            {!event.aula.startsWith("L") && event.grupo.startsWith("T") && event.grupoLaboratorio === "" && (
                 <span className="evento-calendario-grupo-aula">{event.grupo} - {event.aula}</span>
             )}
-            {event.aula.startsWith("L") && (
+            
+            {event.aula.startsWith("L") && event.grupo.startsWith("T") && event.grupoLaboratorio !== "" && (
                 <>
                 <div className="evento-calendario-grupo-aula-laboratorio">
-                    <strong>{event.grupo}</strong>
+                    <strong>{event.grupoLaboratorio}</strong>
                     <span className="aula-laboratorio">{event.aula}</span>
                 </div>               
                 </>            
             )}
+            
 
             {hoveredEvent && <CalendarEventPopUp event={hoveredEvent} position={popUpPosition} backgroundColor={event.color} setHoveredEvent={setHoveredEvent}/>}
 

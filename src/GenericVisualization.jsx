@@ -64,6 +64,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
               semestre: asignatura.Semestre,
               curso: asignatura.Curso,
               grupo: asignatura.Grupo,
+              grupoLaboratorio: asignatura.GrupoLaboratorio,
               mencion: asignatura.Mencion,
               aula: asignatura.Clase,
               profesor: asignatura.Profesor,
@@ -171,9 +172,10 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                 evento.semestre === selectedSemester &&
                 evento.curso === selectedCourse &&
                 evento.mencion === selectedMention &&
-                (evento.grupo.startsWith("L") ||
-                evento.grupo.startsWith("W") ||
-                evento.grupo.startsWith("T"))
+                evento.grupo.startsWith("T") &&
+                (evento.grupoLaboratorio.startsWith("L") ||
+                evento.grupoLaboratorio.startsWith("W") ||
+                evento.grupoLaboratorio === "")
                 );
             } else {
               asignaturasFiltradas = events.filter(evento => 
@@ -181,12 +183,13 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                 evento.semestre === selectedSemester &&
                 evento.curso === selectedCourse &&
                 evento.mencion === selectedMention &&
-                evento.grupo.startsWith("T")
+                evento.grupo.startsWith("T") &&
+                evento.grupoLaboratorio === ""
                 );
             } 
             
             
-          } else {
+        } else {
 
               if (!selectedGroup && !includeLabs) {
                 // Caso 1: No hay selectedGroup y includeLabs === false
@@ -194,7 +197,8 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                     evento.grado === selectedGrade &&
                     evento.semestre === selectedSemester &&
                     evento.curso === selectedCourse &&
-                    evento.grupo.startsWith("T")
+                    evento.grupo.startsWith("T") && 
+                    evento.grupoLaboratorio === ""
                 );
             } else if (!selectedGroup && includeLabs) {
                 // Caso 2: No hay selectedGroup y includeLabs === true
@@ -202,13 +206,14 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                     evento.grado === selectedGrade &&
                     evento.semestre === selectedSemester &&
                     evento.curso === selectedCourse &&
-                    (evento.grupo.startsWith("X") || 
-                    evento.grupo.startsWith("L") || 
-                    evento.grupo.startsWith("AS") || 
-                    evento.grupo.startsWith("J") ||
-                    evento.grupo.startsWith("K") ||
-                    evento.grupo.startsWith("Y") ||
-                    evento.grupo.startsWith("T"))
+                    evento.grupo.startsWith("T") &&
+                    (evento.grupoLaboratorio.startsWith("X") || 
+                    evento.grupoLaboratorio.startsWith("L") || 
+                    evento.grupoLaboratorio.startsWith("AS") || 
+                    evento.grupoLaboratorio.startsWith("J") ||
+                    evento.grupoLaboratorio.startsWith("K") ||
+                    evento.grupoLaboratorio.startsWith("Y") ||
+                    evento.grupoLaboratorio === "")
                 );
             } else if (selectedGroup && !includeLabs) {
                 // Caso 3: Hay selectedGroup y includeLabs === false
@@ -216,7 +221,8 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                     evento.grado === selectedGrade &&
                     evento.semestre === selectedSemester &&
                     evento.curso === selectedCourse &&
-                    evento.grupo === selectedGroup
+                    evento.grupo === selectedGroup &&
+                    evento.grupoLaboratorio === ""
                 );
             } else if (selectedGroup && includeLabs) {
                 // Caso 4: Hay selectedGroup y includeLabs === true
@@ -224,13 +230,14 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                     evento.grado === selectedGrade &&
                     evento.semestre === selectedSemester &&
                     evento.curso === selectedCourse &&
-                    (evento.grupo === selectedGroup || 
-                    evento.grupo.startsWith("X") ||  
-                    evento.grupo.startsWith("L") || 
-                    evento.grupo.startsWith("AS") || 
-                    evento.grupo.startsWith("J") ||
-                    evento.grupo.startsWith("K") ||
-                    evento.grupo.startsWith("Y") )
+                    (evento.grupo === selectedGroup && 
+                    (evento.grupoLaboratorio.startsWith("X") ||  
+                    evento.grupoLaboratorio.startsWith("L")  || 
+                    evento.grupoLaboratorio.startsWith("AS") || 
+                    evento.grupoLaboratorio.startsWith("J")  ||
+                    evento.grupoLaboratorio.startsWith("K")  ||
+                    evento.grupoLaboratorio.startsWith("Y")  ||
+                    evento.grupoLaboratorio === ""))
                 );
             }
 
@@ -243,19 +250,21 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
               evento.grado === selectedGrade &&
               evento.semestre === selectedSemester &&
               evento.curso === selectedCourse &&
-              (evento.grupo === "T1" || 
-              evento.grupo.startsWith("T/L") ||
-              evento.grupo.startsWith("L") ||
-              evento.grupo.startsWith("X") ||
-              evento.grupo.startsWith("J") ||
-              evento.grupo.startsWith("TL"))
+              (evento.grupo === "T1" && 
+              (evento.grupoLaboratorio.startsWith("T/L") ||
+              evento.grupoLaboratorio.startsWith("L") ||
+              evento.grupoLaboratorio.startsWith("X") ||
+              evento.grupoLaboratorio.startsWith("J") ||
+              evento.grupoLaboratorio.startsWith("TL") ||
+              evento.grupoLaboratorio === ""))
             );
           } else {
             asignaturasFiltradas = events.filter(evento => 
               evento.grado === selectedGrade &&
               evento.semestre === selectedSemester &&
               evento.curso === selectedCourse &&
-              evento.grupo === "T1"
+              evento.grupo === "T1" &&
+              evento.grupoLaboratorio === ""
             );
           }
           
@@ -267,21 +276,23 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
               evento.grado === selectedGrade &&
               evento.semestre === selectedSemester &&
               evento.curso === selectedCourse &&
-              (evento.grupo === "T1" ||
-              evento.grupo.startsWith("T/L") ||
-              evento.grupo.startsWith("L") ||
-              evento.grupo.startsWith("AS") || 
-              evento.grupo.startsWith("X") ||
-              evento.grupo.startsWith("J") ||
-              evento.grupo.startsWith("Y") ||
-              evento.grupo.startsWith("K"))
+              (evento.grupo === "T1" &&
+              (evento.grupoLaboratorio.startsWith("T/L") ||
+              evento.grupoLaboratorio.startsWith("L") ||
+              evento.grupoLaboratorio.startsWith("AS") || 
+              evento.grupoLaboratorio.startsWith("X") ||
+              evento.grupoLaboratorio.startsWith("J") ||
+              evento.grupoLaboratorio.startsWith("Y") ||
+              evento.grupoLaboratorio.startsWith("K") ||
+              evento.grupoLaboratorio === ""))
             );
           } else {
             asignaturasFiltradas = events.filter(evento => 
               evento.grado === selectedGrade &&
               evento.semestre === selectedSemester &&
               evento.curso === selectedCourse &&
-              evento.grupo === "T1"
+              evento.grupo === "T1" &&
+              evento.grupoLaboratorio === ""
             );
           }
           
@@ -293,15 +304,17 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
               evento.grado === selectedGrade &&
               evento.semestre === selectedSemester &&
               evento.curso === "1º" &&
-              (evento.grupo === "T1" ||
-              evento.grupo.startsWith("L"))
+              (evento.grupo === "T1" &&
+              (evento.grupoLaboratorio.startsWith("L") || 
+              evento.grupoLaboratorio === ""))
             );
           } else {
             asignaturasFiltradas = events.filter(evento => 
               evento.grado === selectedGrade &&
               evento.semestre === selectedSemester &&
               evento.curso === "1º" &&
-              evento.grupo === "T1"
+              evento.grupo === "T1" &&
+              evento.grupoLaboratorio === ""
             );
           }
           

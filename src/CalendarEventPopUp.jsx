@@ -24,7 +24,7 @@ const handleMouseLeave = () => {
       <div className="informacion-popup">
         <p className="informacion-nombre-siglas">{event.nombre} - {event.siglas}</p>
         <div className="informacion-grupo-aula">
-            {!event.aula.startsWith("L") && (
+            {!event.aula.startsWith("L") && event.grupo.startsWith("T") && event.grupoLaboratorio === "" && (
                 <>
                 <div className="informacion-grupo">
                     <p>Grupo:</p>
@@ -36,11 +36,12 @@ const handleMouseLeave = () => {
                 </div>
                 </>
             )}
-            {event.aula.startsWith("L") && (
+
+            {event.aula.startsWith("L") && event.grupo.startsWith("T") && event.grupoLaboratorio !== "" && (
                 <>
                 <div className="informacion-grupo">
                     <p>Grupo de laboratorio:</p>
-                    <p>{event.grupo}</p>
+                    <p>{event.grupoLaboratorio}</p>
                 </div>
                 <div className="informacion-aula">
                     <p>Aula de laboratorio:</p>

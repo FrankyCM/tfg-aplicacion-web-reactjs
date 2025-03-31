@@ -146,47 +146,33 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
   }
 
   const calculateNewHeight = () => {
-    let newHeight = 300; // Altura mínima base
-    console.log("🔍 Altura base:", newHeight);
-  
+    let newHeight = 300;
     if (selectedGradeButton) {
       newHeight += 50;
-      console.log("➕ Sección Semestres:", newHeight);
     }
   
     if (selectedSemesterButton) {
-      newHeight += 80;
-      console.log("➕ Sección Cursos:", newHeight);
+      newHeight += 90;
     }
   
     if (selectedCourseButton) {
       if(selectedGrade !== "INF"){
-        newHeight += 100;
+        newHeight += 110;
       } else {
-        newHeight += 80;
+        newHeight += 90;
       }
-      console.log("➕ Sección Grupos/Menciones:", newHeight);
     }
 
     if(selectedGroupButton || selectedMentionButton){
       newHeight += 120;
     }
-
-    console.log("✅ Altura final calculada:", newHeight);
     return newHeight;
   };
 
   useEffect(() => {
-      console.log("🔥 useEffect ejecutado");
-    
       if (containerRef.current) {
-        console.log("📌 containerRef.current existe");
-    
-        const newHeight = calculateNewHeight();
-        console.log("Nueva altura calculada:", newHeight);
-    
+        const newHeight = calculateNewHeight(); 
         setSize((prevSize) => {
-          console.log("Altura anterior:", prevSize.height);
           return {
             ...prevSize,
             height: Math.max(prevSize.height, newHeight),
