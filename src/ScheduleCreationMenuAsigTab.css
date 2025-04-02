@@ -1,0 +1,14 @@
+.contenido-tab-crear-asignatura {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: 5px;
+}

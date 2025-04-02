@@ -12,10 +12,27 @@ const FloatingFilterScheduleMenu = ({
   selectedCourse, setSelectedCourse,
   selectedGroup, setSelectedGroup,
   selectedMention, setSelectedMention,
-  warningMessage, setSave, setExportPDF
+  warningMessage, setSave, setExportPDF,
+  asigCode, setAsigCode, asigInitials,
+  setAsigInitials, asigPossibleDays,
+  asigDay, setAsigDay, asigStartTimes,
+  asigFullName, setAsigFullName, 
+  asigStartTime, setAsigStartTime,
+  asigPossibleColors,
+  asigColor, setAsigColor,
+  asigPossibleSemesters, asigSemester, setAsigSemester,
+  asigPossibleGroupNumbers, asigGroupNumber,
+  setAsigGroupNumber, asigLabGroup, setAsigLabGroup,
+  asigPossibleGroupType, asigDuration, setAsigDuration,
+  asigPossibleCourses, asigCourseGII_IS, setAsigCourseGII_IS,
+  asigCourseGII_TI, setAsigCourseGII_TI, asigCourseGII_CO,
+  setAsigCourseGII_CO, asigCourse_EST, setAsigCourse_EST,
+  asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
+  setAsigCourse_Master, asigTeacher, setAsigTeacher,
+  asigIncidences, setAsigIncidences
 }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [size, setSize] = useState({ width: 400, height: 350 }); // Estado del tamaño
+  const [size, setSize] = useState({ width: 450, height: 350 }); // Estado del tamaño
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef(null);
 
@@ -93,7 +110,21 @@ const FloatingFilterScheduleMenu = ({
             selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse}
             selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}
             selectedMention={selectedMention} setSelectedMention={setSelectedMention}
-            warningMessage={warningMessage}
+            warningMessage={warningMessage} asigCode={asigCode} setAsigCode={setAsigCode} asigInitials={asigInitials}
+            setAsigInitials={setAsigInitials} asigPossibleDays={asigPossibleDays} asigDay={asigDay}
+            setAsigDay={setAsigDay} asigStartTimes={asigStartTimes} asigFullName={asigFullName} setAsigFullName={setAsigFullName}
+            asigStartTime={asigStartTime} setAsigStartTime={setAsigStartTime} asigPossibleColors={asigPossibleColors}
+            asigColor={asigColor} setAsigColor={setAsigColor}
+            asigPossibleSemesters={asigPossibleSemesters} asigSemester={asigSemester} setAsigSemester={setAsigSemester}
+            asigPossibleGroupNumber={asigPossibleGroupNumbers} asigGroupNumber={asigGroupNumber} setAsigGroupNumber={setAsigGroupNumber}
+            asigLabGroup={asigLabGroup} setAsigLabGroup={setAsigLabGroup}
+            asigPossibleGroupType={asigPossibleGroupType} asigDuration={asigDuration} setAsigDuration={setAsigDuration}
+            asigPossibleCourses={asigPossibleCourses} asigCourseGII_IS={asigCourseGII_IS} setAsigCourseGII_IS={setAsigCourseGII_IS}
+            asigCourseGII_TI={asigCourseGII_TI} setAsigCourseGII_TI={setAsigCourseGII_TI} asigCourseGII_CO={asigCourseGII_CO}
+            setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
+            asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
+            setAsigCourse_Master={setAsigCourse_Master} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
+            asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences}
           />
 
           {/* Esquinas de redimensionamiento */}
