@@ -36,8 +36,8 @@ const ScheduleCreationMenuTabs = ({selectedGrade, setSelectedGrade,
   asigCourseGII_TI, setAsigCourseGII_TI, asigCourseGII_CO,
   setAsigCourseGII_CO, asigCourse_EST, setAsigCourse_EST,
   asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
-  setAsigCourse_Master, asigTeacher, setAsigTeacher,
-  asigIncidences, setAsigIncidences}) => {
+  setAsigCourse_Master, asigPossibleTeacherOptions, asigTeacher, 
+  setAsigTeacher, asigIncidences, setAsigIncidences}) => {
   const panes = [
     {
       menuItem: { key: 'calendar outline', icon: 'calendar outline', content: 'Gestión de horarios  ' },
@@ -51,14 +51,14 @@ const ScheduleCreationMenuTabs = ({selectedGrade, setSelectedGrade,
       asigStartTime={asigStartTime} setAsigStartTime={setAsigStartTime} asigPossibleColors={asigPossibleColors}
       asigColor={asigColor} setAsigColor={setAsigColor}
       asigPossibleSemesters={asigPossibleSemesters} asigSemester={asigSemester} setAsigSemester={setAsigSemester}
-      asigPossibleGroupNumber={asigPossibleGroupNumbers} asigGroupNumber={asigGroupNumber} setAsigGroupNumber={setAsigGroupNumber}
+      asigPossibleGroupNumbers={asigPossibleGroupNumbers} asigGroupNumber={asigGroupNumber} setAsigGroupNumber={setAsigGroupNumber}
       asigLabGroup={asigLabGroup} setAsigLabGroup={setAsigLabGroup}
       asigPossibleGroupType={asigPossibleGroupType} asigDuration={asigDuration} setAsigDuration={setAsigDuration}
       asigPossibleCourses={asigPossibleCourses} asigCourseGII_IS={asigCourseGII_IS} setAsigCourseGII_IS={setAsigCourseGII_IS}
       asigCourseGII_TI={asigCourseGII_TI} setAsigCourseGII_TI={setAsigCourseGII_TI} asigCourseGII_CO={asigCourseGII_CO}
       setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
       asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
-      setAsigCourse_Master={setAsigCourse_Master} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
+      setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
       asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} />,
     },
   ];

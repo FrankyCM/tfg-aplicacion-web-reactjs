@@ -3,6 +3,13 @@
     flex-direction: column;
     width: 100%;
     font-family: Arial, Helvetica, sans-serif;
+    margin-top: 10px;
+}
+
+.apartado-codigo-siglas-dia-hora-color {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 22px;
 }
 
 .contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color {
@@ -11,4 +18,86 @@
     flex-wrap: wrap;
     flex-direction: row;
     margin-top: 5px;
+}
+
+.contenido-tab-crear-asignatura-nombre-completo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.contenido-tab-crear-asignatura-semestre-grupo-subgrupo-tipo-duracion {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 60px;
+    font-size: 22px;
+}
+
+.campos-semestre-grupo-subgrupo-tipo-duracion {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.contenido-tab-crear-asignatura-estudios {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 60px;
+}
+
+.contenido-tab-crear-asignatura-estudios .apartado-estudios{
+    font-size: 22px;
+}
+
+.contenido-tab-crear-asignatura-estudios .cabecera-estudios {
+    display: flex;
+    flex-direction: row;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+.contenido-tab-crear-asignatura-profesores {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 60px;
+}
+
+.contenido-tab-crear-asignatura-profesores .apartado-profesores {
+    font-size: 22px;
+}
+
+.apartado-profesores {
+    margin-bottom: 10px;
+}
+
+.contenido-tab-crear-asignatura-profesores .campo-primer-profesor {
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.campo-primer-profesor p {
+    margin: 0;
+    padding-right: 20px;
+}
+
+.contenido-tab-crear-asignatura-incidencias {
+    margin-top: 40px;
+}
+
+.apartado-incidencias {
+    margin-bottom: 10px;
+    font-size: 22px;
 }

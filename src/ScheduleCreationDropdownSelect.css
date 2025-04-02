@@ -1,0 +1,47 @@
+.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown {
+    padding: 10px;
+    margin-right: 20px;
+    width: 200px !important;
+    min-width: 0 !important;
+}
+
+.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown {
+    padding: 10px;
+    margin-right: 20px;
+    width: 200px !important;
+    min-width: 0 !important;
+}
+
+.campos-estudios .ui.selection.dropdown {
+    padding: 10px;
+    margin-right: 20px;
+    width: 100px !important;
+    min-width: 0 !important;
+    font-size: 20px;
+}
+
+.campos-estudios .ui.selection.dropdown .divider.text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
+    text-align: center;
+    margin-top: 5px;
+}
+
+.campos-estudios .ui.selection.dropdown .item {
+    font-size: large;
+}
+
+.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown .item {
+    font-size: large;
+}
+
+.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown .divider.text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
+    text-align: center;
+    margin-top: 7px;
+}

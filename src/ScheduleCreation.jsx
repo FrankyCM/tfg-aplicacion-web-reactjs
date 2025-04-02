@@ -73,8 +73,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [asigColor, setAsigColor] = useState(null);
     const [asigFullName, setAsigFullName] = useState(null);
     const asigPossibleSemesters = [
-        { key: '1C', value: '1ºC', text: '1º Curso' },
-        { key: '2C', value: '2ºC', text: '2º Curso' },
+        { key: '1ºC', value: '1ºC', text: '1ºC' },
+        { key: '2ºC', value: '2ºC', text: '2ºC' },
         { key: '1S', value: '1er Semestre', text: '1er Semestre' },
         { key: '2S', value: '2º Semestre', text: '2º Semestre' },
         { key: '3S', value: '3er Semestre', text: '3er Semestre' },
@@ -89,16 +89,16 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [asigGroupNumber, setAsigGroupNumber] = useState(null);
     const [asigLabGroup, setAsigLabGroup] = useState(null);
     const asigPossibleGroupType = [
-        { key: 'T', value: 'T', text: 'Teoría' },
+        { key: 'T', value: 'T', text: 'T' },
     ];
     const [asigDuration, setAsigDuration] = useState(null);
     const asigPossibleCourses = [
         { key: '-', value: '-', text: '-' },
-        { key: '1º', value: '1º', text: '1º Curso' },
-        { key: '2º', value: '2º', text: '2º Curso' },
-        { key: '3º', value: '3º', text: '3º Curso' },
-        { key: '4º', value: '4º', text: '4º Curso' },
-        { key: '5º', value: '5º', text: '5º Curso' },
+        { key: '1º', value: '1º', text: '1º' },
+        { key: '2º', value: '2º', text: '2º' },
+        { key: '3º', value: '3º', text: '3º' },
+        { key: '4º', value: '4º', text: '4º' },
+        { key: '5º', value: '5º', text: '5º' },
       ];
     const [asigCourseGII_IS, setAsigCourseGII_IS] = useState(null);
     const [asigCourseGII_TI, setAsigCourseGII_TI] = useState(null);
@@ -106,6 +106,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [asigCourse_EST, setAsigCourse_EST] = useState(null);
     const [asigCourse_INDat, setAsigCourse_INDat] = useState(null);
     const [asigCourse_Master, setAsigCourse_Master] = useState(null);
+    const asigPossibleTeacherOptions = [ 
+        { key: 'NICOLAS RODRIGUEZ, JOAQUIN ADIEGO', value: 'NICOLAS RODRIGUEZ, JOAQUIN ADIEGO', text: 'NICOLAS RODRIGUEZ, JOAQUIN ADIEGO' }, 
+        { key: 'CALONGE CANO, TEODORO', value: 'CALONGE CANO, TEODORO', text: 'CALONGE CANO, TEODORO' }, 
+        { key: 'GONZALEZ FERRERAS, CESAR', value: 'GONZALEZ FERRERAS, CESAR', text: 'GONZALEZ FERRERAS, CESAR' } 
+      ];
     const [asigTeacher, setAsigTeacher] = useState(null);
     const [asigIncidences, setAsigIncidences] = useState(null);
 
@@ -535,14 +540,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     asigStartTime={asigStartTime} setAsigStartTime={setAsigStartTime} asigPossibleColors={asigPossibleColors}
                     asigColor={asigColor} setAsigColor={setAsigColor}
                     asigPossibleSemesters={asigPossibleSemesters} asigSemester={asigSemester} setAsigSemester={setAsigSemester}
-                    asigPossibleGroupNumber={asigPossibleGroupNumbers} asigGroupNumber={asigGroupNumber} setAsigGroupNumber={setAsigGroupNumber}
+                    asigPossibleGroupNumbers={asigPossibleGroupNumbers} asigGroupNumber={asigGroupNumber} setAsigGroupNumber={setAsigGroupNumber}
                     asigLabGroup={asigLabGroup} setAsigLabGroup={setAsigLabGroup}
                     asigPossibleGroupType={asigPossibleGroupType} asigDuration={asigDuration} setAsigDuration={setAsigDuration}
                     asigPossibleCourses={asigPossibleCourses} asigCourseGII_IS={asigCourseGII_IS} setAsigCourseGII_IS={setAsigCourseGII_IS}
                     asigCourseGII_TI={asigCourseGII_TI} setAsigCourseGII_TI={setAsigCourseGII_TI} asigCourseGII_CO={asigCourseGII_CO}
                     setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
                     asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
-                    setAsigCourse_Master={setAsigCourse_Master} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
+                    setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
                     asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences}
                     />
                     <div className="creacion-horarios-horario" id="creacion-horarios-horario">
