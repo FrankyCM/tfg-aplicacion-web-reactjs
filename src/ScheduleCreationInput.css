@@ -37,7 +37,6 @@
 .ui.input.subgrupo-laboratorio input {
     display: flex;
     flex: none;
-    width: 150px !important;
     padding: 17px !important;  /* Ajusta el padding */
     font-size: 20px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */
@@ -47,7 +46,6 @@
 .ui.input.duracion input {
     display: flex;
     flex: none;
-    width: 150px !important;
     padding: 17px !important;  /* Ajusta el padding */
     font-size: 20px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */
