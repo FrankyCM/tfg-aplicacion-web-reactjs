@@ -4,10 +4,9 @@
 .ui.input.codigo-asignatura input {
     display: flex;
     flex: none;
-    width: 200px !important;
     padding: 17px !important;  /* Ajusta el padding */
     font-size: 20px !important; /* Tamaño de fuente */
-    border: 2px solid #95c8ff !important; /* Borde personalizado */
+    border: 2px solid #4efc9f !important; /* Borde personalizado */
     min-width: 0 !important;
     
 }
@@ -15,7 +14,6 @@
 .ui.input.siglas-asignatura input {
     display: flex;
     flex: none;
-    width: 170px !important;
     padding: 17px !important;  /* Ajusta el padding */
     font-size: 20px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */

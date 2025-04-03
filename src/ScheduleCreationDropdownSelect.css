@@ -1,6 +1,5 @@
 .campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown {
     padding: 10px !important;
-    margin-right: 20px;
     width: 200px !important;
     min-width: 0 !important;
 }
@@ -8,7 +7,6 @@
 
 .campos-estudios .ui.selection.dropdown {
     padding: 10px;
-    margin-right: 40px;
     width: 100px !important;
     min-width: 0 !important;
     font-size: 20px;
@@ -33,6 +31,7 @@
     min-width: 0 !important;
     font-size: 20px;
     border: 2px solid #95c8ff !important;
+    padding: 10px;
 }
 
 .contenido-tab-crear-asignatura-profesores .ui.selection.dropdown .divider.text {
@@ -41,8 +40,8 @@
     justify-content: flex-start;
     width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
     text-align: center;
-    margin-top: 3px;
-    margin-right: 10px;
+    margin-top: 7px;
+    margin-right: 40px;
 }
 
 .contenido-tab-crear-asignatura-profesores .ui.selection.dropdown .item {

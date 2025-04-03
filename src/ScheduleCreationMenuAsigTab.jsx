@@ -57,13 +57,13 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
                 <div className= "apartado-semestre">
                     <p>Semestre</p>
                     <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
-                        <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleSemesters} className="numero-semestre"/>
+                        <ScheduleCreationSelect placeholder={"Semestre"} selectOptions={asigPossibleSemesters} className="numero-semestre"/>
                     </div>
                 </div>
                 <div className= "apartado-grupo">
                     <p>Grupo</p>
                     <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
-                        <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleGroupNumbers} className="numero-grupo"/>
+                        <ScheduleCreationSelect placeholder={"Número"} selectOptions={asigPossibleGroupNumbers} className="numero-grupo"/>
                     </div>
                 </div>
                 <div className= "apartado-subgrupo">
@@ -75,7 +75,7 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
                 <div className= "apartado-tipo">
                     <p>Tipo</p>
                     <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
-                        <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleGroupType} className="tipo-grupo"/>
+                        <ScheduleCreationSelect placeholder={"Tipo"} selectOptions={asigPossibleGroupType} className="tipo-grupo"/>
                     </div>
                 </div>
                 <div className= "apartado-duracion">
@@ -88,20 +88,42 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
             <div className= "contenido-tab-crear-asignatura-estudios">
                 <p className="apartado-estudios">Estudios donde se imparte, cursos y optatividad</p>
                 <div className= "cabecera-estudios">
-                    <p>GII-IS</p>
-                    <p>GII-TI</p>
-                    <p>GII-CO</p>
-                    <p>EST</p>
-                    <p>INDat</p>
-                    <p>Master</p>
-                </div>
-                <div className= "campos-estudios">
-                    <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
-                    <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
-                    <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
-                    <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
-                    <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
-                    <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
+                    <div className= "cabecera-estudios-IS">
+                        <p>GII-IS</p>
+                        <div className= "campos-estudios">
+                            <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
+                        </div>
+                    </div>
+                    <div className= "cabecera-estudios-TI">
+                        <p>GII-TI</p>
+                        <div className= "campos-estudios">
+                            <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
+                        </div>
+                    </div>
+                    <div className= "cabecera-estudios-CO">
+                        <p>GII-CO</p>
+                        <div className= "campos-estudios">
+                            <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
+                        </div>
+                    </div>
+                    <div className= "cabecera-estudios-EST">
+                        <p>EST</p>
+                        <div className= "campos-estudios">
+                            <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
+                        </div>
+                    </div>
+                    <div className= "cabecera-estudios-INDat">
+                        <p>INDat</p>
+                        <div className= "campos-estudios">
+                            <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
+                        </div>
+                    </div>
+                    <div className= "cabecera-estudios-Master">
+                        <p>Master</p>
+                        <div className= "campos-estudios">
+                            <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleCourses}/>
+                        </div>
+                    </div> 
                 </div>
             </div>
             <div className = "contenido-tab-crear-asignatura-profesores">
