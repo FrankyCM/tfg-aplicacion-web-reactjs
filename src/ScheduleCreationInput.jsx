@@ -4,7 +4,7 @@ import './ScheduleCreationInput.css'
 
 const ScheduleCreationInput = ({className}) => {
     return(
-        <Input placeholder = '' className={`ScheduleCreationInput ${className}`}/>
+        <Input placeholder = '' className={`${className}`}/>
     )
 } 
 

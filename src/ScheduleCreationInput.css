@@ -1,22 +1,57 @@
-.ScheduleCreationInput.ui.input input {
-    padding: 10px !important;  /* Ajusta el padding */
+
+
+/* Ajuste para inputs específicos */
+.ui.input.codigo-asignatura input {
+    display: flex;
+    flex: none;
+    width: 200px !important;
+    padding: 17px !important;  /* Ajusta el padding */
     font-size: 20px !important; /* Tamaño de fuente */
     border: 2px solid #95c8ff !important; /* Borde personalizado */
     min-width: 0 !important;
-    max-width: 100 !important;
-    margin-right: 10px;
+    
 }
 
-.ui.input {
+.ui.input.siglas-asignatura input {
+    display: flex;
+    flex: none;
+    width: 170px !important;
+    padding: 17px !important;  /* Ajusta el padding */
+    font-size: 20px !important; /* Tamaño de fuente */
+    border: 2px solid #4efc9f !important; /* Borde personalizado */
     min-width: 0 !important;
-    max-width: 100 !important;
 }
+
 
 /* Ajuste para inputs específicos */
-.ScheduleCreationInput.codigo-asignatura input {
-    width: 50px !important;
+.ui.input.nombre-completo input {
+    display: flex;
+    flex: none;
+    width: 420px !important;
+    padding: 17px !important;  /* Ajusta el padding */
+    font-size: 20px !important; /* Tamaño de fuente */
+    border: 2px solid #4efc9f !important; /* Borde personalizado */
+    min-width: 0 !important;
+    max-width: none !important;
 }
 
-.ScheduleCreationInput.siglas-asignatura input {
-    width: 120px !important;
+
+.ui.input.subgrupo-laboratorio input {
+    display: flex;
+    flex: none;
+    width: 150px !important;
+    padding: 17px !important;  /* Ajusta el padding */
+    font-size: 20px !important; /* Tamaño de fuente */
+    border: 2px solid #4efc9f !important; /* Borde personalizado */
+    min-width: 0 !important;
+}
+
+.ui.input.duracion input {
+    display: flex;
+    flex: none;
+    width: 150px !important;
+    padding: 17px !important;  /* Ajusta el padding */
+    font-size: 20px !important; /* Tamaño de fuente */
+    border: 2px solid #4efc9f !important; /* Borde personalizado */
+    min-width: 0 !important;
 }

@@ -6,11 +6,6 @@
     margin-top: 10px;
 }
 
-.apartado-codigo-siglas-dia-hora-color {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 22px;
-}
 
 .contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color {
     display: flex;
@@ -20,20 +15,38 @@
     margin-top: 5px;
 }
 
+.contenido-tab-crear-asignatura-codigo, .contenido-tab-crear-asignatura-siglas,
+.contenido-tab-crear-asignatura-dia, .contenido-tab-crear-asignatura-hora,
+.contenido-tab-crear-asignatura-color {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .contenido-tab-crear-asignatura-nombre-completo {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: flex-start;
+    justify-content: center;
+    text-align: center;
     margin-top: 20px;
+    width: auto;
 }
 
 .contenido-tab-crear-asignatura-semestre-grupo-subgrupo-tipo-duracion {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 60px;
+    font-size: 22px;
+}
+
+.apartado-semestre, .apartado-grupo, .apartado-subgrupo, .apartado-tipo, .apartado-duracion{
+    display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-items: flex-start;
-    margin-top: 60px;
+    align-items: center;
     font-size: 22px;
 }
 
@@ -90,7 +103,7 @@
 
 .campo-primer-profesor p {
     margin: 0;
-    padding-right: 20px;
+    padding-right: 40px;
 }
 
 .contenido-tab-crear-asignatura-incidencias {

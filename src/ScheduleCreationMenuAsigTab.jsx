@@ -27,25 +27,62 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
 
     return(
         <div className = "contenido-tab-crear-asignatura">
-            <p className="apartado-codigo-siglas-dia-hora-color">Código - Siglas - Día - Hora de inicio - Color</p>
             <div className = "contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color">
-                <ScheduleCreationInput className={"codigo-asignatura"}/>
-                <ScheduleCreationInput className={"siglas-asignatura"}/>
-                <ScheduleCreationSelect placeholder={"Dia"} selectOptions={asigPossibleDays}/>
-                <ScheduleCreationSelect placeholder={"Hora"} selectOptions={asigStartTimes}/>
-                <ScheduleCreationSelect placeholder={"Color"} selectOptions={asigPossibleColors}/>
+                <div className="contenido-tab-crear-asignatura-codigo">
+                    <p className="apartado-codigo">Código</p>
+                    <ScheduleCreationInput className={"codigo-asignatura"}/>
+                </div>
+                <div className="contenido-tab-crear-asignatura-siglas">
+                    <p className="apartado-siglas">Siglas</p>
+                    <ScheduleCreationInput className={"siglas-asignatura"}/>
+                </div>
+                <div className="contenido-tab-crear-asignatura-dia">
+                    <p className="apartado-dia">Día</p>
+                    <ScheduleCreationSelect placeholder={"Dia"} selectOptions={asigPossibleDays}/>
+                </div>
+                <div className="contenido-tab-crear-asignatura-hora">
+                    <p className="apartado-hora-inicio">Hora de inicio</p>
+                    <ScheduleCreationSelect placeholder={"Hora"} selectOptions={asigStartTimes}/>
+                </div>
+                <div className="contenido-tab-crear-asignatura-color">
+                    <p className="apartado-color">Color</p>
+                    <ScheduleCreationSelect placeholder={"Color"} selectOptions={asigPossibleColors}/>
+                </div> 
             </div>
             <div className= "contenido-tab-crear-asignatura-nombre-completo">
+                <p>Nombre completo de asignatura</p>
                 <ScheduleCreationInput className={"nombre-completo"}/>
             </div>
             <div className= "contenido-tab-crear-asignatura-semestre-grupo-subgrupo-tipo-duracion">
-                <p>Semestre - Grupo - Subgrupo - Tipo - Duración</p>
-                <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
-                    <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleSemesters}/>
-                    <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleGroupNumbers}/>
-                    <ScheduleCreationInput className={"subgrupo-laboratorio"}/>
-                    <ScheduleCreationSelect placeholder={"..."} className="tipo-grupo" selectOptions={asigPossibleGroupType}/>
-                    <ScheduleCreationInput className={"duracion"}/>
+                <div className= "apartado-semestre">
+                    <p>Semestre</p>
+                    <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
+                        <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleSemesters} className="numero-semestre"/>
+                    </div>
+                </div>
+                <div className= "apartado-grupo">
+                    <p>Grupo</p>
+                    <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
+                        <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleGroupNumbers} className="numero-grupo"/>
+                    </div>
+                </div>
+                <div className= "apartado-subgrupo">
+                    <p>Subgrupo</p>
+                    <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
+                        <ScheduleCreationInput className={"subgrupo-laboratorio"}/>  
+                    </div>
+                </div>
+                <div className= "apartado-tipo">
+                    <p>Tipo</p>
+                    <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
+                        <ScheduleCreationSelect placeholder={"..."} selectOptions={asigPossibleGroupType} className="tipo-grupo"/>
+                    </div>
+                </div>
+                <div className= "apartado-duracion">
+                    <p>Duración</p>
+                    <div className= "campos-semestre-grupo-subgrupo-tipo-duracion">
+                        <ScheduleCreationInput className={"duracion"}/>
+                    </div>
                 </div>
             </div>
             <div className= "contenido-tab-crear-asignatura-estudios">
