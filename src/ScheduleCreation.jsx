@@ -37,11 +37,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [asigCode, setAsigCode] = useState(null);
     const [asigInitials, setAsigInitials] = useState(null);
     const asigPossibleDays = [
-        { key: 'L', value: 'L', text: 'Lunes' },
-        { key: 'M', value: 'M', text: 'Martes' },
-        { key: 'X', value: 'X', text: 'Miércoles' },
-        { key: 'J', value: 'J', text: 'Jueves' },
-        { key: 'V', value: 'V', text: 'Viernes' },
+        { key: 'L', value: 'Lunes', text: 'L' },
+        { key: 'M', value: 'Martes', text: 'M' },
+        { key: 'X', value: 'Miércoles', text: 'X' },
+        { key: 'J', value: 'Jueves', text: 'J' },
+        { key: 'V', value: 'Viernes', text: 'V' },
       ];
     const [asigDay, setAsigDay] = useState(null);
     const asigStartTimes = [
@@ -91,7 +91,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const asigPossibleGroupType = [
         { key: 'T', value: 'T', text: 'T' },
     ];
+    const [asigGroupType, setAsigGroupType] = useState(null);
     const [asigDuration, setAsigDuration] = useState(null);
+    const asigPossibleClasses = [
+        { key: '01', value: '01', text: '01' },
+        { key: '02', value: '02', text: '02' },
+        { key: 'L103', value: 'L103', text: 'L103' },
+      ];
+    const [asigClass, setAsigClass] = useState(null);
     const asigPossibleCourses = [
         { key: '-', value: '-', text: '-' },
         { key: '1º', value: '1º', text: '1º' },
@@ -164,7 +171,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                       aula: asignatura.Clase,
                       profesor: asignatura.Profesor,
                       color: asignatura.Color,
-                      dia: asignatura.Dia
+                      dia: asignatura.Dia,
+                      codigo: asignatura.Codigo
                     };
                   }).filter(Boolean);
           
@@ -338,6 +346,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           try {
             // Obtener eventos actualizados del estado
             const eventosActualizados = events.map(evento => ({
+              Codigo: evento.codigo,
               Dia: evento.dia, // Día ya guardado en el estado de eventos
               HoraInicio: moment(evento.start).format("HH:mm"),
               Duracion: moment(evento.end).diff(moment(evento.start), "hours"),
@@ -541,9 +550,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     asigColor={asigColor} setAsigColor={setAsigColor}
                     asigPossibleSemesters={asigPossibleSemesters} asigSemester={asigSemester} setAsigSemester={setAsigSemester}
                     asigPossibleGroupNumbers={asigPossibleGroupNumbers} asigGroupNumber={asigGroupNumber} setAsigGroupNumber={setAsigGroupNumber}
-                    asigLabGroup={asigLabGroup} setAsigLabGroup={setAsigLabGroup}
-                    asigPossibleGroupType={asigPossibleGroupType} asigDuration={asigDuration} setAsigDuration={setAsigDuration}
-                    asigPossibleCourses={asigPossibleCourses} asigCourseGII_IS={asigCourseGII_IS} setAsigCourseGII_IS={setAsigCourseGII_IS}
+                    asigGroupType={asigGroupType} setAsigGroupType={setAsigGroupType} asigLabGroup={asigLabGroup} setAsigLabGroup={setAsigLabGroup}
+                    asigPossibleGroupType={asigPossibleGroupType} asigDuration={asigDuration} setAsigDuration={setAsigDuration} asigPossibleClasses={asigPossibleClasses}
+                    asigClass={asigClass} setAsigClass={setAsigClass} asigPossibleCourses={asigPossibleCourses} asigCourseGII_IS={asigCourseGII_IS} setAsigCourseGII_IS={setAsigCourseGII_IS}
                     asigCourseGII_TI={asigCourseGII_TI} setAsigCourseGII_TI={setAsigCourseGII_TI} asigCourseGII_CO={asigCourseGII_CO}
                     setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
                     asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}

@@ -25,12 +25,10 @@
 .ui.input.nombre-completo input {
     display: flex;
     flex: none;
-    width: 420px !important;
     padding: 17px !important;  /* Ajusta el padding */
     font-size: 20px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */
     min-width: 0 !important;
-    max-width: none !important;
 }
 
 

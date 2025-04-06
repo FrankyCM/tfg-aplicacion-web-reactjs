@@ -2,9 +2,18 @@ import React from 'react'
 import { Input } from 'semantic-ui-react'
 import './ScheduleCreationInput.css'
 
-const ScheduleCreationInput = ({className}) => {
+const ScheduleCreationInput = ({placeholder, className, setStatusOnChange}) => {
+    
+    const handleInputChange = (e) => {
+        const value = e.target.value
+        console.log(value) // 👉 imprime el valor actual del input
+        setStatusOnChange(value)    // 👉 actualiza el estado desde el componente padre
+    }
+
     return(
-        <Input placeholder = '' className={`${className}`}/>
+        <Input placeholder = {placeholder}
+        className={`${className}`}
+        onChange={handleInputChange}/>
     )
 } 
 

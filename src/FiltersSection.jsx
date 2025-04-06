@@ -159,7 +159,7 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
       if(selectedGrade !== "INF"){
         newHeight += 110;
       } else {
-        newHeight += 90;
+        newHeight += 180;
       }
     }
 

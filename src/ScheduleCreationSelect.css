@@ -1,9 +1,10 @@
-.contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color .ui.selection.dropdown {
+.contenido-tab-crear-asignatura-dia-hora-color .ui.selection.dropdown {
     padding: 10px;
     width: 170px !important;
     min-width: 0 !important;
     font-size: 22px !important;
     border: 2px solid #95c8ff !important;
+    margin-bottom: 27px;
 }
 
 .contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color .ui.selection.dropdown .divider.text {
@@ -21,7 +22,7 @@
 
 
 
-.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown.numero-semestre {
+.campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown.numero-semestre {
     padding: 10px;
     width: 200px !important;
     min-width: 0 !important;
@@ -29,7 +30,7 @@
     border: 2px solid #95c8ff !important;
 }
 
-.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown.numero-grupo {
+.campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown.numero-grupo {
     padding: 10px;
     width: 170px !important;
     min-width: 0 !important;
@@ -37,7 +38,7 @@
     border: 2px solid #95c8ff !important;
 }
 
-.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown.tipo-grupo {
+.campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown.tipo-grupo {
     padding: 10px;
     width: 120px !important;
     min-width: 0 !important;
@@ -46,7 +47,7 @@
 }
 
 
-.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown .divider.text {
+.campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown .divider.text {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -55,7 +56,15 @@
     margin-top: 8px;
 }
 
-.campos-semestre-grupo-subgrupo-tipo-duracion .ui.selection.dropdown .item {
+.campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown .item {
     font-size: large;
+}
+
+.campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown.aula {
+    padding: 10px;
+    width: 120px !important;
+    min-width: 0 !important;
+    font-size: 22px !important;
+    border: 2px solid #95c8ff !important;
 }
 

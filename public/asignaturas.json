@@ -1,5 +1,6 @@
 [
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "10:00",
     "Duracion": 1,
@@ -16,6 +17,7 @@
     "Color": "#AFC3C4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "10:00",
     "Duracion": 1,
@@ -32,6 +34,7 @@
     "Color": "#AFC3C4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "12:00",
     "Duracion": 1,
@@ -48,6 +51,7 @@
     "Color": "#AFC3C4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "12:00",
     "Duracion": 1,
@@ -64,6 +68,7 @@
     "Color": "#AFC3C4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "11:00",
     "Duracion": 1,
@@ -80,6 +85,7 @@
     "Color": "#FFC3C4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "12:00",
     "Duracion": 1,
@@ -96,6 +102,7 @@
     "Color": "#EFC3C4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "10:00",
     "Duracion": 2,
@@ -112,6 +119,7 @@
     "Color": "#FFEFAE"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "13:00",
     "Duracion": 1,
@@ -128,6 +136,7 @@
     "Color": "#AFC3C4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Lunes",
     "HoraInicio": "11:00",
     "Duracion": 1,
@@ -144,6 +153,7 @@
     "Color": "#CDD6F6"
   },
   {
+    "Codigo": "45678",
     "Dia": "Lunes",
     "HoraInicio": "10:00",
     "Duracion": 1,
@@ -160,6 +170,7 @@
     "Color": "#CDD6F6"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "08:00",
     "Duracion": 1,
@@ -176,6 +187,7 @@
     "Color": "#CDD6F6"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "13:00",
     "Duracion": 2,
@@ -191,6 +203,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
     "Duracion": 2,
@@ -206,6 +219,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "18:00",
     "Duracion": 2,
@@ -222,6 +236,7 @@
     "Color": "#BEE9DD"
   },
   {
+    "Codigo": "45678",
     "Dia": "Lunes",
     "HoraInicio": "13:00",
     "Duracion": 2,
@@ -237,6 +252,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
     "Duracion": 2,
@@ -252,6 +268,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "10:00",
     "Duracion": 2,
@@ -267,6 +284,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "09:00",
     "Duracion": 2,
@@ -282,6 +300,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "11:00",
     "Duracion": 2,
@@ -297,6 +316,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "17:00",
     "Duracion": 2,
@@ -312,6 +332,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "17:00",
     "Duracion": 2,
@@ -327,6 +348,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "11:00",
     "Duracion": 2,
@@ -342,6 +364,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "13:00",
     "Duracion": 2,
@@ -357,6 +380,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "11:00",
     "Duracion": 2,
@@ -372,6 +396,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "11:00",
     "Duracion": 2,
@@ -387,6 +412,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Lunes",
     "HoraInicio": "11:00",
     "Duracion": 2,
@@ -402,6 +428,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "13:00",
     "Duracion": 2,
@@ -417,6 +444,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "13:00",
     "Duracion": 2,
@@ -432,6 +460,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "15:00",
     "Duracion": 1,
@@ -447,6 +476,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "16:00",
     "Duracion": 1,
@@ -462,6 +492,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "10:00",
     "Duracion": 1,
@@ -477,6 +508,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "11:00",
     "Duracion": 1,
@@ -492,6 +524,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "12:00",
     "Duracion": 1,
@@ -507,6 +540,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Lunes",
     "HoraInicio": "10:00",
     "Duracion": 1,
@@ -522,6 +556,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Lunes",
     "HoraInicio": "11:00",
     "Duracion": 1,
@@ -537,6 +572,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Miercoles",
     "HoraInicio": "08:30",
     "Duracion": 1,
@@ -552,6 +588,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "13:30",
     "Duracion": 1,
@@ -567,6 +604,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "08:00",
     "Duracion": 1,
@@ -582,6 +620,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "09:00",
     "Duracion": 1,
@@ -597,6 +636,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "15:30",
     "Duracion": 1,
@@ -612,6 +652,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "13:30",
     "Duracion": 1,
@@ -627,6 +668,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "08:00",
     "Duracion": 1,
@@ -642,6 +684,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "09:00",
     "Duracion": 1,
@@ -657,6 +700,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "12:00",
     "Duracion": 1,
@@ -672,6 +716,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "09:00",
     "Duracion": 1,
@@ -687,6 +732,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "10:00",
     "Duracion": 1,
@@ -702,6 +748,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Martes",
     "HoraInicio": "13:30",
     "Duracion": 1,
@@ -717,6 +764,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "08:00",
     "Duracion": 1,
@@ -732,6 +780,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "09:00",
     "Duracion": 1,
@@ -747,6 +796,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "12:00",
     "Duracion": 1,
@@ -762,6 +812,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Jueves",
     "HoraInicio": "09:00",
     "Duracion": 1,
@@ -777,6 +828,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "10:00",
     "Duracion": 1,
@@ -792,6 +844,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "16:00",
     "Duracion": 1,
@@ -807,6 +860,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "14:00",
     "Duracion": 1,
@@ -822,6 +876,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "10:00",
     "Duracion": 1,
@@ -837,6 +892,7 @@
     "Color": "#FFD4B4"
   },
   {
+    "Codigo": "45678",
     "Dia": "Viernes",
     "HoraInicio": "11:00",
     "Duracion": 1,

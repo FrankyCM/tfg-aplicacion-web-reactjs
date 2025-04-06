@@ -69,7 +69,8 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
               aula: asignatura.Clase,
               profesor: asignatura.Profesor,
               color: asignatura.Color,
-              dia: asignatura.Dia
+              dia: asignatura.Dia,
+              codigo: asignatura.Codigo
             };
           }).filter(Boolean);
   

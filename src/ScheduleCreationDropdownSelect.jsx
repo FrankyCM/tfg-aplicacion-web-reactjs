@@ -3,15 +3,29 @@ import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import './ScheduleCreationDropdownSelect.css'
 
-const ScheduleCreationDropdownSelect = ({ selectOptions, placeholder }) => {
-    // Mapeamos selectOptions para asegurarnos de que sigue el formato esperado
-    const formattedOptions = selectOptions.map((professor) => ({
-      key: professor.key,
-      text: professor.text,
-      value: professor.value,
-    }));
-  
-    return <Dropdown placeholder={placeholder} search selection options={formattedOptions} />;
+const ScheduleCreationDropdownSelect = ({ selectOptions, placeholder, setStatusOnChange }) => {
+  // Aseguramos el formato correcto de las opciones
+  const formattedOptions = selectOptions.map((field) => ({
+    key: field.key,
+    text: field.text,
+    value: field.value,
+  }));
+
+  // Manejar el cambio de selección
+  const handleChange = (e, { value }) => {
+    console.log(value) // 👉 imprime el valor seleccionado
+    setStatusOnChange(value) // 👉 actualiza el estado recibido
   };
-  
-  export default ScheduleCreationDropdownSelect;
+
+  return (
+    <Dropdown
+      placeholder={placeholder}
+      search
+      selection
+      options={formattedOptions}
+      onChange={handleChange}
+    />
+  );
+};
+
+export default ScheduleCreationDropdownSelect;

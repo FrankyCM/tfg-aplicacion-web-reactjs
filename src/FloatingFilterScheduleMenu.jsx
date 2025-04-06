@@ -22,9 +22,9 @@ const FloatingFilterScheduleMenu = ({
   asigColor, setAsigColor,
   asigPossibleSemesters, asigSemester, setAsigSemester,
   asigPossibleGroupNumbers, asigGroupNumber,
-  setAsigGroupNumber, asigLabGroup, setAsigLabGroup,
-  asigPossibleGroupType, asigDuration, setAsigDuration,
-  asigPossibleCourses, asigCourseGII_IS, setAsigCourseGII_IS,
+  setAsigGroupNumber, asigGroupType, setAsigGroupType, asigLabGroup, setAsigLabGroup,
+  asigPossibleGroupType, asigDuration, setAsigDuration, asigPossibleClasses,
+  asigClass, setAsigClass, asigPossibleCourses, asigCourseGII_IS, setAsigCourseGII_IS,
   asigCourseGII_TI, setAsigCourseGII_TI, asigCourseGII_CO,
   setAsigCourseGII_CO, asigCourse_EST, setAsigCourse_EST,
   asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
@@ -117,9 +117,9 @@ const FloatingFilterScheduleMenu = ({
             asigColor={asigColor} setAsigColor={setAsigColor}
             asigPossibleSemesters={asigPossibleSemesters} asigSemester={asigSemester} setAsigSemester={setAsigSemester}
             asigPossibleGroupNumbers={asigPossibleGroupNumbers} asigGroupNumber={asigGroupNumber} setAsigGroupNumber={setAsigGroupNumber}
-            asigLabGroup={asigLabGroup} setAsigLabGroup={setAsigLabGroup}
-            asigPossibleGroupType={asigPossibleGroupType} asigDuration={asigDuration} setAsigDuration={setAsigDuration}
-            asigPossibleCourses={asigPossibleCourses} asigCourseGII_IS={asigCourseGII_IS} setAsigCourseGII_IS={setAsigCourseGII_IS}
+            asigGroupType={asigGroupType} setAsigGroupType={setAsigGroupType} asigLabGroup={asigLabGroup} setAsigLabGroup={setAsigLabGroup}
+            asigPossibleGroupType={asigPossibleGroupType} asigDuration={asigDuration} setAsigDuration={setAsigDuration} asigPossibleClasses={asigPossibleClasses}
+            asigClass={asigClass} setAsigClass={setAsigClass} asigPossibleCourses={asigPossibleCourses} asigCourseGII_IS={asigCourseGII_IS} setAsigCourseGII_IS={setAsigCourseGII_IS}
             asigCourseGII_TI={asigCourseGII_TI} setAsigCourseGII_TI={setAsigCourseGII_TI} asigCourseGII_CO={asigCourseGII_CO}
             setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
             asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
