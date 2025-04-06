@@ -4,6 +4,7 @@ import './ScheduleCreationMenuAsigTab.css';
 import ScheduleCreationInput from './ScheduleCreationInput';
 import ScheduleCreationSelect from './ScheduleCreationSelect';
 import ScheduleCreationDropdownSelect from './ScheduleCreationDropdownSelect';
+import ScheduleCreationAsigActionsButton from './ScheduleCreationAsigActionsButton';
 
 const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
     setAsigInitials, asigPossibleDays,
@@ -21,7 +22,8 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
     setAsigCourseGII_CO, asigCourse_EST, setAsigCourse_EST,
     asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
     setAsigCourse_Master, asigPossibleTeacherOptions, asigTeacher, setAsigTeacher,
-    asigIncidences, setAsigIncidences}) => {
+    asigIncidences, setAsigIncidences, createAsig, setCreateAsig, clearFormulary, 
+    setClearFormulary}) => {
 
 
 
@@ -150,6 +152,10 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
             <div className = "contenido-tab-crear-asignatura-incidencias">
                 <p className= "apartado-incidencias">Incidencias</p>
                 <ScheduleCreationMenuWarningsField/>
+            </div>
+            <div className="contenido-tab-crear-asignatura-botones">
+                <ScheduleCreationAsigActionsButton text={`Limpiar formulario`} setStatusOnClick={setClearFormulary}/>
+                <ScheduleCreationAsigActionsButton text={`Crear asignaturas`} setStatusOnClick={setCreateAsig}/>
             </div>
         </div>
     )

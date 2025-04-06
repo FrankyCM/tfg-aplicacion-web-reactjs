@@ -29,7 +29,7 @@ const FloatingFilterScheduleMenu = ({
   setAsigCourseGII_CO, asigCourse_EST, setAsigCourse_EST,
   asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
   setAsigCourse_Master, asigPossibleTeacherOptions, asigTeacher, setAsigTeacher,
-  asigIncidences, setAsigIncidences
+  asigIncidences, setAsigIncidences, createAsig, setCreateAsig, clearFormulary, setClearFormulary
 }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [size, setSize] = useState({ width: 450, height: 350 }); // Estado del tamaño
@@ -124,7 +124,8 @@ const FloatingFilterScheduleMenu = ({
             setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
             asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
             setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
-            asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences}
+            asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} createAsig={createAsig} setCreateAsig={setCreateAsig}
+            clearFormulary={clearFormulary} setClearFormulary={setClearFormulary}
           />
 
           {/* Esquinas de redimensionamiento */}

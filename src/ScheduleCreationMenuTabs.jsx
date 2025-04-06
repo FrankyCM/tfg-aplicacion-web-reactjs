@@ -37,7 +37,8 @@ const ScheduleCreationMenuTabs = ({selectedGrade, setSelectedGrade,
   setAsigCourseGII_CO, asigCourse_EST, setAsigCourse_EST,
   asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
   setAsigCourse_Master, asigPossibleTeacherOptions, asigTeacher, 
-  setAsigTeacher, asigIncidences, setAsigIncidences}) => {
+  setAsigTeacher, asigIncidences, setAsigIncidences, createAsig, setCreateAsig, 
+  clearFormulary, setClearFormulary}) => {
   const panes = [
     {
       menuItem: { key: 'calendar outline', icon: 'calendar outline', content: 'Gestión de horarios  ' },
@@ -59,7 +60,8 @@ const ScheduleCreationMenuTabs = ({selectedGrade, setSelectedGrade,
       setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
       asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
       setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
-      asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} />,
+      asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} createAsig={createAsig} setCreateAsig={setCreateAsig}
+      clearFormulary={clearFormulary} setClearFormulary={setClearFormulary} />,
     },
   ];
 

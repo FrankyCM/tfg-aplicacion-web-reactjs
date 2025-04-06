@@ -120,6 +120,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       ];
     const [asigTeacher, setAsigTeacher] = useState(null);
     const [asigIncidences, setAsigIncidences] = useState(null);
+    const [createAsig, setCreateAsig] = useState(false);
+    const [clearFormulary, setClearFormulary] = useState(false);
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
@@ -380,7 +382,101 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         actualizarAsignaturasJSON();
         setSave(false);
     }, [save]);
+     
+    
+    useEffect(() => {
+        const cargarYActualizarAsignaturas = async () => {
+          try {
+            const response = await fetch("/asignaturas.json");
+            const data = await response.json();
       
+            const nuevosRegistros = [];
+            const coincidencias = [];
+      
+            const cursos = [
+              { estado: asigCourseGII_IS, grado: "INF", mencion: "IS" },
+              { estado: asigCourseGII_TI, grado: "INF", mencion: "TI" },
+              { estado: asigCourseGII_CO, grado: "INF", mencion: "CO" },
+              { estado: asigCourse_EST, grado: "EST" },
+              { estado: asigCourse_INDat, grado: "I + E" },
+              { estado: asigCourse_Master, grado: "Master" },
+            ];
+      
+            cursos.forEach((curso) => {
+              if (curso.estado && curso.estado !== "-") {
+                const grupo = `${asigGroupType ?? ""}${asigGroupNumber ?? ""}`;
+      
+                const nuevaAsignatura = {
+                  Codigo: asigCode,
+                  Siglas: asigInitials,
+                  Dia: asigDay,
+                  HoraInicio: asigStartTime,
+                  Color: asigColor,
+                  Nombre: asigFullName,
+                  Semestre: asigSemester,
+                  Grupo: grupo,
+                  GrupoLaboratorio: asigLabGroup,
+                  Duracion: asigDuration,
+                  Clase: asigClass,
+                  Profesor: asigTeacher,
+                  Grado: curso.grado,
+                  Mencion: curso.mencion ?? "",
+                  Curso: curso.estado,
+                };
+      
+                const yaExiste = data.some((asignatura) =>
+                  asignatura.Codigo === nuevaAsignatura.Codigo &&
+                  asignatura.Siglas === nuevaAsignatura.Siglas &&
+                  asignatura.Dia === nuevaAsignatura.Dia &&
+                  asignatura.HoraInicio === nuevaAsignatura.HoraInicio &&
+                  asignatura.Color === nuevaAsignatura.Color &&
+                  asignatura.Nombre === nuevaAsignatura.Nombre &&
+                  asignatura.Semestre === nuevaAsignatura.Semestre &&
+                  asignatura.Grupo === nuevaAsignatura.Grupo &&
+                  asignatura.GrupoLaboratorio === nuevaAsignatura.GrupoLaboratorio &&
+                  asignatura.Duracion === nuevaAsignatura.Duracion &&
+                  asignatura.Clase === nuevaAsignatura.Clase &&
+                  asignatura.Profesor === nuevaAsignatura.Profesor &&
+                  asignatura.Grado === nuevaAsignatura.Grado &&
+                  (asignatura.Mencion ?? "") === (nuevaAsignatura.Mencion ?? "") &&
+                  asignatura.Curso === nuevaAsignatura.Curso
+                );
+      
+                if (yaExiste) {
+                  coincidencias.push(`Código: ${nuevaAsignatura.Codigo}, Curso: ${curso.estado}, Mención: ${curso.mencion ?? ""}`);
+                } else {
+                  nuevosRegistros.push(nuevaAsignatura);
+                }
+              }
+            });
+      
+            if (coincidencias.length > 0) {
+              const incidenciasTexto = coincidencias.join('\n');
+              setAsigIncidences(incidenciasTexto);
+              console.log("Asignaturas ya existentes:\n", incidenciasTexto);
+            }
+      
+            if (nuevosRegistros.length > 0 && coincidencias.length === 0) {
+              console.log("Nuevas asignaturas a añadir al JSON:", nuevosRegistros);
+      
+              const updatedJson = [...data, ...nuevosRegistros];
+              const blob = new Blob([JSON.stringify(updatedJson, null, 2)], { type: "application/json" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "asignaturas_actualizado.json";
+              a.click();
+              URL.revokeObjectURL(url);
+            }
+          } catch (error) {
+            console.error("Error al cargar o actualizar las asignaturas:", error);
+          }
+        };
+      
+        if (createAsig) {
+          cargarYActualizarAsignaturas();
+        }
+      }, [createAsig]);
 
     const getTextoGrado = () => {
         if (!selectedGrade || !selectedSemester) return "";
@@ -557,7 +653,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
                     asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
                     setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
-                    asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences}
+                    asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} createAsig={createAsig} setCreateAsig={setCreateAsig}
+                    clearFormulary={clearFormulary} setClearFormulary={setClearFormulary}
                     />
                     <div className="creacion-horarios-horario" id="creacion-horarios-horario">
                         <div className="creacion-horarios-horario-cabeceraDocumento" id="creacion-horarios-horario-cabeceraDocumento">

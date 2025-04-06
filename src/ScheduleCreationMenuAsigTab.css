@@ -202,3 +202,11 @@
     margin-bottom: 10px;
     font-size: 28px;
 }
+
+.contenido-tab-crear-asignatura-botones {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
