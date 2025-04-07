@@ -151,11 +151,11 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
             </div>
             <div className = "contenido-tab-crear-asignatura-incidencias">
                 <p className= "apartado-incidencias">Incidencias</p>
-                <ScheduleCreationMenuWarningsField/>
+                <ScheduleCreationMenuWarningsField text={asigIncidences}/>
             </div>
             <div className="contenido-tab-crear-asignatura-botones">
-                <ScheduleCreationAsigActionsButton text={`Limpiar formulario`} setStatusOnClick={setClearFormulary}/>
-                <ScheduleCreationAsigActionsButton text={`Crear asignaturas`} setStatusOnClick={setCreateAsig}/>
+                <ScheduleCreationAsigActionsButton text={`Limpiar formulario`} setStatusOnClick={setClearFormulary} color={`#edbeba`}/>
+                <ScheduleCreationAsigActionsButton text={`Crear asignaturas`} setStatusOnClick={setCreateAsig} color={`#edbeba`}/>
             </div>
         </div>
     )

@@ -31,5 +31,32 @@ app.put("/asignaturas", (req, res) => {
     });
 });
 
+
+// 🔹 Endpoint para añadir nuevas asignaturas sin sobrescribir el archivo completo
+app.post("/asignaturas", (req, res) => {
+    const nuevasAsignaturas = req.body;
+
+    fs.readFile(filePath, "utf8", (err, data) => {
+        if (err) return res.status(500).json({ error: "Error al leer el archivo" });
+
+        let asignaturasActuales;
+        try {
+            asignaturasActuales = JSON.parse(data);
+        } catch (parseErr) {
+            return res.status(500).json({ error: "Error al parsear el archivo" });
+        }
+
+        const asignaturasActualizadas = [...asignaturasActuales, ...nuevasAsignaturas];
+
+        fs.writeFile(filePath, JSON.stringify(asignaturasActualizadas, null, 2), "utf8", (writeErr) => {
+            if (writeErr) return res.status(500).json({ error: "Error al escribir el archivo" });
+            res.json({ mensaje: "Asignaturas añadidas con éxito" });
+        });
+    });
+});
+
 // Iniciar servidor
 app.listen(PORT, () => console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`));
+
+
+

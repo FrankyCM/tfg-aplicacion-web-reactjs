@@ -387,11 +387,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     useEffect(() => {
         const cargarYActualizarAsignaturas = async () => {
           try {
-            const response = await fetch("/asignaturas.json");
+            const response = await fetch("http://localhost:5000/asignaturas");
             const data = await response.json();
       
             const nuevosRegistros = [];
-            const coincidencias = [];
+            let incidenciasTexto = "";
       
             const cursos = [
               { estado: asigCourseGII_IS, grado: "INF", mencion: "IS" },
@@ -405,23 +405,24 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             cursos.forEach((curso) => {
               if (curso.estado && curso.estado !== "-") {
                 const grupo = `${asigGroupType ?? ""}${asigGroupNumber ?? ""}`;
-      
+
+
                 const nuevaAsignatura = {
                   Codigo: asigCode,
-                  Siglas: asigInitials,
                   Dia: asigDay,
                   HoraInicio: asigStartTime,
-                  Color: asigColor,
+                  Duracion: Number(asigDuration),
+                  Siglas: asigInitials,
                   Nombre: asigFullName,
+                  Grado: curso.grado,
                   Semestre: asigSemester,
+                  Curso: curso.estado,
                   Grupo: grupo,
-                  GrupoLaboratorio: asigLabGroup,
-                  Duracion: asigDuration,
+                  GrupoLaboratorio: asigLabGroup ?? "",
+                  Mencion: curso.mencion ?? "",
                   Clase: asigClass,
                   Profesor: asigTeacher,
-                  Grado: curso.grado,
-                  Mencion: curso.mencion ?? "",
-                  Curso: curso.estado,
+                  Color: asigColor,      
                 };
       
                 const yaExiste = data.some((asignatura) =>
@@ -442,34 +443,39 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                   asignatura.Curso === nuevaAsignatura.Curso
                 );
       
-                if (yaExiste) {
-                  coincidencias.push(`Código: ${nuevaAsignatura.Codigo}, Curso: ${curso.estado}, Mención: ${curso.mencion ?? ""}`);
+                if (!yaExiste) {
+                    nuevosRegistros.push(nuevaAsignatura);
                 } else {
-                  nuevosRegistros.push(nuevaAsignatura);
+                    const combinacion = `${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${curso.grado} - ${curso.estado} - ${curso.mencion} - ${nuevaAsignatura.Dia} - ${nuevaAsignatura.HoraInicio} ya existente.`;
+                    incidenciasTexto += `${combinacion}\n`;
                 }
               }
             });
       
-            if (coincidencias.length > 0) {
-              const incidenciasTexto = coincidencias.join('\n');
-              setAsigIncidences(incidenciasTexto);
-              console.log("Asignaturas ya existentes:\n", incidenciasTexto);
+            setAsigIncidences(incidenciasTexto.trim());
+      
+            if (nuevosRegistros.length > 0 && incidenciasTexto === "") {
+              // Solo enviamos si no hay ninguna coincidencia
+              const res = await fetch("http://localhost:5000/asignaturas", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(nuevosRegistros),
+              });
+      
+              if (res.ok) {
+                console.log("Nuevas asignaturas guardadas correctamente.");
+              } else {
+                console.error("Error al guardar las asignaturas en el backend.");
+              }
             }
       
-            if (nuevosRegistros.length > 0 && coincidencias.length === 0) {
-              console.log("Nuevas asignaturas a añadir al JSON:", nuevosRegistros);
-      
-              const updatedJson = [...data, ...nuevosRegistros];
-              const blob = new Blob([JSON.stringify(updatedJson, null, 2)], { type: "application/json" });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = "asignaturas_actualizado.json";
-              a.click();
-              URL.revokeObjectURL(url);
-            }
           } catch (error) {
-            console.error("Error al cargar o actualizar las asignaturas:", error);
+            console.error("Error al cargar o actualizar asignaturas:", error);
+          } finally {
+            // 🔁 Siempre se reinicia el estado al final
+            setCreateAsig(false);
           }
         };
       

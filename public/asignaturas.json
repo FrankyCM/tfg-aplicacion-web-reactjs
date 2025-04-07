@@ -1,7 +1,7 @@
 [
   {
     "Codigo": "45678",
-    "Dia": "Miercoles",
+    "Dia": "Miércoles",
     "HoraInicio": "10:00",
     "Duracion": 1,
     "Siglas": "ADA",
@@ -13,7 +13,7 @@
     "GrupoLaboratorio": "",
     "Mencion": "IS",
     "Clase": "02",
-    "Profesor": "César Gonzalez",
+    "Profesor": "GONZALEZ FERRERAS, CESAR",
     "Color": "#AFC3C4"
   },
   {
