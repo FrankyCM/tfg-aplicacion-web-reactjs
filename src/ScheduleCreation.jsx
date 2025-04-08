@@ -34,8 +34,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [subjects, setSubjects] = useState([]); // Almacena las asig que cumplen los criterios de seleccion
 
     // CREAR O MODIFICAR ASIGNATURAS
-    const [asigCode, setAsigCode] = useState(null);
-    const [asigInitials, setAsigInitials] = useState(null);
+    const [asigCode, setAsigCode] = useState("");
+    const [asigInitials, setAsigInitials] = useState("");
     const asigPossibleDays = [
         { key: 'L', value: 'Lunes', text: 'L' },
         { key: 'M', value: 'Martes', text: 'M' },
@@ -43,7 +43,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         { key: 'J', value: 'Jueves', text: 'J' },
         { key: 'V', value: 'Viernes', text: 'V' },
       ];
-    const [asigDay, setAsigDay] = useState(null);
+    const [asigDay, setAsigDay] = useState("");
     const asigStartTimes = [
         { key: '8:00', value: '8:00', text: '8:00' },
         { key: '9:00', value: '9:00', text: '9:00' },
@@ -59,7 +59,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         { key: '19:00', value: '19:00', text: '19:00' },
         { key: '20:00', value: '20:00', text: '20:00' },
       ];
-    const [asigStartTime, setAsigStartTime] = useState(null);
+    const [asigStartTime, setAsigStartTime] = useState("");
     const asigPossibleColors = [
         { key: 'color1', value: '#FFD4B4', text: '#FFD4B4' },
         { key: 'color2', value: '#AFC3C4', text: '#AFC3C4' },
@@ -70,8 +70,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         { key: 'color7', value: '#CDD6F6', text: '#CDD6F6' },
         { key: 'color8', value: '#BEE9DD', text: '#BEE9DD' },
       ];
-    const [asigColor, setAsigColor] = useState(null);
-    const [asigFullName, setAsigFullName] = useState(null);
+    const [asigColor, setAsigColor] = useState("");
+    const [asigFullName, setAsigFullName] = useState("");
     const asigPossibleSemesters = [
         { key: '1ºC', value: '1ºC', text: '1ºC' },
         { key: '2ºC', value: '2ºC', text: '2ºC' },
@@ -80,25 +80,25 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         { key: '3S', value: '3er Semestre', text: '3er Semestre' },
         { key: '4S', value: '4º Semestre', text: '4º Semestre' },
       ];
-    const [asigSemester, setAsigSemester] = useState(null);
+    const [asigSemester, setAsigSemester] = useState("");
     const asigPossibleGroupNumbers = [
         { key: '1', value: '1', text: 'Grupo 1' },
         { key: '2', value: '2', text: 'Grupo 2' },
         { key: '3', value: '3', text: 'Grupo 3' },
       ];
-    const [asigGroupNumber, setAsigGroupNumber] = useState(null);
-    const [asigLabGroup, setAsigLabGroup] = useState(null);
+    const [asigGroupNumber, setAsigGroupNumber] = useState("");
+    const [asigLabGroup, setAsigLabGroup] = useState("");
     const asigPossibleGroupType = [
         { key: 'T', value: 'T', text: 'T' },
     ];
-    const [asigGroupType, setAsigGroupType] = useState(null);
-    const [asigDuration, setAsigDuration] = useState(null);
+    const [asigGroupType, setAsigGroupType] = useState("");
+    const [asigDuration, setAsigDuration] = useState("");
     const asigPossibleClasses = [
         { key: '01', value: '01', text: '01' },
         { key: '02', value: '02', text: '02' },
         { key: 'L103', value: 'L103', text: 'L103' },
       ];
-    const [asigClass, setAsigClass] = useState(null);
+    const [asigClass, setAsigClass] = useState("");
     const asigPossibleCourses = [
         { key: '-', value: '-', text: '-' },
         { key: '1º', value: '1º', text: '1º' },
@@ -107,19 +107,19 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         { key: '4º', value: '4º', text: '4º' },
         { key: '5º', value: '5º', text: '5º' },
       ];
-    const [asigCourseGII_IS, setAsigCourseGII_IS] = useState(null);
-    const [asigCourseGII_TI, setAsigCourseGII_TI] = useState(null);
-    const [asigCourseGII_CO, setAsigCourseGII_CO] = useState(null);
-    const [asigCourse_EST, setAsigCourse_EST] = useState(null);
-    const [asigCourse_INDat, setAsigCourse_INDat] = useState(null);
-    const [asigCourse_Master, setAsigCourse_Master] = useState(null);
+    const [asigCourseGII_IS, setAsigCourseGII_IS] = useState("");
+    const [asigCourseGII_TI, setAsigCourseGII_TI] = useState("");
+    const [asigCourseGII_CO, setAsigCourseGII_CO] = useState("");
+    const [asigCourse_EST, setAsigCourse_EST] = useState("");
+    const [asigCourse_INDat, setAsigCourse_INDat] = useState("");
+    const [asigCourse_Master, setAsigCourse_Master] = useState("");
     const asigPossibleTeacherOptions = [ 
         { key: 'NICOLAS RODRIGUEZ, JOAQUIN ADIEGO', value: 'NICOLAS RODRIGUEZ, JOAQUIN ADIEGO', text: 'NICOLAS RODRIGUEZ, JOAQUIN ADIEGO' }, 
         { key: 'CALONGE CANO, TEODORO', value: 'CALONGE CANO, TEODORO', text: 'CALONGE CANO, TEODORO' }, 
         { key: 'GONZALEZ FERRERAS, CESAR', value: 'GONZALEZ FERRERAS, CESAR', text: 'GONZALEZ FERRERAS, CESAR' } 
       ];
-    const [asigTeacher, setAsigTeacher] = useState(null);
-    const [asigIncidences, setAsigIncidences] = useState(null);
+    const [asigTeacher, setAsigTeacher] = useState("");
+    const [asigIncidences, setAsigIncidences] = useState("");
     const [createAsig, setCreateAsig] = useState(false);
     const [clearFormulary, setClearFormulary] = useState(false);
 
@@ -466,6 +466,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
               if (res.ok) {
                 console.log("Nuevas asignaturas guardadas correctamente.");
+                clearAllFields();
               } else {
                 console.error("Error al guardar las asignaturas en el backend.");
               }
@@ -483,6 +484,37 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           cargarYActualizarAsignaturas();
         }
       }, [createAsig]);
+
+      useEffect(() => {
+        if (clearFormulary) {
+            clearAllFields();
+        }
+    }, [clearFormulary]);
+    
+    const clearAllFields = () => {
+        setAsigCode("");
+        setAsigInitials("");
+        setAsigFullName("");
+        setAsigDay("");
+        setAsigStartTime("");
+        setAsigColor("");
+        setAsigSemester("");
+        setAsigGroupNumber("");
+        setAsigLabGroup("");
+        setAsigGroupType("");
+        setAsigDuration("");
+        setAsigClass("");
+        setAsigCourseGII_IS("");
+        setAsigCourseGII_TI("");
+        setAsigCourseGII_CO("");
+        setAsigCourse_EST("");
+        setAsigCourse_INDat("");
+        setAsigCourse_Master("");
+        setAsigTeacher("");
+        setAsigIncidences("");
+        setCreateAsig(false);
+        setClearFormulary(false);
+    };
 
     const getTextoGrado = () => {
         if (!selectedGrade || !selectedSemester) return "";

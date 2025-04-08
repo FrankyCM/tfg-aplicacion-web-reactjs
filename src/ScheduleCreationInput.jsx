@@ -2,7 +2,7 @@ import React from 'react'
 import { Input } from 'semantic-ui-react'
 import './ScheduleCreationInput.css'
 
-const ScheduleCreationInput = ({placeholder, className, setStatusOnChange}) => {
+const ScheduleCreationInput = ({placeholder, className, setStatusOnChange, value, type}) => {
     
     const handleInputChange = (e) => {
         const value = e.target.value
@@ -13,7 +13,9 @@ const ScheduleCreationInput = ({placeholder, className, setStatusOnChange}) => {
     return(
         <Input placeholder = {placeholder}
         className={`${className}`}
-        onChange={handleInputChange}/>
+        value={value ?? ""}
+        onChange={handleInputChange}
+        type={type}/>
     )
 } 
 

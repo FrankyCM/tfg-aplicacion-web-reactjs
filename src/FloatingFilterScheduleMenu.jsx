@@ -32,9 +32,10 @@ const FloatingFilterScheduleMenu = ({
   asigIncidences, setAsigIncidences, createAsig, setCreateAsig, clearFormulary, setClearFormulary
 }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [size, setSize] = useState({ width: 450, height: 350 }); // Estado del tamaño
+  const [size, setSize] = useState({ width: 550, height: 300 }); // Estado del tamaño
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef(null);
+  const containerRef = useRef(null);
 
   const handleClose = () => setIsVisible(false);
   const handleSave = () => setSave(true);
@@ -80,10 +81,45 @@ const FloatingFilterScheduleMenu = ({
     };
   }, [isResizing]);
 
-  if (!isVisible) return null;
+  const calculateNewHeight = () => {
+      let newHeight = 400;
+      if (selectedGrade) {
+        newHeight += 70;
+      }
+    
+      if (selectedSemester) {
+        newHeight += 140;
+      }
+    
+      if (selectedCourse) {
+        if(selectedGrade !== "INF"){
+          newHeight += 110;
+        } else {
+          newHeight += 180;
+        }
+      }
+  
+      if(warningMessage){
+        newHeight += 100;
+      }
+
+      return newHeight;
+    };
+  
+    useEffect(() => {
+        if (containerRef.current) {
+          const newHeight = calculateNewHeight(); 
+          setSize((prevSize) => {
+            return {
+              ...prevSize,
+              height: Math.max(prevSize.height, newHeight),
+            };
+          });
+        }
+      }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, warningMessage]);
 
   return createPortal(
-    <div style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+    <div ref={containerRef} style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
       <Draggable handle=".filter-menu-header">
         <div
           className="floating-filter-menu"

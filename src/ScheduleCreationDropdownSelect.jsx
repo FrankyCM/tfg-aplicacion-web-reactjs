@@ -3,7 +3,7 @@ import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import './ScheduleCreationDropdownSelect.css'
 
-const ScheduleCreationDropdownSelect = ({ selectOptions, placeholder, setStatusOnChange }) => {
+const ScheduleCreationDropdownSelect = ({ selectOptions, placeholder, setStatusOnChange, value }) => {
   // Aseguramos el formato correcto de las opciones
   const formattedOptions = selectOptions.map((field) => ({
     key: field.key,
@@ -23,6 +23,7 @@ const ScheduleCreationDropdownSelect = ({ selectOptions, placeholder, setStatusO
       search
       selection
       options={formattedOptions}
+      value={value ?? ""}
       onChange={handleChange}
     />
   );
