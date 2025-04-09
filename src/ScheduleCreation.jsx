@@ -1,7 +1,7 @@
 import './Common.css';
 import LogoutButton from './LogoutButton';
 import './ScheduleCreation.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback  } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -16,6 +16,8 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import html2pdf from "html2pdf.js";
+import { AdminCalendarEvent } from './adminCalendarEvent';
+import { CustomAdminCalendarEvent } from './CustomAdminCalendarEvent';
 
 const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     
@@ -123,12 +125,97 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [createAsig, setCreateAsig] = useState(false);
     const [clearFormulary, setClearFormulary] = useState(false);
 
+    const [modifyAsig, setModifyAsig] = useState(false);
+
     const localizer = momentLocalizer(moment);
     moment.locale('es');
 
     
 
     const DnDCalendar = withDragAndDrop(Calendar);
+
+
+    const CustomAdminCalendarEvent = useCallback((props) => (
+        <AdminCalendarEvent
+            {...props}
+            asigCode={asigCode}
+            setAsigCode={setAsigCode}
+            asigInitials={asigInitials}
+            setAsigInitials={setAsigInitials}
+            asigDay={asigDay}
+            setAsigDay={setAsigDay}
+            asigPossibleDays={asigPossibleDays}
+            asigStartTime={asigStartTime}
+            setAsigStartTime={setAsigStartTime}
+            asigStartTimes={asigStartTimes}
+            asigColor={asigColor}
+            setAsigColor={setAsigColor}
+            asigPossibleColors={asigPossibleColors}
+            asigFullName={asigFullName}
+            setAsigFullName={setAsigFullName}
+            asigSemester={asigSemester}
+            setAsigSemester={setAsigSemester}
+            asigPossibleSemesters={asigPossibleSemesters}
+            asigGroupNumber={asigGroupNumber}
+            setAsigGroupNumber={setAsigGroupNumber}
+            asigPossibleGroupNumbers={asigPossibleGroupNumbers}
+            asigLabGroup={asigLabGroup}
+            setAsigLabGroup={setAsigLabGroup}
+            asigGroupType={asigGroupType}
+            setAsigGroupType={setAsigGroupType}
+            asigPossibleGroupType={asigPossibleGroupType}
+            asigDuration={asigDuration}
+            setAsigDuration={setAsigDuration}
+            asigClass={asigClass}
+            setAsigClass={setAsigClass}
+            asigPossibleClasses={asigPossibleClasses}
+            asigCourseGII_IS={asigCourseGII_IS}
+            setAsigCourseGII_IS={setAsigCourseGII_IS}
+            asigCourseGII_TI={asigCourseGII_TI}
+            setAsigCourseGII_TI={setAsigCourseGII_TI}
+            asigCourseGII_CO={asigCourseGII_CO}
+            setAsigCourseGII_CO={setAsigCourseGII_CO}
+            asigCourse_EST={asigCourse_EST}
+            setAsigCourse_EST={setAsigCourse_EST}
+            asigCourse_INDat={asigCourse_INDat}
+            setAsigCourse_INDat={setAsigCourse_INDat}
+            asigCourse_Master={asigCourse_Master}
+            setAsigCourse_Master={setAsigCourse_Master}
+            asigPossibleCourses={asigPossibleCourses}
+            asigTeacher={asigTeacher}
+            setAsigTeacher={setAsigTeacher}
+            asigPossibleTeacherOptions={asigPossibleTeacherOptions}
+            asigIncidences={asigIncidences}
+            setAsigIncidences={setAsigIncidences}
+            modifyAsig={modifyAsig}
+            setModifyAsig={setModifyAsig}
+        />
+    ), [
+        asigCode, setAsigCode,
+        asigInitials, setAsigInitials,
+        asigDay, setAsigDay, asigPossibleDays,
+        asigStartTime, setAsigStartTime, asigStartTimes,
+        asigColor, setAsigColor, asigPossibleColors,
+        asigFullName, setAsigFullName,
+        asigSemester, setAsigSemester, asigPossibleSemesters,
+        asigGroupNumber, setAsigGroupNumber, asigPossibleGroupNumbers,
+        asigLabGroup, setAsigLabGroup,
+        asigGroupType, setAsigGroupType, asigPossibleGroupType,
+        asigDuration, setAsigDuration,
+        asigClass, setAsigClass, asigPossibleClasses,
+        asigCourseGII_IS, setAsigCourseGII_IS,
+        asigCourseGII_TI, setAsigCourseGII_TI,
+        asigCourseGII_CO, setAsigCourseGII_CO,
+        asigCourse_EST, setAsigCourse_EST,
+        asigCourse_INDat, setAsigCourse_INDat,
+        asigCourse_Master, setAsigCourse_Master,
+        asigPossibleCourses,
+        asigTeacher, setAsigTeacher, asigPossibleTeacherOptions,
+        asigIncidences, setAsigIncidences,
+        modifyAsig, setModifyAsig
+    ]);
+
+
 
     useEffect(() => {
               const cargarAsignaturas = async () => {
@@ -745,7 +832,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                                             }}
 
                                             components={{
-                                            event: CalendarEvent,
+                                            event: CustomAdminCalendarEvent,
                                             }}
 
                                             // Utiliza la propiedad `eventPropGetter` para controlar qué días mostrar
