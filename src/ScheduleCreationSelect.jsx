@@ -5,10 +5,10 @@ import './ScheduleCreationSelect.css'
 
 const ScheduleCreationSelect = ({ selectOptions, placeholder, className, setStatusOnChange, value }) => {
     const handleChange = (e, { value }) => {
-      console.log(value) // 👉 imprime el valor seleccionado
+      console.log("valor en el select", value) // 👉 imprime el valor seleccionado
       setStatusOnChange(value) // 👉 actualiza el estado pasado por parámetro
     }
-  
+    console.log("valor select ", className, value);
     return (
       <Select
         placeholder={placeholder}

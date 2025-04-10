@@ -17,7 +17,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import html2pdf from "html2pdf.js";
 import { AdminCalendarEvent } from './adminCalendarEvent';
-import { CustomAdminCalendarEvent } from './CustomAdminCalendarEvent';
+import ModifyCalendarEvent from './ModifyCalendarEvent';
 
 const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     
@@ -35,7 +35,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [exportPDF, setExportPDF] = useState(false);  // Si se decide exportar a PDF
     const [subjects, setSubjects] = useState([]); // Almacena las asig que cumplen los criterios de seleccion
 
-    // CREAR O MODIFICAR ASIGNATURAS
+    // CREAR ASIGNATURAS
     const [asigCode, setAsigCode] = useState("");
     const [asigInitials, setAsigInitials] = useState("");
     const asigPossibleDays = [
@@ -125,7 +125,32 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [createAsig, setCreateAsig] = useState(false);
     const [clearFormulary, setClearFormulary] = useState(false);
 
+    // MODIFICAR ASIGNATURAS
+    const [asigCodeMod, setAsigCodeMod] = useState("");
+    const [asigInitialsMod, setAsigInitialsMod] = useState("");
+    const [asigDayMod, setAsigDayMod] = useState("");
+    const [asigStartTimeMod, setAsigStartTimeMod] = useState("");
+    const [asigColorMod, setAsigColorMod] = useState("");
+    const [asigFullNameMod, setAsigFullNameMod] = useState("");
+    const [asigSemesterMod, setAsigSemesterMod] = useState("");
+    const [asigGroupNumberMod, setAsigGroupNumberMod] = useState("");
+    const [asigLabGroupMod, setAsigLabGroupMod] = useState("");
+    const [asigGroupTypeMod, setAsigGroupTypeMod] = useState("");
+    const [asigDurationMod, setAsigDurationMod] = useState("");
+    const [asigClassMod, setAsigClassMod] = useState("");
+    const [asigCourseGII_ISMod, setAsigCourseGII_ISMod] = useState("");
+    const [asigCourseGII_TIMod, setAsigCourseGII_TIMod] = useState("");
+    const [asigCourseGII_COMod, setAsigCourseGII_COMod] = useState("");
+    const [asigCourse_ESTMod, setAsigCourse_ESTMod] = useState("");
+    const [asigCourse_INDatMod, setAsigCourse_INDatMod] = useState("");
+    const [asigCourse_MasterMod, setAsigCourse_MasterMod] = useState("");
+    const [asigTeacherMod, setAsigTeacherMod] = useState("");
+    const [asigIncidencesMod, setAsigIncidencesMod] = useState("");
     const [modifyAsig, setModifyAsig] = useState(false);
+
+    const [eventClicked, setEventClicked] = useState(null);
+    const [selectedEventData, setSelectedEventData] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
@@ -135,87 +160,66 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const DnDCalendar = withDragAndDrop(Calendar);
 
 
-    const CustomAdminCalendarEvent = useCallback((props) => (
+    const CustomAdminCalendarEvent = (props) => (
         <AdminCalendarEvent
             {...props}
-            asigCode={asigCode}
-            setAsigCode={setAsigCode}
-            asigInitials={asigInitials}
-            setAsigInitials={setAsigInitials}
-            asigDay={asigDay}
-            setAsigDay={setAsigDay}
+            asigCodeMod={asigCodeMod}
+            setAsigCodeMod={setAsigCodeMod}
+            asigInitialsMod={asigInitialsMod}
+            setAsigInitialsMod={setAsigInitialsMod}
+            asigDayMod={asigDayMod}
+            setAsigDayMod={setAsigDayMod}
             asigPossibleDays={asigPossibleDays}
-            asigStartTime={asigStartTime}
-            setAsigStartTime={setAsigStartTime}
+            asigStartTimeMod={asigStartTimeMod}
+            setAsigStartTimeMod={setAsigStartTimeMod}
             asigStartTimes={asigStartTimes}
-            asigColor={asigColor}
-            setAsigColor={setAsigColor}
+            asigColorMod={asigColorMod}
+            setAsigColorMod={setAsigColorMod}
             asigPossibleColors={asigPossibleColors}
-            asigFullName={asigFullName}
-            setAsigFullName={setAsigFullName}
-            asigSemester={asigSemester}
-            setAsigSemester={setAsigSemester}
+            asigFullNameMod={asigFullNameMod}
+            setAsigFullNameMod={setAsigFullNameMod}
+            asigSemesterMod={asigSemesterMod}
+            setAsigSemesterMod={setAsigSemesterMod}
             asigPossibleSemesters={asigPossibleSemesters}
-            asigGroupNumber={asigGroupNumber}
-            setAsigGroupNumber={setAsigGroupNumber}
+            asigGroupNumberMod={asigGroupNumberMod}
+            setAsigGroupNumberMod={setAsigGroupNumberMod}
             asigPossibleGroupNumbers={asigPossibleGroupNumbers}
-            asigLabGroup={asigLabGroup}
-            setAsigLabGroup={setAsigLabGroup}
-            asigGroupType={asigGroupType}
-            setAsigGroupType={setAsigGroupType}
+            asigLabGroupMod={asigLabGroupMod}
+            setAsigLabGroupMod={setAsigLabGroupMod}
+            asigGroupTypeMod={asigGroupTypeMod}
+            setAsigGroupTypeMod={setAsigGroupTypeMod}
             asigPossibleGroupType={asigPossibleGroupType}
-            asigDuration={asigDuration}
-            setAsigDuration={setAsigDuration}
-            asigClass={asigClass}
-            setAsigClass={setAsigClass}
+            asigDurationMod={asigDurationMod}
+            setAsigDurationMod={setAsigDurationMod}
+            asigClassMod={asigClassMod}
+            setAsigClassMod={setAsigClassMod}
             asigPossibleClasses={asigPossibleClasses}
-            asigCourseGII_IS={asigCourseGII_IS}
-            setAsigCourseGII_IS={setAsigCourseGII_IS}
-            asigCourseGII_TI={asigCourseGII_TI}
-            setAsigCourseGII_TI={setAsigCourseGII_TI}
-            asigCourseGII_CO={asigCourseGII_CO}
-            setAsigCourseGII_CO={setAsigCourseGII_CO}
-            asigCourse_EST={asigCourse_EST}
-            setAsigCourse_EST={setAsigCourse_EST}
-            asigCourse_INDat={asigCourse_INDat}
-            setAsigCourse_INDat={setAsigCourse_INDat}
-            asigCourse_Master={asigCourse_Master}
-            setAsigCourse_Master={setAsigCourse_Master}
+            asigCourseGII_ISMod={asigCourseGII_ISMod}
+            setAsigCourseGII_ISMod={setAsigCourseGII_ISMod}
+            asigCourseGII_TIMod={asigCourseGII_TIMod}
+            setAsigCourseGII_TIMod={setAsigCourseGII_TIMod}
+            asigCourseGII_COMod={asigCourseGII_COMod}
+            setAsigCourseGII_COMod={setAsigCourseGII_COMod}
+            asigCourse_ESTMod={asigCourse_ESTMod}
+            setAsigCourse_ESTMod={setAsigCourse_ESTMod}
+            asigCourse_INDatMod={asigCourse_INDatMod}
+            setAsigCourse_INDatMod={setAsigCourse_INDatMod}
+            asigCourse_MasterMod={asigCourse_MasterMod}
+            setAsigCourse_MasterMod={setAsigCourse_MasterMod}
             asigPossibleCourses={asigPossibleCourses}
-            asigTeacher={asigTeacher}
-            setAsigTeacher={setAsigTeacher}
+            asigTeacherMod={asigTeacherMod}
+            setAsigTeacherMod={setAsigTeacherMod}
             asigPossibleTeacherOptions={asigPossibleTeacherOptions}
-            asigIncidences={asigIncidences}
-            setAsigIncidences={setAsigIncidences}
+            asigIncidencesMod={asigIncidencesMod}
+            setAsigIncidencesMod={setAsigIncidencesMod}
             modifyAsig={modifyAsig}
             setModifyAsig={setModifyAsig}
+            eventClicked={eventClicked}
+            setEventClicked={setEventClicked}
+            selectedEventData={selectedEventData}
+            setSelectedEventData={setSelectedEventData}
         />
-    ), [
-        asigCode, setAsigCode,
-        asigInitials, setAsigInitials,
-        asigDay, setAsigDay, asigPossibleDays,
-        asigStartTime, setAsigStartTime, asigStartTimes,
-        asigColor, setAsigColor, asigPossibleColors,
-        asigFullName, setAsigFullName,
-        asigSemester, setAsigSemester, asigPossibleSemesters,
-        asigGroupNumber, setAsigGroupNumber, asigPossibleGroupNumbers,
-        asigLabGroup, setAsigLabGroup,
-        asigGroupType, setAsigGroupType, asigPossibleGroupType,
-        asigDuration, setAsigDuration,
-        asigClass, setAsigClass, asigPossibleClasses,
-        asigCourseGII_IS, setAsigCourseGII_IS,
-        asigCourseGII_TI, setAsigCourseGII_TI,
-        asigCourseGII_CO, setAsigCourseGII_CO,
-        asigCourse_EST, setAsigCourse_EST,
-        asigCourse_INDat, setAsigCourse_INDat,
-        asigCourse_Master, setAsigCourse_Master,
-        asigPossibleCourses,
-        asigTeacher, setAsigTeacher, asigPossibleTeacherOptions,
-        asigIncidences, setAsigIncidences,
-        modifyAsig, setModifyAsig
-    ]);
-
-
+    );
 
     useEffect(() => {
               const cargarAsignaturas = async () => {
@@ -603,6 +607,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         setClearFormulary(false);
     };
 
+
+    const handleEventSelect = (event) => {
+        setSelectedEvent(event); // Actualiza el estado con el evento seleccionado
+        console.info('[handleEventSelect - event]', event); // Imprime el evento en consola (opcional)
+      };
+
+      
     const getTextoGrado = () => {
         if (!selectedGrade || !selectedSemester) return "";
 
@@ -865,6 +876,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                                             onEventDrop={onEventDrop}
                                             resizable
                                             onEventResize={onEventResize}
+                                            onSelectEvent={handleEventSelect}
                                         />
                                     </DndProvider>
                                     
@@ -891,6 +903,68 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                         </div> 
                     </div>
             </div>
+
+            {eventClicked && selectedEventData && (
+                <div className="overlay">
+                    <>
+                    <ModifyCalendarEvent event={selectedEvent} backgroundColor={selectedEvent.color} setEventClicked={() => {
+                            setEventClicked(false);
+                            setSelectedEventData(null);
+                        }} 
+                        asigCodeMod={asigCodeMod}
+                        setAsigCodeMod={setAsigCodeMod}
+                        asigInitialsMod={asigInitialsMod}
+                        setAsigInitialsMod={setAsigInitialsMod}
+                        asigDayMod={asigDayMod}
+                        setAsigDayMod={setAsigDayMod}
+                        asigPossibleDays={asigPossibleDays}
+                        asigStartTimeMod={asigStartTimeMod}
+                        setAsigStartTimeMod={setAsigStartTimeMod}
+                        asigStartTimes={asigStartTimes}
+                        asigColorMod={asigColorMod}
+                        setAsigColorMod={setAsigColorMod}
+                        asigPossibleColors={asigPossibleColors}
+                        asigFullNameMod={asigFullNameMod}
+                        setAsigFullNameMod={setAsigFullNameMod}
+                        asigSemesterMod={asigSemesterMod}
+                        setAsigSemesterMod={setAsigSemesterMod}
+                        asigPossibleSemesters={asigPossibleSemesters}
+                        asigGroupNumberMod={asigGroupNumberMod}
+                        setAsigGroupNumberMod={setAsigGroupNumberMod}
+                        asigPossibleGroupNumbers={asigPossibleGroupNumbers}
+                        asigLabGroupMod={asigLabGroupMod}
+                        setAsigLabGroupMod={setAsigLabGroupMod}
+                        asigGroupTypeMod={asigGroupTypeMod}
+                        setAsigGroupTypeMod={setAsigGroupTypeMod}
+                        asigPossibleGroupType={asigPossibleGroupType}
+                        asigDurationMod={asigDurationMod}
+                        setAsigDurationMod={setAsigDurationMod}
+                        asigClassMod={asigClassMod}
+                        setAsigClassMod={setAsigClassMod}
+                        asigPossibleClasses={asigPossibleClasses}
+                        asigCourseGII_ISMod={asigCourseGII_ISMod}
+                        setAsigCourseGII_ISMod={setAsigCourseGII_ISMod}
+                        asigCourseGII_TIMod={asigCourseGII_TIMod}
+                        setAsigCourseGII_TIMod={setAsigCourseGII_TIMod}
+                        asigCourseGII_COMod={asigCourseGII_COMod}
+                        setAsigCourseGII_COMod={setAsigCourseGII_COMod}
+                        asigCourse_ESTMod={asigCourse_ESTMod}
+                        setAsigCourse_ESTMod={setAsigCourse_ESTMod}
+                        asigCourse_INDatMod={asigCourse_INDatMod}
+                        setAsigCourse_INDatMod={setAsigCourse_INDatMod}
+                        asigCourse_MasterMod={asigCourse_MasterMod}
+                        setAsigCourse_MasterMod={setAsigCourse_MasterMod}
+                        asigPossibleCourses={asigPossibleCourses}
+                        asigTeacherMod={asigTeacherMod}
+                        setAsigTeacherMod={setAsigTeacherMod}
+                        asigPossibleTeacherOptions={asigPossibleTeacherOptions}
+                        asigIncidencesMod={asigIncidencesMod}
+                        setAsigIncidencesMod={setAsigIncidencesMod}
+                        modifyAsig={modifyAsig}
+                        setModifyAsig={setModifyAsig}/>
+                    </>   
+                 </div>
+            )}
         </>
     )
 }

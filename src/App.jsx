@@ -15,7 +15,7 @@ import PrivateRoute from "./PrivateRoute";
 const diasSemana = {
   "Lunes": 1,
   "Martes": 2,
-  "Miercoles": 3,
+  "Miércoles": 3,
   "Jueves": 4,
   "Viernes": 5
 };

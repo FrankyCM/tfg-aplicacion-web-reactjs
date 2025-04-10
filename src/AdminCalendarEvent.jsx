@@ -5,32 +5,33 @@ import { useState } from 'react';
 
 
 export const AdminCalendarEvent = ({
-    event, asigCode, setAsigCode,
-    asigInitials, setAsigInitials,
-    asigDay, setAsigDay, asigPossibleDays,
-    asigStartTime, setAsigStartTime, asigStartTimes,
-    asigColor, setAsigColor, asigPossibleColors,
-    asigFullName, setAsigFullName,
-    asigSemester, setAsigSemester, asigPossibleSemesters,
-    asigGroupNumber, setAsigGroupNumber, asigPossibleGroupNumbers,
-    asigLabGroup, setAsigLabGroup,
-    asigGroupType, setAsigGroupType, asigPossibleGroupType,
-    asigDuration, setAsigDuration,
-    asigClass, setAsigClass, asigPossibleClasses,
-    asigCourseGII_IS, setAsigCourseGII_IS,
-    asigCourseGII_TI, setAsigCourseGII_TI,
-    asigCourseGII_CO, setAsigCourseGII_CO,
-    asigCourse_EST, setAsigCourse_EST,
-    asigCourse_INDat, setAsigCourse_INDat,
-    asigCourse_Master, setAsigCourse_Master,
+    event, asigCodeMod, setAsigCodeMod,
+    asigInitialsMod, setAsigInitialsMod,
+    asigDayMod, setAsigDayMod, asigPossibleDays,
+    asigStartTimeMod, setAsigStartTimeMod, asigStartTimes,
+    asigColorMod, setAsigColorMod, asigPossibleColors,
+    asigFullNameMod, setAsigFullNameMod,
+    asigSemesterMod, setAsigSemesterMod, asigPossibleSemesters,
+    asigGroupNumberMod, setAsigGroupNumberMod, asigPossibleGroupNumbers,
+    asigLabGroupMod, setAsigLabGroupMod,
+    asigGroupTypeMod, setAsigGroupTypeMod, asigPossibleGroupType,
+    asigDurationMod, setAsigDurationMod,
+    asigClassMod, setAsigClassMod, asigPossibleClasses,
+    asigCourseGII_ISMod, setAsigCourseGII_ISMod,
+    asigCourseGII_TIMod, setAsigCourseGII_TIMod,
+    asigCourseGII_COMod, setAsigCourseGII_COMod,
+    asigCourse_ESTMod, setAsigCourse_ESTMod,
+    asigCourse_INDatMod, setAsigCourse_INDatMod,
+    asigCourse_MasterMod, setAsigCourse_MasterMod,
     asigPossibleCourses,
-    asigTeacher, setAsigTeacher, asigPossibleTeacherOptions,
-    asigIncidences, setAsigIncidences, modifyAsig, setModifyAsig }) => {
+    asigTeacherMod, setAsigTeacherMod, asigPossibleTeacherOptions,
+    asigIncidencesMod, setAsigIncidencesMod, modifyAsig, setModifyAsig, eventClicked, setEventClicked,
+    selectedEventData, setSelectedEventData }) => {
 
     const [hoveredEvent, setHoveredEvent] = useState(null);
     const [popUpPosition, setPopUpPosition] = useState({ x: 0, y: 0 });
-    const [eventClicked, setEventClicked] = useState(null);
     
+
     const handleMouseEnter = (e) => {
         setHoveredEvent(event);
         setPopUpPosition({ x: e.clientX + 10, y: e.clientY + 10 });
@@ -43,7 +44,63 @@ export const AdminCalendarEvent = ({
     };
 
     const handleEventClick = () => {
-        setEventClicked(event);
+        setEventClicked(true); // Solo booleano
+        setSelectedEventData(event); // Guardamos los datos base
+
+        setAsigCodeMod(event.codigo);
+        setAsigInitialsMod(event.siglas);
+        setAsigDayMod(event.dia);
+
+        const startTime = new Date(event.start);
+        // Obtener la hora y los minutos locales
+        const hours = startTime.getHours();
+        const minutes = startTime.getMinutes();
+
+        // Formatear la hora en H:mm o HH:mm según corresponda
+        const formattedTime = hours < 10 
+        ? `${hours}:${minutes < 10 ? '0' + minutes : minutes}`  // Formato H:mm si la hora es menor a 10
+        : `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;  // Formato HH:mm si la hora es 10 o mayor
+
+        // Establecer el tiempo en el estado
+        setAsigStartTimeMod(formattedTime);
+        console.log("tiempo formateado", formattedTime);
+        setAsigColorMod(event.color);
+        setAsigFullNameMod(event.nombre);
+        setAsigSemesterMod(event.semestre);
+        setAsigClassMod(event.aula);
+        setAsigTeacherMod(event.profesor);
+
+        // Obtener número del grupo (por ejemplo, "1" de "T1")
+        const groupMatch = event.grupo.match(/\d+/);
+        setAsigGroupNumberMod(groupMatch ? groupMatch[0] : "");
+
+        // Obtener tipo de grupo (por ejemplo, "T" de "T1")
+        const typeMatch = event.grupo.match(/[A-Z]+/);
+        setAsigGroupTypeMod(typeMatch ? typeMatch[0] : "");
+
+        // Grupo de laboratorio
+        setAsigLabGroupMod(event.grupoLaboratorio);
+
+        // Duración (en horas enteras)
+        const start = new Date(event.start);
+        const end = new Date(event.end);
+        const durationHours = Math.round((end - start) / (1000 * 60 * 60));
+        setAsigDurationMod(durationHours);
+
+        // Cursos por grado y mención
+        const grado = event.grado;
+        const mencion = event.mencion;
+        const curso = event.curso;
+
+        if (grado === "INF") {
+            if (mencion === "IS") setAsigCourseGII_ISMod(curso);
+            if (mencion === "TI") setAsigCourseGII_TIMod(curso);
+            if (mencion === "CO") setAsigCourseGII_COMod(curso);
+        }
+
+        if (grado === "EST") setAsigCourse_ESTMod(curso);
+        if (grado === "I + E") setAsigCourse_INDatMod(curso);
+        if (grado === "Master") setAsigCourse_MasterMod(curso);
     }
 
     return (
@@ -64,29 +121,6 @@ export const AdminCalendarEvent = ({
             
 
             {hoveredEvent && <CalendarEventPopUp event={hoveredEvent} position={popUpPosition} backgroundColor={event.color} setHoveredEvent={setHoveredEvent}/>}
-
-            {eventClicked && (
-                <div className="overlay">
-                    <>
-                    <ModifyCalendarEvent event={eventClicked} backgroundColor={event.color} setEventClicked={setEventClicked} setHoveredEvent={setHoveredEvent}
-                    asigCode={asigCode} setAsigCode={setAsigCode} asigInitials={asigInitials}
-                    setAsigInitials={setAsigInitials} asigPossibleDays={asigPossibleDays} asigDay={asigDay}
-                    setAsigDay={setAsigDay} asigStartTimes={asigStartTimes} asigFullName={asigFullName} setAsigFullName={setAsigFullName}
-                    asigStartTime={asigStartTime} setAsigStartTime={setAsigStartTime} asigPossibleColors={asigPossibleColors}
-                    asigColor={asigColor} setAsigColor={setAsigColor}
-                    asigPossibleSemesters={asigPossibleSemesters} asigSemester={asigSemester} setAsigSemester={setAsigSemester}
-                    asigPossibleGroupNumbers={asigPossibleGroupNumbers} asigGroupNumber={asigGroupNumber} setAsigGroupNumber={setAsigGroupNumber}
-                    asigGroupType={asigGroupType} setAsigGroupType={setAsigGroupType} asigLabGroup={asigLabGroup} setAsigLabGroup={setAsigLabGroup}
-                    asigPossibleGroupType={asigPossibleGroupType} asigDuration={asigDuration} setAsigDuration={setAsigDuration} asigPossibleClasses={asigPossibleClasses}
-                    asigClass={asigClass} setAsigClass={setAsigClass} asigPossibleCourses={asigPossibleCourses} asigCourseGII_IS={asigCourseGII_IS} setAsigCourseGII_IS={setAsigCourseGII_IS}
-                    asigCourseGII_TI={asigCourseGII_TI} setAsigCourseGII_TI={setAsigCourseGII_TI} asigCourseGII_CO={asigCourseGII_CO}
-                    setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
-                    asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
-                    setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
-                    asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} modifyAsig={modifyAsig} setModifyAsig={setModifyAsig}/>
-                    </>   
-                 </div>
-            )}
         </div>            
     )
 }
