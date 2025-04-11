@@ -55,6 +55,43 @@ app.post("/asignaturas", (req, res) => {
     });
 });
 
+// 🔹 Endpoint para borrar una asignatura
+app.delete("/asignaturas/:codigo", (req, res) => {
+    const codigo = req.params.codigo;
+    const asignaturaAEliminar = req.body;
+  
+    try {
+      const asignaturas = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  
+      const nuevasAsignaturas = asignaturas.filter(asig =>
+        !(
+          asig.Codigo === asignaturaAEliminar.Codigo &&
+          asig.Siglas === asignaturaAEliminar.Siglas &&
+          asig.Dia === asignaturaAEliminar.Dia &&
+          asig.Grupo === asignaturaAEliminar.Grupo &&
+          asig.GrupoLaboratorio === asignaturaAEliminar.GrupoLaboratorio &&
+          asig.Nombre === asignaturaAEliminar.Nombre &&
+          asig.Semestre === asignaturaAEliminar.Semestre &&
+          asig.Clase === asignaturaAEliminar.Clase &&
+          asig.Profesor === asignaturaAEliminar.Profesor &&
+          asig.Grado === asignaturaAEliminar.Grado &&
+          (asig.Mencion ?? "") === (asignaturaAEliminar.Mencion ?? "") &&
+          asig.Curso === asignaturaAEliminar.Curso &&
+          asig.Color === asignaturaAEliminar.Color &&
+          asig.HoraInicio === asignaturaAEliminar.HoraInicio &&
+          asig.Duracion === asignaturaAEliminar.Duracion
+        )
+      );
+  
+      fs.writeFileSync(filePath, JSON.stringify(nuevasAsignaturas, null, 2), "utf8");
+  
+      res.status(200).json({ mensaje: "Asignatura eliminada correctamente" });
+    } catch (error) {
+      console.error("❌ Error eliminando asignatura:", error);
+      res.status(500).json({ mensaje: "Error al eliminar la asignatura", error: error.message });
+    }
+});
+
 // Iniciar servidor
 app.listen(PORT, () => console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`));
 

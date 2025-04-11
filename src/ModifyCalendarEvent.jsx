@@ -27,7 +27,7 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
     asigCourse_MasterMod, setAsigCourse_MasterMod,
     asigPossibleCourses,
     asigTeacherMod, setAsigTeacherMod, asigPossibleTeacherOptions,
-    asigIncidencesMod, setAsigIncidencesMod, modifyAsig, setModifyAsig}) => {
+    asigIncidencesMod, setAsigIncidencesMod, modifyAsig, setModifyAsig, deleteAsig, setDeleteAsig}) => {
 
 
     const handleCloseClick = () => {
@@ -193,6 +193,7 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                     <ScheduleCreationMenuWarningsField text={asigIncidencesMod}/>
                 </div>
                 <div className="contenido-tab-crear-asignatura-botones">
+                    <ScheduleCreationAsigActionsButton text={`Borrar asignatura`} setStatusOnClick={setDeleteAsig} color={`#edbeba`}/>
                     <ScheduleCreationAsigActionsButton text={`Modificar asignatura`} setStatusOnClick={setModifyAsig} color={`#edbeba`}/>
                 </div>
             </div>

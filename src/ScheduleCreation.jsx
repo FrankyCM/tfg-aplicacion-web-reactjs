@@ -138,18 +138,18 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [asigGroupTypeMod, setAsigGroupTypeMod] = useState("");
     const [asigDurationMod, setAsigDurationMod] = useState("");
     const [asigClassMod, setAsigClassMod] = useState("");
-    const [asigCourseGII_ISMod, setAsigCourseGII_ISMod] = useState("");
-    const [asigCourseGII_TIMod, setAsigCourseGII_TIMod] = useState("");
-    const [asigCourseGII_COMod, setAsigCourseGII_COMod] = useState("");
-    const [asigCourse_ESTMod, setAsigCourse_ESTMod] = useState("");
-    const [asigCourse_INDatMod, setAsigCourse_INDatMod] = useState("");
-    const [asigCourse_MasterMod, setAsigCourse_MasterMod] = useState("");
+    const [asigCourseGII_ISMod, setAsigCourseGII_ISMod] = useState("-");
+    const [asigCourseGII_TIMod, setAsigCourseGII_TIMod] = useState("-");
+    const [asigCourseGII_COMod, setAsigCourseGII_COMod] = useState("-");
+    const [asigCourse_ESTMod, setAsigCourse_ESTMod] = useState("-");
+    const [asigCourse_INDatMod, setAsigCourse_INDatMod] = useState("-");
+    const [asigCourse_MasterMod, setAsigCourse_MasterMod] = useState("-");
     const [asigTeacherMod, setAsigTeacherMod] = useState("");
     const [asigIncidencesMod, setAsigIncidencesMod] = useState("");
     const [modifyAsig, setModifyAsig] = useState(false);
+    const [deleteAsig, setDeleteAsig] = useState(false);
 
     const [eventClicked, setEventClicked] = useState(null);
-    const [selectedEventData, setSelectedEventData] = useState(null);
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     const localizer = momentLocalizer(moment);
@@ -163,121 +163,85 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const CustomAdminCalendarEvent = (props) => (
         <AdminCalendarEvent
             {...props}
-            asigCodeMod={asigCodeMod}
             setAsigCodeMod={setAsigCodeMod}
-            asigInitialsMod={asigInitialsMod}
             setAsigInitialsMod={setAsigInitialsMod}
-            asigDayMod={asigDayMod}
             setAsigDayMod={setAsigDayMod}
-            asigPossibleDays={asigPossibleDays}
-            asigStartTimeMod={asigStartTimeMod}
             setAsigStartTimeMod={setAsigStartTimeMod}
-            asigStartTimes={asigStartTimes}
-            asigColorMod={asigColorMod}
             setAsigColorMod={setAsigColorMod}
-            asigPossibleColors={asigPossibleColors}
-            asigFullNameMod={asigFullNameMod}
             setAsigFullNameMod={setAsigFullNameMod}
-            asigSemesterMod={asigSemesterMod}
             setAsigSemesterMod={setAsigSemesterMod}
-            asigPossibleSemesters={asigPossibleSemesters}
-            asigGroupNumberMod={asigGroupNumberMod}
             setAsigGroupNumberMod={setAsigGroupNumberMod}
-            asigPossibleGroupNumbers={asigPossibleGroupNumbers}
-            asigLabGroupMod={asigLabGroupMod}
             setAsigLabGroupMod={setAsigLabGroupMod}
-            asigGroupTypeMod={asigGroupTypeMod}
             setAsigGroupTypeMod={setAsigGroupTypeMod}
-            asigPossibleGroupType={asigPossibleGroupType}
-            asigDurationMod={asigDurationMod}
             setAsigDurationMod={setAsigDurationMod}
-            asigClassMod={asigClassMod}
             setAsigClassMod={setAsigClassMod}
-            asigPossibleClasses={asigPossibleClasses}
-            asigCourseGII_ISMod={asigCourseGII_ISMod}
             setAsigCourseGII_ISMod={setAsigCourseGII_ISMod}
-            asigCourseGII_TIMod={asigCourseGII_TIMod}
             setAsigCourseGII_TIMod={setAsigCourseGII_TIMod}
-            asigCourseGII_COMod={asigCourseGII_COMod}
             setAsigCourseGII_COMod={setAsigCourseGII_COMod}
-            asigCourse_ESTMod={asigCourse_ESTMod}
             setAsigCourse_ESTMod={setAsigCourse_ESTMod}
-            asigCourse_INDatMod={asigCourse_INDatMod}
             setAsigCourse_INDatMod={setAsigCourse_INDatMod}
-            asigCourse_MasterMod={asigCourse_MasterMod}
             setAsigCourse_MasterMod={setAsigCourse_MasterMod}
-            asigPossibleCourses={asigPossibleCourses}
-            asigTeacherMod={asigTeacherMod}
             setAsigTeacherMod={setAsigTeacherMod}
-            asigPossibleTeacherOptions={asigPossibleTeacherOptions}
-            asigIncidencesMod={asigIncidencesMod}
-            setAsigIncidencesMod={setAsigIncidencesMod}
-            modifyAsig={modifyAsig}
             setModifyAsig={setModifyAsig}
-            eventClicked={eventClicked}
             setEventClicked={setEventClicked}
-            selectedEventData={selectedEventData}
-            setSelectedEventData={setSelectedEventData}
         />
     );
 
     useEffect(() => {
-              const cargarAsignaturas = async () => {
-                try {
-                  const response = await fetch("/asignaturas.json");
-                  const data = await response.json();
-          
-                  setSubjects(data); // Guardar asignaturas en el estado
-          
-                  const eventos = data.map((asignatura) => {
-                    const diaSemana = diasSemana[asignatura.Dia];
-                    if (diaSemana === undefined) return null;
-          
-                    const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
-          
-                    // Obtener el lunes de la semana actual
-                    const hoy = moment();
-                    const lunesSemanaActual = hoy.clone().startOf("isoWeek");
-          
-                    // Calcular la fecha del día de la asignatura dentro de esta semana
-                    const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
-                      hour: hora,
-                      minute: minutos,
-                      second: 0,
-                    }).toDate();
-          
-                    const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
-          
-                    return {
-                      id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
-                      title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
-                      start: inicio,
-                      end: fin,
-                      nombre: asignatura.Nombre,
-                      siglas: asignatura.Siglas,
-                      grado: asignatura.Grado,
-                      semestre: asignatura.Semestre,
-                      curso: asignatura.Curso,
-                      grupo: asignatura.Grupo,
-                      grupoLaboratorio: asignatura.GrupoLaboratorio,
-                      mencion: asignatura.Mencion,
-                      aula: asignatura.Clase,
-                      profesor: asignatura.Profesor,
-                      color: asignatura.Color,
-                      dia: asignatura.Dia,
-                      codigo: asignatura.Codigo
-                    };
-                  }).filter(Boolean);
-          
-                  setEvents(eventos);
-                } catch (error) {
-                  console.error("Error cargando los datos del JSON:", error);
-                }
-              };
-          
-              cargarAsignaturas();
+        cargarAsignaturas();
     }, []);
     
+    const cargarAsignaturas = async () => {
+        try {
+          const response = await fetch("/asignaturas.json");
+          const data = await response.json();
+      
+          setSubjects(data); // Guardar asignaturas en el estado
+      
+          const eventos = data.map((asignatura) => {
+            const diaSemana = diasSemana[asignatura.Dia];
+            if (diaSemana === undefined) return null;
+      
+            const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
+      
+            const hoy = moment();
+            const lunesSemanaActual = hoy.clone().startOf("isoWeek");
+      
+            const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+              hour: hora,
+              minute: minutos,
+              second: 0,
+            }).toDate();
+      
+            const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+      
+            return {
+              id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+              title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
+              start: inicio,
+              end: fin,
+              nombre: asignatura.Nombre,
+              siglas: asignatura.Siglas,
+              grado: asignatura.Grado,
+              semestre: asignatura.Semestre,
+              curso: asignatura.Curso,
+              grupo: asignatura.Grupo,
+              grupoLaboratorio: asignatura.GrupoLaboratorio,
+              mencion: asignatura.Mencion,
+              aula: asignatura.Clase,
+              profesor: asignatura.Profesor,
+              color: asignatura.Color,
+              dia: asignatura.Dia,
+              codigo: asignatura.Codigo
+            };
+          }).filter(Boolean);
+      
+          setEvents(eventos);
+        } catch (error) {
+          console.error("Error cargando los datos del JSON:", error);
+        }
+      };
+
     useEffect(() => {
         if (!exportPDF || !filteredAsigs || !subjects) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
 
@@ -435,7 +399,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     useEffect(() => {
         if (save === false) return;
       
-        const actualizarAsignaturasJSON = async () => {
+        const guardarAsignaturasJSON = async () => {
           try {
             // Obtener eventos actualizados del estado
             const eventosActualizados = events.map(evento => ({
@@ -449,6 +413,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               Semestre: evento.semestre,
               Curso: evento.curso,
               Grupo: evento.grupo,
+              GrupoLaboratorio: evento.grupoLaboratorio,
               Mencion: evento.mencion,
               Clase: evento.aula,
               Profesor: evento.profesor,
@@ -461,8 +426,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(eventosActualizados, null, 2)
             });
-      
-            if (!response.ok) throw new Error("Error al actualizar asignaturas.json");
+            if(response.ok){
+                cargarAsignaturas();
+            } else {
+                throw new Error("Error al actualizar asignaturas.json");
+            }
       
             console.log("Asignaturas actualizadas con éxito.");
           } catch (error) {
@@ -470,13 +438,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           }
         };
       
-        actualizarAsignaturasJSON();
+        guardarAsignaturasJSON();
         setSave(false);
     }, [save]);
      
     
     useEffect(() => {
-        const cargarYActualizarAsignaturas = async () => {
+        const crearAsignaturas = async () => {
           try {
             const response = await fetch("http://localhost:5000/asignaturas");
             const data = await response.json();
@@ -558,6 +526,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               if (res.ok) {
                 console.log("Nuevas asignaturas guardadas correctamente.");
                 clearAllFields();
+                cargarAsignaturas();
               } else {
                 console.error("Error al guardar las asignaturas en el backend.");
               }
@@ -572,7 +541,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         };
       
         if (createAsig) {
-          cargarYActualizarAsignaturas();
+            crearAsignaturas();
         }
       }, [createAsig]);
 
@@ -611,9 +580,168 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const handleEventSelect = (event) => {
         setSelectedEvent(event); // Actualiza el estado con el evento seleccionado
         console.info('[handleEventSelect - event]', event); // Imprime el evento en consola (opcional)
-      };
+    };
+
+
+    useEffect(() => {
+        const modificarAsignatura = async () => {
+          try {
+            const response = await fetch("http://localhost:5000/asignaturas");
+            const data = await response.json();
+      
+            const cursos = [
+              { estado: asigCourseGII_ISMod, grado: "INF", mencion: "IS" },
+              { estado: asigCourseGII_TIMod, grado: "INF", mencion: "TI" },
+              { estado: asigCourseGII_COMod, grado: "INF", mencion: "CO" },
+              { estado: asigCourse_ESTMod, grado: "EST" },
+              { estado: asigCourse_INDatMod, grado: "I + E" },
+              { estado: asigCourse_MasterMod, grado: "Master" },
+            ];
+      
+            const nuevasAsignaturas = [...data];
+            
+            console.log(asigCourseGII_TIMod);
+            console.log(asigCourseGII_COMod);
+            console.log(asigCourse_ESTMod);
+            console.log(asigCourse_INDatMod);
+            console.log(asigCourse_MasterMod);
+
+            cursos.forEach((curso) => {
+              if (curso.estado && curso.estado !== "-") {
+                const grupo = `${asigGroupTypeMod ?? ""}${asigGroupNumberMod ?? ""}`;
+                console.log(asigCourseGII_ISMod);
+                console.log(selectedEvent);
+                // Buscar asignatura antigua en el JSON por coincidencia total
+                const asignaturaAntigua = data.find((asig) =>
+                    asig.Codigo === selectedEvent.codigo &&
+                    asig.Siglas === selectedEvent.siglas &&
+                    asig.Dia === selectedEvent.dia &&
+                    asig.Grupo === selectedEvent.grupo &&
+                    asig.GrupoLaboratorio === selectedEvent.grupoLaboratorio &&
+                    asig.Nombre === selectedEvent.nombre &&
+                    asig.Semestre === selectedEvent.semestre &&
+                    asig.Clase === selectedEvent.aula &&
+                    asig.Profesor === selectedEvent.profesor &&
+                    asig.Grado === selectedEvent.grado &&
+                    (asig.Mencion ?? "") === (selectedEvent.mencion ?? "") &&
+                    asig.Curso === selectedEvent.curso &&
+                    asig.Color === selectedEvent.color &&
+                    asig.HoraInicio === selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) &&
+                    asig.Duracion === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // en horas
+                );
+                console.log(asignaturaAntigua)
+                if (asignaturaAntigua) {
+                  const index = data.indexOf(asignaturaAntigua);
+                    console.log(index)
+                  const asignaturaModificada = {
+                    Codigo: asigCodeMod,
+                    Dia: asigDayMod,
+                    HoraInicio: asigStartTimeMod,
+                    Duracion: Number(asigDurationMod),
+                    Siglas: asigInitialsMod,
+                    Nombre: asigFullNameMod,
+                    Grado: curso.grado,
+                    Semestre: asigSemesterMod,
+                    Curso: curso.estado,
+                    Grupo: grupo,
+                    GrupoLaboratorio: asigLabGroupMod ?? "",
+                    Mencion: curso.mencion ?? "",
+                    Clase: asigClassMod,
+                    Profesor: asigTeacherMod,
+                    Color: asigColorMod,
+                  };
+      
+                  nuevasAsignaturas[index] = asignaturaModificada;
+                }
+              }
+            });
+      
+            const res = await fetch("http://localhost:5000/asignaturas", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(nuevasAsignaturas),
+            });
+      
+            if (res.ok) {
+              console.log("✅ Asignatura modificada correctamente");
+              cargarAsignaturas();
+            } else {
+              console.error("❌ Error al modificar la asignatura en el backend.");
+            }
+      
+          } catch (error) {
+            console.error("⚠️ Error al modificar asignatura:", error);
+          } finally {
+            setModifyAsig(false);
+            setEventClicked(false);
+          }
+        };
+      
+        if (modifyAsig) {
+          modificarAsignatura();
+        }
+      }, [modifyAsig]);
 
       
+
+      useEffect(() => {
+        const eliminarAsignatura = async () => {
+          try {
+            const response = await fetch("http://localhost:5000/asignaturas");
+            const data = await response.json();
+      
+            const asignaturaAEliminar = data.find((asig) =>
+              asig.Codigo === selectedEvent.codigo &&
+              asig.Siglas === selectedEvent.siglas &&
+              asig.Dia === selectedEvent.dia &&
+              asig.Grupo === selectedEvent.grupo &&
+              asig.GrupoLaboratorio === selectedEvent.grupoLaboratorio &&
+              asig.Nombre === selectedEvent.nombre &&
+              asig.Semestre === selectedEvent.semestre &&
+              asig.Clase === selectedEvent.aula &&
+              asig.Profesor === selectedEvent.profesor &&
+              asig.Grado === selectedEvent.grado &&
+              (asig.Mencion ?? "") === (selectedEvent.mencion ?? "") &&
+              asig.Curso === selectedEvent.curso &&
+              asig.Color === selectedEvent.color &&
+              asig.HoraInicio === selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) &&
+              asig.Duracion === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // horas
+            );
+      
+            if (!asignaturaAEliminar) {
+              console.warn("⚠️ No se encontró la asignatura a eliminar");
+              return;
+            }
+      
+            const res = await fetch(`http://localhost:5000/asignaturas/${asignaturaAEliminar.Codigo}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(asignaturaAEliminar), // Se envía el objeto para filtrar más allá del código
+            });
+      
+            if (res.ok) {
+              console.log("🗑️ Asignatura eliminada correctamente");
+              cargarAsignaturas(); // Recargar calendario tras eliminar
+            } else {
+              console.error("❌ Error al eliminar la asignatura en el backend.");
+            }
+          } catch (error) {
+            console.error("⚠️ Error al eliminar asignatura:", error);
+          } finally {
+            setDeleteAsig(false);
+            setEventClicked(false);
+          }
+        };
+      
+        if (deleteAsig) {
+          eliminarAsignatura();
+        }
+    }, [deleteAsig]);
+
     const getTextoGrado = () => {
         if (!selectedGrade || !selectedSemester) return "";
 
@@ -904,12 +1032,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     </div>
             </div>
 
-            {eventClicked && selectedEventData && (
+            {eventClicked && (
                 <div className="overlay">
                     <>
                     <ModifyCalendarEvent event={selectedEvent} backgroundColor={selectedEvent.color} setEventClicked={() => {
                             setEventClicked(false);
-                            setSelectedEventData(null);
                         }} 
                         asigCodeMod={asigCodeMod}
                         setAsigCodeMod={setAsigCodeMod}
@@ -961,7 +1088,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                         asigIncidencesMod={asigIncidencesMod}
                         setAsigIncidencesMod={setAsigIncidencesMod}
                         modifyAsig={modifyAsig}
-                        setModifyAsig={setModifyAsig}/>
+                        setModifyAsig={setModifyAsig}
+                        deleteAsig={deleteAsig}
+                        setDeleteAsig={setDeleteAsig}/>
                     </>   
                  </div>
             )}

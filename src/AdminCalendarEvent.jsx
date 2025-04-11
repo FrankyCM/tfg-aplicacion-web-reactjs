@@ -5,28 +5,16 @@ import { useState } from 'react';
 
 
 export const AdminCalendarEvent = ({
-    event, asigCodeMod, setAsigCodeMod,
-    asigInitialsMod, setAsigInitialsMod,
-    asigDayMod, setAsigDayMod, asigPossibleDays,
-    asigStartTimeMod, setAsigStartTimeMod, asigStartTimes,
-    asigColorMod, setAsigColorMod, asigPossibleColors,
-    asigFullNameMod, setAsigFullNameMod,
-    asigSemesterMod, setAsigSemesterMod, asigPossibleSemesters,
-    asigGroupNumberMod, setAsigGroupNumberMod, asigPossibleGroupNumbers,
-    asigLabGroupMod, setAsigLabGroupMod,
-    asigGroupTypeMod, setAsigGroupTypeMod, asigPossibleGroupType,
-    asigDurationMod, setAsigDurationMod,
-    asigClassMod, setAsigClassMod, asigPossibleClasses,
-    asigCourseGII_ISMod, setAsigCourseGII_ISMod,
-    asigCourseGII_TIMod, setAsigCourseGII_TIMod,
-    asigCourseGII_COMod, setAsigCourseGII_COMod,
-    asigCourse_ESTMod, setAsigCourse_ESTMod,
-    asigCourse_INDatMod, setAsigCourse_INDatMod,
-    asigCourse_MasterMod, setAsigCourse_MasterMod,
-    asigPossibleCourses,
-    asigTeacherMod, setAsigTeacherMod, asigPossibleTeacherOptions,
-    asigIncidencesMod, setAsigIncidencesMod, modifyAsig, setModifyAsig, eventClicked, setEventClicked,
-    selectedEventData, setSelectedEventData }) => {
+    event, setAsigCodeMod, setAsigInitialsMod,
+    setAsigDayMod, setAsigStartTimeMod,
+    setAsigColorMod, setAsigFullNameMod,
+    setAsigSemesterMod, setAsigGroupNumberMod,
+    setAsigLabGroupMod, setAsigGroupTypeMod,
+    setAsigDurationMod, setAsigClassMod,
+    setAsigCourseGII_ISMod, setAsigCourseGII_TIMod,
+    setAsigCourseGII_COMod, setAsigCourse_ESTMod,
+    setAsigCourse_INDatMod, setAsigCourse_MasterMod,
+    setAsigTeacherMod, setEventClicked}) => {
 
     const [hoveredEvent, setHoveredEvent] = useState(null);
     const [popUpPosition, setPopUpPosition] = useState({ x: 0, y: 0 });
@@ -45,7 +33,6 @@ export const AdminCalendarEvent = ({
 
     const handleEventClick = () => {
         setEventClicked(true); // Solo booleano
-        setSelectedEventData(event); // Guardamos los datos base
 
         setAsigCodeMod(event.codigo);
         setAsigInitialsMod(event.siglas);
