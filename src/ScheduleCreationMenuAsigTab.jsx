@@ -55,7 +55,7 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
                     </div>
                     <div className="contenido-tab-crear-asignatura-color">
                         <p className="apartado-color">Color</p>
-                        <ScheduleCreationSelect placeholder={"Color"} selectOptions={asigPossibleColors} setStatusOnChange={setAsigColor} value={asigColor}/>
+                        <ScheduleCreationSelect placeholder={"Color"} className={`select-color`} selectOptions={asigPossibleColors} setStatusOnChange={setAsigColor} value={asigColor}/>
                     </div> 
                 </div>
                 

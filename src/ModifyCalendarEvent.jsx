@@ -94,7 +94,7 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                         </div>
                         <div className="contenido-tab-crear-asignatura-color">
                             <p className="apartado-color">Color</p>
-                            <ScheduleCreationSelect placeholder={"Color"} selectOptions={asigPossibleColors} setStatusOnChange={setAsigColorMod} value={asigColorMod}/>
+                            <ScheduleCreationSelect placeholder={"Color"} className={`select-color`} selectOptions={asigPossibleColors} setStatusOnChange={setAsigColorMod} value={asigColorMod}/>
                         </div> 
                     </div>
                     

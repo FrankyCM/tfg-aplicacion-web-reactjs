@@ -163,9 +163,6 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
       }
     }
 
-    if(selectedGroupButton || selectedMentionButton){
-      newHeight += 120;
-    }
     return newHeight;
   };
 

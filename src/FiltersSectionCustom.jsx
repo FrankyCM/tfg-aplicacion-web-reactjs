@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Label } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';
 import FiltersSelect from './FiltersSelect';
@@ -9,7 +9,7 @@ import Draggable from 'react-draggable';
 import { createPortal } from 'react-dom';
 import IconButton from './IconButton';
 
-const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourses, setSelectedCourses, selectedFirstGroup, setSelectedFirstGroup, selectedSecondGroup, setSelectedSecondGroup, selectedThirdMention, setSelectedThirdMention, selectedFourthMention, setSelectedFourthMention, selectedFifthGroup, setSelectedFifthGroup, selectedAsigs, setSelectedAsigs, asigOptions, setFilteredEvents, includeLabs, setIncludeLabs, setExportPDF}) => {
+const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourses, setSelectedCourses, selectedFirstGroup, setSelectedFirstGroup, selectedSecondGroup, setSelectedSecondGroup, selectedThirdMention, setSelectedThirdMention, selectedFourthMention, setSelectedFourthMention, selectedFifthGroup, setSelectedFifthGroup, selectedAsigs, setSelectedAsigs, asigOptions, setFilteredEvents, includeLabs, setIncludeLabs, setExportPDF, asigColors}) => {
   
   const [selectedAsigValue, setSelectedAsigValue] = useState("");
 
@@ -235,7 +235,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
 
   const handleAsigSelect = (_, data) => {  
     const selectedKey = data.options.find(option => option.value === data.value)?.key;
-    console.log(selectedKey);
+    console.log("asignatura anadida", selectedKey);
     if (selectedKey && !selectedAsigs.includes(selectedKey)) {
       setSelectedAsigs([...selectedAsigs, selectedKey]);
       setSelectedAsigValue(data.value);
@@ -500,15 +500,26 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
                     </div>
                     <div className="selected-asigs-container">
                       {selectedAsigs.length > 0 ? (
-                        selectedAsigs.map((asig) => (
-                          <Label key={asig} onClick={() => handleRemoveAsig(asig)} className="filters-select-asig-label">
-                            {asig}
-                            <Label.Detail className="filters-select-container-label-detail">X</Label.Detail>
-                          </Label>
-                        ))
-                        ) : (
-                          <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
-                        )}
+                        selectedAsigs.map((asig) => {
+                          const siglas = asig.split(" - ")[0].trim().toUpperCase();
+                          const backgroundColor = asigColors[siglas] || "#ccc"; // color por defecto
+                          const labelClass = `filters-select-asig-label filters-select-asig-label-${siglas}`;
+
+                          return (
+                            <Label
+                              key={asig}
+                              onClick={() => handleRemoveAsig(asig)}
+                              className={labelClass}
+                              style={{ backgroundColor }}
+                            >
+                              {asig}
+                              <Label.Detail className="filters-select-container-label-detail">X</Label.Detail>
+                            </Label>
+                          );
+                        })
+                      ) : (
+                        <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
+                      )}
                     </div>
                     {selectedAsigs.length !== 0 && (
                       <IncludeLabsCheckbox 
@@ -523,19 +534,30 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
               {(selectedGradeButton === "EST" || selectedGradeButton === "I + E") && selectedSemesterButton && (selectedCoursesButton.length !== 0) && (
                     <>
                       <div className="filters-select-container">
-                        <FiltersSelect text={"Escoge tu asignatura"} options={asigOptions} onChange={handleAsigSelect} value={selectedAsigValue} />
+                        <FiltersSelect text={"Escoge tu asignatura"} options={asigOptions} className={`select-asig-custom`} onChange={handleAsigSelect} value={selectedAsigValue} />
                       </div>
                       <div className="selected-asigs-container">
                         {selectedAsigs.length > 0 ? (
-                          selectedAsigs.map((asig) => (
-                            <Label key={asig} onClick={() => handleRemoveAsig(asig)} className="filters-select-asig-label">
-                              {asig}
-                              <Label.Detail className="filters-select-container-label-detail">X</Label.Detail>
-                            </Label>
-                          ))
-                          ) : (
-                            <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
-                          )}
+                          selectedAsigs.map((asig) => {
+                            const siglas = asig.split(" - ")[0].trim().toUpperCase();
+                            const backgroundColor = asigColors[siglas] || "#ccc"; // color por defecto
+                            const labelClass = `filters-select-asig-label filters-select-asig-label-${siglas}`;
+
+                            return (
+                              <Label
+                                key={asig}
+                                onClick={() => handleRemoveAsig(asig)}
+                                className={labelClass}
+                                style={{ backgroundColor }}
+                              >
+                                {asig}
+                                <Label.Detail className="filters-select-container-label-detail">X</Label.Detail>
+                              </Label>
+                            );
+                          })
+                        ) : (
+                          <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
+                        )}
                       </div>
                       {selectedAsigs.length !== 0 && (
                         <IncludeLabsCheckbox 
@@ -554,15 +576,26 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
                       </div>
                       <div className="selected-asigs-container">
                         {selectedAsigs.length > 0 ? (
-                          selectedAsigs.map((asig) => (
-                            <Label key={asig} onClick={() => handleRemoveAsig(asig)} className="filters-select-asig-label">
-                              {asig}
-                              <Label.Detail className="filters-select-container-label-detail">X</Label.Detail>
-                            </Label>
-                          ))
-                          ) : (
-                            <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
-                          )}
+                          selectedAsigs.map((asig) => {
+                            const siglas = asig.split(" - ")[0].trim().toUpperCase();
+                            const backgroundColor = asigColors[siglas] || "#ccc"; // color por defecto
+                            const labelClass = `filters-select-asig-label filters-select-asig-label-${siglas}`;
+
+                            return (
+                              <Label
+                                key={asig}
+                                onClick={() => handleRemoveAsig(asig)}
+                                className={labelClass}
+                                style={{ backgroundColor }}
+                              >
+                                {asig}
+                                <Label.Detail className="filters-select-container-label-detail">X</Label.Detail>
+                              </Label>
+                            );
+                          })
+                        ) : (
+                          <p className="filters-select-default-text">No hay asignaturas seleccionadas</p>
+                        )}
                       </div>
                       {selectedAsigs.length !== 0 && (
                         <IncludeLabsCheckbox 

@@ -154,3 +154,125 @@
     cursor: pointer;
     color: rgb(47, 118, 169);
 }
+
+
+.filters-select-asig-label-ADA {
+    background-color: #FFD4B4 !important;
+  }
+  
+  .filters-select-asig-label-DIS {
+    background-color: #EFC3C4 !important;
+  }
+  
+  .filters-select-asig-label-ADBD {
+    background-color: #FFEFAE !important;
+  }
+
+  .filters-select-asig-label-ATG {
+    background-color: #AFC3C4 !important;
+  }
+
+  .filters-select-asig-label-MOD,
+  .filters-select-asig-label-TAA,
+  .filters-select-asig-label-SMUL,
+  .filters-select-asig-label-DESI,
+  .filters-select-asig-label-SAII {
+    background-color: #F7E3BE !important;
+  }
+  
+  .filters-select-asig-label-ESI,
+  .filters-select-asig-label-TDS,
+  .filters-select-asig-label-LP,
+  .filters-select-asig-label-MTD {
+    background-color: #F1EFA4 !important;
+  }
+  
+  .filters-select-asig-label-IFOR {
+    background-color: #E8CAA4 !important;
+  }
+  
+  .filters-select-asig-label-FOE,
+  .filters-select-asig-label-PAR,
+  .filters-select-asig-label-POO,
+  .filters-select-asig-label-ESO,
+  .filters-select-asig-label-ADA,
+  .filters-select-asig-label-CPAR,
+  .filters-select-asig-label-TDBD,
+  .filters-select-asig-label-PAG,
+  .filters-select-asig-label-SMOV,
+  .filters-select-asig-label-RANO {
+    background-color: #00E0FC !important;
+  }
+  
+  .filters-select-asig-label-MDIS,
+  .filters-select-asig-label-FCOM {
+    background-color: #F1EFA5 !important;
+  }
+  
+  .filters-select-asig-label-FMAT,
+  .filters-select-asig-label-AMAT,
+  .filters-select-asig-label-IPC,
+  .filters-select-asig-label-ICON,
+  .filters-select-asig-label-ASO,
+  .filters-select-asig-label-DIAS,
+  .filters-select-asig-label-PGP,
+  .filters-select-asig-label-PGPI,
+  .filters-select-asig-label-ESTD {
+    background-color: #F1F2EC !important;
+  }
+  
+  .filters-select-asig-label-FPROG,
+  .filters-select-asig-label-SRS,
+  .filters-select-asig-label-ACA,
+  .filters-select-asig-label-CRIP,
+  .filters-select-asig-label-PYS {
+    background-color: #FECEA8 !important;
+  }
+  
+  .filters-select-asig-label-SDIG,
+  .filters-select-asig-label-SDIS,
+  .filters-select-asig-label-GSI {
+    background-color: #FAD088 !important;
+  }
+  
+  .filters-select-asig-label-FRED,
+  .filters-select-asig-label-SSW,
+  .filters-select-asig-label-PDSC,
+  .filters-select-asig-label-MIO {
+    background-color: #E0F6C3 !important;
+  }
+  
+  .filters-select-asig-label-PHI {
+    background-color: #FFCEA8 !important;
+  }
+  
+  .filters-select-asig-label-EST,
+  .filters-select-asig-label-ADBD,
+  .filters-select-asig-label-DIS,
+  .filters-select-asig-label-ARS,
+  .filters-select-asig-label-SEMP,
+  .filters-select-asig-label-INFE1,
+  .filters-select-asig-label-ABD,
+  .filters-select-asig-label-SIDO,
+  .filters-select-asig-label-MIND {
+    background-color: #F9D423 !important;
+  }
+  
+  .filters-select-asig-label-FSO,
+  .filters-select-asig-label-AOC,
+  .filters-select-asig-label-FIS,
+  .filters-select-asig-label-ERSS,
+  .filters-select-asig-label-DASR,
+  .filters-select-asig-label-ALGC,
+  .filters-select-asig-label-GLF {
+    background-color: #F0B494 !important;
+  }
+  
+  .filters-select-asig-label-EDA {
+    background-color: #F7E4BE !important;
+  }
+  
+  .filters-select-asig-label-FIA {
+    background-color: #F3EEA8 !important;
+  }
+  

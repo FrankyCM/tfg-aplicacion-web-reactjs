@@ -62,16 +62,33 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         { key: '20:00', value: '20:00', text: '20:00' },
       ];
     const [asigStartTime, setAsigStartTime] = useState("");
+
     const asigPossibleColors = [
-        { key: 'color1', value: '#FFD4B4', text: '#FFD4B4' },
-        { key: 'color2', value: '#AFC3C4', text: '#AFC3C4' },
-        { key: 'color3', value: '#FFC3C4', text: '#FFC3C4' },
-        { key: 'color4', value: '#EFC3C4', text: '#EFC3C4' },
-        { key: 'color5', value: '#FFEFAE', text: '#FFEFAE' },
-        { key: 'color6', value: '#AFC3C4', text: '#AFC3C4' },
-        { key: 'color7', value: '#CDD6F6', text: '#CDD6F6' },
-        { key: 'color8', value: '#BEE9DD', text: '#BEE9DD' },
-      ];
+      { key: 'color1', value: '#FFD4B4', text: '#FFD4B4', style: { backgroundColor: '#FFD4B4' } },
+      { key: 'color2', value: '#AFC3C4', text: '#AFC3C4', style: { backgroundColor: '#AFC3C4' } },
+      { key: 'color3', value: '#FFC3C4', text: '#FFC3C4', style: { backgroundColor: '#FFC3C4' } },
+      { key: 'color4', value: '#EFC3C4', text: '#EFC3C4', style: { backgroundColor: '#EFC3C4' } },
+      { key: 'color5', value: '#FFEFAE', text: '#FFEFAE', style: { backgroundColor: '#FFEFAE' } },
+      { key: 'color6', value: '#AFC3C4', text: '#AFC3C4', style: { backgroundColor: '#AFC3C4' } },
+      { key: 'color7', value: '#CDD6F6', text: '#CDD6F6', style: { backgroundColor: '#CDD6F6' } },
+      { key: 'color8', value: '#BEE9DD', text: '#BEE9DD', style: { backgroundColor: '#BEE9DD' } },
+      { key: 'color9', value: '#00E0FC', text: '#00E0FC', style: { backgroundColor: '#00E0FC' } },
+      { key: 'color10', value: '#F1EFA5', text: '#F1EFA5', style: { backgroundColor: '#F1EFA5' } },
+      { key: 'color11', value: '#F1F2EC', text: '#F1F2EC', style: { backgroundColor: '#F1F2EC' } },
+      { key: 'color12', value: '#FECEA8', text: '#FECEA8', style: { backgroundColor: '#FECEA8' } },
+      { key: 'color13', value: '#FAD088', text: '#FAD088', style: { backgroundColor: '#FAD088' } },
+      { key: 'color14', value: '#E0F6C3', text: '#E0F6C3', style: { backgroundColor: '#E0F6C3' } },
+      { key: 'color15', value: '#FFCEA8', text: '#FFCEA8', style: { backgroundColor: '#FFCEA8' } },
+      { key: 'color16', value: '#F9D423', text: '#F9D423', style: { backgroundColor: '#F9D423' } },
+      { key: 'color17', value: '#F0B494', text: '#F0B494', style: { backgroundColor: '#F0B494' } },
+      { key: 'color18', value: '#F7E4BE', text: '#F7E4BE', style: { backgroundColor: '#F7E4BE' } },
+      { key: 'color19', value: '#F3EEA8', text: '#F3EEA8', style: { backgroundColor: '#F3EEA8' } },
+      { key: 'color20', value: '#92D050', text: '#92D050', style: { backgroundColor: '#92D050' } },
+      { key: 'color21', value: '#F7E3BE', text: '#F7E3BE', style: { backgroundColor: '#F7E3BE' } },
+      { key: 'color22', value: '#F1EFA4', text: '#F1EFA4', style: { backgroundColor: '#F1EFA4' } },
+      { key: 'color23', value: '#E8CAA4', text: '#E8CAA4', style: { backgroundColor: '#E8CAA4' } },
+    ];
+    
     const [asigColor, setAsigColor] = useState("");
     const [asigFullName, setAsigFullName] = useState("");
     const asigPossibleSemesters = [

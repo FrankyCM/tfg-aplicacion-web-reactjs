@@ -9,11 +9,14 @@ const ScheduleCreationSelect = ({ selectOptions, placeholder, className, setStat
       setStatusOnChange(value) // 👉 actualiza el estado pasado por parámetro
     }
     //console.log("valor select ", value);
+
+    const combinedClassName = `${className} selected-color-${value?.replace('#', '')}`
+
     return (
       <Select 
         placeholder={placeholder}
         options={selectOptions}
-        className={className}
+        className={combinedClassName}
         value={value ?? ""}
         onChange={handleChange}
       />

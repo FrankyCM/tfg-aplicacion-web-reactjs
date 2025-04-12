@@ -30,6 +30,72 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
     const [exportPDF, setExportPDF] = useState(false); // Opcion -> si se decide exportar a PDF
     
+    const asigColors = {
+      "ADA": "#FFD4B4", // Análisis y Diseño de Algoritmos
+      "DIS": "#EFC3C4", // Diseño de Software
+      "ADBD": "#FFEFAE", // Análisis y Diseño de Bases de Datos
+      "TDS": "#F1EFA5", // TDS ejemplo
+      "ATG": "#AFC3C4", // ATG ejemplo
+      // Colores nuevos:
+      "MOD": "#F7E3BE",
+      "TAA": "#F7E3BE",
+      "SMUL": "#F7E3BE",
+      "DESI": "#F7E3BE",
+      "SAII": "#F7E3BE",
+      "ESI": "#F1EFA4",
+      "LP": "#F1EFA4",
+      "MTD": "#F1EFA4",
+      "IFOR": "#E8CAA4",
+      "FOE": "#00E0FC",
+      "PAR": "#00E0FC",
+      "POO": "#00E0FC",
+      "ESO": "#00E0FC",
+      "CPAR": "#00E0FC",
+      "TDBD": "#00E0FC",
+      "PAG": "#00E0FC",
+      "SMOV": "#00E0FC",
+      "RANO": "#00E0FC",
+      "MDIS": "#F1EFA5",
+      "FCOM": "#F1EFA5",
+      "FMAT": "#F1F2EC",
+      "AMAT": "#F1F2EC",
+      "IPC": "#F1F2EC",
+      "ICON": "#F1F2EC",
+      "ASO": "#F1F2EC",
+      "DIAS": "#F1F2EC",
+      "PGP": "#F1F2EC",
+      "PGPI": "#F1F2EC",
+      "ESTD": "#F1F2EC",
+      "FPROG": "#FECEA8",
+      "SRS": "#FECEA8",
+      "ACA": "#FECEA8",
+      "CRIP": "#FECEA8",
+      "PYS": "#FECEA8",
+      "SDIG": "#FAD088",
+      "SDIS": "#FAD088",
+      "GSI": "#FAD088",
+      "FRED": "#E0F6C3",
+      "SSW": "#E0F6C3",
+      "PDSC": "#E0F6C3",
+      "MIO": "#E0F6C3",
+      "PHI": "#FFCEA8",
+      "EST": "#F9D423",
+      "ARS": "#F9D423",
+      "SEMP": "#F9D423",
+      "INFE1": "#F9D423",
+      "ABD": "#F9D423",
+      "SIDO": "#F9D423",
+      "MIND": "#F9D423",
+      "FSO": "#F0B494",
+      "AOC": "#F0B494",
+      "FIS": "#F0B494",
+      "ERSS": "#F0B494",
+      "DASR": "#F0B494",
+      "ALGC": "#F0B494",
+      "GLF": "#F0B494",
+      "EDA": "#F7E4BE",
+      "FIA": "#F3EEA8"
+    };
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
@@ -314,7 +380,8 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                 return {
                     key,
                     value: `${evento.siglas} - ${evento.nombre} - ${evento.grupo} - ${evento.grupoLaboratorio}`,
-                    text
+                    text,
+                    style: { backgroundColor: evento.color }
                 };
             });
     
@@ -340,10 +407,10 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
             });
     
             setFilteredEvents(eventosFiltrados);
-    
-            console.log("Asignaturas filtradas:");
+            console.log("selectedAsigs", selectedAsigs);
+            //console.log("Asignaturas filtradas:");
             eventosFiltrados.forEach(evento => {
-                console.log(`${evento.siglas} - ${evento.nombre} - ${evento.grupo}`);
+                //console.log(`${evento.siglas} - ${evento.nombre} - ${evento.grupo}`);
             });
         }
     }, [selectedAsigs, selectedGrade, events]);
@@ -388,7 +455,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     return (
         <>
           <div className="cabeceraDocumento" id = "cabecera-documento-custom">
-            <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions} setFilteredEvents={setFilteredEvents} includeLabs={includeLabs} setIncludeLabs={setIncludeLabs} setExportPDF={setExportPDF}/>
+            <FiltersSectionCustom selectedGrade={selectedGrade} setSelectedGrade={setSelectedGrade} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} selectedFirstGroup={selectedFirstGroup} setSelectedFirstGroup={setSelectedFirstGroup} selectedSecondGroup={selectedSecondGroup} setSelectedSecondGroup={setSelectedSecondGroup} selectedThirdMention={selectedThirdMention} setSelectedThirdMention={setSelectedThirdMention} selectedFourthMention={selectedFourthMention} setSelectedFourthMention={setSelectedFourthMention} selectedFifthGroup={selectedFifthGroup} setSelectedFifthGroup={setSelectedFifthGroup} selectedAsigs={selectedAsigs} setSelectedAsigs={setSelectedAsigs} asigOptions={asigOptions} setFilteredEvents={setFilteredEvents} includeLabs={includeLabs} setIncludeLabs={setIncludeLabs} setExportPDF={setExportPDF} asigColors={asigColors}/>
             <h2 className="textoGrado-custom">
               {getTextoGrado()}
             </h2>
