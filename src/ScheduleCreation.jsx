@@ -9,7 +9,6 @@ import 'moment/locale/es';
 import { Views } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStyles.css';
-import { CalendarEvent } from './CalendarEvent';
 import FloatingFilterScheduleMenu from './FloatingFilterScheduleMenu';
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
@@ -21,7 +20,10 @@ import ModifyCalendarEvent from './ModifyCalendarEvent';
 
 const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     
-    
+    // APERTURA DE ARCHIVOS
+    const [openFile, setOpenFile] = useState(false);
+    const [openedFile, setOpenedFile] = useState("");
+
     // MODIFICAR HORARIO
     const [events, setEvents] = useState([]);
     const [selectedGrade, setSelectedGrade] = useState(""); // Grado seleccionado
@@ -115,7 +117,24 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const asigPossibleClasses = [
         { key: '01', value: '01', text: '01' },
         { key: '02', value: '02', text: '02' },
+        { key: '03', value: '03', text: '03' },
+        { key: '04', value: '04', text: '04' },
+        { key: '05', value: '05', text: '05' },
+        { key: '06', value: '06', text: '06' },
+        { key: '07', value: '07', text: '07' },
+        { key: '08', value: '08', text: '08' },
+        { key: '101', value: '101', text: '101' },
+        { key: '102', value: '102', text: '102' },
+        { key: '103', value: '103', text: '103' },
+        { key: '104', value: '104', text: '104' },
+        { key: '102A', value: '102A', text: '102A' },
+        { key: 'L101', value: 'L101', text: 'L101' },
+        { key: 'L102', value: 'L102', text: 'L102' },
         { key: 'L103', value: 'L103', text: 'L103' },
+        { key: 'L104', value: 'L104', text: 'L104' },
+        { key: 'L105', value: 'L105', text: 'L105' },
+        { key: 'L106', value: 'L106', text: 'L106' },
+        { key: 'Lab I + D', value: 'Lab I + D', text: 'Lab I + D' }
       ];
     const [asigClass, setAsigClass] = useState("");
     const asigPossibleCourses = [
@@ -257,8 +276,82 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         } catch (error) {
           console.error("Error cargando los datos del JSON:", error);
         }
-      };
+    };
 
+    useEffect(() => {
+      if (openFile) {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".json";
+    
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+    
+          setOpenedFile(file.name);
+          cargarAsignaturasArchivoElegido(file);
+        };
+    
+        input.click();
+        setOpenFile(false); // cerramos el "modo abrir" tras mostrar el cuadro
+      }
+    }, [openFile]);
+
+    const cargarAsignaturasArchivoElegido = (file) => {
+      const reader = new FileReader();
+    
+      reader.onload = (event) => {
+        try {
+          const data = JSON.parse(event.target.result);
+    
+          setSubjects(data);
+    
+          const eventos = data.map((asignatura) => {
+            const diaSemana = diasSemana[asignatura.Dia];
+            if (diaSemana === undefined) return null;
+    
+            const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
+            const hoy = moment();
+            const lunesSemanaActual = hoy.clone().startOf("isoWeek");
+    
+            const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+              hour: hora,
+              minute: minutos,
+              second: 0,
+            }).toDate();
+    
+            const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+    
+            return {
+              id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+              title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
+              start: inicio,
+              end: fin,
+              nombre: asignatura.Nombre,
+              siglas: asignatura.Siglas,
+              grado: asignatura.Grado,
+              semestre: asignatura.Semestre,
+              curso: asignatura.Curso,
+              grupo: asignatura.Grupo,
+              grupoLaboratorio: asignatura.GrupoLaboratorio,
+              mencion: asignatura.Mencion,
+              aula: asignatura.Clase,
+              profesor: asignatura.Profesor,
+              color: asignatura.Color,
+              dia: asignatura.Dia,
+              codigo: asignatura.Codigo
+            };
+          }).filter(Boolean);
+    
+          setEvents(eventos);
+        } catch (error) {
+          console.error("Error al cargar el archivo seleccionado:", error);
+        }
+      };
+    
+      reader.readAsText(file);
+    };
+    
     useEffect(() => {
         if (!exportPDF || !filteredAsigs || !subjects) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
 
@@ -935,7 +1028,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
                     setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
                     asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} createAsig={createAsig} setCreateAsig={setCreateAsig}
-                    clearFormulary={clearFormulary} setClearFormulary={setClearFormulary}
+                    clearFormulary={clearFormulary} setClearFormulary={setClearFormulary} setOpenFile={setOpenFile}
                     />
                     <div className="creacion-horarios-horario" id="creacion-horarios-horario">
                         <div className="creacion-horarios-horario-cabeceraDocumento" id="creacion-horarios-horario-cabeceraDocumento">
