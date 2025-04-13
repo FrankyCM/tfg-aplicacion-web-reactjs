@@ -231,7 +231,6 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         try {
           const response = await fetch("/asignaturas.json");
           const data = await response.json();
-          console.log("asignaturas.json cargadas");
           setSubjects(data); // Guardar asignaturas en el estado
       
           const eventos = data.map((asignatura) => {
@@ -287,8 +286,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         input.onchange = (e) => {
           const file = e.target.files[0];
           if (!file) return;
-    
-          setOpenedFile(file.name);
+          
+          setOpenedFile(file);
           cargarAsignaturasArchivoElegido(file);
         };
     
@@ -303,7 +302,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       reader.onload = (event) => {
         try {
           const data = JSON.parse(event.target.result);
-    
+          console.log("Archivo abierto: ", file);
           setSubjects(data);
     
           const eventos = data.map((asignatura) => {
@@ -626,7 +625,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     useEffect(() => {
         const crearAsignaturas = async () => {
           try {
-            const response = await fetch("http://localhost:5000/asignaturas");
+            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`);
             const data = await response.json();
       
             const nuevosRegistros = [];
@@ -695,7 +694,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
             if (nuevosRegistros.length > 0 && incidenciasTexto === "") {
               // Solo enviamos si no hay ninguna coincidencia
-              const res = await fetch("http://localhost:5000/asignaturas", {
+              const res = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -708,7 +707,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 clearAllFields();
                 if(openedFile === "") {
                   cargarAsignaturas();
-                  console.log("Crear asig, archivo abierto:", openedFile);
+                  console.log("Crear asig, archivo abierto:", "asignaturas.json");
                 } else {
                   cargarAsignaturasArchivoElegido(openedFile);
                   console.log("Crear asig, archivo abierto:", openedFile);
@@ -773,9 +772,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     useEffect(() => {
         const modificarAsignatura = async () => {
           try {
-            const response = await fetch("http://localhost:5000/asignaturas");
+            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`);
             const data = await response.json();
-      
+            console.log("archivo donde se mod:", openedFile);
             const cursos = [
               { estado: asigCourseGII_ISMod, grado: "INF", mencion: "IS" },
               { estado: asigCourseGII_TIMod, grado: "INF", mencion: "TI" },
@@ -798,6 +797,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 const grupo = `${asigGroupTypeMod ?? ""}${asigGroupNumberMod ?? ""}`;
                 console.log(asigCourseGII_ISMod);
                 console.log(selectedEvent);
+                
+                const horaInicioEvento = selectedEvent.start.getHours() < 10
+                  ? selectedEvent.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
+                  : selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
+
                 // Buscar asignatura antigua en el JSON por coincidencia total
                 const asignaturaAntigua = data.find((asig) =>
                     asig.Codigo === selectedEvent.codigo &&
@@ -813,7 +817,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     (asig.Mencion ?? "") === (selectedEvent.mencion ?? "") &&
                     asig.Curso === selectedEvent.curso &&
                     asig.Color === selectedEvent.color &&
-                    asig.HoraInicio === selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) &&
+                    asig.HoraInicio === horaInicioEvento &&
                     asig.Duracion === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // en horas
                 );
                 console.log(asignaturaAntigua)
@@ -843,7 +847,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               }
             });
       
-            const res = await fetch("http://localhost:5000/asignaturas", {
+            const res = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -855,10 +859,10 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               console.log("✅ Asignatura modificada correctamente");
               if(openedFile === "") {
                 cargarAsignaturas();
-                console.log("Crear asig, archivo abierto:", openedFile);
+                console.log("Mod asig, archivo abierto:", "asignaturas.json");
               } else {
                 cargarAsignaturasArchivoElegido(openedFile);
-                console.log("Crear asig, archivo abierto:", openedFile);
+                console.log("Mod asig, archivo abierto:", openedFile);
               }
             } else {
               console.error("❌ Error al modificar la asignatura en el backend.");
@@ -882,9 +886,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       useEffect(() => {
         const eliminarAsignatura = async () => {
           try {
-            const response = await fetch("http://localhost:5000/asignaturas");
+            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`);
             const data = await response.json();
       
+            const horaInicioEvento = selectedEvent.start.getHours() < 10
+              ? selectedEvent.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
+              : selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
+              
             const asignaturaAEliminar = data.find((asig) =>
               asig.Codigo === selectedEvent.codigo &&
               asig.Siglas === selectedEvent.siglas &&
@@ -899,7 +907,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               (asig.Mencion ?? "") === (selectedEvent.mencion ?? "") &&
               asig.Curso === selectedEvent.curso &&
               asig.Color === selectedEvent.color &&
-              asig.HoraInicio === selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) &&
+              asig.HoraInicio === horaInicioEvento &&
               asig.Duracion === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // horas
             );
       
@@ -908,7 +916,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               return;
             }
       
-            const res = await fetch(`http://localhost:5000/asignaturas/${asignaturaAEliminar.Codigo}`, {
+            const res = await fetch(`http://localhost:5000/asignaturas/${asignaturaAEliminar.Codigo}${openedFile ? `?archivo=${openedFile}` : ""}`, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -920,7 +928,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               console.log("🗑️ Asignatura eliminada correctamente");
               if(openedFile === "") {
                 cargarAsignaturas();
-                console.log("Crear asig, archivo abierto:", openedFile);
+                console.log("Crear asig, archivo abierto:", "asignaturas.json");
               } else {
                 cargarAsignaturasArchivoElegido(openedFile);
                 console.log("Crear asig, archivo abierto:", openedFile);
