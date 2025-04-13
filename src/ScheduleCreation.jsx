@@ -231,7 +231,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         try {
           const response = await fetch("/asignaturas.json");
           const data = await response.json();
-      
+          console.log("asignaturas.json cargadas");
           setSubjects(data); // Guardar asignaturas en el estado
       
           const eventos = data.map((asignatura) => {
@@ -351,7 +351,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     
       reader.readAsText(file);
     };
-    
+
     useEffect(() => {
         if (!exportPDF || !filteredAsigs || !subjects) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
 
@@ -506,51 +506,121 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         }
     }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]);
 
+    // Version de guardado para todo tipo de navegadores (supuestamente)
+    /*
     useEffect(() => {
-        if (save === false) return;
-      
-        const guardarAsignaturasJSON = async () => {
-          try {
-            // Obtener eventos actualizados del estado
-            const eventosActualizados = events.map(evento => ({
-              Codigo: evento.codigo,
-              Dia: evento.dia, // Día ya guardado en el estado de eventos
-              HoraInicio: moment(evento.start).format("HH:mm"),
-              Duracion: moment(evento.end).diff(moment(evento.start), "hours"),
-              Siglas: evento.siglas,
-              Nombre: evento.nombre,
-              Grado: evento.grado,
-              Semestre: evento.semestre,
-              Curso: evento.curso,
-              Grupo: evento.grupo,
-              GrupoLaboratorio: evento.grupoLaboratorio,
-              Mencion: evento.mencion,
-              Clase: evento.aula,
-              Profesor: evento.profesor,
-              Color: evento.color
-            }));
-      
-            // Escribir el JSON actualizado en el archivo
-            const response = await fetch("http://localhost:5000/asignaturas", {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(eventosActualizados, null, 2)
-            });
-            if(response.ok){
-                cargarAsignaturas();
-            } else {
-                throw new Error("Error al actualizar asignaturas.json");
-            }
-      
-            console.log("Asignaturas actualizadas con éxito.");
-          } catch (error) {
-            console.error("Error al actualizar los eventos en JSON:", error);
+      if (!save) return;
+
+      const guardarAsignaturasJSON = async () => {
+        try {
+          const eventosActualizados = events.map(evento => ({
+            Codigo: evento.codigo,
+            Dia: evento.dia,
+            HoraInicio: moment(evento.start).format("HH:mm"),
+            Duracion: moment(evento.end).diff(moment(evento.start), "hours"),
+            Siglas: evento.siglas,
+            Nombre: evento.nombre,
+            Grado: evento.grado,
+            Semestre: evento.semestre,
+            Curso: evento.curso,
+            Grupo: evento.grupo,
+            GrupoLaboratorio: evento.grupoLaboratorio,
+            Mencion: evento.mencion,
+            Clase: evento.aula,
+            Profesor: evento.profesor,
+            Color: evento.color
+          }));
+
+          const jsonString = JSON.stringify(eventosActualizados, null, 2);
+          const blob = new Blob([jsonString], { type: "application/json" });
+
+          const url = URL.createObjectURL(blob);
+
+          const a = document.createElement("a");
+          a.href = url;
+
+          const nombreArchivo = prompt("Introduce el nombre del archivo (sin extensión):", "asignaturas_guardadas");
+          if (!nombreArchivo) {
+            URL.revokeObjectURL(url);
+            setSave(false);
+            return;
           }
+
+          a.download = nombreArchivo.endsWith(".json") ? nombreArchivo : `${nombreArchivo}.json`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          URL.revokeObjectURL(url);
+          console.log("Asignaturas guardadas exitosamente como:", a.download);
+        } catch (error) {
+          console.error("Error al guardar el archivo JSON:", error);
+        }
+
+          setSave(false);
         };
-      
+
         guardarAsignaturasJSON();
-        setSave(false);
-    }, [save]);
+  }, [save]);*/
+
+  // Version para navegadores basados en Chromium
+  useEffect(() => {
+    if (!save) return;
+  
+    const guardarAsignaturasJSON = async () => {
+      try {
+        const eventosActualizados = events.map(evento => ({
+          Codigo: evento.codigo,
+          Dia: evento.dia,
+          HoraInicio: moment(evento.start).format("HH:mm"),
+          Duracion: moment(evento.end).diff(moment(evento.start), "hours"),
+          Siglas: evento.siglas,
+          Nombre: evento.nombre,
+          Grado: evento.grado,
+          Semestre: evento.semestre,
+          Curso: evento.curso,
+          Grupo: evento.grupo,
+          GrupoLaboratorio: evento.grupoLaboratorio,
+          Mencion: evento.mencion,
+          Clase: evento.aula,
+          Profesor: evento.profesor,
+          Color: evento.color
+        }));
+  
+        // JSON convertido a string con indentación
+        const jsonString = JSON.stringify(eventosActualizados, null, 2);
+  
+        // Mostrar cuadro de diálogo "Guardar como"
+        const fileHandle = await window.showSaveFilePicker({
+          suggestedName: "asignaturas.json",
+          types: [
+            {
+              description: "Archivo JSON",
+              accept: { "application/json": [".json"] }
+            }
+          ]
+        });
+  
+        // Crear archivo y escribir datos
+        const writableStream = await fileHandle.createWritable();
+        await writableStream.write(jsonString);
+        await writableStream.close();
+  
+        console.log("Archivo guardado correctamente:", fileHandle.name);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Error al guardar el archivo:", error);
+        } else {
+          console.log("Guardado cancelado por el usuario.");
+        }
+      }
+  
+      setSave(false);
+    };
+  
+    guardarAsignaturasJSON();
+  }, [save]);
+
      
     
     useEffect(() => {
@@ -636,7 +706,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               if (res.ok) {
                 console.log("Nuevas asignaturas guardadas correctamente.");
                 clearAllFields();
-                cargarAsignaturas();
+                if(openedFile === "") {
+                  cargarAsignaturas();
+                  console.log("Crear asig, archivo abierto:", openedFile);
+                } else {
+                  cargarAsignaturasArchivoElegido(openedFile);
+                  console.log("Crear asig, archivo abierto:", openedFile);
+                }
+                
               } else {
                 console.error("Error al guardar las asignaturas en el backend.");
               }
@@ -776,7 +853,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
             if (res.ok) {
               console.log("✅ Asignatura modificada correctamente");
-              cargarAsignaturas();
+              if(openedFile === "") {
+                cargarAsignaturas();
+                console.log("Crear asig, archivo abierto:", openedFile);
+              } else {
+                cargarAsignaturasArchivoElegido(openedFile);
+                console.log("Crear asig, archivo abierto:", openedFile);
+              }
             } else {
               console.error("❌ Error al modificar la asignatura en el backend.");
             }
@@ -835,7 +918,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
             if (res.ok) {
               console.log("🗑️ Asignatura eliminada correctamente");
-              cargarAsignaturas(); // Recargar calendario tras eliminar
+              if(openedFile === "") {
+                cargarAsignaturas();
+                console.log("Crear asig, archivo abierto:", openedFile);
+              } else {
+                cargarAsignaturasArchivoElegido(openedFile);
+                console.log("Crear asig, archivo abierto:", openedFile);
+              }
             } else {
               console.error("❌ Error al eliminar la asignatura en el backend.");
             }
