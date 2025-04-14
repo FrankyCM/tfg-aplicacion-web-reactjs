@@ -296,59 +296,55 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       }
     }, [openFile]);
 
-    const cargarAsignaturasArchivoElegido = (file) => {
-      const reader = new FileReader();
+    const cargarAsignaturasArchivoElegido = async (file) => {
+      try {
+        const response = await fetch(`http://localhost:5000/asignaturas?archivo=${file.name}`);
+        if (!response.ok) throw new Error("Error al obtener las asignaturas");
     
-      reader.onload = (event) => {
-        try {
-          const data = JSON.parse(event.target.result);
-          console.log("Archivo abierto: ", file);
-          setSubjects(data);
+        const data = await response.json();
+        setSubjects(data);
     
-          const eventos = data.map((asignatura) => {
-            const diaSemana = diasSemana[asignatura.Dia];
-            if (diaSemana === undefined) return null;
+        const eventos = data.map((asignatura) => {
+          const diaSemana = diasSemana[asignatura.Dia];
+          if (diaSemana === undefined) return null;
     
-            const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
-            const hoy = moment();
-            const lunesSemanaActual = hoy.clone().startOf("isoWeek");
+          const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
+          const hoy = moment();
+          const lunesSemanaActual = hoy.clone().startOf("isoWeek");
     
-            const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
-              hour: hora,
-              minute: minutos,
-              second: 0,
-            }).toDate();
+          const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+            hour: hora,
+            minute: minutos,
+            second: 0,
+          }).toDate();
     
-            const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+          const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
     
-            return {
-              id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
-              title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
-              start: inicio,
-              end: fin,
-              nombre: asignatura.Nombre,
-              siglas: asignatura.Siglas,
-              grado: asignatura.Grado,
-              semestre: asignatura.Semestre,
-              curso: asignatura.Curso,
-              grupo: asignatura.Grupo,
-              grupoLaboratorio: asignatura.GrupoLaboratorio,
-              mencion: asignatura.Mencion,
-              aula: asignatura.Clase,
-              profesor: asignatura.Profesor,
-              color: asignatura.Color,
-              dia: asignatura.Dia,
-              codigo: asignatura.Codigo
-            };
-          }).filter(Boolean);
+          return {
+            id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+            title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
+            start: inicio,
+            end: fin,
+            nombre: asignatura.Nombre,
+            siglas: asignatura.Siglas,
+            grado: asignatura.Grado,
+            semestre: asignatura.Semestre,
+            curso: asignatura.Curso,
+            grupo: asignatura.Grupo,
+            grupoLaboratorio: asignatura.GrupoLaboratorio,
+            mencion: asignatura.Mencion,
+            aula: asignatura.Clase,
+            profesor: asignatura.Profesor,
+            color: asignatura.Color,
+            dia: asignatura.Dia,
+            codigo: asignatura.Codigo
+          };
+        }).filter(Boolean);
     
-          setEvents(eventos);
-        } catch (error) {
-          console.error("Error al cargar el archivo seleccionado:", error);
-        }
-      };
-    
-      reader.readAsText(file);
+        setEvents(eventos);
+      } catch (error) {
+        console.error("Error al cargar el archivo desde el backend:", error);
+      }
     };
 
     useEffect(() => {
@@ -625,7 +621,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     useEffect(() => {
         const crearAsignaturas = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`);
+            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`);
             const data = await response.json();
       
             const nuevosRegistros = [];
@@ -694,7 +690,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
             if (nuevosRegistros.length > 0 && incidenciasTexto === "") {
               // Solo enviamos si no hay ninguna coincidencia
-              const res = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`, {
+              const res = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -705,13 +701,15 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               if (res.ok) {
                 console.log("Nuevas asignaturas guardadas correctamente.");
                 clearAllFields();
-                if(openedFile === "") {
-                  cargarAsignaturas();
-                  console.log("Crear asig, archivo abierto:", "asignaturas.json");
-                } else {
-                  cargarAsignaturasArchivoElegido(openedFile);
-                  console.log("Crear asig, archivo abierto:", openedFile);
-                }
+                setTimeout(() => {
+                  if (openedFile === "") {
+                    cargarAsignaturas();
+                    console.log("Crear asig, archivo abierto:", "asignaturas.json");
+                  } else {
+                    cargarAsignaturasArchivoElegido(openedFile);
+                    console.log("Crear asig, archivo abierto:", openedFile);
+                  }
+                }, 300); // Espera 300ms
                 
               } else {
                 console.error("Error al guardar las asignaturas en el backend.");
@@ -772,7 +770,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     useEffect(() => {
         const modificarAsignatura = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`);
+            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`);
             const data = await response.json();
             console.log("archivo donde se mod:", openedFile);
             const cursos = [
@@ -847,7 +845,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               }
             });
       
-            const res = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`, {
+            const res = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -857,13 +855,15 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
             if (res.ok) {
               console.log("✅ Asignatura modificada correctamente");
-              if(openedFile === "") {
-                cargarAsignaturas();
-                console.log("Mod asig, archivo abierto:", "asignaturas.json");
-              } else {
-                cargarAsignaturasArchivoElegido(openedFile);
-                console.log("Mod asig, archivo abierto:", openedFile);
-              }
+              setTimeout(() => {
+                if (openedFile === "") {
+                  cargarAsignaturas();
+                  console.log("Mod asig, archivo abierto:", "asignaturas.json");
+                } else {
+                  cargarAsignaturasArchivoElegido(openedFile);
+                  console.log("Mod asig, archivo abierto:", openedFile);
+                }
+              }, 300); // Espera 300ms
             } else {
               console.error("❌ Error al modificar la asignatura en el backend.");
             }
@@ -886,7 +886,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       useEffect(() => {
         const eliminarAsignatura = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile}` : ""}`);
+            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`);
             const data = await response.json();
       
             const horaInicioEvento = selectedEvent.start.getHours() < 10
@@ -916,7 +916,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               return;
             }
       
-            const res = await fetch(`http://localhost:5000/asignaturas/${asignaturaAEliminar.Codigo}${openedFile ? `?archivo=${openedFile}` : ""}`, {
+            const res = await fetch(`http://localhost:5000/asignaturas/${asignaturaAEliminar.Codigo}${openedFile ? `?archivo=${openedFile.name}` : ""}`, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -926,13 +926,15 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
             if (res.ok) {
               console.log("🗑️ Asignatura eliminada correctamente");
-              if(openedFile === "") {
-                cargarAsignaturas();
-                console.log("Crear asig, archivo abierto:", "asignaturas.json");
-              } else {
-                cargarAsignaturasArchivoElegido(openedFile);
-                console.log("Crear asig, archivo abierto:", openedFile);
-              }
+              setTimeout(() => {
+                if (openedFile === "") {
+                  cargarAsignaturas();
+                  console.log("Elim asig, archivo abierto:", "asignaturas.json");
+                } else {
+                  cargarAsignaturasArchivoElegido(openedFile);
+                  console.log("Elim asig, archivo abierto:", openedFile);
+                }
+              }, 300); // Espera 300ms
             } else {
               console.error("❌ Error al eliminar la asignatura en el backend.");
             }
