@@ -5,7 +5,7 @@ import './ScheduleCreationMenuWarningsField.css';
 const ScheduleCreationMenuWarningsField = ({text}) => {
     return (
         <Form>
-            <TextArea className="areaTextoInformativo" placeholder={text} readOnly />
+            <TextArea className="areaTextoInformativo" placeholder={text} readOnly style={{ resize: 'both' }}/>
         </Form>
     );
 }

@@ -6,13 +6,16 @@
     margin-top: 10px;
 }
 
+.contenido-tab-crear-asignatura p {
+    padding: 0;
+    margin-bottom: 10px;
+}
 
 .contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
     flex-direction: row;
-    margin-bottom: 20px;
     margin-top: 5px;
 }
 
@@ -28,15 +31,14 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     width: fit-content;  
     text-align: center;  /* Si hay texto dentro, lo centra */
-    margin-bottom: 20px;
-    margin-right: 40px;
+    margin-right: 20px;
+    margin-bottom: 10px;
 }
 
 .contenido-tab-crear-asignatura-dia-hora-color {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 15px;
     padding: 15px;
     background: #f7f5dd;
     border-radius: 10px;
@@ -44,7 +46,6 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     width: fit-content;  
     text-align: center;  /* Si hay texto dentro, lo centra */
-    margin-bottom: 20px;
 }
 
 .contenido-tab-crear-asignatura-codigo, .contenido-tab-crear-asignatura-siglas,
@@ -53,7 +54,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     margin-right: 40px;
 }
@@ -74,8 +75,8 @@
     border: 0.5px solid rgb(220, 220, 220);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
     text-align: center;  /* Si hay texto dentro, lo centra */
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     font-size: 22px;
 }
 
@@ -86,7 +87,7 @@
     align-items: center !important;
     font-size: 22px;
     margin-right: 40px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -105,8 +106,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .contenido-tab-crear-asignatura-estudios {
@@ -121,20 +122,20 @@
     border: 0.5px solid rgb(220, 220, 220);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;  /* Si hay texto dentro, lo centra */
-    margin-bottom: 20px;
-    margin-right: 40px;
+    margin-right: 20px;
     width: fit-content;
+    margin-bottom: 10px;
 }
 
 .contenido-tab-crear-asignatura-estudios .apartado-estudios {
-    font-size: 28px;
+    font-size: 22px;
     margin-top: 5px;
 }
 
 .contenido-tab-crear-asignatura-estudios .cabecera-estudios {
     display: flex;
     flex-direction: row;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
 }
 
@@ -149,7 +150,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
-    font-size: 24px;
+    font-size: 20px;
     margin-right: 40px;
 }
 
@@ -164,13 +165,13 @@
     border: 0.5px solid rgb(220, 220, 220);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;  /* Si hay texto dentro, lo centra */
-    margin-bottom: 20px;
     width: fit-content;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .contenido-tab-crear-asignatura-profesores .apartado-profesores {
-    font-size: 28px;
+    font-size: 22px;
     margin-top: 5px;
 }
 
@@ -181,26 +182,33 @@
 .contenido-tab-crear-asignatura-profesores .campo-primer-profesor {
     display: flex;
     flex-direction: row;
-    font-size: 20px;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 40px;
 }
 
 .campo-primer-profesor p {
     margin: 0;
     padding-right: 30px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .contenido-tab-crear-asignatura-incidencias {
-    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+    background: #f7f5dd;
+    border-radius: 10px;
+    border: 0.5px solid rgb(220, 220, 220);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    width: fit-content;
+    margin-bottom: 10px;
 }
 
 .apartado-incidencias {
-    margin-bottom: 10px;
-    font-size: 28px;
+    font-size: 22px;
 }
 
 .contenido-tab-crear-asignatura-botones {
@@ -208,5 +216,5 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin-top: 40px;
+    margin-top: 10px;
 }

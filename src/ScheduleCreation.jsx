@@ -223,6 +223,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         />
     );
 
+    /*
     useEffect(() => {
         cargarAsignaturas();
     }, []);
@@ -275,7 +276,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         } catch (error) {
           console.error("Error cargando los datos del JSON:", error);
         }
-    };
+    }; */
 
     useEffect(() => {
       if (openFile) {
@@ -702,13 +703,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 console.log("Nuevas asignaturas guardadas correctamente.");
                 clearAllFields();
                 setTimeout(() => {
-                  if (openedFile === "") {
-                    cargarAsignaturas();
-                    console.log("Crear asig, archivo abierto:", "asignaturas.json");
-                  } else {
-                    cargarAsignaturasArchivoElegido(openedFile);
-                    console.log("Crear asig, archivo abierto:", openedFile);
-                  }
+                  cargarAsignaturasArchivoElegido(openedFile);
+                  console.log("Crear asig, archivo abierto:", openedFile);      
                 }, 300); // Espera 300ms
                 
               } else {
@@ -856,13 +852,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             if (res.ok) {
               console.log("✅ Asignatura modificada correctamente");
               setTimeout(() => {
-                if (openedFile === "") {
-                  cargarAsignaturas();
-                  console.log("Mod asig, archivo abierto:", "asignaturas.json");
-                } else {
-                  cargarAsignaturasArchivoElegido(openedFile);
-                  console.log("Mod asig, archivo abierto:", openedFile);
-                }
+                cargarAsignaturasArchivoElegido(openedFile);
+                console.log("Mod asig, archivo abierto:", openedFile);
               }, 300); // Espera 300ms
             } else {
               console.error("❌ Error al modificar la asignatura en el backend.");
@@ -927,13 +918,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             if (res.ok) {
               console.log("🗑️ Asignatura eliminada correctamente");
               setTimeout(() => {
-                if (openedFile === "") {
-                  cargarAsignaturas();
-                  console.log("Elim asig, archivo abierto:", "asignaturas.json");
-                } else {
-                  cargarAsignaturasArchivoElegido(openedFile);
-                  console.log("Elim asig, archivo abierto:", openedFile);
-                }
+                cargarAsignaturasArchivoElegido(openedFile);
+                console.log("Elim asig, archivo abierto:", openedFile);
               }, 300); // Espera 300ms
             } else {
               console.error("❌ Error al eliminar la asignatura en el backend.");

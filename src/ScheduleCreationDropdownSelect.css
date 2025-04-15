@@ -1,36 +1,7 @@
-.campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown {
-    padding: 10px !important;
-    width: 200px !important;
-    min-width: 0 !important;
-}
-
-
-.campos-estudios .ui.selection.dropdown {
-    padding: 10px;
-    width: 100px !important;
-    min-width: 0 !important;
-    font-size: 20px;
-    border: 2px solid #95c8ff !important;
-    margin-bottom: 27px;
-}
-
-.campos-estudios .ui.selection.dropdown .divider.text {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
-    text-align: center;
-    margin-top: 5px;
-}
-
-.campos-estudios .ui.selection.dropdown .item {
-    font-size: large;
-}
-
 
 .contenido-tab-crear-asignatura-profesores .ui.selection.dropdown {
     min-width: 0 !important;
-    font-size: 20px;
+    font-size: 18px;
     border: 2px solid #95c8ff !important;
     padding: 10px;
     margin-right: 40px;
@@ -42,9 +13,13 @@
     justify-content: flex-start;
     width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
     text-align: center;
-    margin-top: 7px;
+    margin-top: 4px;
     margin-right: 40px;
-    font-size: 24px;
+    font-size: 18px;
+}
+
+.contenido-tab-crear-asignatura-profesores .ui.selection.dropdown .divider.default.text {
+    color: rgb(132, 132, 132) !important;
 }
 
 .contenido-tab-crear-asignatura-profesores .ui.selection.dropdown .item {

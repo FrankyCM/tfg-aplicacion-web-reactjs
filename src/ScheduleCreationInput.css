@@ -4,8 +4,8 @@
 .ui.input.codigo-asignatura input {
     display: flex;
     flex: none;
-    padding: 17px !important;  /* Ajusta el padding */
-    font-size: 20px !important; /* Tamaño de fuente */
+    padding: 10px !important;  /* Ajusta el padding */
+    font-size: 22px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */
     min-width: 0 !important;
     
@@ -14,8 +14,8 @@
 .ui.input.siglas-asignatura input {
     display: flex;
     flex: none;
-    padding: 17px !important;  /* Ajusta el padding */
-    font-size: 20px !important; /* Tamaño de fuente */
+    padding: 10px !important;  /* Ajusta el padding */
+    font-size: 22px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */
     min-width: 0 !important;
 }
@@ -25,8 +25,8 @@
 .ui.input.nombre-completo input {
     display: flex;
     flex: none;
-    padding: 17px !important;  /* Ajusta el padding */
-    font-size: 20px !important; /* Tamaño de fuente */
+    padding: 10px !important;  /* Ajusta el padding */
+    font-size: 22px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */
     min-width: 0 !important;
 }
@@ -35,8 +35,8 @@
 .ui.input.subgrupo-laboratorio input {
     display: flex;
     flex: none;
-    padding: 17px !important;  /* Ajusta el padding */
-    font-size: 20px !important; /* Tamaño de fuente */
+    padding: 10px !important;  /* Ajusta el padding */
+    font-size: 22px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */
     min-width: 0 !important;
 }
@@ -44,8 +44,8 @@
 .ui.input.duracion input {
     display: flex;
     flex: none;
-    padding: 17px !important;  /* Ajusta el padding */
-    font-size: 20px !important; /* Tamaño de fuente */
+    padding: 10px !important;  /* Ajusta el padding */
+    font-size: 22px !important; /* Tamaño de fuente */
     border: 2px solid #4efc9f !important; /* Borde personalizado */
     min-width: 0 !important;
 }

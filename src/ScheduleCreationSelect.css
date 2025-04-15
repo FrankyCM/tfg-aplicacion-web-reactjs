@@ -2,9 +2,14 @@
     padding: 10px;
     width: 170px !important;
     min-width: 0 !important;
-    font-size: 22px !important;
+    font-size: 18px !important;
     border: 2px solid #95c8ff !important;
     margin-bottom: 27px;
+    
+}
+
+.contenido-tab-crear-asignatura-dia-hora-color .ui.selection.dropdown .divider.default.text { 
+  color: rgb(132, 132, 132) !important;
 }
 
 .contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color .ui.selection.dropdown .divider.text {
@@ -13,7 +18,7 @@
     justify-content: flex-start;
     width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
     text-align: center;
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 .contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color .ui.selection.dropdown .item {
@@ -25,6 +30,7 @@
     transition: background-color 0.5s ease-in-out !important; /* ⏳ transición suave del color */
   }
   
+
   /* Estilo para el select cerrado según su valor */
   .selected-color-FFD4B4 {
     background-color: #FFD4B4 !important;
@@ -96,14 +102,18 @@
   /* Texto del valor seleccionado (cuando el dropdown está cerrado) */
   .select-color .text {
     font-weight: bold;
-    color: black !important;
+    color: rgb(75, 75, 75) !important;
+  }
+
+  .contenido-tab-crear-asignatura-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown .divider.default.text {
+    color: rgb(132, 132, 132) !important;
   }
 
 .campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown.numero-semestre {
     padding: 10px;
     width: 200px !important;
     min-width: 0 !important;
-    font-size: 22px !important;
+    font-size: 18px !important;
     border: 2px solid #95c8ff !important;
 }
 
@@ -111,7 +121,7 @@
     padding: 10px;
     width: 170px !important;
     min-width: 0 !important;
-    font-size: 22px !important;
+    font-size: 18px !important;
     border: 2px solid #95c8ff !important;
 }
 
@@ -119,7 +129,7 @@
     padding: 10px;
     width: 120px !important;
     min-width: 0 !important;
-    font-size: 22px !important;
+    font-size: 18px !important;
     border: 2px solid #95c8ff !important;
 }
 
@@ -130,7 +140,7 @@
     justify-content: flex-start;
     width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
     text-align: center;
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 .campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown .item {
@@ -141,7 +151,39 @@
     padding: 10px;
     width: 120px !important;
     min-width: 0 !important;
-    font-size: 22px !important;
+    font-size: 18px !important;
     border: 2px solid #95c8ff !important;
+}
+
+
+.campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown {
+  padding: 10px !important;
+  width: 200px !important;
+  min-width: 0 !important;
+}
+
+.campos-estudios .ui.selection.dropdown {
+  padding: 10px !important;
+  width: 100px !important;
+  min-width: 0 !important;
+  font-size: 18px;
+  border: 2px solid #95c8ff !important;
+  margin-bottom: 27px;
+}
+.campos-estudios .ui.selection.dropdown .divider.default.text {
+  color: rgb(132, 132, 132) !important;
+}
+
+.campos-estudios .ui.selection.dropdown .divider.text {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
+  text-align: center;
+  margin-top: 2px !important;
+}
+
+.campos-estudios .ui.selection.dropdown .item {
+  font-size: large;
 }
 
