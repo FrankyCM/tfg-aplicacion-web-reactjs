@@ -1282,9 +1282,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                         asigPossibleTeacherOptions={asigPossibleTeacherOptions}
                         asigIncidencesMod={asigIncidencesMod}
                         setAsigIncidencesMod={setAsigIncidencesMod}
-                        modifyAsig={modifyAsig}
                         setModifyAsig={setModifyAsig}
-                        deleteAsig={deleteAsig}
                         setDeleteAsig={setDeleteAsig}/>
                     </>   
                  </div>

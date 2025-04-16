@@ -27,7 +27,7 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
     asigCourse_MasterMod, setAsigCourse_MasterMod,
     asigPossibleCourses,
     asigTeacherMod, setAsigTeacherMod, asigPossibleTeacherOptions,
-    asigIncidencesMod, setAsigIncidencesMod, modifyAsig, setModifyAsig, deleteAsig, setDeleteAsig}) => {
+    asigIncidencesMod, setAsigIncidencesMod, setModifyAsig, setDeleteAsig}) => {
 
 
     const handleCloseClick = () => {
