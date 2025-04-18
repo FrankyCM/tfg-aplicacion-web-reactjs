@@ -16,7 +16,7 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
   const [selectedGroupButton, setSelectedGroupButton] = useState(null);
   const [selectedMentionButton, setSelectedMentionButton] = useState(null);
 
-  const [size, setSize] = useState({ width: 550, height: 200 }); 
+  const [size, setSize] = useState({ width: 600, height: 200 }); 
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef(null);
   const containerRef = useRef(null);

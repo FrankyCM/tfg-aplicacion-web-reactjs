@@ -49,7 +49,7 @@ const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEve
                             <>
                                 <div className="cuadro-evento-informacion-grupo">
                                     <p>Grupo de laboratorio:</p>
-                                    <p className="texto-grupo-aula">{event.grupo}</p>
+                                    <p className="texto-grupo-aula">{event.grupoLaboratorio}</p>
                                 </div>
                                 <div className="cuadro-evento-informacion-aula">
                                     <p>Aula de laboratorio:</p>

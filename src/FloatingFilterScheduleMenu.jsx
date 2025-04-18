@@ -86,7 +86,7 @@ const FloatingFilterScheduleMenu = ({
   const calculateNewHeight = () => {
       let newHeight = 400;
       if (selectedGrade) {
-        newHeight += 70;
+        newHeight += 120;
       }
     
       if (selectedSemester) {
@@ -97,7 +97,7 @@ const FloatingFilterScheduleMenu = ({
         if(selectedGrade !== "INF"){
           newHeight += 110;
         } else {
-          newHeight += 180;
+          newHeight += 145;
         }
       }
   

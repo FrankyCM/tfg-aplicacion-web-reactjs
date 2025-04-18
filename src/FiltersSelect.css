@@ -97,3 +97,26 @@
   text-decoration: none !important;
   transition-duration: 0.1s !important;
 }
+
+
+.ui.selection.dropdown .menu {
+  max-height: 200px; /* o el valor que desees */
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #ccc transparent;
+}
+
+/* Personalización para navegadores basados en WebKit (Chrome, Edge, Safari) */
+.ui.selection.dropdown .menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ui.selection.dropdown .menu::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+.ui.selection.dropdown .menu::-webkit-scrollbar-track {
+  background: transparent;
+}

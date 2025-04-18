@@ -25,7 +25,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const [selectedFourthMentionButton, setSelectedFourthMentionButton] = useState(null);
   const [selectedFifthGroupButton, setSelectedFifthGroupButton] = useState(null);
 
-  const [size, setSize] = useState({ width: 500, height: 250 }); 
+  const [size, setSize] = useState({ width: 600, height: 200 }); 
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef(null);
   const containerRef = useRef(null);
