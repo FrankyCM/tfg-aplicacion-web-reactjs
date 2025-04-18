@@ -299,52 +299,68 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
     const cargarAsignaturasArchivoElegido = async (file) => {
       try {
-        const response = await fetch(`http://localhost:5000/asignaturas?archivo=${file.name}`);
-        if (!response.ok) throw new Error("Error al obtener las asignaturas");
+        const reader = new FileReader();
     
-        const data = await response.json();
-        setSubjects(data);
+        reader.onload = (event) => {
+          const contenido = event.target.result;
     
-        const eventos = data.map((asignatura) => {
-          const diaSemana = diasSemana[asignatura.Dia];
-          if (diaSemana === undefined) return null;
+          let data;
+          try {
+            data = JSON.parse(contenido);
+          } catch (error) {
+            console.error("Error al parsear el JSON:", error);
+            return;
+          }
     
-          const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
-          const hoy = moment();
-          const lunesSemanaActual = hoy.clone().startOf("isoWeek");
+          setSubjects(data);
     
-          const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
-            hour: hora,
-            minute: minutos,
-            second: 0,
-          }).toDate();
+          const eventos = data.map((asignatura) => {
+            const diaSemana = diasSemana[asignatura.Dia];
+            if (diaSemana === undefined) return null;
     
-          const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+            const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
+            const hoy = moment();
+            const lunesSemanaActual = hoy.clone().startOf("isoWeek");
     
-          return {
-            id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
-            title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
-            start: inicio,
-            end: fin,
-            nombre: asignatura.Nombre,
-            siglas: asignatura.Siglas,
-            grado: asignatura.Grado,
-            semestre: asignatura.Semestre,
-            curso: asignatura.Curso,
-            grupo: asignatura.Grupo,
-            grupoLaboratorio: asignatura.GrupoLaboratorio,
-            mencion: asignatura.Mencion,
-            aula: asignatura.Clase,
-            profesor: asignatura.Profesor,
-            color: asignatura.Color,
-            dia: asignatura.Dia,
-            codigo: asignatura.Codigo
-          };
-        }).filter(Boolean);
+            const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+              hour: hora,
+              minute: minutos,
+              second: 0,
+            }).toDate();
     
-        setEvents(eventos);
+            const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+    
+            return {
+              id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+              title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
+              start: inicio,
+              end: fin,
+              nombre: asignatura.Nombre,
+              siglas: asignatura.Siglas,
+              grado: asignatura.Grado,
+              semestre: asignatura.Semestre,
+              curso: asignatura.Curso,
+              grupo: asignatura.Grupo,
+              grupoLaboratorio: asignatura.GrupoLaboratorio,
+              mencion: asignatura.Mencion,
+              aula: asignatura.Clase,
+              profesor: asignatura.Profesor,
+              color: asignatura.Color,
+              dia: asignatura.Dia,
+              codigo: asignatura.Codigo
+            };
+          }).filter(Boolean);
+    
+          setEvents(eventos);
+        };
+    
+        reader.onerror = () => {
+          console.error("Error al leer el archivo.");
+        };
+    
+        reader.readAsText(file);
       } catch (error) {
-        console.error("Error al cargar el archivo desde el backend:", error);
+        console.error("Error al cargar el archivo:", error);
       }
     };
 
@@ -565,23 +581,30 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
   
     const guardarAsignaturasJSON = async () => {
       try {
-        const eventosActualizados = events.map(evento => ({
-          Codigo: evento.codigo,
-          Dia: evento.dia,
-          HoraInicio: moment(evento.start).format("HH:mm"),
-          Duracion: moment(evento.end).diff(moment(evento.start), "hours"),
-          Siglas: evento.siglas,
-          Nombre: evento.nombre,
-          Grado: evento.grado,
-          Semestre: evento.semestre,
-          Curso: evento.curso,
-          Grupo: evento.grupo,
-          GrupoLaboratorio: evento.grupoLaboratorio,
-          Mencion: evento.mencion,
-          Clase: evento.aula,
-          Profesor: evento.profesor,
-          Color: evento.color
-        }));
+        const eventosActualizados = events.map(evento => {
+          const hora = moment(evento.start).hour();
+          const horaInicioFormateada = hora < 10
+            ? moment(evento.start).format("H:mm")
+            : moment(evento.start).format("HH:mm");
+  
+          return {
+            Codigo: evento.codigo,
+            Dia: evento.dia,
+            HoraInicio: horaInicioFormateada,
+            Duracion: moment(evento.end).diff(moment(evento.start), "hours"),
+            Siglas: evento.siglas,
+            Nombre: evento.nombre,
+            Grado: evento.grado,
+            Semestre: evento.semestre,
+            Curso: evento.curso,
+            Grupo: evento.grupo,
+            GrupoLaboratorio: evento.grupoLaboratorio,
+            Mencion: evento.mencion,
+            Clase: evento.aula,
+            Profesor: evento.profesor,
+            Color: evento.color
+          };
+        });
   
         // JSON convertido a string con indentación
         const jsonString = JSON.stringify(eventosActualizados, null, 2);
@@ -618,13 +641,49 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
   }, [save]);
 
      
+  const actualizarEventos = (contenidoActualizado) => {
+    return contenidoActualizado.map((asignatura) => {
+      const diaSemana = diasSemana[asignatura.Dia];
+      if (diaSemana === undefined) return null;
+  
+      const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
+      const hoy = moment();
+      const lunesSemanaActual = hoy.clone().startOf("isoWeek");
+  
+      const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+        hour: hora,
+        minute: minutos,
+        second: 0,
+      }).toDate();
+  
+      const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+  
+      return {
+        id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+        title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
+        start: inicio,
+        end: fin,
+        nombre: asignatura.Nombre,
+        siglas: asignatura.Siglas,
+        grado: asignatura.Grado,
+        semestre: asignatura.Semestre,
+        curso: asignatura.Curso,
+        grupo: asignatura.Grupo,
+        grupoLaboratorio: asignatura.GrupoLaboratorio,
+        mencion: asignatura.Mencion,
+        aula: asignatura.Clase,
+        profesor: asignatura.Profesor,
+        color: asignatura.Color,
+        dia: asignatura.Dia,
+        codigo: asignatura.Codigo
+      };
+    }).filter(Boolean);
+  };
+  
     
     useEffect(() => {
         const crearAsignaturas = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`);
-            const data = await response.json();
-      
             const nuevosRegistros = [];
             let incidenciasTexto = "";
       
@@ -640,7 +699,6 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             cursos.forEach((curso) => {
               if (curso.estado && curso.estado !== "-") {
                 const grupo = `${asigGroupType ?? ""}${asigGroupNumber ?? ""}`;
-
 
                 const nuevaAsignatura = {
                   Codigo: asigCode,
@@ -660,7 +718,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                   Color: asigColor,      
                 };
       
-                const yaExiste = data.some((asignatura) =>
+                const yaExiste = subjects.some((asignatura) =>
                   asignatura.Codigo === nuevaAsignatura.Codigo &&
                   asignatura.Siglas === nuevaAsignatura.Siglas &&
                   asignatura.Dia === nuevaAsignatura.Dia &&
@@ -690,21 +748,25 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             setAsigIncidences(incidenciasTexto.trim());
       
             if (nuevosRegistros.length > 0 && incidenciasTexto === "") {
-              // Solo enviamos si no hay ninguna coincidencia
               const res = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(nuevosRegistros),
+                body: JSON.stringify({
+                  originales: subjects,
+                  nuevos: nuevosRegistros
+                }),
               });
       
               if (res.ok) {
+                const contenidoActualizado = await res.json();
+                setSubjects(contenidoActualizado);
                 console.log("Nuevas asignaturas guardadas correctamente.");
                 clearAllFields();
                 setTimeout(() => {
-                  cargarAsignaturasArchivoElegido(openedFile);
-                  console.log("Crear asig, archivo abierto:", openedFile);      
+                  const nuevosEventos = actualizarEventos(contenidoActualizado);
+                  setEvents(nuevosEventos);    
                 }, 300); // Espera 300ms
                 
               } else {
@@ -766,8 +828,6 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     useEffect(() => {
         const modificarAsignatura = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`);
-            const data = await response.json();
             console.log("archivo donde se mod:", openedFile);
             const cursos = [
               { estado: asigCourseGII_ISMod, grado: "INF", mencion: "IS" },
@@ -778,8 +838,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               { estado: asigCourse_MasterMod, grado: "Master" },
             ];
       
-            const nuevasAsignaturas = [...data];
-            
+            const nuevasAsignaturas = [...subjects];
+            let index, asignaturaModificada;
+
             console.log(asigCourseGII_TIMod);
             console.log(asigCourseGII_COMod);
             console.log(asigCourse_ESTMod);
@@ -791,13 +852,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 const grupo = `${asigGroupTypeMod ?? ""}${asigGroupNumberMod ?? ""}`;
                 console.log(asigCourseGII_ISMod);
                 console.log(selectedEvent);
-                
+                console.log(Array.isArray(subjects), subjects);
                 const horaInicioEvento = selectedEvent.start.getHours() < 10
                   ? selectedEvent.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
                   : selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
-
+                  console.log(Array.isArray(subjects), subjects)
                 // Buscar asignatura antigua en el JSON por coincidencia total
-                const asignaturaAntigua = data.find((asig) =>
+                const asignaturaAntigua = subjects.find((asig) =>
                     asig.Codigo === selectedEvent.codigo &&
                     asig.Siglas === selectedEvent.siglas &&
                     asig.Dia === selectedEvent.dia &&
@@ -816,9 +877,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 );
                 console.log(asignaturaAntigua)
                 if (asignaturaAntigua) {
-                  const index = data.indexOf(asignaturaAntigua);
-                    console.log(index)
-                  const asignaturaModificada = {
+                  index = subjects.indexOf(asignaturaAntigua);
+                  console.log(index)
+                  asignaturaModificada = {
                     Codigo: asigCodeMod,
                     Dia: asigDayMod,
                     HoraInicio: asigStartTimeMod,
@@ -835,8 +896,6 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     Profesor: asigTeacherMod,
                     Color: asigColorMod,
                   };
-      
-                  nuevasAsignaturas[index] = asignaturaModificada;
                 }
               }
             });
@@ -846,13 +905,16 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(nuevasAsignaturas),
+              body: JSON.stringify({ nuevasAsignaturas, index, asignaturaModificada }),
             });
       
             if (res.ok) {
+              const contenidoActualizado = await res.json();
+              setSubjects(contenidoActualizado);
               console.log("✅ Asignatura modificada correctamente");
               setTimeout(() => {
-                cargarAsignaturasArchivoElegido(openedFile);
+                const nuevosEventos = actualizarEventos(contenidoActualizado);
+                setEvents(nuevosEventos);
                 console.log("Mod asig, archivo abierto:", openedFile);
               }, 300); // Espera 300ms
             } else {
@@ -877,14 +939,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       useEffect(() => {
         const eliminarAsignatura = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`);
-            const data = await response.json();
-      
             const horaInicioEvento = selectedEvent.start.getHours() < 10
               ? selectedEvent.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
               : selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
               
-            const asignaturaAEliminar = data.find((asig) =>
+            const asignaturaAEliminar = subjects.find((asig) =>
               asig.Codigo === selectedEvent.codigo &&
               asig.Siglas === selectedEvent.siglas &&
               asig.Dia === selectedEvent.dia &&
@@ -912,13 +971,19 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(asignaturaAEliminar), // Se envía el objeto para filtrar más allá del código
+              body: JSON.stringify({
+                subjects,
+                asignaturaAEliminar,
+              }), // Se envía el objeto para filtrar más allá del código
             });
       
             if (res.ok) {
+              const contenidoActualizado = await res.json();
+              setSubjects(contenidoActualizado);
               console.log("🗑️ Asignatura eliminada correctamente");
               setTimeout(() => {
-                cargarAsignaturasArchivoElegido(openedFile);
+                const nuevosEventos = actualizarEventos(contenidoActualizado);
+                setEvents(nuevosEventos);
                 console.log("Elim asig, archivo abierto:", openedFile);
               }, 300); // Espera 300ms
             } else {

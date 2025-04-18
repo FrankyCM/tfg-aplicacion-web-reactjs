@@ -18,8 +18,8 @@
   },
   {
     "Codigo": "45678",
-    "Dia": "Martes",
-    "HoraInicio": "8:00",
+    "Dia": "Lunes",
+    "HoraInicio": "10:00",
     "Duracion": 2,
     "Siglas": "ICON",
     "Nombre": "Ingeniería del conocimiento",
@@ -29,7 +29,7 @@
     "Grupo": "T1",
     "GrupoLaboratorio": "",
     "Mencion": "IS",
-    "Clase": "03",
+    "Clase": "104",
     "Profesor": "CALONGE CANO, TEODORO",
     "Color": "#BEE9DD"
   },
@@ -53,7 +53,7 @@
   {
     "Codigo": "45678",
     "Dia": "Martes",
-    "HoraInicio": "08:00",
+    "HoraInicio": "8:00",
     "Duracion": 1,
     "Siglas": "ICON",
     "Nombre": "Ingeniería del conocimiento",
@@ -167,7 +167,7 @@
   {
     "Codigo": "45678",
     "Dia": "Martes",
-    "HoraInicio": "09:00",
+    "HoraInicio": "9:00",
     "Duracion": 2,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -455,7 +455,7 @@
   {
     "Codigo": "45678",
     "Dia": "Miércoles",
-    "HoraInicio": "08:30",
+    "HoraInicio": "8:30",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -487,7 +487,7 @@
   {
     "Codigo": "45678",
     "Dia": "Viernes",
-    "HoraInicio": "08:00",
+    "HoraInicio": "8:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -503,7 +503,7 @@
   {
     "Codigo": "45678",
     "Dia": "Jueves",
-    "HoraInicio": "09:00",
+    "HoraInicio": "9:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -551,7 +551,7 @@
   {
     "Codigo": "45678",
     "Dia": "Viernes",
-    "HoraInicio": "08:00",
+    "HoraInicio": "8:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -567,7 +567,7 @@
   {
     "Codigo": "45678",
     "Dia": "Jueves",
-    "HoraInicio": "09:00",
+    "HoraInicio": "9:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -599,7 +599,7 @@
   {
     "Codigo": "45678",
     "Dia": "Jueves",
-    "HoraInicio": "09:00",
+    "HoraInicio": "9:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -647,7 +647,7 @@
   {
     "Codigo": "45678",
     "Dia": "Viernes",
-    "HoraInicio": "08:00",
+    "HoraInicio": "8:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -663,7 +663,7 @@
   {
     "Codigo": "45678",
     "Dia": "Jueves",
-    "HoraInicio": "09:00",
+    "HoraInicio": "9:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -695,7 +695,7 @@
   {
     "Codigo": "45678",
     "Dia": "Jueves",
-    "HoraInicio": "09:00",
+    "HoraInicio": "9:00",
     "Duracion": 1,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -787,5 +787,56 @@
     "Clase": "L102",
     "Profesor": "profesor master",
     "Color": "#FFD4B4"
+  },
+  {
+    "Codigo": "14567",
+    "Dia": "Lunes",
+    "HoraInicio": "8:00",
+    "Duracion": 1,
+    "Siglas": "AFK",
+    "Nombre": "AFK",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "GrupoLaboratorio": "",
+    "Mencion": "IS",
+    "Clase": "03",
+    "Profesor": "CALONGE CANO, TEODORO",
+    "Color": "#FFD4B4"
+  },
+  {
+    "Codigo": "1245",
+    "Dia": "Miércoles",
+    "HoraInicio": "10:00",
+    "Duracion": 2,
+    "Siglas": "ACH",
+    "Nombre": "aceHU",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "GrupoLaboratorio": "",
+    "Mencion": "IS",
+    "Clase": "05",
+    "Profesor": "NICOLAS RODRIGUEZ, JOAQUIN ADIEGO",
+    "Color": "#EFC3C4"
+  },
+  {
+    "Codigo": "1245",
+    "Dia": "Miércoles",
+    "HoraInicio": "10:00",
+    "Duracion": 2,
+    "Siglas": "ACH",
+    "Nombre": "aceHU",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "3º",
+    "Grupo": "T1",
+    "GrupoLaboratorio": "",
+    "Mencion": "CO",
+    "Clase": "05",
+    "Profesor": "NICOLAS RODRIGUEZ, JOAQUIN ADIEGO",
+    "Color": "#EFC3C4"
   }
 ]
