@@ -10,9 +10,9 @@
     "Semestre": "1ºC",
     "Curso": "3º",
     "Grupo": "T1",
-    "GrupoLaboratorio": "",
+    "GrupoLaboratorio": "L2",
     "Mencion": "IS",
-    "Clase": "01",
+    "Clase": "L102",
     "Profesor": "NICOLAS RODRIGUEZ, JOAQUIN ADIEGO",
     "Color": "#AFC3C4"
   },
@@ -112,9 +112,9 @@
     "Semestre": "1ºC",
     "Curso": "3º",
     "Grupo": "T1",
-    "GrupoLaboratorio": "",
+    "GrupoLaboratorio": "L2",
     "Mencion": "IS",
-    "Clase": "02",
+    "Clase": "L104",
     "Profesor": "César Gonzalez",
     "Color": "#AFC3C4"
   },

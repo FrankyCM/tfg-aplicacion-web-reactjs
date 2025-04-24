@@ -331,7 +331,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
     
             return {
-              id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+              id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.GrupoLaboratorio} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
               title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
               start: inicio,
               end: fin,

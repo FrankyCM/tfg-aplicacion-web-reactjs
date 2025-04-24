@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import './ScheduleCreationAsigActionsButton.css';
 
-const ScheduleCreationAsigActionsButton = ({ text, setStatusOnClick, color }) => {
+const ScheduleCreationAsigActionsButton = ({ text, setStatusOnClick, color, iconName }) => {
   
     const handleClick = () => {
     setStatusOnClick(true);
@@ -12,7 +12,11 @@ const ScheduleCreationAsigActionsButton = ({ text, setStatusOnClick, color }) =>
     <Button 
     onClick={handleClick} 
     className= "asig-actions-button"
-    style={{ backgroundColor: color, borderColor: color }}>{text}</Button>
+    style={{ backgroundColor: color, borderColor: color }}
+    icon
+    labelPosition='left'>
+    {iconName && <Icon name={iconName} />}
+    {text}</Button>
   );
 };
 

@@ -154,8 +154,8 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
                 <ScheduleCreationMenuWarningsField text={asigIncidences}/>
             </div>
             <div className="contenido-tab-crear-asignatura-botones">
-                <ScheduleCreationAsigActionsButton text={`Limpiar formulario`} setStatusOnClick={setClearFormulary} color={`#edbeba`}/>
-                <ScheduleCreationAsigActionsButton text={`Crear asignaturas`} setStatusOnClick={setCreateAsig} color={`#edbeba`}/>
+                <ScheduleCreationAsigActionsButton text={`Limpiar formulario`} setStatusOnClick={setClearFormulary} color={`#edbeba`} iconName={`hand scissors`}/>
+                <ScheduleCreationAsigActionsButton text={`Crear asignaturas`} setStatusOnClick={setCreateAsig} color={`#edbeba`} iconName={`plus`}/>
             </div>
         </div>
     )

@@ -31,12 +31,11 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     const [exportPDF, setExportPDF] = useState(false); // Opcion -> si se decide exportar a PDF
     
     const asigColors = {
-      "ADA": "#FFD4B4", // Análisis y Diseño de Algoritmos
-      "DIS": "#EFC3C4", // Diseño de Software
-      "ADBD": "#FFEFAE", // Análisis y Diseño de Bases de Datos
-      "TDS": "#F1EFA5", // TDS ejemplo
-      "ATG": "#AFC3C4", // ATG ejemplo
-      // Colores nuevos:
+      "ADA": "#FFD4B4", 
+      "DIS": "#EFC3C4", 
+      "ADBD": "#FFEFAE", 
+      "TDS": "#F1EFA5", 
+      "ATG": "#AFC3C4", 
       "MOD": "#F7E3BE",
       "TAA": "#F7E3BE",
       "SMUL": "#F7E3BE",

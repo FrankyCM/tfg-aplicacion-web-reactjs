@@ -14,3 +14,9 @@
     background-color: #ec958f !important;
     border: 1px solid #e57b74 !important;
 }
+
+.ui.labeled.icon.button > .icon,
+.ui.labeled.icon.buttons > .button > .icon {
+    background-color: inherit !important;
+    color: inherit !important;
+}
