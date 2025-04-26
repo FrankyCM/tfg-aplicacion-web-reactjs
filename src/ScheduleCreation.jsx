@@ -1187,7 +1187,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         <>
             <div className="creacion-horarios">
                 <div className="creacion-horarios-cerrar-sesion">
-                    <LogoutButton color={`#edbeba`} text={`Cerrar sesión`}/>
+                    <LogoutButton color={`#edbeba`} text={`Cerrar sesión`} iconName={`arrow alternate circle left outline`}/>
                 </div>
                 <div className="creacion-horarios-menu-y-horario">
                     <FloatingFilterScheduleMenu
