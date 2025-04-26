@@ -172,6 +172,19 @@ const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selec
                 </div>
             )}
 
+            {(selectedGradeButton === "EST" || selectedGradeButton === "I + E") && selectedSemesterButton && selectedCourseButton && (
+                <>
+                    <div className="contenido-tab-modificar-horario-seccion-grupo">
+                        <p>Grupos</p>  
+                        <div className="contenido-tab-modificar-horario-seccion-grupo-botones">
+                            <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1"); handleGroupSelectButton("T1")}} isSelected={selectedGroupButton === "T1"} />
+                            <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2"); handleGroupSelectButton("T2")}} isSelected={selectedGroupButton === "T2"} />
+                            <FiltersButton key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3"); handleGroupSelectButton("T3")}} isSelected={selectedGroupButton === "T3"} />       
+                        </div>      
+                    </div> 
+                </>
+            )}
+            
             {(selectedGradeButton === "EST" || selectedGradeButton === "I + E") && selectedSemesterButton && selectedCourseButton && warningMessage !== null && (
                 <div>
                     <ScheduleCreationMenuWarningsField text={warningMessage}/> 
