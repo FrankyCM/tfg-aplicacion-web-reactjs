@@ -152,15 +152,16 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
     }
   
     if (selectedSemesterButton) {
-      newHeight += 90;
+      if(selectedGradeButton !== "Master"){
+        newHeight += 90;
+      } else {
+        newHeight += 120;
+      }
+      
     }
   
     if (selectedCourseButton) {
-      if(selectedGrade !== "INF"){
-        newHeight += 110;
-      } else {
         newHeight += 180;
-      }
     }
 
     return newHeight;
@@ -277,14 +278,6 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
                         />   
                     )} 
                   </div>
-
-                  {(selectedGradeButton === "EST" || selectedGradeButton === "I + E") && selectedCourseButton && (
-                    <IncludeLabsCheckbox 
-                      text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
-                      includeLabs={includeLabs} 
-                      setIncludeLabs={setIncludeLabs} 
-                    />
-                  )}
                 </>
               )}
 
@@ -325,6 +318,21 @@ const FiltersSection = ({selectedGrade, setSelectedGrade, selectedSemester, setS
                   
                 )
               }
+
+              {(selectedGradeButton === "EST" || selectedGradeButton === "I + E") && selectedSemesterButton && selectedCourseButton && (
+                <>
+                  <div className="group-section-generic">
+                    <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1"); handleGroupSelectButton("T1")}} isSelected={selectedGroupButton === "T1"}/>
+                    <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2"); handleGroupSelectButton("T2")}} isSelected={selectedGroupButton === "T2"}/>
+                    <FiltersButton key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3"); handleGroupSelectButton("T3")}} isSelected={selectedGroupButton === "T3"}/>
+                  </div>
+                  <IncludeLabsCheckbox 
+                    text={includeLabs ? "Ocultar laboratorios" : "Mostrar Laboratorios"} 
+                    includeLabs={includeLabs} 
+                    setIncludeLabs={setIncludeLabs} 
+                  />
+                </>
+              )}
               
 
             </div>
