@@ -12,6 +12,26 @@ const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selec
     const [selectedGroupButton, setSelectedGroupButton] = useState(null);
     const [selectedMentionButton, setSelectedMentionButton] = useState(null);
     
+    useEffect(() => {
+        setSelectedGradeButton(selectedGrade || null);
+    }, [selectedGrade]);
+    
+    useEffect(() => {
+        setSelectedSemesterButton(selectedSemester || null);
+    }, [selectedSemester]);
+    
+    useEffect(() => {
+        setSelectedCourseButton(selectedCourse || null);
+    }, [selectedCourse]);
+    
+    useEffect(() => {
+        setSelectedGroupButton(selectedGroup || null);
+    }, [selectedGroup]);
+    
+    useEffect(() => {
+        setSelectedMentionButton(selectedMention || null);
+    }, [selectedMention]);
+
     
     const handleGradeSelect = (grade) => {
         setSelectedGrade(selectedGrade === grade ? "" : grade);

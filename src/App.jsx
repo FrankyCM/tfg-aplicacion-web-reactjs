@@ -59,6 +59,7 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<IntroSection />} />
+            <Route path='*' element={<IntroSection />} />
             <Route path='/admin' element={<Login />} />
             <Route path="/horarios-genericos" element={<GenericVisualization diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
             <Route path="/horarios-personalizados" element={<CustomVisualization diasSemana={diasSemana} gradeMap={gradeMap} semesterMap={semesterMap} courseMap={courseMap} mentionMap={mentionMap} /> } />
