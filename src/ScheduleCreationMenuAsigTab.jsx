@@ -22,7 +22,8 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
     setAsigCourseGII_CO, asigCourse_EST, setAsigCourse_EST,
     asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
     setAsigCourse_Master, asigPossibleTeacherOptions, asigTeacher, setAsigTeacher,
-    asigIncidences, setAsigIncidences, createAsig, setCreateAsig, clearFormulary, 
+    asigIncidences, setAsigIncidences, incidenceOnCreatedAsig, setIncidenceOnCreatedAsig,
+    createAsig, setCreateAsig, clearFormulary, 
     setClearFormulary}) => {
 
 
@@ -151,7 +152,7 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
             </div>
             <div className = "contenido-tab-crear-asignatura-incidencias">
                 <p className= "apartado-incidencias">Incidencias</p>
-                <ScheduleCreationMenuWarningsField text={asigIncidences}/>
+                <ScheduleCreationMenuWarningsField text={asigIncidences || incidenceOnCreatedAsig}/>
             </div>
             <div className="contenido-tab-crear-asignatura-botones">
                 <ScheduleCreationAsigActionsButton text={`Limpiar formulario`} setStatusOnClick={setClearFormulary} color={`#edbeba`} iconName={`hand scissors`}/>

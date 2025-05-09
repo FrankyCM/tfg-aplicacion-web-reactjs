@@ -2,7 +2,7 @@ import './CalendarEvent.css'
 import CalendarEventPopUp from './CalendarEventPopUp';
 import ModifyCalendarEvent from './ModifyCalendarEvent';
 import { useState } from 'react';
-
+import { Icon } from 'semantic-ui-react';
 
 export const AdminCalendarEvent = ({
     event, setAsigCodeMod, setAsigInitialsMod,
@@ -14,7 +14,7 @@ export const AdminCalendarEvent = ({
     setAsigCourseGII_ISMod, setAsigCourseGII_TIMod,
     setAsigCourseGII_COMod, setAsigCourse_ESTMod,
     setAsigCourse_INDatMod, setAsigCourse_MasterMod,
-    setAsigTeacherMod, setEventClicked}) => {
+    setAsigTeacherMod, setEventClicked, asigIncidenceOnCreation, createdAsigId}) => {
 
     const [hoveredEvent, setHoveredEvent] = useState(null);
     const [popUpPosition, setPopUpPosition] = useState({ x: 0, y: 0 });
@@ -89,10 +89,16 @@ export const AdminCalendarEvent = ({
         if (grado === "I + E") setAsigCourse_INDatMod(curso);
         if (grado === "Master") setAsigCourse_MasterMod(curso);
     }
-
+    console.log("id de asig creada",createdAsigId);
+    console.log("id de evento",event.id);
     return (
         <div className="evento-calendario" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} title="" onClick={handleEventClick}>
-            <strong className="evento-calendario-siglas">{event.siglas}</strong>
+            <strong className="evento-calendario-siglas">
+                {event.siglas}
+                {asigIncidenceOnCreation !== "" && event.id === createdAsigId && (
+                    <Icon name="exclamation triangle" color="red" style={{ marginLeft: '6px' }} title={asigIncidenceOnCreation} />
+                )}
+            </strong>
             {!event.aula.startsWith("L") && event.grupo.startsWith("T") && event.grupoLaboratorio === "" && (
                 <span className="evento-calendario-grupo-aula">{event.grupo} - {event.aula}</span>
             )}

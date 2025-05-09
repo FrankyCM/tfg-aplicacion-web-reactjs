@@ -158,6 +158,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       ];
     const [asigTeacher, setAsigTeacher] = useState("");
     const [asigIncidences, setAsigIncidences] = useState("");
+    const [incidenceOnCreatedAsig, setIncidenceOnCreatedAsig] = useState("");
+    const [createdAsigId, setCreatedAsigId] = useState("");
     const [createAsig, setCreateAsig] = useState(false);
     const [clearFormulary, setClearFormulary] = useState(false);
 
@@ -220,6 +222,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             setAsigTeacherMod={setAsigTeacherMod}
             setModifyAsig={setModifyAsig}
             setEventClicked={setEventClicked}
+            asigIncidenceOnCreation={incidenceOnCreatedAsig}
+            createdAsigId={createdAsigId}
         />
     );
 
@@ -772,6 +776,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
                 if (!yaExiste) {
                     nuevosRegistros.push(nuevaAsignatura);
+                    checkNewAsigIncompatibility(nuevaAsignatura);
                 } else {
                     const combinacion = `${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${curso.grado} - ${curso.estado} - ${curso.mencion} - ${nuevaAsignatura.Dia} - ${nuevaAsignatura.HoraInicio} ya existente.`;
                     incidenciasTexto += `${combinacion}\n`;
@@ -820,6 +825,64 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             crearAsignaturas();
         }
       }, [createAsig]);
+
+      const checkNewAsigIncompatibility = (nuevaAsignatura) => {
+        console.log("entra checkNewAsig");
+      
+        const diaSemanaNueva = diasSemana[nuevaAsignatura.Dia];
+        if (diaSemanaNueva === undefined) return false;
+      
+        // Construimos la fecha completa con día y hora
+        const [hora, minuto] = nuevaAsignatura.HoraInicio.split(":").map(Number);
+        const lunesSemanaActual = moment().startOf("isoWeek");
+      
+        const horaInicioNueva = lunesSemanaActual.clone().add(diaSemanaNueva - 1, "days").set({
+          hour: hora,
+          minute: minuto,
+          second: 0,
+        });
+      
+        const horaFinNueva = horaInicioNueva.clone().add(nuevaAsignatura.Duracion, "hours");
+      
+        for (const evento of events) {
+          const horaInicioEvento = moment(evento.start);
+          const horaFinEvento = moment(evento.end);
+      
+          const mismaFranja = horaInicioNueva.isBefore(horaFinEvento) && horaFinNueva.isAfter(horaInicioEvento);
+      
+          if (
+            mismaFranja && nuevaAsignatura.Grado === evento.grado && nuevaAsignatura.Dia === evento.dia &&
+            (nuevaAsignatura.Curso === "1º" || nuevaAsignatura.Curso === "2º") &&
+            nuevaAsignatura.Curso === evento.curso &&
+            nuevaAsignatura.Grupo.startsWith("T") &&
+            evento.grupo.startsWith("T")
+          ) {
+            console.log("entra if gordo");
+            const generatedId = `${nuevaAsignatura.Dia} - ${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${
+              nuevaAsignatura.GrupoLaboratorio ? nuevaAsignatura.GrupoLaboratorio + " - " : ""
+            }${nuevaAsignatura.Clase} - ${nuevaAsignatura.HoraInicio}`;
+            if (nuevaAsignatura.GrupoLaboratorio === "" && evento.grupoLaboratorio === "") {
+              setIncidenceOnCreatedAsig("Incompatibilidad por coincidencia de sesiones teóricas");
+              setCreatedAsigId(generatedId);
+              console.log("entra primer if", incidenceOnCreatedAsig);
+              return true;
+            }
+      
+            if (
+              (nuevaAsignatura.GrupoLaboratorio === "" && evento.grupoLaboratorio !== "") ||
+              (nuevaAsignatura.GrupoLaboratorio !== "" && evento.grupoLaboratorio === "")
+            ) {
+              setIncidenceOnCreatedAsig("Incompatibilidad por coincidencia de sesiones teórica y práctica");
+              setCreatedAsigId(generatedId);
+              console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
+              return true;
+            }
+          }
+        }
+      
+        return false;
+      };
+
 
       useEffect(() => {
         if (clearFormulary) {
@@ -1211,7 +1274,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     setAsigCourseGII_CO={setAsigCourseGII_CO} asigCourse_EST={asigCourse_EST} setAsigCourse_EST={setAsigCourse_EST}
                     asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
                     setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
-                    asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} createAsig={createAsig} setCreateAsig={setCreateAsig}
+                    asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} incidenceOnCreatedAsig={incidenceOnCreatedAsig} 
+                    setIncidenceOnCreatedAsig={setIncidenceOnCreatedAsig} createAsig={createAsig} setCreateAsig={setCreateAsig}
                     clearFormulary={clearFormulary} setClearFormulary={setClearFormulary} setOpenFile={setOpenFile}
                     />
                     <div className="creacion-horarios-horario" id="creacion-horarios-horario">

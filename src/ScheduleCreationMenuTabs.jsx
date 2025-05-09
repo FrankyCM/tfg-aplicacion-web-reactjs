@@ -26,8 +26,8 @@ const ScheduleCreationMenuTabs = ({
   setAsigCourseGII_CO, asigCourse_EST, setAsigCourse_EST,
   asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
   setAsigCourse_Master, asigPossibleTeacherOptions, asigTeacher,
-  setAsigTeacher, asigIncidences, setAsigIncidences, createAsig, setCreateAsig,
-  clearFormulary, setClearFormulary
+  setAsigTeacher, asigIncidences, setAsigIncidences, incidenceOnCreatedAsig, setIncidenceOnCreatedAsig,
+   createAsig, setCreateAsig, clearFormulary, setClearFormulary
 }) => {
 
   // ✅ Esta función ahora está dentro del componente y puede acceder a las props
@@ -87,7 +87,8 @@ const ScheduleCreationMenuTabs = ({
         asigCourse_Master={asigCourse_Master} setAsigCourse_Master={setAsigCourse_Master}
         asigPossibleTeacherOptions={asigPossibleTeacherOptions}
         asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
-        asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences}
+        asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} 
+        incidenceOnCreatedAsig={incidenceOnCreatedAsig} setIncidenceOnCreatedAsig={setIncidenceOnCreatedAsig}
         createAsig={createAsig} setCreateAsig={setCreateAsig}
         clearFormulary={clearFormulary} setClearFormulary={setClearFormulary}
       />,
