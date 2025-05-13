@@ -52,7 +52,6 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
         setAsigCourse_INDatMod("");
         setAsigCourse_MasterMod("");
         setAsigTeacherMod("");
-        setAsigIncidencesMod("");
     }, 0);
     }
 
@@ -188,10 +187,13 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                         </div>
                     </div>
                 </div>
-                <div className = "contenido-tab-crear-asignatura-incidencias">
-                    <p className= "apartado-incidencias">Incidencias</p>
-                    <ScheduleCreationMenuWarningsField text={asigIncidencesMod}/>
-                </div>
+                {event.id in asigIncidencesMod && (
+                    <div className = "contenido-tab-crear-asignatura-incidencias">
+                        <p className= "apartado-incidencias">Incidencias</p>
+                        <ScheduleCreationMenuWarningsField text={asigIncidencesMod[event.id]}/>
+                    </div>  
+                )}
+                
                 <div className="contenido-tab-crear-asignatura-botones">
                     <ScheduleCreationAsigActionsButton text={`Borrar asignatura`} setStatusOnClick={setDeleteAsig} color={`#edbeba`} iconName={`delete`}/>
                     <ScheduleCreationAsigActionsButton text={`Modificar asignatura`} setStatusOnClick={setModifyAsig} color={`#edbeba`} iconName={`arrow circle up`}/>

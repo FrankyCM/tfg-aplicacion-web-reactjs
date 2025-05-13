@@ -159,7 +159,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [asigTeacher, setAsigTeacher] = useState("");
     const [asigIncidences, setAsigIncidences] = useState("");
     const [incidenceOnCreatedAsig, setIncidenceOnCreatedAsig] = useState("");
-    const [createdAsigId, setCreatedAsigId] = useState("");
+    const [asigIncompatibilitiesIds, setAsigIncompatibilitiesIds] = useState({});
     const [createAsig, setCreateAsig] = useState(false);
     const [clearFormulary, setClearFormulary] = useState(false);
 
@@ -222,8 +222,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             setAsigTeacherMod={setAsigTeacherMod}
             setModifyAsig={setModifyAsig}
             setEventClicked={setEventClicked}
-            asigIncidenceOnCreation={incidenceOnCreatedAsig}
-            createdAsigId={createdAsigId}
+            asigIncompatibilitiesIds={asigIncompatibilitiesIds}
         />
     );
 
@@ -697,7 +696,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
   
       return {
-        id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+        id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.GrupoLaboratorio} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
         title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
         start: inicio,
         end: fin,
@@ -843,8 +842,16 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         });
       
         const horaFinNueva = horaInicioNueva.clone().add(nuevaAsignatura.Duracion, "hours");
-      
-        for (const evento of events) {
+        const eventosFiltrados = events.filter(evento => 
+          evento.grado === selectedGrade &&
+          evento.semestre === selectedSemester &&
+          evento.curso === selectedCourse &&
+          (evento.grupo.startsWith("T") &&
+          (evento.grupoLaboratorio.startsWith("L") ||
+           evento.grupoLaboratorio === ""))
+        );
+        for (const evento of eventosFiltrados) {    // Es necesario que se realice sobre los eventos que compartan grado, cuatri y curso, para poder
+                                          // comprobar entre distintos grupos del mismo curso
           const horaInicioEvento = moment(evento.start);
           const horaFinEvento = moment(evento.end);
       
@@ -858,12 +865,17 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             evento.grupo.startsWith("T")
           ) {
             console.log("entra if gordo");
-            const generatedId = `${nuevaAsignatura.Dia} - ${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${
-              nuevaAsignatura.GrupoLaboratorio ? nuevaAsignatura.GrupoLaboratorio + " - " : ""
-            }${nuevaAsignatura.Clase} - ${nuevaAsignatura.HoraInicio}`;
+
+            const generatedId = `${nuevaAsignatura.Dia} - ${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${nuevaAsignatura.GrupoLaboratorio} - ${nuevaAsignatura.Clase} - ${nuevaAsignatura.HoraInicio}`;
             if (nuevaAsignatura.GrupoLaboratorio === "" && evento.grupoLaboratorio === "") {
               setIncidenceOnCreatedAsig("Incompatibilidad por coincidencia de sesiones teóricas");
-              setCreatedAsigId(generatedId);
+              console.log("id de nueva:", generatedId);
+              console.log("id de evento:", evento.id);
+              setAsigIncompatibilitiesIds(prev => ({
+                ...prev,
+                [generatedId]: "Incompatibilidad por coincidencia de sesiones teóricas",
+                [evento.id]: "Incompatibilidad por coincidencia de sesiones teóricas",
+              }));
               console.log("entra primer if", incidenceOnCreatedAsig);
               return true;
             }
@@ -873,7 +885,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               (nuevaAsignatura.GrupoLaboratorio !== "" && evento.grupoLaboratorio === "")
             ) {
               setIncidenceOnCreatedAsig("Incompatibilidad por coincidencia de sesiones teórica y práctica");
-              setCreatedAsigId(generatedId);
+              console.log("id de nueva:", generatedId);
+              console.log("id de evento:", evento.id);
+              setAsigIncompatibilitiesIds(prev => ({
+                ...prev,
+                [generatedId]: "Incompatibilidad por coincidencia de sesiones teórica y práctica",
+                [evento.id]: "Incompatibilidad por coincidencia de sesiones teórica y práctica",
+              }));
               console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
               return true;
             }
@@ -1443,8 +1461,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                         asigTeacherMod={asigTeacherMod}
                         setAsigTeacherMod={setAsigTeacherMod}
                         asigPossibleTeacherOptions={asigPossibleTeacherOptions}
-                        asigIncidencesMod={asigIncidencesMod}
-                        setAsigIncidencesMod={setAsigIncidencesMod}
+                        asigIncidencesMod={asigIncompatibilitiesIds}
+                        setAsigIncidencesMod={setAsigIncompatibilitiesIds}
                         setModifyAsig={setModifyAsig}
                         setDeleteAsig={setDeleteAsig}/>
                     </>   

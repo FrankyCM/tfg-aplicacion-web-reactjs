@@ -1,7 +1,7 @@
 import './CalendarEvent.css'
 import CalendarEventPopUp from './CalendarEventPopUp';
 import ModifyCalendarEvent from './ModifyCalendarEvent';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon } from 'semantic-ui-react';
 
 export const AdminCalendarEvent = ({
@@ -14,7 +14,7 @@ export const AdminCalendarEvent = ({
     setAsigCourseGII_ISMod, setAsigCourseGII_TIMod,
     setAsigCourseGII_COMod, setAsigCourse_ESTMod,
     setAsigCourse_INDatMod, setAsigCourse_MasterMod,
-    setAsigTeacherMod, setEventClicked, asigIncidenceOnCreation, createdAsigId}) => {
+    setAsigTeacherMod, setEventClicked, asigIncompatibilitiesIds}) => {
 
     const [hoveredEvent, setHoveredEvent] = useState(null);
     const [popUpPosition, setPopUpPosition] = useState({ x: 0, y: 0 });
@@ -89,14 +89,24 @@ export const AdminCalendarEvent = ({
         if (grado === "I + E") setAsigCourse_INDatMod(curso);
         if (grado === "Master") setAsigCourse_MasterMod(curso);
     }
-    console.log("id de asig creada",createdAsigId);
-    console.log("id de evento",event.id);
+
+    useEffect(() => {
+        console.log("IDs de incompatibilidad actualizados:", asigIncompatibilitiesIds);
+        // Aquí puedes forzar una lógica o acción
+      }, [asigIncompatibilitiesIds]);
+
+      console.log("id de ev:", event.id);
     return (
         <div className="evento-calendario" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} title="" onClick={handleEventClick}>
             <strong className="evento-calendario-siglas">
                 {event.siglas}
-                {asigIncidenceOnCreation !== "" && event.id === createdAsigId && (
-                    <Icon name="exclamation triangle" color="red" style={{ marginLeft: '6px' }} title={asigIncidenceOnCreation} />
+                {event.id in asigIncompatibilitiesIds && (
+                    <Icon
+                        name="exclamation triangle"
+                        color="red"
+                        style={{ marginLeft: '6px' }}
+                        title={asigIncompatibilitiesIds[event.id]}
+                    />
                 )}
             </strong>
             {!event.aula.startsWith("L") && event.grupo.startsWith("T") && event.grupoLaboratorio === "" && (
