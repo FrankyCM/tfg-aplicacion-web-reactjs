@@ -83,6 +83,7 @@ export const AdminCalendarEvent = ({
             if (mencion === "IS") setAsigCourseGII_ISMod(curso);
             if (mencion === "TI") setAsigCourseGII_TIMod(curso);
             if (mencion === "CO") setAsigCourseGII_COMod(curso);
+            //if (mencion === null || mencion === undefined || mencion === "") setAsigCourseGII_COMod(curso);
         }
 
         if (grado === "EST") setAsigCourse_ESTMod(curso);
