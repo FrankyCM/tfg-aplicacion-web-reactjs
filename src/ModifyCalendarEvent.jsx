@@ -32,28 +32,36 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
 
     const handleCloseClick = () => {
         setTimeout(() => {
-        setEventClicked(false);
-        setAsigCodeMod("");
-        setAsigInitialsMod("");
-        setAsigFullNameMod("");
-        setAsigDayMod("");
-        setAsigStartTimeMod("");
-        setAsigColorMod("");
-        setAsigSemesterMod("");
-        setAsigGroupNumberMod("");
-        setAsigLabGroupMod("");
-        setAsigGroupTypeMod("");
-        setAsigDurationMod("");
-        setAsigClassMod("");
-        setAsigCourseGII_ISMod("");
-        setAsigCourseGII_TIMod("");
-        setAsigCourseGII_COMod("");
-        setAsigCourse_ESTMod("");
-        setAsigCourse_INDatMod("");
-        setAsigCourse_MasterMod("");
-        setAsigTeacherMod("");
-    }, 0);
+            setEventClicked(false);
+            setAsigCodeMod("");
+            setAsigInitialsMod("");
+            setAsigFullNameMod("");
+            setAsigDayMod("");
+            setAsigStartTimeMod("");
+            setAsigColorMod("");
+            setAsigSemesterMod("");
+            setAsigGroupNumberMod("");
+            setAsigLabGroupMod("");
+            setAsigGroupTypeMod("");
+            setAsigDurationMod("");
+            setAsigClassMod("");
+            setAsigCourseGII_ISMod("");
+            setAsigCourseGII_TIMod("");
+            setAsigCourseGII_COMod("");
+            setAsigCourse_ESTMod("");
+            setAsigCourse_INDatMod("");
+            setAsigCourse_MasterMod("");
+            setAsigTeacherMod("");
+        }, 0);
     }
+
+    const handleIncidenceRemoval = () => {
+        setAsigIncidencesMod((prev) => {
+            const newIncidences = { ...prev };
+            delete newIncidences[event.id];
+            return newIncidences;
+        });
+    };
 
     return(
         <div className="cuadro-evento-asignatura-mod" style = {{backgroundColor: backgroundColor}}>
@@ -195,6 +203,9 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                 )}
                 
                 <div className="contenido-tab-crear-asignatura-botones">
+                    {event.id in asigIncidencesMod && (
+                        <ScheduleCreationAsigActionsButton text={`Borrar incidencia`} color={`#edbeba`} iconName={`delete`} setStatusOnClick={handleIncidenceRemoval}/>
+                    )}
                     <ScheduleCreationAsigActionsButton text={`Borrar asignatura`} setStatusOnClick={setDeleteAsig} color={`#edbeba`} iconName={`delete`}/>
                     <ScheduleCreationAsigActionsButton text={`Modificar asignatura`} setStatusOnClick={setModifyAsig} color={`#edbeba`} iconName={`arrow circle up`}/>
                 </div>

@@ -858,9 +858,15 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             evento.grado === selectedGrade &&
             evento.semestre === selectedSemester &&
             evento.curso === selectedCourse &&
-            (evento.grupo.startsWith("T") &&
-            (evento.grupoLaboratorio.startsWith("L") ||
-             evento.grupoLaboratorio === ""))
+            evento.grupo.startsWith("T") &&
+            (evento.grupoLaboratorio.startsWith("X") || 
+            evento.grupoLaboratorio.startsWith("L") || 
+            evento.grupoLaboratorio.startsWith("AS") || 
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("K") ||
+            evento.grupoLaboratorio.startsWith("Y") ||
+            evento.grupoLaboratorio.startsWith("W") ||
+            evento.grupoLaboratorio === "")
           );
         }
         
@@ -1187,51 +1193,182 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     };
 
     const onEventDrop = ({ event, start, end }) => {
-        const compatible = checkEventCompatibility({ event, start, end });
-        if (compatible) {
-            // Obtener el nuevo día de la semana basado en 'start'
-            const nuevoDiaSemana = moment(start).isoWeekday(); // 1 (Lunes) - 7 (Domingo)
-            const nuevoDia = Object.keys(diasSemana).find(key => diasSemana[key] === nuevoDiaSemana);
-    
-            console.log("🛠 Evento desplazado:");
-            console.log("🔹 Siglas:", event.siglas);
-            console.log("📅 Nuevo Día:", nuevoDia);
-            console.log("🕒 Nueva Hora de Inicio:", moment(start).format("YYYY-MM-DD HH:mm"));
-            console.log("⏳ Nueva Hora de Fin:", moment(end).format("YYYY-MM-DD HH:mm"));
-    
-            // Actualizar el evento con 'start', 'end' y el nuevo día
-            setEvents((prevEvents) =>
-                prevEvents.map((e) =>
-                    e.id === event.id ? { ...e, start, end, dia: nuevoDia } : e
-                )
-            );
-        }
+      const nuevoDiaSemana = moment(start).isoWeekday();
+      const nuevoDia = Object.keys(diasSemana).find(key => diasSemana[key] === nuevoDiaSemana);
+      const horaInicioEvento = start.getHours() < 10
+              ? start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
+              : start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
+      const nuevoId = `${nuevoDia} - ${event.siglas} - ${event.grupo} - ${event.grupoLaboratorio} - ${event.aula} - ${horaInicioEvento}`;
+      const eventoActualizado = { ...event, start, end, dia: nuevoDia, id: nuevoId };
+      console.log("evento actualizado:", eventoActualizado);
+      const eventosActualizados = events.map(e =>
+        e.id === event.id ? eventoActualizado : e
+      );
+      console.log("eventos actualizados:", eventosActualizados);
+      let eventosFiltrados;
+
+      if(selectedGrade === "Master"){
+        eventosFiltrados = eventosActualizados.filter(evento => 
+          evento.grado === selectedGrade &&
+          evento.semestre === selectedSemester &&
+          evento.curso === "1º" &&
+          (evento.grupo.startsWith("T") &&
+          (evento.grupoLaboratorio.startsWith("L") ||
+           evento.grupoLaboratorio === ""))
+        );
+      } else {
+        eventosFiltrados = eventosActualizados.filter(evento => 
+          evento.grado === selectedGrade &&
+          evento.semestre === selectedSemester &&
+          evento.curso === selectedCourse &&
+          evento.grupo.startsWith("T") &&
+          (evento.grupoLaboratorio.startsWith("X") || 
+          evento.grupoLaboratorio.startsWith("L") || 
+          evento.grupoLaboratorio.startsWith("AS") || 
+          evento.grupoLaboratorio.startsWith("J") ||
+          evento.grupoLaboratorio.startsWith("K") ||
+          evento.grupoLaboratorio.startsWith("Y") ||
+          evento.grupoLaboratorio.startsWith("W") ||
+          evento.grupoLaboratorio === "")
+        );
+      }
+
+      setEvents(eventosActualizados);
+      console.log("Eventos filtrados d&d:", eventosFiltrados);
+      // Pasa los eventos actualizados como segundo argumento
+      checkEventCompatibility(eventoActualizado, eventosFiltrados);
     };
     
     const onEventResize = ({ event, start, end }) => {
-        const compatible = checkEventCompatibility({ event, start, end });
-    
-        if (compatible) {
-            // Obtener el nuevo día de la semana basado en 'start'
-            const nuevoDiaSemana = moment(start).isoWeekday(); // 1 (Lunes) - 7 (Domingo)
-            const nuevoDia = Object.keys(diasSemana).find(key => diasSemana[key] === nuevoDiaSemana);
-    
-            console.log("📏 Evento redimensionado:");
-            console.log("🔹 Siglas:", event.siglas);
-            console.log("📅 Nuevo Día:", nuevoDia);
-            console.log("🕒 Nueva Hora de Inicio:", moment(start).format("YYYY-MM-DD HH:mm"));
-            console.log("⏳ Nueva Hora de Fin:", moment(end).format("YYYY-MM-DD HH:mm"));
-    
-            // Actualizar el evento con 'start', 'end' y el nuevo día
-            setEvents((prevEvents) =>
-                prevEvents.map((e) =>
-                    e.id === event.id ? { ...e, start, end, dia: nuevoDia } : e
-                )
-            );
-        }
+      const nuevoDiaSemana = moment(start).isoWeekday();
+      const nuevoDia = Object.keys(diasSemana).find(key => diasSemana[key] === nuevoDiaSemana);
+      const horaInicioEvento = start.getHours() < 10
+              ? start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
+              : start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
+      const nuevoId = `${nuevoDia} - ${event.siglas} - ${event.grupo} - ${event.grupoLaboratorio} - ${event.aula} - ${horaInicioEvento}`;
+      const eventoActualizado = { ...event, start, end, dia: nuevoDia, id: nuevoId };
+      console.log("evento actualizado:", eventoActualizado);
+      const eventosActualizados = events.map(e =>
+        e.id === event.id ? eventoActualizado : e
+      );
+      console.log("eventos actualizados:", eventosActualizados);
+      let eventosFiltrados;
+
+      if(selectedGrade === "Master"){
+        eventosFiltrados = eventosActualizados.filter(evento => 
+          evento.grado === selectedGrade &&
+          evento.semestre === selectedSemester &&
+          evento.curso === "1º" &&
+          (evento.grupo.startsWith("T") &&
+          (evento.grupoLaboratorio.startsWith("L") ||
+           evento.grupoLaboratorio === ""))
+        );
+      } else {
+        eventosFiltrados = eventosActualizados.filter(evento => 
+          evento.grado === selectedGrade &&
+          evento.semestre === selectedSemester &&
+          evento.curso === selectedCourse &&
+          evento.grupo.startsWith("T") &&
+          (evento.grupoLaboratorio.startsWith("X") || 
+          evento.grupoLaboratorio.startsWith("L") || 
+          evento.grupoLaboratorio.startsWith("AS") || 
+          evento.grupoLaboratorio.startsWith("J") ||
+          evento.grupoLaboratorio.startsWith("K") ||
+          evento.grupoLaboratorio.startsWith("Y") ||
+          evento.grupoLaboratorio.startsWith("W") ||
+          evento.grupoLaboratorio === "")
+        );
+      }
+
+      setEvents(eventosActualizados);
+      console.log("Eventos filtrados d&d:", eventosFiltrados);
+      // Pasa los eventos actualizados como segundo argumento
+      checkEventCompatibility(eventoActualizado, eventosFiltrados);
     };
 
-    const checkEventCompatibility = ({ event, start, end }) => {
+    const checkEventCompatibility = (nuevaAsignatura, eventosActualizados) => {
+      console.log("entra checkNewAsig");
+    
+      const diaSemanaNueva = diasSemana[nuevaAsignatura.dia];
+      if (diaSemanaNueva === undefined) return false;
+    
+      const horaInicioNueva = moment(nuevaAsignatura.start);
+      const horaFinNueva = moment(nuevaAsignatura.end);
+
+      for (const evento of eventosActualizados) {    // Es necesario que se realice sobre los eventos que compartan grado, cuatri y curso, para poder
+                                        // comprobar entre distintos grupos del mismo curso
+        const horaInicioEvento = moment(evento.start);
+        const horaFinEvento = moment(evento.end);
+    
+        const mismaFranja = horaInicioNueva.isBefore(horaFinEvento) && horaFinNueva.isAfter(horaInicioEvento);
+    
+        if (
+          mismaFranja && nuevaAsignatura.grado === evento.grado && nuevaAsignatura.dia === evento.dia &&
+          nuevaAsignatura.curso === evento.curso &&
+          nuevaAsignatura.grupo.startsWith("T") &&
+          evento.grupo.startsWith("T")  && 
+          nuevaAsignatura.id !== evento.id 
+          //cambiar .Grupo por .grupo y asi con el resto para nuevaAsig...
+        ) {
+          console.log("entra if gordo");
+
+          //const generatedId = `${nuevaAsignatura.dia} - ${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${nuevaAsignatura.GrupoLaboratorio} - ${nuevaAsignatura.Clase} - ${nuevaAsignatura.HoraInicio}`;
+          
+          const buildMessage = (base) => {
+            const extras = [];
+            if (nuevaAsignatura.profesor === evento.profesor) extras.push("profesor");
+            if (nuevaAsignatura.aula === evento.aula) extras.push("aula");
+            return extras.length
+              ? `${base} y ${extras.join(" y ")}`
+              : base;
+          };
+
+          if (nuevaAsignatura.grupoLaboratorio === "" && evento.grupoLaboratorio === "") {
+
+            const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teóricas");
+
+            setIncidenceOnCreatedAsig(mensaje);
+            console.log("id de evento d&d:", nuevaAsignatura.id);
+            console.log("id de evento:", evento.id);
+
+            setAsigIncompatibilitiesIds(prev => ({
+              ...prev,
+              [nuevaAsignatura.id]: mensaje,
+              [evento.id]: mensaje,
+            }));
+
+            console.log("entra primer if", incidenceOnCreatedAsig);
+            return true;
+          }
+    
+          if (
+            (nuevaAsignatura.grupoLaboratorio === "" && evento.grupoLaboratorio !== "") ||
+            (nuevaAsignatura.grupoLaboratorio !== "" && evento.grupoLaboratorio === "")
+          ) {
+
+            const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teórica y práctica");
+      
+            setIncidenceOnCreatedAsig(mensaje);
+
+            console.log("id de evento d&d:", nuevaAsignatura.id);
+            console.log("id de evento:", evento.id);
+
+            setAsigIncompatibilitiesIds(prev => ({
+              ...prev,
+              [nuevaAsignatura.id]: mensaje,
+              [evento.id]: mensaje,
+            }));
+
+            console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
+            return true;
+          }
+        }
+      }
+    
+      return false;
+    };
+
+    /*const checkEventCompatibility = ({ event, start, end }) => {
         let conflictMessage = "";
         let eventosFiltrados = [];
 
@@ -1297,7 +1434,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         }
         console.log("hay comp")
         return true;
-    };
+    };*/
 
     return(
         <>

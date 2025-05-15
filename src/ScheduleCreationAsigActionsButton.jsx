@@ -4,7 +4,7 @@ import './ScheduleCreationAsigActionsButton.css';
 
 const ScheduleCreationAsigActionsButton = ({ text, setStatusOnClick, color, iconName }) => {
   
-    const handleClick = () => {
+  const handleClick = () => {
     setStatusOnClick(true);
   };
 

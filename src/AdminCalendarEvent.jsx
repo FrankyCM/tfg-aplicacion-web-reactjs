@@ -96,7 +96,7 @@ export const AdminCalendarEvent = ({
         // Aquí puedes forzar una lógica o acción
       }, [asigIncompatibilitiesIds]);
 
-      console.log("id de ev:", event.id);
+      //console.log("id de ev:", event.id);
     return (
         <div className="evento-calendario" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} title="" onClick={handleEventClick}>
             <strong className="evento-calendario-siglas">
