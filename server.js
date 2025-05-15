@@ -95,8 +95,8 @@ app.delete("/asignaturas/:codigo", (req, res) => {
         )
       );
   
-      fs.writeFileSync(filePath, JSON.stringify(nuevasAsignaturas, null, 2), "utf8");
-  
+      //fs.writeFileSync(filePath, JSON.stringify(nuevasAsignaturas, null, 2), "utf8"); solo si se quiere escribir directamente desde el back
+
       res.status(200).json(nuevasAsignaturas); // Devolver contenido actualizado
     } catch (error) {
       console.error("❌ Error eliminando asignatura:", error);

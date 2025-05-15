@@ -1156,7 +1156,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         if (deleteAsig) {
           eliminarAsignatura();
         }
-    }, [deleteAsig]);
+      }, [deleteAsig]);
 
     const getTextoGrado = () => {
         if (!selectedGrade || !selectedSemester) return "";
