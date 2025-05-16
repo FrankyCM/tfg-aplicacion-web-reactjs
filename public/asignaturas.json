@@ -294,8 +294,9 @@
     "Curso": "1º",
     "Grupo": "T3",
     "GrupoLaboratorio": "X3",
-    "Clase": "L104",
-    "Profesor": "Profesor de FMAT 2",
+    "Mencion": "IS",
+    "Clase": "L103",
+    "Profesor": "NICOLAS RODRIGUEZ, JOAQUIN ADIEGO",
     "Color": "#FFD4B4"
   },
   {
@@ -873,5 +874,22 @@
     "Clase": "L102",
     "Profesor": "profesor master",
     "Color": "#FFD4B4"
+  },
+  {
+    "Codigo": "18327",
+    "Dia": "Miércoles",
+    "HoraInicio": "15:00",
+    "Duracion": 2,
+    "Siglas": "W",
+    "Nombre": "W",
+    "Grado": "INF",
+    "Semestre": "1ºC",
+    "Curso": "1º",
+    "Grupo": "T1",
+    "GrupoLaboratorio": "X2",
+    "Mencion": "IS",
+    "Clase": "L103",
+    "Profesor": "NICOLAS RODRIGUEZ, JOAQUIN ADIEGO",
+    "Color": "#FECEA8"
   }
 ]

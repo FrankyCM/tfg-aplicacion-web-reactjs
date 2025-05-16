@@ -826,8 +826,10 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       }, [createAsig]);
 
       const checkNewAsigIncompatibility = (nuevaAsignatura) => {
+
         console.log("entra checkNewAsig");
-      
+        console.log("nueva asig Creada:", nuevaAsignatura);
+
         const diaSemanaNueva = diasSemana[nuevaAsignatura.Dia];
         if (diaSemanaNueva === undefined) return false;
       
@@ -892,7 +894,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               if (nuevaAsignatura.Profesor === evento.profesor) extras.push("profesor");
               if (nuevaAsignatura.Clase === evento.aula) extras.push("aula");
               return extras.length
-                ? `${base} y ${extras.join(" y ")}`
+                ? `${base} ${extras.join(" y ")}`
                 : base;
             };
 
@@ -935,6 +937,30 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
               return true;
             }
+
+            if (nuevaAsignatura.GrupoLaboratorio !== "" && evento.grupoLaboratorio !== "" && generatedId !== evento.id) {
+
+              const mensaje = buildMessage("Incompatibilidad por coincidencia de");
+              const mensajeOriginal = "Incompatibilidad por coincidencia de";
+
+              if(mensaje !== mensajeOriginal) {
+                setIncidenceOnCreatedAsig(mensaje);
+
+                console.log("id de nueva:", generatedId);
+                console.log("id de evento:", evento.id);
+
+                setAsigIncompatibilitiesIds(prev => ({
+                  ...prev,
+                  [generatedId]: mensaje,
+                  [evento.id]: mensaje,
+                }));
+
+                console.log("entra cuarto if", incidenceOnCreatedAsig);
+                return true;
+              }
+
+            }
+
           }
         }
       
@@ -1169,7 +1195,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               if (asignaturaModificada.Profesor === evento.profesor) extras.push("profesor");
               if (asignaturaModificada.Clase === evento.aula) extras.push("aula");
               return extras.length
-                ? `${base} y ${extras.join(" y ")}`
+                ? `${base} ${extras.join(" y ")}`
                 : base;
             };
 
@@ -1211,6 +1237,29 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
               console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
               return true;
+            }
+
+            if(asignaturaModificada.GrupoLaboratorio !== "" && evento.grupoLaboratorio !== "") {
+
+              const mensaje = buildMessage("Incompatibilidad por coincidencia de");
+              const mensajeOriginal = "Incompatibilidad por coincidencia de";
+
+              if(mensaje !== mensajeOriginal){
+                console.log("id de evento mod:", nuevoIdAsigModificada);
+                console.log("id de evento:", evento.id);
+
+                setIncidenceOnCreatedAsig(mensaje);
+                
+                setAsigIncompatibilitiesIds(prev => ({
+                  ...prev,
+                  [nuevoIdAsigModificada]: mensaje,
+                  [evento.id]: mensaje,
+                }));
+
+                console.log("entra cuarto if", incidenceOnCreatedAsig);
+                return true;
+              }
+
             }
           }
         }
@@ -1445,7 +1494,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             if (nuevaAsignatura.profesor === evento.profesor) extras.push("profesor");
             if (nuevaAsignatura.aula === evento.aula) extras.push("aula");
             return extras.length
-              ? `${base} y ${extras.join(" y ")}`
+              ? `${base} ${extras.join(" y ")}`
               : base;
           };
 
@@ -1487,6 +1536,28 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
             console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
             return true;
+          }
+
+          if (nuevaAsignatura.grupoLaboratorio !== "" && evento.grupoLaboratorio !== "" ) {
+
+            const mensaje = buildMessage("Incompatibilidad por coincidencia de");
+            const mensajeOriginal = "Incompatibilidad por coincidencia de";
+
+            if(mensaje !== mensajeOriginal){
+              setIncidenceOnCreatedAsig(mensaje);
+
+            console.log("id de evento d&d:", nuevaAsignatura.id);
+            console.log("id de evento:", evento.id);
+
+            setAsigIncompatibilitiesIds(prev => ({
+              ...prev,
+              [nuevaAsignatura.id]: mensaje,
+              [evento.id]: mensaje,
+            }));
+
+            console.log("entra cuarto if", incidenceOnCreatedAsig);
+            return true;
+            } 
           }
         }
       }
