@@ -59,10 +59,11 @@ app.post("/asignaturas", (req, res) => {
   
     const asignaturasActualizadas = [...originales, ...nuevos];
   
-    fs.writeFile(filePath, JSON.stringify(asignaturasActualizadas, null, 2), "utf8", (writeErr) => {
+    /*fs.writeFile(filePath, JSON.stringify(asignaturasActualizadas, null, 2), "utf8", (writeErr) => {
       if (writeErr) return res.status(500).json({ error: "Error al escribir el archivo" });
-      res.json(asignaturasActualizadas);
-    });
+      
+    });*/
+    res.json(asignaturasActualizadas);
   });
 
 // 🔹 Borrar una asignatura específica
