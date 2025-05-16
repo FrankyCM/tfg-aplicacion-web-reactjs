@@ -268,7 +268,7 @@
   {
     "Codigo": "45678",
     "Dia": "Martes",
-    "HoraInicio": "16:00",
+    "HoraInicio": "17:00",
     "Duracion": 2,
     "Siglas": "FMAT",
     "Nombre": "Fundamentos de Matemáticas",
@@ -278,7 +278,7 @@
     "Grupo": "T3",
     "GrupoLaboratorio": "",
     "Mencion": "IS",
-    "Clase": "07",
+    "Clase": "04",
     "Profesor": "Profesor de FMAT",
     "Color": "#FFD4B4"
   },
