@@ -169,15 +169,8 @@ const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selec
                         <p>Grupos</p>  
                         <div className="contenido-tab-modificar-horario-seccion-grupo-botones">
                             <FiltersButton key={"T1"} content={"T1"} onClick={() => {handleGroupSelect("T1");}} isSelected={selectedGroup === "T1"} />
-                            {(selectedCourse === "1º" || selectedCourse === "2º") && (
-                                <>
-                                    <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2");}} isSelected={selectedGroup === "T2"} />
-                                </>
-                            )}
-                            {selectedCourse === "1º" && (
-                                <FiltersButton key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3");}} isSelected={selectedGroup === "T3"} />
-                            )}
-                            
+                            <FiltersButton key={"T2"} content={"T2"} onClick={() => {handleGroupSelect("T2");}} isSelected={selectedGroup === "T2"} />
+                            <FiltersButton key={"T3"} content={"T3"} onClick={() => {handleGroupSelect("T3");}} isSelected={selectedGroup === "T3"} />      
                         </div>      
                     </div> 
                     {warningMessage !== null && (
