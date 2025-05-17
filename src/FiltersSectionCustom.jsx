@@ -34,9 +34,6 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
     setIncludeLabs(false);
   };
 
-  const handleGradeSelectButton = (grade) => {
-    setSelectedGradeButton(selectedGradeButton === grade ? null : grade);
-  };
 
   const handleSemesterSelect = (semester) => {
     setSelectedSemester(selectedSemester === semester ? "" : semester);
@@ -51,12 +48,6 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
     setIncludeLabs(false);
   };
 
-  
-
-  const handleSemesterSelectButton = (semester) => {
-    setSelectedSemesterButton(selectedSemesterButton === semester ? null : semester);
-    //console.log(semester);
-  }
 
   const handleCoursesSelect = (course) => {
     
@@ -94,13 +85,6 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
     }
   };
 
-  const handleCoursesSelectButton = (course) => {
-    if (selectedCoursesButton.includes(course)) {
-      setSelectedCoursesButton(selectedCoursesButton.filter(c => c !== course)); // Deseleccionar si ya estaba seleccionado
-    } else {
-      setSelectedCoursesButton([...selectedCoursesButton, course]); // Agregar si no estaba seleccionado
-    }
-  };
 
   const handleFirstGroupSelect = (group) => {
     setSelectedFirstGroup(selectedFirstGroup === group ? "" : group);
@@ -181,26 +165,6 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
         selectedFourthMention === null &&
         selectedFifthGroup === null) 
     );
-  };
-  
-  const handleFirstGroupSelectButton = (group) => {
-    setSelectedFirstGroupButton(selectedFirstGroupButton === group ? null : group);
-  };
-  
-  const handleSecondGroupSelectButton = (group) => {
-    setSelectedSecondGroupButton(selectedSecondGroupButton === group ? null : group);
-  };
-  
-  const handleThirdMentionSelectButton = (mention) => {
-    setSelectedThirdMentionButton(selectedThirdMentionButton === mention ? null : mention);
-  };
-  
-  const handleFourthMentionSelectButton = (mention) => {
-    setSelectedFourthMentionButton(selectedFourthMentionButton === mention ? null : mention);
-  };
-
-  const handleFifthGroupSelectButton = (group) => {
-    setSelectedFifthGroupButton(selectedFifthGroupButton === group ? null : group);
   };
 
   const handleAsigSelect = (_, data) => {  
