@@ -91,10 +91,10 @@ export const AdminCalendarEvent = ({
         if (grado === "Master") setAsigCourse_MasterMod(curso);
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         console.log("IDs de incompatibilidad actualizados:", asigIncompatibilitiesIds);
         // Aquí puedes forzar una lógica o acción
-      }, [asigIncompatibilitiesIds]);
+      }, [asigIncompatibilitiesIds]);*/
 
       //console.log("id de ev:", event.id);
     return (

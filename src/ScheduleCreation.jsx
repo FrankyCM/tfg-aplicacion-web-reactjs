@@ -1213,7 +1213,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 [evento.id]: mensaje,
               }));
 
-              console.log("entra primer if", incidenceOnCreatedAsig);
+              console.log("entra primer if", mensaje);
               return true;
             }
       
@@ -1235,7 +1235,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 [evento.id]: mensaje,
               }));
 
-              console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
+              console.log("entra segundo/tercer if", mensaje);
               return true;
             }
 
@@ -1256,7 +1256,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                   [evento.id]: mensaje,
                 }));
 
-                console.log("entra cuarto if", incidenceOnCreatedAsig);
+                console.log("entra cuarto if", mensaje);
                 return true;
               }
 
@@ -1410,8 +1410,15 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
       setEvents(eventosActualizados);
       console.log("Eventos filtrados d&d:", eventosFiltrados);
-      // Pasa los eventos actualizados como segundo argumento
-      checkEventCompatibility(eventoActualizado, eventosFiltrados);
+
+      const nuevasIncompatibilidades = { ...asigIncompatibilitiesIds };
+
+      checkEventCompatibility(eventoActualizado, eventosFiltrados, nuevasIncompatibilidades);
+
+      setAsigIncompatibilitiesIds(nuevasIncompatibilidades);
+
+      checkAllEventsCompatibilities(eventosFiltrados, nuevasIncompatibilidades);
+      
     };
     
     const onEventResize = ({ event, start, end }) => {
@@ -1457,11 +1464,18 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
       setEvents(eventosActualizados);
       console.log("Eventos filtrados d&d:", eventosFiltrados);
-      // Pasa los eventos actualizados como segundo argumento
-      checkEventCompatibility(eventoActualizado, eventosFiltrados);
+      
+      const nuevasIncompatibilidades = { ...asigIncompatibilitiesIds };
+
+      checkEventCompatibility(eventoActualizado, eventosFiltrados, nuevasIncompatibilidades);
+
+      setAsigIncompatibilitiesIds(nuevasIncompatibilidades);
+
+      checkAllEventsCompatibilities(eventosFiltrados, nuevasIncompatibilidades);
+      
     };
 
-    const checkEventCompatibility = (nuevaAsignatura, eventosActualizados) => {
+    const checkEventCompatibility = (nuevaAsignatura, eventosActualizados, incompatibilities) => {
       console.log("entra checkEventCompatibility");
     
       const diaSemanaNueva = diasSemana[nuevaAsignatura.dia];
@@ -1506,13 +1520,10 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             console.log("id de evento d&d:", nuevaAsignatura.id);
             console.log("id de evento:", evento.id);
 
-            setAsigIncompatibilitiesIds(prev => ({
-              ...prev,
-              [nuevaAsignatura.id]: mensaje,
-              [evento.id]: mensaje,
-            }));
+            incompatibilities[nuevaAsignatura.id] = mensaje;
+            incompatibilities[evento.id] = mensaje;
 
-            console.log("entra primer if", incidenceOnCreatedAsig);
+            console.log("entra primer if", mensaje);
             return true;
           }
     
@@ -1528,13 +1539,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             console.log("id de evento d&d:", nuevaAsignatura.id);
             console.log("id de evento:", evento.id);
 
-            setAsigIncompatibilitiesIds(prev => ({
-              ...prev,
-              [nuevaAsignatura.id]: mensaje,
-              [evento.id]: mensaje,
-            }));
+            incompatibilities[nuevaAsignatura.id] = mensaje;
+            incompatibilities[evento.id] = mensaje;
 
-            console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
+
+            console.log("entra segundo/tercer if", mensaje);
             return true;
           }
 
@@ -1549,13 +1558,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             console.log("id de evento d&d:", nuevaAsignatura.id);
             console.log("id de evento:", evento.id);
 
-            setAsigIncompatibilitiesIds(prev => ({
-              ...prev,
-              [nuevaAsignatura.id]: mensaje,
-              [evento.id]: mensaje,
-            }));
+            incompatibilities[nuevaAsignatura.id] = mensaje;
+            incompatibilities[evento.id] = mensaje;
 
-            console.log("entra cuarto if", incidenceOnCreatedAsig);
+
+            console.log("entra cuarto if", mensaje);
             return true;
             } 
           }
@@ -1564,6 +1571,85 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     
       return false;
     };
+
+    const checkAllEventsCompatibilities = (eventosFiltrados, previasIdsIncompatibles) => {
+      const nuevasIdsIncompatibles = {};
+      console.log("incompatibilidades anadidas?:", previasIdsIncompatibles);
+
+      const buildMessage = (base, asignaturaIncompatibilidad, evento) => {
+        const extras = [];
+        if (asignaturaIncompatibilidad.profesor === evento.profesor) extras.push("profesor");
+        if (asignaturaIncompatibilidad.aula === evento.aula) extras.push("aula");
+        return extras.length ? `${base} ${extras.join(" y ")}` : base;
+      };
+
+      for (const id of Object.keys(previasIdsIncompatibles)) {
+        const asignaturaIncompatibilidad = eventosFiltrados.find(ev => ev.id === id);
+        if (!asignaturaIncompatibilidad) continue;
+    
+        const horaInicioNueva = moment(asignaturaIncompatibilidad.start);
+        const horaFinNueva = moment(asignaturaIncompatibilidad.end);
+    
+        let sigueHabiendoIncompatibilidad = false;
+    
+        for (const evento of eventosFiltrados) {
+          if (evento.id === asignaturaIncompatibilidad.id) continue; // Evita comparaciones de la asig incomp consigo misma
+    
+          const horaInicioEvento = moment(evento.start);
+          const horaFinEvento = moment(evento.end);
+    
+          const mismaFranja = horaInicioNueva.isBefore(horaFinEvento) && horaFinNueva.isAfter(horaInicioEvento);
+    
+          if (
+            mismaFranja &&
+            asignaturaIncompatibilidad.grado === evento.grado &&
+            asignaturaIncompatibilidad.dia === evento.dia &&
+            asignaturaIncompatibilidad.curso === evento.curso &&
+            asignaturaIncompatibilidad.grupo.startsWith("T") &&
+            evento.grupo.startsWith("T")
+          ) {
+            // 👇 Comprobaciones de incompatibilidad exactas a las de checkEventCompatibility:
+    
+            // 1️⃣ Coincidencia de sesiones teóricas
+            if (asignaturaIncompatibilidad.grupoLaboratorio === "" && evento.grupoLaboratorio === "") {
+              sigueHabiendoIncompatibilidad = true;
+              const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teóricas", asignaturaIncompatibilidad, evento);
+              nuevasIdsIncompatibles[asignaturaIncompatibilidad.id] = mensaje;
+              nuevasIdsIncompatibles[evento.id] = mensaje;
+              break;
+            }
+    
+            // 2️⃣ Coincidencia de sesión teórica con práctica
+            if (
+              (asignaturaIncompatibilidad.grupoLaboratorio === "" && evento.grupoLaboratorio !== "") ||
+              (asignaturaIncompatibilidad.grupoLaboratorio !== "" && evento.grupoLaboratorio === "")
+            ) {
+              sigueHabiendoIncompatibilidad = true;
+              const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teórica y práctica", asignaturaIncompatibilidad, evento);
+              nuevasIdsIncompatibles[asignaturaIncompatibilidad.id] = mensaje;
+              nuevasIdsIncompatibles[evento.id] = mensaje;
+              break;
+            }
+    
+            // 3️⃣ Coincidencia de sesiones prácticas con algún otro criterio
+            if (asignaturaIncompatibilidad.grupoLaboratorio !== "" && evento.grupoLaboratorio !== "") {
+              const mensaje = buildMessage("Incompatibilidad por coincidencia de", asignaturaIncompatibilidad, evento);
+              if (mensaje !== "Incompatibilidad por coincidencia de") {
+                sigueHabiendoIncompatibilidad = true;
+                nuevasIdsIncompatibles[asignaturaIncompatibilidad.id] = mensaje;
+                nuevasIdsIncompatibles[evento.id] = mensaje;
+                break;
+              }
+            }
+          }
+        }
+    
+        // Si no se encontró ninguna incompatibilidad, no se agrega la ID
+      }
+      console.log("Incompatibilidades def:", nuevasIdsIncompatibles);
+      setAsigIncompatibilitiesIds(nuevasIdsIncompatibles);
+    }
+
 
     /*const checkEventCompatibility = ({ event, start, end }) => {
         let conflictMessage = "";
