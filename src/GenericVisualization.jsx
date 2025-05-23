@@ -23,8 +23,24 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
     const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
     const [exportPDF, setExportPDF] = useState(false); // Opcion -> si se decide exportar a PDF
 
-    const localizer = momentLocalizer(moment);
+    
     moment.locale('es');
+    const localizer = momentLocalizer(moment);
+    console.log(moment().format('dddd'))
+    const messages = {
+      week: 'Semana',
+      work_week: 'Semana laboral',
+      day: 'Día',
+      month: 'Mes',
+      previous: 'Anterior',
+      next: 'Siguiente',
+      today: 'Hoy',
+      agenda: 'Agenda',
+      date: 'Fecha',
+      time: 'Hora',
+      event: 'Evento',
+      showMore: (total) => `+${total} más`,
+    }
 
     useEffect(() => {
       const cargarAsignaturas = async () => {
@@ -427,6 +443,8 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
             <div className="calendarioContainer" style={{ flexGrow: 1 }}>
             <Calendar
                 localizer={localizer}
+                culture="es"
+                messages={messages}
                 events={filteredAsigs}
                 startAccessor="start"
                 endAccessor="end"
@@ -436,7 +454,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                 style={{ 
                   height: 1000, // Se adapta mejor a la pantalla
                   width: "100%",
-                  backgroundColor: "#f8f9fa", // Un gris claro para suavizar la interfaz
+                  backgroundColor: "#ffffff", // Un gris claro para suavizar la interfaz
                   borderRadius: "12px", // Bordes más redondeados
                   padding: "10px", // Espaciado interno
                   boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // Sombra ligera para destacar
@@ -463,7 +481,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                   dayFormat: (date, culture, localizer) => localizer.format(date, "dddd", culture),
                   weekdayFormat: (date, culture, localizer) => localizer.format(date, "dddd", culture)
                 }}
-
+                
                 components={{
                   event: CalendarEvent,
                 }}
@@ -499,8 +517,9 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
             </div>
           </div>
 
-
+                
           <div className = "asignaturasHorario" style={{ paddingBottom: exportPDF ? "400px" : "40px" }}>
+            
             {filteredAsigs.length > 0 ? (
               [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
                 const asignatura = subjects.find(asig => asig.Siglas === sigla);

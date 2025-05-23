@@ -18,6 +18,7 @@ import html2pdf from "html2pdf.js";
 import { AdminCalendarEvent } from './adminCalendarEvent';
 import ModifyCalendarEvent from './ModifyCalendarEvent';
 
+
 const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     
     // APERTURA DE ARCHIVOS
@@ -206,9 +207,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [eventClicked, setEventClicked] = useState(null);
     const [selectedEvent, setSelectedEvent] = useState(null);
 
-    const localizer = momentLocalizer(moment);
+    
     moment.locale('es');
-
+    const localizer = momentLocalizer(moment);
     
 
     const DnDCalendar = withDragAndDrop(Calendar);
@@ -1790,8 +1791,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                                             style={{ 
                                                 height: exportPDF ? "1000px" : "1000px",  // Si se exporta, reducimos altura
                                                 width: "100%", 
-                                                backgroundColor: "#f8f9fa", // Un gris claro para suavizar la interfaz
-                                                borderRadius: "12px", // Bordes más redondeados
+                                                backgroundColor: "#ffffff", // Un gris claro para suavizar la interfaz
+                                                borderRadius: "10px", // Bordes más redondeados
                                                 padding: "10px", // Espaciado interno
                                                 boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // Sombra ligera para destacar
                                             }}

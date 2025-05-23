@@ -96,8 +96,8 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
       "FIA": "#F3EEA8"
     };*/
 
-    const localizer = momentLocalizer(moment);
     moment.locale('es');
+    const localizer = momentLocalizer(moment);
 
     const [asigColors, setAsigColors] = useState({});
 
@@ -490,7 +490,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                     style={{ 
                       height: 1000, // Se adapta mejor a la pantalla
                       width: "100%",
-                      backgroundColor: "#f8f9fa", // Un gris claro para suavizar la interfaz
+                      backgroundColor: "#ffffff", // Un gris claro para suavizar la interfaz
                       borderRadius: "12px", // Bordes más redondeados
                       padding: "10px", // Espaciado interno
                       boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // Sombra ligera para destacar
