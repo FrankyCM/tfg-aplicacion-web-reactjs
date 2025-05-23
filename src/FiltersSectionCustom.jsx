@@ -475,7 +475,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
                       {selectedAsigs.length > 0 ? (
                         selectedAsigs.map((asig) => {
                           const siglas = asig.split(" - ")[0].trim().toUpperCase();
-                          const backgroundColor = asigColors[siglas] || "#ccc"; // color por defecto
+                          let backgroundColor = asigColors[siglas] || "#ccc"; // color por defecto
                           const labelClass = `filters-select-asig-label filters-select-asig-label-${siglas}`;
 
                           return (
@@ -519,9 +519,8 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
                         {selectedAsigs.length > 0 ? (
                           selectedAsigs.map((asig) => {
                             const siglas = asig.split(" - ")[0].trim().toUpperCase();
-                            const backgroundColor = asigColors[siglas] || "#ccc"; // color por defecto
+                            let backgroundColor = asigColors[siglas] || "#ccc"; // color por defecto
                             const labelClass = `filters-select-asig-label filters-select-asig-label-${siglas}`;
-
                             return (
                               <Label
                                 key={asig}

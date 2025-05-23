@@ -30,7 +30,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
     const [exportPDF, setExportPDF] = useState(false); // Opcion -> si se decide exportar a PDF
     
-    const asigColors = {
+   /* const asigColors = {
       "ADA": "#FFD4B4", 
       "DIS": "#EFC3C4", 
       "ADBD": "#FFEFAE", 
@@ -94,10 +94,12 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
       "GLF": "#F0B494",
       "EDA": "#F7E4BE",
       "FIA": "#F3EEA8"
-    };
+    };*/
 
     const localizer = momentLocalizer(moment);
     moment.locale('es');
+
+    const [asigColors, setAsigColors] = useState({});
 
     useEffect(() => {
           const cargarAsignaturas = async () => {
@@ -107,6 +109,19 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
       
               setSubjects(data); // Guardar asignaturas en el estado
       
+              const asigColorObject = {};
+              data.forEach((asig) => {
+                const sigla = asig.Siglas;
+                const color = asig.Color;
+                if (sigla && color && !asigColorObject[sigla]) {
+                  asigColorObject[sigla] = color;
+                }
+              });
+
+              setAsigColors(asigColorObject);
+
+              console.log("asigColors:", asigColorObject);
+
               const eventos = data.map((asignatura) => {
                 const diaSemana = diasSemana[asignatura.Dia];
                 if (diaSemana === undefined) return null;

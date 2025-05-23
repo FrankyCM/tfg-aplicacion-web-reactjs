@@ -66,29 +66,45 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [asigStartTime, setAsigStartTime] = useState("");
 
     const asigPossibleColors = [
-      { key: 'color1', value: '#FFD4B4', text: '#FFD4B4', style: { backgroundColor: '#FFD4B4' } },
-      { key: 'color2', value: '#AFC3C4', text: '#AFC3C4', style: { backgroundColor: '#AFC3C4' } },
-      { key: 'color3', value: '#FFC3C4', text: '#FFC3C4', style: { backgroundColor: '#FFC3C4' } },
-      { key: 'color4', value: '#EFC3C4', text: '#EFC3C4', style: { backgroundColor: '#EFC3C4' } },
-      { key: 'color5', value: '#FFEFAE', text: '#FFEFAE', style: { backgroundColor: '#FFEFAE' } },
-      { key: 'color6', value: '#AFC3C4', text: '#AFC3C4', style: { backgroundColor: '#AFC3C4' } },
-      { key: 'color7', value: '#CDD6F6', text: '#CDD6F6', style: { backgroundColor: '#CDD6F6' } },
-      { key: 'color8', value: '#BEE9DD', text: '#BEE9DD', style: { backgroundColor: '#BEE9DD' } },
-      { key: 'color9', value: '#00E0FC', text: '#00E0FC', style: { backgroundColor: '#00E0FC' } },
-      { key: 'color10', value: '#F1EFA5', text: '#F1EFA5', style: { backgroundColor: '#F1EFA5' } },
-      { key: 'color11', value: '#F1F2EC', text: '#F1F2EC', style: { backgroundColor: '#F1F2EC' } },
-      { key: 'color12', value: '#FECEA8', text: '#FECEA8', style: { backgroundColor: '#FECEA8' } },
-      { key: 'color13', value: '#FAD088', text: '#FAD088', style: { backgroundColor: '#FAD088' } },
-      { key: 'color14', value: '#E0F6C3', text: '#E0F6C3', style: { backgroundColor: '#E0F6C3' } },
-      { key: 'color15', value: '#FFCEA8', text: '#FFCEA8', style: { backgroundColor: '#FFCEA8' } },
-      { key: 'color16', value: '#F9D423', text: '#F9D423', style: { backgroundColor: '#F9D423' } },
-      { key: 'color17', value: '#F0B494', text: '#F0B494', style: { backgroundColor: '#F0B494' } },
-      { key: 'color18', value: '#F7E4BE', text: '#F7E4BE', style: { backgroundColor: '#F7E4BE' } },
-      { key: 'color19', value: '#F3EEA8', text: '#F3EEA8', style: { backgroundColor: '#F3EEA8' } },
-      { key: 'color20', value: '#92D050', text: '#92D050', style: { backgroundColor: '#92D050' } },
-      { key: 'color21', value: '#F7E3BE', text: '#F7E3BE', style: { backgroundColor: '#F7E3BE' } },
-      { key: 'color22', value: '#F1EFA4', text: '#F1EFA4', style: { backgroundColor: '#F1EFA4' } },
-      { key: 'color23', value: '#E8CAA4', text: '#E8CAA4', style: { backgroundColor: '#E8CAA4' } },
+      { key: 'color1', value: '#E55050', text: '#E55050', style: { backgroundColor: '#E55050' } },
+      { key: 'color2', value: '#FF8282', text: '#FF8282', style: { backgroundColor: '#FF8282' } },
+      { key: 'color3', value: '#DA6C6C', text: '#DA6C6C', style: { backgroundColor: '#DA6C6C' } },
+      { key: 'color4', value: '#AF3E3E', text: '#AF3E3E', style: { backgroundColor: '#AF3E3E' } },
+      
+      { key: 'color5', value: '#81E7AF', text: '#81E7AF', style: { backgroundColor: '#81E7AF' } },
+      { key: 'color6', value: '#DDF6D2', text: '#DDF6D2', style: { backgroundColor: '#DDF6D2' } },
+      { key: 'color7', value: '#CAE8BD', text: '#CAE8BD', style: { backgroundColor: '#CAE8BD' } },
+      { key: 'color8', value: '#B0DB9C', text: '#B0DB9C', style: { backgroundColor: '#B0DB9C' } },
+    
+      { key: 'color9', value: '#FFF085', text: '#FFF085', style: { backgroundColor: '#FFF085' } },
+      { key: 'color10', value: '#F6F193', text: '#F6F193', style: { backgroundColor: '#F6F193' } },
+      { key: 'color11', value: '#FADA7A', text: '#FADA7A', style: { backgroundColor: '#FADA7A' } },
+      { key: 'color12', value: '#F3C623', text: '#F3C623', style: { backgroundColor: '#F3C623' } },
+    
+      { key: 'color13', value: '#FFC145', text: '#FFC145', style: { backgroundColor: '#FFC145' } },
+      { key: 'color14', value: '#FF9F00', text: '#FF9F00', style: { backgroundColor: '#FF9F00' } },
+      { key: 'color15', value: '#F39E60', text: '#F39E60', style: { backgroundColor: '#F39E60' } },
+      { key: 'color16', value: '#FE7743', text: '#FE7743', style: { backgroundColor: '#FE7743' } },
+    
+      { key: 'color17', value: '#F1BA88', text: '#F1BA88', style: { backgroundColor: '#F1BA88' } },
+      { key: 'color18', value: '#DE8F5F', text: '#DE8F5F', style: { backgroundColor: '#DE8F5F' } },
+      { key: 'color19', value: '#B17F59', text: '#B17F59', style: { backgroundColor: '#B17F59' } },
+      { key: 'color20', value: '#AB886D', text: '#AB886D', style: { backgroundColor: '#AB886D' } },
+    
+      { key: 'color21', value: '#BDDDE4', text: '#BDDDE4', style: { backgroundColor: '#BDDDE4' } },
+      { key: 'color22', value: '#9EC6F3', text: '#9EC6F3', style: { backgroundColor: '#9EC6F3' } },
+      { key: 'color23', value: '#9FB3DF', text: '#9FB3DF', style: { backgroundColor: '#9FB3DF' } },
+      { key: 'color24', value: '#BBE9FF', text: '#BBE9FF', style: { backgroundColor: '#BBE9FF' } },
+    
+      { key: 'color25', value: '#F7CFD8', text: '#F7CFD8', style: { backgroundColor: '#F7CFD8' } },
+      { key: 'color26', value: '#EABDE6', text: '#EABDE6', style: { backgroundColor: '#EABDE6' } },
+      { key: 'color27', value: '#C95792', text: '#C95792', style: { backgroundColor: '#C95792' } },
+      { key: 'color28', value: '#D69ADE', text: '#D69ADE', style: { backgroundColor: '#D69ADE' } },
+    
+      { key: 'color29', value: '#EAE4D5', text: '#EAE4D5', style: { backgroundColor: '#EAE4D5' } },
+      { key: 'color30', value: '#F2F2F2', text: '#F2F2F2', style: { backgroundColor: '#F2F2F2' } },
+      { key: 'color31', value: '#D4C9BE', text: '#D4C9BE', style: { backgroundColor: '#D4C9BE' } },
+      { key: 'color32', value: '#706D54', text: '#706D54', style: { backgroundColor: '#706D54' } },
     ];
     
     const [asigColor, setAsigColor] = useState("");
