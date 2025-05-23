@@ -330,7 +330,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               minute: minutos,
               second: 0,
             }).toDate();
-    
+            
             const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
     
             return {
@@ -996,6 +996,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         setAsigTeacher("");
         setAsigIncidences("");
         setCreateAsig(false);
+        setIncidenceOnCreatedAsig("");
         setClearFormulary(false);
     };
 

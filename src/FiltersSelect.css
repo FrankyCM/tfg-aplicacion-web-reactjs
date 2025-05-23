@@ -20,71 +20,117 @@
   background-color: inherit !important;
 }
 
+.ui.selection.dropdown.selected-asig- {
+  font-size: 18px !important; /* Cambia a lo que necesites */
+}
+
+.ui.selection.dropdown.selected-asig- .text,
+.ui.selection.dropdown.selected-asig- .item {
+  font-size: 18px !important; /* Asegura que también se aplica a las opciones */
+}
+
+.ui.selection.dropdown.selected-asig- .item {
+  font-size: 18px !important; /* Asegura que también se aplica a las opciones */
+  border-top: 0px !important;
+}
+
 .selected-asig-FFD4B4 {
   background-color: #FFD4B4 !important;
+  font-size: 18px !important;
 }
+
+.selected-asig-FFD4B4 .item {
+  font-size: 18px !important;
+}
+
 .selected-asig-AFC3C4 {
   background-color: #AFC3C4 !important;
+  font-size: 18px !important;
 }
 .selected-asig-FFC3C4 {
   background-color: #FFC3C4 !important;
+  font-size: 18px !important;
 }
 .selected-asig-EFC3C4 {
   background-color: #EFC3C4 !important;
+  font-size: 18px !important;
 }
 .selected-asig-FFEFAE {
   background-color: #FFEFAE !important;
+  font-size: 18px !important;
 }
 .selected-asig-CDD6F6 {
   background-color: #CDD6F6 !important;
+  font-size: 18px !important;
 }
 .selected-asig-BEE9DD {
   background-color: #BEE9DD !important;
+  font-size: 18px !important;
 }
+
+.selected-asig-BEE9DD .item {
+  font-size: 18px !important;
+}
+
 .selected-asig-00E0FC {
   background-color: #00E0FC !important;
+  font-size: 18px !important;
 }
 .selected-asig-F1EFA5 {
   background-color: #F1EFA5 !important;
+  font-size: 18px !important;
 }
 .selected-asig-F1F2EC {
   background-color: #F1F2EC !important;
+  font-size: 18px !important;
 }
 .selected-asig-FECEA8 {
   background-color: #FECEA8 !important;
+  font-size: 18px !important;
 }
 .selected-asig-FAD088 {
   background-color: #FAD088 !important;
+  font-size: 18px !important;
 }
 .selected-asig-E0F6C3 {
   background-color: #E0F6C3 !important;
+  font-size: 18px !important;
 }
 .selected-asig-FFCEA8 {
   background-color: #FFCEA8 !important;
+  font-size: 18px !important;
 }
 .selected-asig-F9D423 {
   background-color: #F9D423 !important;
+  font-size: 18px !important;
 }
 .selected-asig-F0B494 {
   background-color: #F0B494 !important;
+  font-size: 18px !important;
 }
 .selected-asig-F7E4BE {
   background-color: #F7E4BE !important;
+  font-size: 18px !important;
 }
 .selected-asig-F3EEA8 {
   background-color: #F3EEA8 !important;
+  font-size: 18px !important;
 }
 .selected-asig-92D050 {
   background-color: #92D050 !important;
+  font-size: 18px !important;
 }
 .selected-asig-F7E3BE {
   background-color: #F7E3BE !important;
+  font-size: 18px !important;
 }
 .selected-asig-F1EFA4 {
   background-color: #F1EFA4 !important;
+  font-size: 18px !important;
 }
 .selected-asig-E8CAA4 {
   background-color: #E8CAA4 !important;
+  font-size: 18px !important;
 }
 
 

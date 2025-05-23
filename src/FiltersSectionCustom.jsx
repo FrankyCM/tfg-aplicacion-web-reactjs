@@ -242,7 +242,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
     }
   
     if (selectedCourses.length !== 0) {
-      newHeight += 130 * selectedCourses.length;
+      newHeight += 110 * selectedCourses.length;
       if (selectedFirstGroup || selectedSecondGroup || selectedThirdMention || selectedFourthMention) {
           newHeight += 150;
       }

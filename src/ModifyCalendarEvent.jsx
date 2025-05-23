@@ -75,8 +75,8 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
             </div>
 
             <div className = "contenido-tab-crear-asignatura">
-                <div className = "contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color">
-                    <div className="contenido-tab-crear-asignatura-codigo-siglas-nombre-completo">
+                <div className = "contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color-mod">
+                    <div className="contenido-tab-crear-asignatura-codigo-siglas-nombre-completo-mod">
                         <div className="contenido-tab-crear-asignatura-codigo">
                             <p className="apartado-codigo">Código</p>
                             <ScheduleCreationInput className={"codigo-asignatura"} setStatusOnChange={setAsigCodeMod} value={asigCodeMod} type={`number`}/>
@@ -107,7 +107,7 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                     
                 </div>
                 
-                <div className= "contenido-tab-crear-asignatura-semestre-grupo-subgrupo-tipo-duracion-aula">
+                <div className= "contenido-tab-crear-asignatura-semestre-grupo-subgrupo-tipo-duracion-aula-mod">
                     <div className= "apartado-semestre">
                         <p>Semestre</p>
                         <div className= "campos-semestre-grupo-subgrupo-tipo-duracion-aula">
@@ -145,10 +145,10 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                         </div>
                     </div>
                 </div>
-                <div className="contenido-tab-crear-asignatura-estudios-profesores">
+                <div className="contenido-tab-crear-asignatura-estudios-profesores-mod">
                     <div className= "contenido-tab-crear-asignatura-estudios">
                         <p className="apartado-estudios">Estudios donde se imparte, cursos y optatividad</p>
-                        <div className= "cabecera-estudios">
+                        <div className= "cabecera-estudios-mod">
                             <div className= "cabecera-estudios-IS">
                                 <p>GII-IS</p>
                                 <div className= "campos-estudios">
@@ -187,16 +187,16 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                             </div> 
                         </div>
                     </div>
-                    <div className = "contenido-tab-crear-asignatura-profesores">
-                        <p className = "apartado-profesores">Profesores</p>
-                        <div className = "campo-primer-profesor">
+                    <div className = "contenido-tab-crear-asignatura-profesores-mod">
+                        <p className = "apartado-profesores-mod">Profesores</p>
+                        <div className = "campo-primer-profesor-mod">
                             <p>Prof. #1</p>
                             <ScheduleCreationDropdownSelect placeholder={"Profesor..."} selectOptions={asigPossibleTeacherOptions}  setStatusOnChange={setAsigTeacherMod} value={asigTeacherMod}/>
                         </div>
                     </div>
                 </div>
                 {event.id in asigIncidencesMod && (
-                    <div className = "contenido-tab-crear-asignatura-incidencias">
+                    <div className = "contenido-tab-crear-asignatura-incidencias-mod">
                         <p className= "apartado-incidencias">Incidencias</p>
                         <ScheduleCreationMenuWarningsField text={asigIncidencesMod[event.id]}/>
                     </div>  

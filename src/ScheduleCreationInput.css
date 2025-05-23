@@ -21,15 +21,21 @@
 }
 
 
-/* Ajuste para inputs específicos */
-.ui.input.nombre-completo input {
-    display: flex;
-    flex: none;
-    padding: 10px !important;  /* Ajusta el padding */
-    font-size: 22px !important; /* Tamaño de fuente */
-    border: 2px solid #4efc9f !important; /* Borde personalizado */
-    min-width: 0 !important;
-}
+.ui.input.nombre-completo {
+    width: 330px !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 25px !important;
+  }
+  
+  .ui.input.nombre-completo input {
+    width: 100% !important;
+    padding: 10px !important;
+    font-size: 22px !important;
+    border: 2px solid #4efc9f !important;
+    box-sizing: border-box !important; /* CLAVE */
+  }
 
 
 .ui.input.subgrupo-laboratorio input {

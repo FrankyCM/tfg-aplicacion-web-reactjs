@@ -28,22 +28,24 @@
 
 .rbc-event-content .evento-calendario .evento-calendario-siglas {
     margin-bottom: 15px;
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .rbc-event-content .evento-calendario .evento-calendario-grupo-aula, .evento-calendario-grupo-aula-laboratorio {
-    font-size: 16px;
+    font-size: 18px;
 }
 
-.rbc-event-content .evento-calendario .evento-calendario-grupo-aula-laboratorio {
+.rbc-event-content .evento-calendario .evento-calendario-grupo-aula-laboratorio-2 {
     display: flex;
     flex-direction: column;
+    font-size: 18px;
 }
 
-.rbc-event-content .evento-calendario .evento-calendario-grupo-aula-laboratorio .aula-laboratorio{
-    font-size: 16px;
-    margin-top: 15px;
+.rbc-event-content .evento-calendario .evento-calendario-grupo-aula-laboratorio-2 .aula-laboratorio {
+    font-size: 18px;
+    margin-top: 16px;
 }
+
 
 .rbc-current-time-indicator {
     display: none !important;

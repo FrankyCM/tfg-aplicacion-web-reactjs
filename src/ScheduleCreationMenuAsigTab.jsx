@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import ScheduleCreationMenuWarningsField from './ScheduleCreationMenuWarningsField';
 import './ScheduleCreationMenuAsigTab.css';
 import ScheduleCreationInput from './ScheduleCreationInput';
