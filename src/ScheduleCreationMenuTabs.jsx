@@ -27,7 +27,7 @@ const ScheduleCreationMenuTabs = ({
   asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
   setAsigCourse_Master, asigPossibleTeacherOptions, asigTeacher,
   setAsigTeacher, asigIncidences, setAsigIncidences, incidenceOnCreatedAsig, setIncidenceOnCreatedAsig,
-   createAsig, setCreateAsig, clearFormulary, setClearFormulary
+   createAsig, setCreateAsig, clearFormulary, setClearFormulary, setSize
 }) => {
 
   // ✅ Esta función ahora está dentro del componente y puede acceder a las props
@@ -39,6 +39,9 @@ const ScheduleCreationMenuTabs = ({
       console.log("selectedGroup:", selectedGroup);
       console.log("selectedMention:", selectedMention);
       console.log("warningMessage:", warningMessage);
+      setSize({ width: 550, height: 400 });
+    } else {
+      setSize({ width: 1856, height: 863 });
     }
   };
 

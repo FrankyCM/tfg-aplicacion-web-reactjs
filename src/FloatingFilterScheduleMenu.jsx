@@ -33,7 +33,7 @@ const FloatingFilterScheduleMenu = ({
   createAsig, setCreateAsig, clearFormulary, setClearFormulary, setOpenFile
 }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [size, setSize] = useState({ width: 550, height: 300 }); // Estado del tamaño
+  const [size, setSize] = useState({ width: 550, height: 400 }); // Estado del tamaño
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef(null);
   const containerRef = useRef(null);
@@ -164,7 +164,7 @@ const FloatingFilterScheduleMenu = ({
             asigCourse_INDat={asigCourse_INDat} setAsigCourse_INDat={setAsigCourse_INDat} asigCourse_Master={asigCourse_Master}
             setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
             asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} incidenceOnCreatedAsig={incidenceOnCreatedAsig} setIncidenceOnCreatedAsig={setIncidenceOnCreatedAsig} 
-            createAsig={createAsig} setCreateAsig={setCreateAsig} clearFormulary={clearFormulary} setClearFormulary={setClearFormulary}
+            createAsig={createAsig} setCreateAsig={setCreateAsig} clearFormulary={clearFormulary} setClearFormulary={setClearFormulary} setSize={setSize}
           />
 
           {/* Esquinas de redimensionamiento */}
