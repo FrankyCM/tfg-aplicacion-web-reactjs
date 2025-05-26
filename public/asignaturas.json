@@ -29,7 +29,7 @@
     "Grupo": "T1",
     "GrupoLaboratorio": "L2",
     "Mencion": "IS",
-    "Clase": "L103",
+    "Clase": "L104",
     "Profesor": "GONZALEZ FERRERAS, CESAR",
     "Color": "#BBE9FF"
   },
@@ -164,7 +164,7 @@
     "GrupoLaboratorio": "",
     "Mencion": "IS",
     "Clase": "03",
-    "Profesor": "Profesor de SRS",
+    "Profesor": "CALONGE CANO, TEODORO",
     "Color": "#BEE9DD"
   },
   {
@@ -502,8 +502,9 @@
     "Curso": "1º",
     "Grupo": "T1",
     "GrupoLaboratorio": "X1",
+    "Mencion": "IS",
     "Clase": "L101",
-    "Profesor": "profesor master",
+    "Profesor": "NICOLAS RODRIGUEZ, JOAQUIN ADIEGO",
     "Color": "#FFD4B4"
   },
   {
@@ -518,6 +519,7 @@
     "Curso": "1º",
     "Grupo": "T1",
     "GrupoLaboratorio": "J3",
+    "Mencion": "IS",
     "Clase": "L104",
     "Profesor": "profesor master",
     "Color": "#FFD4B4"

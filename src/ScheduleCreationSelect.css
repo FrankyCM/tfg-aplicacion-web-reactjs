@@ -39,75 +39,6 @@
     transition: background-color 0.5s ease-in-out !important; /* ⏳ transición suave del color */
   }
   
-
-  /* Estilo para el select cerrado según su valor */
-  .selected-color-FFD4B4 {
-    background-color: #FFD4B4 !important;
-  }
-  .selected-color-AFC3C4 {
-    background-color: #AFC3C4 !important;
-  }
-  .selected-color-FFC3C4 {
-    background-color: #FFC3C4 !important;
-  }
-  .selected-color-EFC3C4 {
-    background-color: #EFC3C4 !important;
-  }
-  .selected-color-FFEFAE {
-    background-color: #FFEFAE !important;
-  }
-  .selected-color-CDD6F6 {
-    background-color: #CDD6F6 !important;
-  }
-  .selected-color-BEE9DD {
-    background-color: #BEE9DD !important;
-  }
-  .selected-color-00E0FC {
-    background-color: #00E0FC !important;
-  }
-  .selected-color-F1EFA5 {
-    background-color: #F1EFA5 !important;
-  }
-  .selected-color-F1F2EC {
-    background-color: #F1F2EC !important;
-  }
-  .selected-color-FECEA8 {
-    background-color: #FECEA8 !important;
-  }
-  .selected-color-FAD088 {
-    background-color: #FAD088 !important;
-  }
-  .selected-color-E0F6C3 {
-    background-color: #E0F6C3 !important;
-  }
-  .selected-color-FFCEA8 {
-    background-color: #FFCEA8 !important;
-  }
-  .selected-color-F9D423 {
-    background-color: #F9D423 !important;
-  }
-  .selected-color-F0B494 {
-    background-color: #F0B494 !important;
-  }
-  .selected-color-F7E4BE {
-    background-color: #F7E4BE !important;
-  }
-  .selected-color-F3EEA8 {
-    background-color: #F3EEA8 !important;
-  }
-  .selected-color-92D050 {
-    background-color: #92D050 !important;
-  }
-  .selected-color-F7E3BE {
-    background-color: #F7E3BE !important;
-  }
-  .selected-color-F1EFA4 {
-    background-color: #F1EFA4 !important;
-  }
-  .selected-color-E8CAA4 {
-    background-color: #E8CAA4 !important;
-  }
-  
   /* Texto del valor seleccionado (cuando el dropdown está cerrado) */
   .select-color .text {
     font-weight: bold;
@@ -149,7 +80,7 @@
     justify-content: flex-start;
     width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
     text-align: center;
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
 .campos-semestre-grupo-subgrupo-tipo-duracion-aula .ui.selection.dropdown .item {

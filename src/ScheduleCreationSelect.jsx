@@ -5,20 +5,16 @@ import './ScheduleCreationSelect.css'
 
 const ScheduleCreationSelect = ({ selectOptions, placeholder, className, setStatusOnChange, value }) => {
     const handleChange = (e, { value }) => {
-      //console.log("valor en el select", value) // 👉 imprime el valor seleccionado
-      setStatusOnChange(value) // 👉 actualiza el estado pasado por parámetro
+      setStatusOnChange(value)
     }
-    //console.log("valor select ", value);
-
-    const combinedClassName = `${className} selected-color-${value?.replace('#', '')}`
 
     return (
       <Select 
         placeholder={placeholder}
         options={selectOptions}
-        className={combinedClassName}
         value={value ?? ""}
         onChange={handleChange}
+        style={{ backgroundColor: value }}
       />
     )
   }

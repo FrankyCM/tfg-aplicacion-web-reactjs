@@ -1158,6 +1158,137 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
         let eventosFiltrados;
 
+
+        if(selectedGrade === "INF"){
+          if (selectedCourse === "3º" || selectedCourse === "4º") {
+            eventosFiltrados = events.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            evento.mencion === selectedMention &&
+            evento.grupo.startsWith("T") &&
+            (evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("W") ||
+            evento.grupoLaboratorio === "") &&
+            evento.id !== idAntiguoAsigModificada
+            );
+          } else {
+            if(!selectedGroup){
+              eventosFiltrados = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === selectedCourse &&
+                    evento.grupo.startsWith("T") &&
+                    (evento.grupoLaboratorio.startsWith("X") || 
+                    evento.grupoLaboratorio.startsWith("L") || 
+                    evento.grupoLaboratorio.startsWith("AS") || 
+                    evento.grupoLaboratorio.startsWith("J") ||
+                    evento.grupoLaboratorio.startsWith("K") ||
+                    evento.grupoLaboratorio.startsWith("Y") ||
+                    evento.grupoLaboratorio === "") &&
+                    evento.id !== idAntiguoAsigModificada
+                );
+            } else {
+              eventosFiltrados = events.filter(evento => 
+                    evento.grado === selectedGrade &&
+                    evento.semestre === selectedSemester &&
+                    evento.curso === selectedCourse &&
+                    (evento.grupo === selectedGroup && 
+                    (evento.grupoLaboratorio.startsWith("X") ||  
+                    evento.grupoLaboratorio.startsWith("L")  || 
+                    evento.grupoLaboratorio.startsWith("AS") || 
+                    evento.grupoLaboratorio.startsWith("J")  ||
+                    evento.grupoLaboratorio.startsWith("K")  ||
+                    evento.grupoLaboratorio.startsWith("Y")  ||
+                    evento.grupoLaboratorio === "")) &&
+                    evento.id !== idAntiguoAsigModificada
+                );
+            }
+          }
+        }
+  
+        if(selectedGrade === "EST"){
+          if(!selectedGroup){
+            eventosFiltrados = events.filter(evento => 
+              evento.grado === selectedGrade &&
+              evento.semestre === selectedSemester &&
+              evento.curso === selectedCourse &&
+              (evento.grupo.startsWith("T") && 
+              (evento.grupoLaboratorio.startsWith("T/L") ||
+              evento.grupoLaboratorio.startsWith("L") ||
+              evento.grupoLaboratorio.startsWith("X") ||
+              evento.grupoLaboratorio.startsWith("J") ||
+              evento.grupoLaboratorio.startsWith("TL") ||
+              evento.grupoLaboratorio === "")) &&
+              evento.id !== idAntiguoAsigModificada
+              );
+          } else {
+            eventosFiltrados = events.filter(evento => 
+              evento.grado === selectedGrade &&
+              evento.semestre === selectedSemester &&
+              evento.curso === selectedCourse &&
+              (evento.grupo === selectedGroup && 
+              (evento.grupoLaboratorio.startsWith("T/L") ||
+              evento.grupoLaboratorio.startsWith("L") ||
+              evento.grupoLaboratorio.startsWith("X") ||
+              evento.grupoLaboratorio.startsWith("J") ||
+              evento.grupoLaboratorio.startsWith("TL") ||
+              evento.grupoLaboratorio === "")) &&
+              evento.id !== idAntiguoAsigModificada
+            );
+          }
+                  
+        }
+        if(selectedGrade === "I + E"){
+          if(!selectedGroup){
+            eventosFiltrados = events.filter(evento => 
+              evento.grado === selectedGrade &&
+              evento.semestre === selectedSemester &&
+              evento.curso === selectedCourse &&
+              (evento.grupo.startsWith("T") &&
+              (evento.grupoLaboratorio.startsWith("T/L") ||
+              evento.grupoLaboratorio.startsWith("L") ||
+              evento.grupoLaboratorio.startsWith("AS") || 
+              evento.grupoLaboratorio.startsWith("X") ||
+              evento.grupoLaboratorio.startsWith("J") ||
+              evento.grupoLaboratorio.startsWith("Y") ||
+              evento.grupoLaboratorio.startsWith("K") ||
+              evento.grupoLaboratorio === "")) &&
+              evento.id !== idAntiguoAsigModificada
+            );
+        } else {
+          eventosFiltrados = events.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo === selectedGroup &&
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("AS") || 
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("Y") ||
+            evento.grupoLaboratorio.startsWith("K") ||
+            evento.grupoLaboratorio === "")) &&
+            evento.id !== idAntiguoAsigModificada
+          );
+        }
+            
+        }
+  
+        if(selectedGrade === "Master"){
+          eventosFiltrados = events.filter(evento => 
+                evento.grado === selectedGrade &&
+                evento.semestre === selectedSemester &&
+                evento.curso === "1º" &&
+                (evento.grupo.startsWith("T") &&
+                (evento.grupoLaboratorio.startsWith("L") ||
+                 evento.grupoLaboratorio === "")) &&
+                 evento.id !== idAntiguoAsigModificada
+            );
+        }
+
+        /*
         if(selectedGrade === "Master"){
           eventosFiltrados = events.filter(evento => 
             evento.grado === selectedGrade &&
@@ -1184,7 +1315,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             evento.grupoLaboratorio === "") &&
             evento.id !== idAntiguoAsigModificada
           );
-        }
+        }*/
         
         console.log("eventos checkMod: ", eventosFiltrados);
         const nuevoIdAsigModificada = `${asignaturaModificada.Dia} - ${asignaturaModificada.Siglas} - ${asignaturaModificada.Grupo} - ${asignaturaModificada.GrupoLaboratorio} - ${asignaturaModificada.Clase} - ${asignaturaModificada.HoraInicio}`;
@@ -1309,7 +1440,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               asig.HoraInicio === horaInicioEvento &&
               asig.Duracion === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // horas
             );
-      
+            console.log("asig a eliminar:", asignaturaAEliminar);
             if (!asignaturaAEliminar) {
               console.warn("⚠️ No se encontró la asignatura a eliminar");
               return;
@@ -1333,6 +1464,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               setTimeout(() => {
                 const nuevosEventos = actualizarEventos(contenidoActualizado);
                 setEvents(nuevosEventos);
+                
+                checkEventsCompatibilitiesAfterDelete(nuevosEventos);
                 console.log("Elim asig, archivo abierto:", openedFile);
               }, 300); // Espera 300ms
             } else {
@@ -1400,30 +1533,125 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       console.log("eventos actualizados:", eventosActualizados);
       let eventosFiltrados;
 
-      if(selectedGrade === "Master"){
-        eventosFiltrados = eventosActualizados.filter(evento => 
+      if(selectedGrade === "INF"){
+        if (selectedCourse === "3º" || selectedCourse === "4º") {
+          eventosFiltrados = eventosActualizados.filter(evento => 
           evento.grado === selectedGrade &&
           evento.semestre === selectedSemester &&
-          evento.curso === "1º" &&
-          (evento.grupo.startsWith("T") &&
+          evento.curso === selectedCourse &&
+          evento.mencion === selectedMention &&
+          evento.grupo.startsWith("T") &&
           (evento.grupoLaboratorio.startsWith("L") ||
-           evento.grupoLaboratorio === ""))
-        );
+          evento.grupoLaboratorio.startsWith("W") ||
+          evento.grupoLaboratorio === "")
+          );
+        } else {
+          if(!selectedGroup){
+            eventosFiltrados = eventosActualizados.filter(evento => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  evento.curso === selectedCourse &&
+                  evento.grupo.startsWith("T") &&
+                  (evento.grupoLaboratorio.startsWith("X") || 
+                  evento.grupoLaboratorio.startsWith("L") || 
+                  evento.grupoLaboratorio.startsWith("AS") || 
+                  evento.grupoLaboratorio.startsWith("J") ||
+                  evento.grupoLaboratorio.startsWith("K") ||
+                  evento.grupoLaboratorio.startsWith("Y") ||
+                  evento.grupoLaboratorio === "")
+              );
+          } else {
+            eventosFiltrados = eventosActualizados.filter(evento => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  evento.curso === selectedCourse &&
+                  (evento.grupo === selectedGroup && 
+                  (evento.grupoLaboratorio.startsWith("X") ||  
+                  evento.grupoLaboratorio.startsWith("L")  || 
+                  evento.grupoLaboratorio.startsWith("AS") || 
+                  evento.grupoLaboratorio.startsWith("J")  ||
+                  evento.grupoLaboratorio.startsWith("K")  ||
+                  evento.grupoLaboratorio.startsWith("Y")  ||
+                  evento.grupoLaboratorio === ""))
+              );
+          }
+        }
+      }
+
+      if(selectedGrade === "EST"){
+        if(!selectedGroup){
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo.startsWith("T") && 
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("TL") ||
+            evento.grupoLaboratorio === ""))
+            );
+        } else {
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo === selectedGroup && 
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("TL") ||
+            evento.grupoLaboratorio === ""))
+          );
+        }
+                
+      }
+      if(selectedGrade === "I + E"){
+        if(!selectedGroup){
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo.startsWith("T") &&
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("AS") || 
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("Y") ||
+            evento.grupoLaboratorio.startsWith("K") ||
+            evento.grupoLaboratorio === ""))
+          );
       } else {
         eventosFiltrados = eventosActualizados.filter(evento => 
           evento.grado === selectedGrade &&
           evento.semestre === selectedSemester &&
           evento.curso === selectedCourse &&
-          evento.grupo.startsWith("T") &&
-          (evento.grupoLaboratorio.startsWith("X") || 
-          evento.grupoLaboratorio.startsWith("L") || 
+          (evento.grupo === selectedGroup &&
+          (evento.grupoLaboratorio.startsWith("T/L") ||
+          evento.grupoLaboratorio.startsWith("L") ||
           evento.grupoLaboratorio.startsWith("AS") || 
+          evento.grupoLaboratorio.startsWith("X") ||
           evento.grupoLaboratorio.startsWith("J") ||
-          evento.grupoLaboratorio.startsWith("K") ||
           evento.grupoLaboratorio.startsWith("Y") ||
-          evento.grupoLaboratorio.startsWith("W") ||
-          evento.grupoLaboratorio === "")
+          evento.grupoLaboratorio.startsWith("K") ||
+          evento.grupoLaboratorio === ""))
         );
+      }
+          
+      }
+
+      if(selectedGrade === "Master"){
+        eventosFiltrados = eventosActualizados.filter(evento => 
+              evento.grado === selectedGrade &&
+              evento.semestre === selectedSemester &&
+              evento.curso === "1º" &&
+              (evento.grupo.startsWith("T") &&
+              (evento.grupoLaboratorio.startsWith("L") ||
+               evento.grupoLaboratorio === ""))
+          );
       }
 
       setEvents(eventosActualizados);
@@ -1454,34 +1682,129 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       console.log("eventos actualizados:", eventosActualizados);
       let eventosFiltrados;
 
-      if(selectedGrade === "Master"){
-        eventosFiltrados = eventosActualizados.filter(evento => 
+      if(selectedGrade === "INF"){
+        if (selectedCourse === "3º" || selectedCourse === "4º") {
+          eventosFiltrados = eventosActualizados.filter(evento => 
           evento.grado === selectedGrade &&
           evento.semestre === selectedSemester &&
-          evento.curso === "1º" &&
-          (evento.grupo.startsWith("T") &&
+          evento.curso === selectedCourse &&
+          evento.mencion === selectedMention &&
+          evento.grupo.startsWith("T") &&
           (evento.grupoLaboratorio.startsWith("L") ||
-           evento.grupoLaboratorio === ""))
-        );
+          evento.grupoLaboratorio.startsWith("W") ||
+          evento.grupoLaboratorio === "")
+          );
+        } else {
+          if(!selectedGroup){
+            eventosFiltrados = eventosActualizados.filter(evento => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  evento.curso === selectedCourse &&
+                  evento.grupo.startsWith("T") &&
+                  (evento.grupoLaboratorio.startsWith("X") || 
+                  evento.grupoLaboratorio.startsWith("L") || 
+                  evento.grupoLaboratorio.startsWith("AS") || 
+                  evento.grupoLaboratorio.startsWith("J") ||
+                  evento.grupoLaboratorio.startsWith("K") ||
+                  evento.grupoLaboratorio.startsWith("Y") ||
+                  evento.grupoLaboratorio === "")
+              );
+          } else {
+            eventosFiltrados = eventosActualizados.filter(evento => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  evento.curso === selectedCourse &&
+                  (evento.grupo === selectedGroup && 
+                  (evento.grupoLaboratorio.startsWith("X") ||  
+                  evento.grupoLaboratorio.startsWith("L")  || 
+                  evento.grupoLaboratorio.startsWith("AS") || 
+                  evento.grupoLaboratorio.startsWith("J")  ||
+                  evento.grupoLaboratorio.startsWith("K")  ||
+                  evento.grupoLaboratorio.startsWith("Y")  ||
+                  evento.grupoLaboratorio === ""))
+              );
+          }
+        }
+      }
+
+      if(selectedGrade === "EST"){
+        if(!selectedGroup){
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo.startsWith("T") && 
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("TL") ||
+            evento.grupoLaboratorio === ""))
+            );
+        } else {
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo === selectedGroup && 
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("TL") ||
+            evento.grupoLaboratorio === ""))
+          );
+        }
+                
+      }
+      if(selectedGrade === "I + E"){
+        if(!selectedGroup){
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo.startsWith("T") &&
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("AS") || 
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("Y") ||
+            evento.grupoLaboratorio.startsWith("K") ||
+            evento.grupoLaboratorio === ""))
+          );
       } else {
         eventosFiltrados = eventosActualizados.filter(evento => 
           evento.grado === selectedGrade &&
           evento.semestre === selectedSemester &&
           evento.curso === selectedCourse &&
-          evento.grupo.startsWith("T") &&
-          (evento.grupoLaboratorio.startsWith("X") || 
-          evento.grupoLaboratorio.startsWith("L") || 
+          (evento.grupo === selectedGroup &&
+          (evento.grupoLaboratorio.startsWith("T/L") ||
+          evento.grupoLaboratorio.startsWith("L") ||
           evento.grupoLaboratorio.startsWith("AS") || 
+          evento.grupoLaboratorio.startsWith("X") ||
           evento.grupoLaboratorio.startsWith("J") ||
-          evento.grupoLaboratorio.startsWith("K") ||
           evento.grupoLaboratorio.startsWith("Y") ||
-          evento.grupoLaboratorio.startsWith("W") ||
-          evento.grupoLaboratorio === "")
+          evento.grupoLaboratorio.startsWith("K") ||
+          evento.grupoLaboratorio === ""))
         );
+      }
+          
+      }
+
+      if(selectedGrade === "Master"){
+        eventosFiltrados = eventosActualizados.filter(evento => 
+              evento.grado === selectedGrade &&
+              evento.semestre === selectedSemester &&
+              evento.curso === "1º" &&
+              (evento.grupo.startsWith("T") &&
+              (evento.grupoLaboratorio.startsWith("L") ||
+               evento.grupoLaboratorio === ""))
+          );
       }
 
       setEvents(eventosActualizados);
-      console.log("Eventos filtrados d&d:", eventosFiltrados);
+      console.log("Eventos filtrados resize:", eventosFiltrados);
       
       const nuevasIncompatibilidades = { ...asigIncompatibilitiesIds };
 
@@ -1492,6 +1815,233 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       checkAllEventsCompatibilities(eventosFiltrados, nuevasIncompatibilidades);
       
     };
+
+    const checkEventsCompatibilitiesAfterDelete = (eventosActualizados) => {
+      let newIncompatibilities = {};
+      console.log("eventos after del: ", eventosActualizados);
+
+
+      let eventosFiltrados;
+
+      if(selectedGrade === "INF"){
+        if (selectedCourse === "3º" || selectedCourse === "4º") {
+          eventosFiltrados = eventosActualizados.filter(evento => 
+          evento.grado === selectedGrade &&
+          evento.semestre === selectedSemester &&
+          evento.curso === selectedCourse &&
+          evento.mencion === selectedMention &&
+          evento.grupo.startsWith("T") &&
+          (evento.grupoLaboratorio.startsWith("L") ||
+          evento.grupoLaboratorio.startsWith("W") ||
+          evento.grupoLaboratorio === "")
+          );
+        } else {
+          if(!selectedGroup){
+            eventosFiltrados = eventosActualizados.filter(evento => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  evento.curso === selectedCourse &&
+                  evento.grupo.startsWith("T") &&
+                  (evento.grupoLaboratorio.startsWith("X") || 
+                  evento.grupoLaboratorio.startsWith("L") || 
+                  evento.grupoLaboratorio.startsWith("AS") || 
+                  evento.grupoLaboratorio.startsWith("J") ||
+                  evento.grupoLaboratorio.startsWith("K") ||
+                  evento.grupoLaboratorio.startsWith("Y") ||
+                  evento.grupoLaboratorio === "")
+              );
+          } else {
+            eventosFiltrados = eventosActualizados.filter(evento => 
+                  evento.grado === selectedGrade &&
+                  evento.semestre === selectedSemester &&
+                  evento.curso === selectedCourse &&
+                  (evento.grupo === selectedGroup && 
+                  (evento.grupoLaboratorio.startsWith("X") ||  
+                  evento.grupoLaboratorio.startsWith("L")  || 
+                  evento.grupoLaboratorio.startsWith("AS") || 
+                  evento.grupoLaboratorio.startsWith("J")  ||
+                  evento.grupoLaboratorio.startsWith("K")  ||
+                  evento.grupoLaboratorio.startsWith("Y")  ||
+                  evento.grupoLaboratorio === ""))
+              );
+          }
+        }
+      }
+
+      if(selectedGrade === "EST"){
+        if(!selectedGroup){
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo.startsWith("T") && 
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("TL") ||
+            evento.grupoLaboratorio === ""))
+            );
+        } else {
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo === selectedGroup && 
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("TL") ||
+            evento.grupoLaboratorio === ""))
+          );
+        }
+                
+      }
+      if(selectedGrade === "I + E"){
+        if(!selectedGroup){
+          eventosFiltrados = eventosActualizados.filter(evento => 
+            evento.grado === selectedGrade &&
+            evento.semestre === selectedSemester &&
+            evento.curso === selectedCourse &&
+            (evento.grupo.startsWith("T") &&
+            (evento.grupoLaboratorio.startsWith("T/L") ||
+            evento.grupoLaboratorio.startsWith("L") ||
+            evento.grupoLaboratorio.startsWith("AS") || 
+            evento.grupoLaboratorio.startsWith("X") ||
+            evento.grupoLaboratorio.startsWith("J") ||
+            evento.grupoLaboratorio.startsWith("Y") ||
+            evento.grupoLaboratorio.startsWith("K") ||
+            evento.grupoLaboratorio === ""))
+          );
+      } else {
+        eventosFiltrados = eventosActualizados.filter(evento => 
+          evento.grado === selectedGrade &&
+          evento.semestre === selectedSemester &&
+          evento.curso === selectedCourse &&
+          (evento.grupo === selectedGroup &&
+          (evento.grupoLaboratorio.startsWith("T/L") ||
+          evento.grupoLaboratorio.startsWith("L") ||
+          evento.grupoLaboratorio.startsWith("AS") || 
+          evento.grupoLaboratorio.startsWith("X") ||
+          evento.grupoLaboratorio.startsWith("J") ||
+          evento.grupoLaboratorio.startsWith("Y") ||
+          evento.grupoLaboratorio.startsWith("K") ||
+          evento.grupoLaboratorio === ""))
+        );
+      }
+          
+      }
+
+      if(selectedGrade === "Master"){
+        eventosFiltrados = eventosActualizados.filter(evento => 
+              evento.grado === selectedGrade &&
+              evento.semestre === selectedSemester &&
+              evento.curso === "1º" &&
+              (evento.grupo.startsWith("T") &&
+              (evento.grupoLaboratorio.startsWith("L") ||
+               evento.grupoLaboratorio === ""))
+          );
+      }
+      console.log("eventos filtrados after del:", eventosFiltrados);
+
+      for(const evento1 of eventosFiltrados){
+
+        const horaInicioPrimerEvento = moment(evento1.start);
+        const horaFinPrimerEvento = moment(evento1.end);
+
+        for(const evento2 of eventosFiltrados){
+          const horaInicioSegundoEvento = moment(evento2.start);
+          const horaFinSegundoEvento = moment(evento2.end);
+
+          if(evento1.id !== evento2.id) {
+            
+            
+            const mismaFranja = horaInicioPrimerEvento.isBefore(horaFinSegundoEvento) && horaFinPrimerEvento.isAfter(horaInicioSegundoEvento);
+            
+            if (
+              mismaFranja && evento1.grado === evento2.grado && evento1.dia === evento2.dia &&
+              evento1.curso === evento2.curso &&
+              evento1.grupo === evento2.grupo &&
+              evento1.grupo.startsWith("T") &&
+              evento2.grupo.startsWith("T") 
+            ) {
+              console.log("entra if gordo");
+    
+              //const generatedId = `${nuevaAsignatura.dia} - ${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${nuevaAsignatura.GrupoLaboratorio} - ${nuevaAsignatura.Clase} - ${nuevaAsignatura.HoraInicio}`;
+              
+              const buildMessage = (base) => {
+                const extras = [];
+                if (evento1.profesor === evento2.profesor) extras.push("profesor");
+                if (evento1.aula === evento2.aula) extras.push("aula");
+                return extras.length
+                  ? `${base} ${extras.join(" y ")}`
+                  : base;
+              };
+    
+              if (evento1.grupoLaboratorio === "" && evento2.grupoLaboratorio === "") {
+    
+                const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teóricas");
+    
+                setIncidenceOnCreatedAsig(mensaje);
+                console.log("id de evento1:", evento1.id);
+                console.log("id de evento2:", evento2.id);
+    
+                newIncompatibilities[evento1.id] = mensaje;
+                newIncompatibilities[evento2.id] = mensaje;
+    
+                console.log("entra primer if", mensaje);
+                return true;
+              }
+        
+              if (
+                (evento1.grupoLaboratorio === "" && evento2.grupoLaboratorio !== "") ||
+                (evento1.grupoLaboratorio !== "" && evento2.grupoLaboratorio === "")
+              ) {
+    
+                const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teórica y práctica");
+          
+                setIncidenceOnCreatedAsig(mensaje);
+    
+                console.log("id de evento1:", evento1.id);
+                console.log("id de evento2:", evento2.id);
+    
+                newIncompatibilities[evento1.id] = mensaje;
+                newIncompatibilities[evento2.id] = mensaje;
+    
+    
+                console.log("entra segundo/tercer if", mensaje);
+                return true;
+              }
+    
+              if (evento1.grupoLaboratorio !== "" && evento2.grupoLaboratorio !== "" ) {
+    
+                const mensaje = buildMessage("Incompatibilidad por coincidencia de");
+                const mensajeOriginal = "Incompatibilidad por coincidencia de";
+    
+                if(mensaje !== mensajeOriginal){
+                  setIncidenceOnCreatedAsig(mensaje);
+    
+                console.log("id de evento1:", evento1.id);
+                console.log("id de evento2:", evento2.id);
+    
+                newIncompatibilities[evento1.id] = mensaje;
+                newIncompatibilities[evento2.id] = mensaje;
+    
+    
+                console.log("entra cuarto if", mensaje);
+                return true;
+                } 
+              }
+            }
+          }
+        }
+      }
+
+      console.log("nuevas inc:", newIncompatibilities);
+      setAsigIncompatibilitiesIds(newIncompatibilities);
+    }
+
 
     const checkEventCompatibility = (nuevaAsignatura, eventosActualizados, incompatibilities) => {
       console.log("entra checkEventCompatibility");
@@ -1512,10 +2062,10 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         if (
           mismaFranja && nuevaAsignatura.grado === evento.grado && nuevaAsignatura.dia === evento.dia &&
           nuevaAsignatura.curso === evento.curso &&
+          nuevaAsignatura.grupo === evento.grupo &&
           nuevaAsignatura.grupo.startsWith("T") &&
           evento.grupo.startsWith("T")  && 
           nuevaAsignatura.id !== evento.id 
-          //cambiar .Grupo por .grupo y asi con el resto para nuevaAsig...
         ) {
           console.log("entra if gordo");
 
@@ -1623,6 +2173,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             asignaturaIncompatibilidad.grado === evento.grado &&
             asignaturaIncompatibilidad.dia === evento.dia &&
             asignaturaIncompatibilidad.curso === evento.curso &&
+            asignaturaIncompatibilidad.grupo === evento.grupo &&
             asignaturaIncompatibilidad.grupo.startsWith("T") &&
             evento.grupo.startsWith("T")
           ) {
