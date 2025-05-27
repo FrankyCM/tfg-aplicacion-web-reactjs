@@ -67,10 +67,10 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     const [asigStartTime, setAsigStartTime] = useState("");
 
     const asigPossibleColors = [
-      { key: 'color1', value: '#E55050', text: '#E55050', style: { backgroundColor: '#E55050' } },
+      { key: 'color1', value: '#FF4545', text: '#FF4545', style: { backgroundColor: '#FF4545' } },
       { key: 'color2', value: '#FF8282', text: '#FF8282', style: { backgroundColor: '#FF8282' } },
       { key: 'color3', value: '#DA6C6C', text: '#DA6C6C', style: { backgroundColor: '#DA6C6C' } },
-      { key: 'color4', value: '#AF3E3E', text: '#AF3E3E', style: { backgroundColor: '#AF3E3E' } },
+      { key: 'color4', value: '#D84040', text: '#D84040', style: { backgroundColor: '#D84040' } },
       
       { key: 'color5', value: '#81E7AF', text: '#81E7AF', style: { backgroundColor: '#81E7AF' } },
       { key: 'color6', value: '#DDF6D2', text: '#DDF6D2', style: { backgroundColor: '#DDF6D2' } },
@@ -99,13 +99,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     
       { key: 'color25', value: '#F7CFD8', text: '#F7CFD8', style: { backgroundColor: '#F7CFD8' } },
       { key: 'color26', value: '#EABDE6', text: '#EABDE6', style: { backgroundColor: '#EABDE6' } },
-      { key: 'color27', value: '#C95792', text: '#C95792', style: { backgroundColor: '#C95792' } },
+      { key: 'color27', value: '#AA60C8', text: '#AA60C8', style: { backgroundColor: '#AA60C8' } },
       { key: 'color28', value: '#D69ADE', text: '#D69ADE', style: { backgroundColor: '#D69ADE' } },
     
       { key: 'color29', value: '#EAE4D5', text: '#EAE4D5', style: { backgroundColor: '#EAE4D5' } },
-      { key: 'color30', value: '#F2F2F2', text: '#F2F2F2', style: { backgroundColor: '#F2F2F2' } },
+      { key: 'color30', value: '#AAB99A', text: '#AAB99A', style: { backgroundColor: '#AAB99A' } },
       { key: 'color31', value: '#D4C9BE', text: '#D4C9BE', style: { backgroundColor: '#D4C9BE' } },
-      { key: 'color32', value: '#706D54', text: '#706D54', style: { backgroundColor: '#706D54' } },
+      { key: 'color32', value: '#B6B09F', text: '#B6B09F', style: { backgroundColor: '#B6B09F' } },
     ];
     
     const [asigColor, setAsigColor] = useState("");
