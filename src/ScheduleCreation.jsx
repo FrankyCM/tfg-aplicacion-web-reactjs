@@ -1037,8 +1037,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               { estado: asigCourse_MasterMod, grado: "Master" },
             ];
       
-            const nuevasAsignaturas = [...subjects];
-            let index, asignaturaModificada;
+            let asignaturaModificada;
 
             console.log(asigCourseGII_TIMod);
             console.log(asigCourseGII_COMod);
@@ -1052,74 +1051,58 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 console.log(asigCourseGII_ISMod);
                 console.log(selectedEvent);
                 console.log(Array.isArray(subjects), subjects);
-                const horaInicioEvento = selectedEvent.start.getHours() < 10
-                  ? selectedEvent.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
-                  : selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
-                  console.log(Array.isArray(subjects), subjects)
-                // Buscar asignatura antigua en el JSON por coincidencia total
-                const asignaturaAntigua = subjects.find((asig) =>
-                    asig.Codigo === selectedEvent.codigo &&
-                    asig.Siglas === selectedEvent.siglas &&
-                    asig.Dia === selectedEvent.dia &&
-                    asig.Grupo === selectedEvent.grupo &&
-                    asig.GrupoLaboratorio === selectedEvent.grupoLaboratorio &&
-                    asig.Nombre === selectedEvent.nombre &&
-                    asig.Semestre === selectedEvent.semestre &&
-                    asig.Clase === selectedEvent.aula &&
-                    asig.Profesor === selectedEvent.profesor &&
-                    asig.Grado === selectedEvent.grado &&
-                    (asig.Mencion ?? "") === (selectedEvent.mencion ?? "") &&
-                    asig.Curso === selectedEvent.curso &&
-                    asig.Color === selectedEvent.color &&
-                    asig.HoraInicio === horaInicioEvento &&
-                    asig.Duracion === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // en horas
-                );
-                console.log(asignaturaAntigua)
-                if (asignaturaAntigua) {
-                  index = subjects.indexOf(asignaturaAntigua);
-                  console.log(index)
-                  asignaturaModificada = {
-                    Codigo: asigCodeMod,
-                    Dia: asigDayMod,
-                    HoraInicio: asigStartTimeMod,
-                    Duracion: Number(asigDurationMod),
-                    Siglas: asigInitialsMod,
-                    Nombre: asigFullNameMod,
-                    Grado: curso.grado,
-                    Semestre: asigSemesterMod,
-                    Curso: curso.estado,
-                    Grupo: grupo,
-                    GrupoLaboratorio: asigLabGroupMod ?? "",
-                    Mencion: curso.mencion ?? "",
-                    Clase: asigClassMod,
-                    Profesor: asigTeacherMod,
-                    Color: asigColorMod,
-                  };
+
+                const diaSemana = diasSemana[asigDayMod];
+                
+      
+                const [hora, minutos] = asigStartTimeMod.split(":").map(Number);
+                const hoy = moment();
+                const lunesSemanaActual = hoy.clone().startOf("isoWeek");
+        
+                const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+                  hour: hora,
+                  minute: minutos,
+                  second: 0,
+                }).toDate();
+                
+                const fin = moment(inicio).add(parseInt(asigDurationMod), "hours").toDate();
+
+                asignaturaModificada = {
+                  id: `${asigDayMod} - ${asigInitialsMod} - ${grupo} - ${asigLabGroupMod} - ${asigClassMod} - ${asigStartTimeMod}`,
+                  title: `${asigInitialsMod} \n \n ${grupo} - ${asigClassMod}`,
+                  codigo: asigCodeMod,
+                  dia: asigDayMod,
+                  siglas: asigInitialsMod,
+                  nombre: asigFullNameMod,
+                  grado: curso.grado,
+                  semestre: asigSemesterMod,
+                  curso: curso.estado,
+                  grupo: grupo,
+                  grupoLaboratorio: asigLabGroupMod ?? "",
+                  mencion: curso.mencion ?? "",
+                  aula: asigClassMod,
+                  profesor: asigTeacherMod,
+                  color: asigColorMod,
+                  start: inicio,
+                  end: fin
+                };
+                
                   checkModifiedAsigIncompatibility(asignaturaModificada, selectedEvent.id);
-                }
+                
               }
             });
-      
-            const res = await fetch(`http://localhost:5000/asignaturas${openedFile ? `?archivo=${openedFile.name}` : ""}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ nuevasAsignaturas, index, asignaturaModificada }),
-            });
-      
-            if (res.ok) {
-              const contenidoActualizado = await res.json();
-              setSubjects(contenidoActualizado);
-              console.log("✅ Asignatura modificada correctamente");
-              setTimeout(() => {
-                const nuevosEventos = actualizarEventos(contenidoActualizado);
-                setEvents(nuevosEventos);
-                console.log("Mod asig, archivo abierto:", openedFile);
-              }, 300); // Espera 300ms
-            } else {
-              console.error("❌ Error al modificar la asignatura en el backend.");
+
+            // Aquí reemplazas el evento en el array
+            if (asignaturaModificada) {
+              const eventosActualizados = events
+                .filter((evento) => evento.id !== selectedEvent.id) // elimina el antiguo
+                .concat(asignaturaModificada); // añade el nuevo
+
+              setEvents(eventosActualizados);
+              console.log("evnetos modificados mod asig: ", eventosActualizados);
             }
+      
+            
       
           } catch (error) {
             console.error("⚠️ Error al modificar asignatura:", error);
@@ -1141,23 +1124,16 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         console.log("asig Modificada:", asignaturaModificada);
         console.log("id antiguo asig Mod:", idAntiguoAsigModificada);
 
-        const diaSemanaNueva = diasSemana[asignaturaModificada.Dia];
-        if (diaSemanaNueva === undefined) return false;
         
-        // Construimos la fecha completa con día y hora
-        const [hora, minuto] = asignaturaModificada.HoraInicio.split(":").map(Number);
-        const lunesSemanaActual = moment().startOf("isoWeek");
       
-        const horaInicioNueva = lunesSemanaActual.clone().add(diaSemanaNueva - 1, "days").set({
-          hour: hora,
-          minute: minuto,
-          second: 0,
-        });
-      
-        const horaFinNueva = horaInicioNueva.clone().add(asignaturaModificada.Duracion, "hours");
+        const horaInicioNueva = moment(asignaturaModificada.start);
+        const horaFinNueva = moment(asignaturaModificada.end);
 
         let eventosFiltrados;
 
+        const horaInicioAsignaturaModificada = asignaturaModificada.start.getHours() < 10
+              ? asignaturaModificada.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
+              : asignaturaModificada.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
 
         if(selectedGrade === "INF"){
           if (selectedCourse === "3º" || selectedCourse === "4º") {
@@ -1288,37 +1264,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             );
         }
 
-        /*
-        if(selectedGrade === "Master"){
-          eventosFiltrados = events.filter(evento => 
-            evento.grado === selectedGrade &&
-            evento.semestre === selectedSemester &&
-            evento.curso === "1º" &&
-            (evento.grupo.startsWith("T") &&
-            (evento.grupoLaboratorio.startsWith("L") ||
-            evento.grupoLaboratorio === "")) &&
-            evento.id !== idAntiguoAsigModificada
-          );
-        } else {
-          eventosFiltrados = events.filter(evento => 
-            evento.grado === selectedGrade &&
-            evento.semestre === selectedSemester &&
-            evento.curso === selectedCourse &&
-            evento.grupo.startsWith("T") &&
-            (evento.grupoLaboratorio.startsWith("X") || 
-            evento.grupoLaboratorio.startsWith("L") || 
-            evento.grupoLaboratorio.startsWith("AS") || 
-            evento.grupoLaboratorio.startsWith("J") ||
-            evento.grupoLaboratorio.startsWith("K") ||
-            evento.grupoLaboratorio.startsWith("Y") ||
-            evento.grupoLaboratorio.startsWith("W") ||
-            evento.grupoLaboratorio === "") &&
-            evento.id !== idAntiguoAsigModificada
-          );
-        }*/
         
         console.log("eventos checkMod: ", eventosFiltrados);
-        const nuevoIdAsigModificada = `${asignaturaModificada.Dia} - ${asignaturaModificada.Siglas} - ${asignaturaModificada.Grupo} - ${asignaturaModificada.GrupoLaboratorio} - ${asignaturaModificada.Clase} - ${asignaturaModificada.HoraInicio}`;
+        const nuevoIdAsigModificada = `${asignaturaModificada.dia} - ${asignaturaModificada.siglas} - ${asignaturaModificada.grupo} - ${asignaturaModificada.grupoLaboratorio} - ${asignaturaModificada.aula} - ${horaInicioAsignaturaModificada}`;
         
         for (const evento of eventosFiltrados) {    // Es necesario que se realice sobre los eventos que compartan grado, cuatri y curso, para poder
                                           // comprobar entre distintos grupos del mismo curso
@@ -1328,9 +1276,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           const mismaFranja = horaInicioNueva.isBefore(horaFinEvento) && horaFinNueva.isAfter(horaInicioEvento);
           
           if (
-            mismaFranja && asignaturaModificada.Grado === evento.grado && asignaturaModificada.Dia === evento.dia &&
-            asignaturaModificada.Curso === evento.curso &&
-            asignaturaModificada.Grupo.startsWith("T") &&
+            mismaFranja && asignaturaModificada.grado === evento.grado && asignaturaModificada.dia === evento.dia &&
+            asignaturaModificada.curso === evento.curso &&
+            asignaturaModificada.grupo.startsWith("T") &&
             evento.grupo.startsWith("T")  && 
             nuevoIdAsigModificada !== evento.id 
             //cambiar .Grupo por .grupo y asi con el resto para nuevaAsig...
@@ -1341,14 +1289,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             
             const buildMessage = (base) => {
               const extras = [];
-              if (asignaturaModificada.Profesor === evento.profesor) extras.push("profesor");
-              if (asignaturaModificada.Clase === evento.aula) extras.push("aula");
+              if (asignaturaModificada.profesor === evento.profesor) extras.push("profesor");
+              if (asignaturaModificada.aula === evento.aula) extras.push("aula");
               return extras.length
                 ? `${base} ${extras.join(" y ")}`
                 : base;
             };
 
-            if (asignaturaModificada.GrupoLaboratorio === "" && evento.grupoLaboratorio === "") {
+            if (asignaturaModificada.grupoLaboratorio === "" && evento.grupoLaboratorio === "") {
 
               const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teóricas");
 
@@ -1367,8 +1315,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             }
       
             if (
-              (asignaturaModificada.GrupoLaboratorio === "" && evento.grupoLaboratorio !== "") ||
-              (asignaturaModificada.GrupoLaboratorio !== "" && evento.grupoLaboratorio === "")
+              (asignaturaModificada.grupoLaboratorio === "" && evento.grupoLaboratorio !== "") ||
+              (asignaturaModificada.grupoLaboratorio !== "" && evento.grupoLaboratorio === "")
             ) {
 
               const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teórica y práctica");
@@ -1388,7 +1336,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               return true;
             }
 
-            if(asignaturaModificada.GrupoLaboratorio !== "" && evento.grupoLaboratorio !== "") {
+            if(asignaturaModificada.grupoLaboratorio !== "" && evento.grupoLaboratorio !== "") {
 
               const mensaje = buildMessage("Incompatibilidad por coincidencia de");
               const mensajeOriginal = "Incompatibilidad por coincidencia de";
@@ -1419,41 +1367,77 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       useEffect(() => {
         const eliminarAsignatura = async () => {
           try {
-            const horaInicioEvento = selectedEvent.start.getHours() < 10
+            const horaInicioEventoSelect = selectedEvent.start.getHours() < 10
               ? selectedEvent.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
               : selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
+
+            const duracionEventoSelect = (selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60);
+
+            console.log("eventos antes de borrar:", events);  
+
+            const eventoAEliminar = events.find((evento) => {
+              const horaInicioEvento = evento.start.getHours() < 10
+                ? evento.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+                : evento.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+              const duracionEvento = (evento.end - evento.start) / (1000 * 60 * 60);
               
-            const asignaturaAEliminar = subjects.find((asig) =>
-              asig.Codigo === selectedEvent.codigo &&
-              asig.Siglas === selectedEvent.siglas &&
-              asig.Dia === selectedEvent.dia &&
-              asig.Grupo === selectedEvent.grupo &&
-              asig.GrupoLaboratorio === selectedEvent.grupoLaboratorio &&
-              asig.Nombre === selectedEvent.nombre &&
-              asig.Semestre === selectedEvent.semestre &&
-              asig.Clase === selectedEvent.aula &&
-              asig.Profesor === selectedEvent.profesor &&
-              asig.Grado === selectedEvent.grado &&
-              (asig.Mencion ?? "") === (selectedEvent.mencion ?? "") &&
-              asig.Curso === selectedEvent.curso &&
-              asig.Color === selectedEvent.color &&
+
+              return (
+                evento.codigo === selectedEvent.codigo &&
+                evento.siglas === selectedEvent.siglas &&
+                evento.dia === selectedEvent.dia &&
+                evento.grupo === selectedEvent.grupo &&
+                evento.grupoLaboratorio === selectedEvent.grupoLaboratorio &&
+                evento.nombre === selectedEvent.nombre &&
+                evento.semestre === selectedEvent.semestre &&
+                evento.aula === selectedEvent.aula &&
+                evento.profesor === selectedEvent.profesor &&
+                evento.grado === selectedEvent.grado &&
+                (evento.mencion ?? "") === (selectedEvent.mencion ?? "") &&
+                evento.curso === selectedEvent.curso &&
+                evento.color === selectedEvent.color &&
+                horaInicioEvento === horaInicioEventoSelect &&
+                duracionEvento === duracionEventoSelect
+              );
+            });
+
+            /*const asignaturaAEliminar = events.find((evento) =>
+              evento.codigo === selectedEvent.codigo &&
+              evento.siglas === selectedEvent.siglas &&
+              evento.dia === selectedEvent.dia &&
+              evento.grupo === selectedEvent.grupo &&
+              evento.grupoLaboratorio === selectedEvent.grupoLaboratorio &&
+              evento.nombre === selectedEvent.nombre &&
+              evento.semestre === selectedEvent.semestre &&
+              evento.aula === selectedEvent.aula &&
+              evento.profesor === selectedEvent.profesor &&
+              evento.grado === selectedEvent.grado &&
+              (evento.mencion ?? "") === (selectedEvent.mencion ?? "") &&
+              evento.curso === selectedEvent.curso &&
+              evento.color === selectedEvent.color &&
               asig.HoraInicio === horaInicioEvento &&
-              asig.Duracion === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // horas
-            );
-            console.log("asig a eliminar:", asignaturaAEliminar);
-            if (!asignaturaAEliminar) {
-              console.warn("⚠️ No se encontró la asignatura a eliminar");
+              ((evento.end - evento.start) / (1000 * 60 * 60)) === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // horas
+            );*/
+            console.log("evento a eliminar:", eventoAEliminar);
+            if (!eventoAEliminar) {
+              console.warn("⚠️ No se encontró el evento a eliminar");
               return;
             }
-      
-            const res = await fetch(`http://localhost:5000/asignaturas/${asignaturaAEliminar.Codigo}${openedFile ? `?archivo=${openedFile.name}` : ""}`, {
+            
+            const eventosActualizados = events.filter(ev => ev !== eventoAEliminar);
+            console.log("eventos despues de borrar: ", eventosActualizados);
+            setEvents(eventosActualizados);
+            checkEventsCompatibilitiesAfterDelete(eventosActualizados);
+
+            /*const res = await fetch(`http://localhost:5000/asignaturas/${eventoAEliminar.codigo}${openedFile ? `?archivo=${openedFile.name}` : ""}`, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 subjects,
-                asignaturaAEliminar,
+                eventoAEliminar,
               }), // Se envía el objeto para filtrar más allá del código
             });
       
@@ -1462,15 +1446,15 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               setSubjects(contenidoActualizado);
               console.log("🗑️ Asignatura eliminada correctamente");
               setTimeout(() => {
-                const nuevosEventos = actualizarEventos(contenidoActualizado);
-                setEvents(nuevosEventos);
+                //const nuevosEventos = actualizarEventos(contenidoActualizado);
+                //setEvents(nuevosEventos);
                 
-                checkEventsCompatibilitiesAfterDelete(nuevosEventos);
+                checkEventsCompatibilitiesAfterDelete(eventosActualizados);
                 console.log("Elim asig, archivo abierto:", openedFile);
               }, 300); // Espera 300ms
             } else {
               console.error("❌ Error al eliminar la asignatura en el backend.");
-            }
+            }*/
           } catch (error) {
             console.error("⚠️ Error al eliminar asignatura:", error);
           } finally {
@@ -2213,7 +2197,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           }
         }
     
-        // Si no se encontró ninguna incompatibilidad, no se agrega la ID
+
       }
       console.log("Incompatibilidades def:", nuevasIdsIncompatibles);
       setAsigIncompatibilitiesIds(nuevasIdsIncompatibles);
@@ -2413,17 +2397,19 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
 
                                 <div className="creacion-horarios-horario-asignaturasHorario">
-                                    {filteredAsigs.length > 0 ? (
-                                    [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
-                                        const asignatura = subjects.find(asig => asig.Siglas === sigla);
-                                            return (
-                                                <div key={sigla} className="creacion-horarios-asignaturaItem">
-                                                    <p className="creacion-horarios-siglasAsignatura">{sigla}:</p>
-                                                    <p className="creacion-horarios-nombreCompletoAsignatura">{asignatura?.Nombre || sigla}</p>
-                                                </div>
-                                            );
-                                    })
-                                    ) : null}
+                                  {filteredAsigs.length > 0 ? (
+                                    // Obtener pares únicos de siglas y nombre
+                                    [...new Map(
+                                      events
+                                        .filter(evento => filteredAsigs.some(f => f.siglas === evento.siglas && f.nombre === evento.nombre))
+                                        .map(evento => [evento.siglas, evento.nombre])
+                                    )].map(([sigla, nombre]) => (
+                                      <div key={sigla} className="creacion-horarios-asignaturaItem">
+                                        <p className="creacion-horarios-siglasAsignatura">{sigla}:</p>
+                                        <p className="creacion-horarios-nombreCompletoAsignatura">{nombre}</p>
+                                      </div>
+                                    ))
+                                  ) : null}
                                 </div>
 
 

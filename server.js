@@ -41,11 +41,11 @@ app.put("/asignaturas", (req, res) => {
     nuevasAsignaturas[index] = asignaturaModificada;
   
     // Guardar el archivo actualizado
-    fs.writeFile(filePath, JSON.stringify(nuevasAsignaturas, null, 2), "utf8", (err) => {
+    /*fs.writeFile(filePath, JSON.stringify(nuevasAsignaturas, null, 2), "utf8", (err) => {
       if (err) return res.status(500).json({ error: "Error al escribir el archivo" });
-  
+    });*/
       res.json(nuevasAsignaturas); // Devolver el nuevo contenido
-    });
+    
   });
 
 // 🔹 Añadir nuevas asignaturas
@@ -69,30 +69,36 @@ app.post("/asignaturas", (req, res) => {
 // 🔹 Borrar una asignatura específica
 app.delete("/asignaturas/:codigo", (req, res) => {
     const filePath = getFilePath(req.query.archivo);
-    const { subjects, asignaturaAEliminar } = req.body;
+    const { subjects, eventoAEliminar } = req.body;
   
-    if (!Array.isArray(subjects) || !asignaturaAEliminar) {
+    if (!Array.isArray(subjects) || !eventoAEliminar) {
       return res.status(400).json({ error: "Datos de entrada inválidos" });
     }
   
+    const horaInicioEventoSelect = eventoAEliminar.start.getHours() < 10
+              ? selectedEvent.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
+              : selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
+
+    const duracionEventoSelect = (eventoAEliminar.end - eventoAEliminar.start) / (1000 * 60 * 60);
+
     try {
       const nuevasAsignaturas = subjects.filter(asig =>
         !(
-          asig.Codigo === asignaturaAEliminar.Codigo &&
-          asig.Siglas === asignaturaAEliminar.Siglas &&
-          asig.Dia === asignaturaAEliminar.Dia &&
-          asig.Grupo === asignaturaAEliminar.Grupo &&
-          asig.GrupoLaboratorio === asignaturaAEliminar.GrupoLaboratorio &&
-          asig.Nombre === asignaturaAEliminar.Nombre &&
-          asig.Semestre === asignaturaAEliminar.Semestre &&
-          asig.Clase === asignaturaAEliminar.Clase &&
-          asig.Profesor === asignaturaAEliminar.Profesor &&
-          asig.Grado === asignaturaAEliminar.Grado &&
-          (asig.Mencion ?? "") === (asignaturaAEliminar.Mencion ?? "") &&
-          asig.Curso === asignaturaAEliminar.Curso &&
-          asig.Color === asignaturaAEliminar.Color &&
-          asig.HoraInicio === asignaturaAEliminar.HoraInicio &&
-          asig.Duracion === asignaturaAEliminar.Duracion
+          asig.Codigo === eventoAEliminar.codigo &&
+          asig.Siglas === eventoAEliminar.siglas &&
+          asig.Dia === eventoAEliminar.dia &&
+          asig.Grupo === eventoAEliminar.grupo &&
+          asig.GrupoLaboratorio === eventoAEliminar.grupoLaboratorio &&
+          asig.Nombre === eventoAEliminar.nombre &&
+          asig.Semestre === eventoAEliminar.semestre &&
+          asig.Clase === eventoAEliminar.aula &&
+          asig.Profesor === eventoAEliminar.profesor &&
+          asig.Grado === eventoAEliminar.grado &&
+          (asig.Mencion ?? "") === (eventoAEliminar.mencion ?? "") &&
+          asig.Curso === eventoAEliminar.curso &&
+          asig.Color === eventoAEliminar.color &&
+          asig.HoraInicio === horaInicioEventoSelect &&
+          asig.Duracion === duracionEventoSelect
         )
       );
   
