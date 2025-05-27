@@ -1819,7 +1819,6 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           evento.grupoLaboratorio.startsWith("W") ||
           evento.grupoLaboratorio === "")
           );
-          console.log("hola");
         } else {
           if(!selectedGroup){
             eventosFiltrados = eventosActualizados.filter(evento => 
