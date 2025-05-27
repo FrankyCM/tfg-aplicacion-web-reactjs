@@ -1050,7 +1050,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 const grupo = `${asigGroupTypeMod ?? ""}${asigGroupNumberMod ?? ""}`;
                 console.log(asigCourseGII_ISMod);
                 console.log(selectedEvent);
-                console.log(Array.isArray(subjects), subjects);
+                //console.log(Array.isArray(subjects), subjects);
 
                 const diaSemana = diasSemana[asigDayMod];
                 
@@ -1819,6 +1819,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           evento.grupoLaboratorio.startsWith("W") ||
           evento.grupoLaboratorio === "")
           );
+          console.log("hola");
         } else {
           if(!selectedGroup){
             eventosFiltrados = eventosActualizados.filter(evento => 
