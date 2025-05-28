@@ -11,7 +11,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
+    width: 360px;
+   /* width: 100% ;*/ /* Asegura que ocupe todo el ancho del dropdown */
     text-align: center;
     margin-top: 4px;
     margin-right: 40px;
@@ -32,15 +33,14 @@
     font-size: 18px;
     border: 2px solid #95c8ff !important;
     padding: 10px;
-    margin-right: 40px;
 }
 
 .contenido-tab-crear-asignatura-profesores-mod .ui.selection.dropdown .divider.text {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
-    text-align: center;
+    width: 360px; 
+   /* width: 100% ;*/ /* Asegura que ocupe todo el ancho del dropdown */
     margin-top: 4px;
     margin-right: 40px;
     font-size: 18px;

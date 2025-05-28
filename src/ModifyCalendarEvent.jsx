@@ -190,7 +190,7 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                     <div className = "contenido-tab-crear-asignatura-profesores-mod">
                         <p className = "apartado-profesores-mod">Profesores</p>
                         <div className = "campo-primer-profesor-mod">
-                            <p>Prof. #1</p>
+                            <p>Docente asignado</p>
                             <ScheduleCreationDropdownSelect placeholder={"Profesor..."} selectOptions={asigPossibleTeacherOptions}  setStatusOnChange={setAsigTeacherMod} value={asigTeacherMod}/>
                         </div>
                     </div>
@@ -202,7 +202,7 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                     </div>  
                 )}
                 
-                <div className="contenido-tab-crear-asignatura-botones">
+                <div className="contenido-tab-crear-asignatura-botones-mod">
                     {event.id in asigIncidencesMod && (
                         <ScheduleCreationAsigActionsButton text={`Borrar incidencia`} color={`#edbeba`} iconName={`delete`} setStatusOnClick={handleIncidenceRemoval}/>
                     )}

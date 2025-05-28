@@ -144,7 +144,7 @@ const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
                 <div className = "contenido-tab-crear-asignatura-profesores">
                     <p className = "apartado-profesores">Profesores</p>
                     <div className = "campo-primer-profesor">
-                        <p>Prof. #1</p>
+                        <p>Docente asignado</p>
                         <ScheduleCreationDropdownSelect placeholder={"Profesor..."} selectOptions={asigPossibleTeacherOptions}  setStatusOnChange={setAsigTeacher} value={asigTeacher}/>
                     </div>
                 </div>
