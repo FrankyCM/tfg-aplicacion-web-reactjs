@@ -7,14 +7,18 @@ input::placeholder {
 }
 
 .ui.input {
-    width: 250px !important; /* Ajusta este valor según el diseño deseado */
-    max-width: 250px !important;
-    min-width: 250px !important;
+    width: 300px !important; /* Ajusta este valor según el diseño deseado */
+    max-width: 400px !important;
+    min-width: 300px !important;
     margin-bottom: 25px;
     align-items: center;
     border-radius: 20px !important;
 }
 
-.ui.fluid.icon.input {
-    width: 250px !important;
+.ui.fluid.icon.input.login-input {
+    width: 2500px !important;
+}
+
+.ui.input>input {
+    padding: 12px;
 }

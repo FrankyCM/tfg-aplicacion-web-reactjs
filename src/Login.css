@@ -90,6 +90,7 @@ html, body {
     display: flex;
     flex-direction: column;
     margin-top: 40px;
+    width: 100%;
     margin-bottom: 10px;
     align-items: center;
 }
@@ -98,7 +99,7 @@ html, body {
 .cuestionario-login .campos-cuestionario-login .campo-introducir-credencial {
     display: flex; /* Asegura que el div use flexbox */
     flex-direction: column; /* Apila elementos verticalmente */
-    align-items: flex-start !important; /* Alinea el texto a la izquierda */
+    align-items: center !important; /* Alinea el texto a la izquierda */
     width: 100%; /* Asegura que ocupe todo el ancho disponible */
     padding: 0;
     margin-bottom: 5px;
@@ -108,11 +109,12 @@ html, body {
     text-align: left; /* Asegura que el texto esté alineado a la izquierda */
     width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
     margin-left: 5px;
+    font-size: 18px;
     padding: 0;
 }
 
 .info-inicio-de-sesion-erroneo {
-    font-size: 14px;
+    font-size: 18px;
     margin-bottom: 25px;
     color: rgb(234, 77, 77);
 }

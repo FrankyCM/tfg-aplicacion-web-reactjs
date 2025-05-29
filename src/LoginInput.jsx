@@ -8,6 +8,7 @@ const LoginInput = ({ icon, placeholder, onChange }) => (
         placeholder={placeholder} 
         fluid 
         onChange={onChange} // Aquí pasamos el evento correctamente
+        className="login-input"
     />
 );
 
