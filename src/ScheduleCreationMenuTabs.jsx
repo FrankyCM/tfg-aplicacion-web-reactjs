@@ -30,6 +30,32 @@ const ScheduleCreationMenuTabs = ({
    createAsig, setCreateAsig, clearFormulary, setClearFormulary, setSize
 }) => {
 
+
+  const calculateNewHeight = () => {
+    let newHeight = 400;
+    if (selectedGrade) {
+      newHeight += 120;
+    }
+  
+    if (selectedSemester) {
+      newHeight += 140;
+    }
+  
+    if (selectedCourse) {
+      if(selectedGrade !== "INF"){
+        newHeight += 110;
+      } else {
+        newHeight += 145;
+      }
+    }
+
+    if(warningMessage){
+      newHeight += 100;
+    }
+
+    return newHeight;
+  };
+
   // ✅ Esta función ahora está dentro del componente y puede acceder a las props
   const handleTabChange = (e, { activeIndex }) => {
     if (activeIndex === 0) {
@@ -39,9 +65,12 @@ const ScheduleCreationMenuTabs = ({
       console.log("selectedGroup:", selectedGroup);
       console.log("selectedMention:", selectedMention);
       console.log("warningMessage:", warningMessage);
-      setSize({ width: 550, height: 400 });
+      setSize(() => ({
+        width: 550,
+        height: calculateNewHeight(),
+      }));
     } else {
-      setSize({ width: 1856, height: 863 });
+      setSize({ width: 1956, height: 864 });
     }
   };
 

@@ -90,7 +90,7 @@ const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked,
                             <ScheduleCreationInput className={"nombre-completo"} setStatusOnChange={setAsigFullNameMod} value={asigFullNameMod} type={`text`}/>
                         </div>
                     </div>
-                    <div className="contenido-tab-crear-asignatura-dia-hora-color">
+                    <div className="contenido-tab-crear-asignatura-dia-hora-color-mod">
                         <div className="contenido-tab-crear-asignatura-dia">
                             <p className="apartado-dia">Día</p>
                             <ScheduleCreationSelect placeholder={"Dia"} selectOptions={asigPossibleDays} setStatusOnChange={setAsigDayMod} value={asigDayMod}/>

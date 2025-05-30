@@ -8,7 +8,21 @@
     
 }
 
+.contenido-tab-crear-asignatura-dia-hora-color-mod .ui.selection.dropdown {
+  padding: 10px;
+  width: 170px !important;
+  min-width: 0 !important;
+  font-size: 18px !important;
+  border: 2px solid #95c8ff !important;
+  margin-bottom: 27px;
+  
+}
+
 .contenido-tab-crear-asignatura-dia-hora-color .ui.selection.dropdown .divider.default.text { 
+  color: rgb(132, 132, 132) !important;
+}
+
+.contenido-tab-crear-asignatura-dia-hora-color-mod .ui.selection.dropdown .divider.default.text { 
   color: rgb(132, 132, 132) !important;
 }
 
@@ -28,6 +42,10 @@
   width: 100%; /* Asegura que ocupe todo el ancho del dropdown */
   text-align: center;
   margin-top: 4px;
+}
+
+.contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color-mod .ui.selection.dropdown .item {
+  font-size: large;
 }
 
 .contenido-tab-crear-asignatura-codigo-siglas-dia-hora-color .ui.selection.dropdown .item {
