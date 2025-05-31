@@ -2,12 +2,14 @@ import { Button } from 'semantic-ui-react';
 import './SubjectEventInfo.css'
 import { useState } from 'react';
 import ImageContainer from './ImageContainer';
-
+import ClassMapButton from './classMapButton';
+import IconButton from './IconButton';
 
 const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEvent}) => {
 
     const [classMapButtonClicked, setClassMapButtonClicked] = useState(false);
     const [buttonText, setButtonText] = useState("Mostrar mapa de aulas");
+    const [buttonIcon, setButtonIcon] = useState("eye");
 
     const handleCloseClick = () => {
         setTimeout(() => {
@@ -21,6 +23,7 @@ const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEve
     const toggleClassMap = () => {
         setClassMapButtonClicked((prev) => !prev);
         setButtonText((prev) => (prev === "Mostrar mapa de aulas" ? "Ocultar mapa de aulas" : "Mostrar mapa de aulas"));
+        setButtonIcon((prev) => (prev === "eye" ? "eye slash" : "eye"));
     };
 
     return(
@@ -60,9 +63,7 @@ const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEve
                 </div>
 
                 <div className="cuadro-evento-mapa-aulas">
-                    <Button className="cuadro-evento-boton-mostrar-mapa-aulas" onClick={toggleClassMap}>
-                        {buttonText}
-                    </Button>
+                    <ClassMapButton text={buttonText} onClick={toggleClassMap} iconName={buttonIcon} />
 
                     {classMapButtonClicked === true && (
                         !event.aula.startsWith("L") ? (

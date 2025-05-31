@@ -15,7 +15,7 @@ const ScheduleCreationAsigActionsButton = ({ text, setStatusOnClick, color, icon
     style={{ backgroundColor: color, borderColor: color }}
     icon
     labelPosition='left'>
-    {iconName && <Icon name={iconName} />}
+    {iconName && <Icon name={iconName} size='large' />}
     {text}</Button>
   );
 };
