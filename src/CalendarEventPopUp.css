@@ -24,12 +24,12 @@
 
 .informacion-popup .informacion-nombre-siglas {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .informacion-popup .informacion-grupo, .informacion-aula, .informacion-profesor{
     display: flex;
     flex-direction: row; 
-    gap: 5px;
-    font-size: 16px;
+    gap: 10px;
+    font-size: 18px;
 }

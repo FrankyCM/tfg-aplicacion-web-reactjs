@@ -70,3 +70,22 @@
     background-color: rgb(255, 255, 255) !important;
 }
 
+.rbc-button-link {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+[role="columnheader"] {
+    font-size: 14px;
+    color: #333;
+}
+
+.rbc-time-slot {
+    display: flex;
+    justify-content: center; 
+}
+
+.rbc-time-slot .rbc-label {
+    font-size: 16px; /* puedes ajustar el tamaño si lo necesitas */
+    text-align: center;
+    padding-right: 1.8px !important;
+}
