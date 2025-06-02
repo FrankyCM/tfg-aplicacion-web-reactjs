@@ -20,6 +20,10 @@
   background-color: inherit !important;
 }
 
+.ui.selection.dropdown .menu > .item {
+  border-top: 0px !important;
+}
+
 .ui.selection.dropdown.selected-asig- {
   font-size: 18px !important; /* Cambia a lo que necesites */
 }
@@ -27,6 +31,10 @@
 .ui.selection.dropdown.selected-asig- .text,
 .ui.selection.dropdown.selected-asig- .item {
   font-size: 18px !important; /* Asegura que también se aplica a las opciones */
+}
+
+.ui.selection.dropdown.selected-asig- .divider.default.text {
+  color: #24292E;
 }
 
 .ui.selection.dropdown.selected-asig- .item {
@@ -40,6 +48,7 @@
   background-color: #E55050 !important;
   font-size: 18px !important;
 }
+
 .selected-asig-E55050 .item {
   font-size: 18px !important;
   border-top: 0px !important;
