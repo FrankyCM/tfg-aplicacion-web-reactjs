@@ -1,9 +1,8 @@
-import { Button } from 'semantic-ui-react';
 import './SubjectEventInfo.css'
 import { useState } from 'react';
 import ImageContainer from './ImageContainer';
 import ClassMapButton from './classMapButton';
-import IconButton from './IconButton';
+
 
 const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEvent}) => {
 

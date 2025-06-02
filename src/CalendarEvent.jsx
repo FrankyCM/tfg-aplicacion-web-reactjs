@@ -1,6 +1,6 @@
 import './CalendarEvent.css'
 import CalendarEventPopUp from './CalendarEventPopUp';
-import SubjectEventInfo from './SubjectEventinfo';
+import SubjectEventInfo from './SubjectEventInfo';
 import { useState } from 'react';
 
 export const CalendarEvent = ({event}) => {

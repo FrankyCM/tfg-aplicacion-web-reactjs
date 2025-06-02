@@ -15,7 +15,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import html2pdf from "html2pdf.js";
-import { AdminCalendarEvent } from './adminCalendarEvent';
+import { AdminCalendarEvent } from './AdminCalendarEvent';
 import ModifyCalendarEvent from './ModifyCalendarEvent';
 
 
