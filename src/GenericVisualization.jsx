@@ -19,7 +19,6 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
     const [selectedGroup, setSelectedGroup] = useState(""); // Grupo seleccionado por el alumno
     const [selectedMention, setSelectedMention] = useState(""); // Mencion seleccionada por el alumno para FiltersSection
     const [filteredAsigs, setFilteredAsigs] = useState([]); // Eventos de asignaturas filtradas en FiltersSection 
-    const [subjects, setSubjects] = useState([]); // Almacena las asignaturas que cumplen los criterios
     const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
     const [exportPDF, setExportPDF] = useState(false); // Opcion -> si se decide exportar a PDF
 
@@ -47,9 +46,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
         try {
           const response = await fetch("/asignaturas.json");
           const data = await response.json();
-  
-          setSubjects(data); // Guardar asignaturas en el estado
-  
+
           const eventos = data.map((asignatura) => {
             const diaSemana = diasSemana[asignatura.Dia];
             if (diaSemana === undefined) return null;
@@ -120,7 +117,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
         }
       }
 
-      if (!exportPDF || !filteredAsigs || !subjects ) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
+      if (!exportPDF || !filteredAsigs) return; // Evita ejecutar si no se quiere exportar a pdf o si el horario está vacio
     
             const contenido = document.getElementById("cabecera-documento-generic");
     
@@ -171,7 +168,7 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
                 setExportPDF(false); // Resetea el estado después de exportar
             });       
     
-    }, [exportPDF, filteredAsigs, subjects]);
+    }, [exportPDF, filteredAsigs]);
 
 
     // useEffect para la parte de visualizacion de calendarios genericos
@@ -518,19 +515,20 @@ export const GenericVisualization = ({diasSemana, gradeMap, semesterMap, courseM
           </div>
 
                 
-          <div className = "asignaturasHorario" style={{ paddingBottom: exportPDF ? "400px" : "40px" }}>
-            
+          <div className = "asignaturasHorario" style={{ paddingBottom: exportPDF ? "400px" : "40px" }}>        
             {filteredAsigs.length > 0 ? (
-              [...new Set(filteredAsigs.map(evento => evento.siglas))].map(sigla => {
-                const asignatura = subjects.find(asig => asig.Siglas === sigla);
-                return (
-                  <div key={sigla} className="asignaturaItem">
-                    <p className="siglasAsignatura">{sigla}:</p>
-                    <p className="nombreCompletoAsignatura">{asignatura?.Nombre || sigla}</p>
-                  </div>
-                );
-              })
-            ) : null}
+              // Obtener pares únicos de siglas y nombre
+              [...new Map(
+                events
+                .filter(evento => filteredAsigs.some(f => f.siglas === evento.siglas && f.nombre === evento.nombre))
+                .map(evento => [evento.siglas, evento.nombre])
+                  )].map(([sigla, nombre]) => (
+                    <div key={sigla} className="asignaturaItem">
+                      <p className="siglasAsignatura">{sigla}:</p>
+                      <p className="nombreCompletoAsignatura">{nombre}</p>
+                    </div>
+                  ))
+                ) : null}
           </div>
 
 

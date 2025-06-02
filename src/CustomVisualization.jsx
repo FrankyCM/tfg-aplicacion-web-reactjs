@@ -26,7 +26,6 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     const [selectedFourthMention, setSelectedFourthMention] = useState(null); // Mencion de asignaturas de cuarto curso
     const [selectedFifthGroup, setSelectedFifthGroup] = useState(null); // Grupo de asignaturas de quinto curso (solo para I + E)
 
-    const [subjects, setSubjects] = useState([]); // Almacena las asignaturas que cumplen los criterios
     const [includeLabs, setIncludeLabs] = useState(false); // Opcion del usuario sobre mostrar o no las clases de lab
     const [exportPDF, setExportPDF] = useState(false); // Opcion -> si se decide exportar a PDF
     
@@ -107,8 +106,6 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
               const response = await fetch("/asignaturas.json");
               const data = await response.json();
       
-              setSubjects(data); // Guardar asignaturas en el estado
-      
               const asigColorObject = {};
               data.forEach((asig) => {
                 const sigla = asig.Siglas;
@@ -178,7 +175,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
         return;
       }
 
-      if (!exportPDF || !filteredEvents || !subjects){
+      if (!exportPDF || !filteredEvents){
         return;
       } 
   
@@ -250,7 +247,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
       html2pdf().set(parametrosPDF).from(contenido).save().then(() => {
           setExportPDF(false); // Resetea el estado después de exportar
       });
-  }, [exportPDF, filteredEvents, subjects, selectedCourses, selectedFirstGroup, selectedSecondGroup, selectedThirdMention, selectedFourthMention, selectedFifthGroup]);
+  }, [exportPDF, filteredEvents, selectedCourses, selectedFirstGroup, selectedSecondGroup, selectedThirdMention, selectedFourthMention, selectedFifthGroup]);
 
     // useEffect para la creación de la lista de asignaturas que se muestra en el desplegable
     // de visualización personalizada de horarios
@@ -427,6 +424,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                 //console.log(`${evento.siglas} - ${evento.nombre} - ${evento.grupo}`);
             });
         }
+        
     }, [selectedAsigs, selectedGrade, events]);
 
 
@@ -436,29 +434,33 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     };
 
     const getTextoCursosMencion = () => {
-      let selectedCoursesText = ""; 
+      let selectedCoursesText = "";
       let mentionText = "";
-  
+    
+      const courseOrder = ["1º", "2º", "3º", "4º", "5º"];
+    
       if (selectedGrade === "Master") {
-          selectedCoursesText = courseMap["1º"]; // Asigna el primer curso del máster directamente
+        selectedCoursesText = courseMap["1º"];
       } else if (selectedCourses.length > 0) {
-          selectedCoursesText = selectedCourses.map(course => courseMap[course] || "").join(", ");
+        // Ordenar los cursos según prioridad 1º → 4º
+        const orderedCourses = courseOrder.filter(c => selectedCourses.includes(c));
+        selectedCoursesText = orderedCourses.map(course => courseMap[course] || "").join(", ");
       } else {
-          return ""; // Si no es máster y no hay cursos seleccionados, retorna vacío
+        return ""; // Si no es máster y no hay cursos seleccionados, retorna vacío
       }
-  
+    
       if (
-          (selectedThirdMention || selectedFourthMention) &&
-          selectedCourses.some(course => ["3º", "4º"].includes(course)) &&
-          selectedGrade === "INF"
+        (selectedThirdMention || selectedFourthMention) &&
+        selectedCourses.some(course => ["3º", "4º"].includes(course)) &&
+        selectedGrade === "INF"
       ) {
-          mentionText = mentionMap[(selectedThirdMention || selectedFourthMention)] || "";
+        mentionText = mentionMap[selectedThirdMention || selectedFourthMention] || "";
       }
-  
-      return mentionText && selectedCourses.length > 0 && 
-          selectedCourses.every(course => ["3º", "4º"].includes(course)) 
-          ? `${selectedCoursesText}, ${mentionText}` 
-          : selectedCoursesText;
+    
+      return mentionText && selectedCourses.length > 0 &&
+        selectedCourses.every(course => ["3º", "4º"].includes(course))
+        ? `${selectedCoursesText}, ${mentionText}`
+        : selectedCoursesText;
     };
   
 
@@ -552,20 +554,22 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
                   />
                 </div>
               </div>
-    
-    
-              <div className="asignaturasHorario" style={{ paddingBottom: exportPDF ? "350px" : "40px" }}>
+                    
+                    
+              <div className = "asignaturasHorario" style={{ paddingBottom: exportPDF ? "400px" : "40px" }}>        
                 {filteredEvents.length > 0 ? (
-                  [...new Set(filteredEvents.map(evento => evento.siglas))].map(sigla => {
-                    const asignatura = subjects.find(asig => asig.Siglas === sigla);
-                    return (
-                      <div key={sigla} className="asignaturaItem">
-                        <p className="siglasAsignatura">{sigla}:</p>
-                        <p className="nombreCompletoAsignatura">{asignatura?.Nombre || sigla}</p>
-                      </div>
-                    );
-                  })
-                ) : null}
+                  // Obtener pares únicos de siglas y nombre
+                  [...new Map(
+                    events
+                    .filter(evento => filteredEvents.some(f => f.siglas === evento.siglas && f.nombre === evento.nombre))
+                    .map(evento => [evento.siglas, evento.nombre])
+                      )].map(([sigla, nombre]) => (
+                        <div key={sigla} className="asignaturaItem">
+                          <p className="siglasAsignatura">{sigla}:</p>
+                          <p className="nombreCompletoAsignatura">{nombre}</p>
+                        </div>
+                      ))
+                    ) : null}
               </div>
     
     
