@@ -137,9 +137,10 @@
     border: 1px solid rgb(182, 181, 181) !important;
 }
   
-.filters-select-container .filters-select-default-text{
+.selected-asigs-container .filters-select-default-text{
     justify-content: start;
     color: rgb(0, 0, 0) !important;
+    font-size: 18px;
 }
   
   
