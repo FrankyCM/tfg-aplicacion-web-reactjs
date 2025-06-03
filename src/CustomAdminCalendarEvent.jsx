@@ -1,5 +1,6 @@
 // CustomAdminCalendarEvent.jsx
-import { AdminCalendarEvent } from "./adminCalendarEvent";
+import { AdminCalendarEvent } from "./AdminCalendarEvent";
+import React from 'react';
 
 export const CustomAdminCalendarEvent = ({extraProps}) => {
     return (props) => (

@@ -2,6 +2,7 @@ import './SubjectEventInfo.css'
 import { useState } from 'react';
 import ImageContainer from './ImageContainer';
 import ClassMapButton from './classMapButton';
+import React from 'react';
 
 
 const SubjectEventInfo = ({event,backgroundColor, setEventClicked, setHoveredEvent}) => {

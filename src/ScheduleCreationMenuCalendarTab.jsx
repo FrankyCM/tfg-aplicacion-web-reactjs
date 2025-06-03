@@ -2,6 +2,7 @@ import './ScheduleCreationMenuCalendarTab.css';
 import FiltersButton from './FiltersButton';
 import { useState, useEffect } from 'react';
 import ScheduleCreationMenuWarningsField from './ScheduleCreationMenuWarningsField';
+import React from 'react';
 
 const ScheduleCreationMenuCalendarTab = ({selectedGrade, setSelectedGrade, selectedSemester, setSelectedSemester, selectedCourse, setSelectedCourse, selectedGroup, setSelectedGroup, selectedMention, setSelectedMention, warningMessage}) => {
 

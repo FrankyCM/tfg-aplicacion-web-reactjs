@@ -1,7 +1,7 @@
 import './Common.css';
 import LogoutButton from './LogoutButton';
 import './ScheduleCreation.css';
-import { useState, useEffect, useCallback  } from 'react';
+import { useState, useEffect, useCallback, React  } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -1231,6 +1231,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
               setEvents(eventosActualizados);
               console.log("evnetos modificados mod asig: ", eventosActualizados);
+              checkEventsCompatibilitiesAfterDelete(eventosActualizados);
             }
       
             
@@ -1409,6 +1410,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           if (
             mismaFranja && asignaturaModificada.grado === evento.grado && asignaturaModificada.dia === evento.dia &&
             asignaturaModificada.curso === evento.curso &&
+            asignaturaModificada.grupo === evento.grupo &&
             asignaturaModificada.grupo.startsWith("T") &&
             evento.grupo.startsWith("T")  && 
             nuevoIdAsigModificada !== evento.id 

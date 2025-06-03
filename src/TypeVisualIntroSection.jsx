@@ -1,5 +1,6 @@
 import './TypeVisualIntroSection.css'
 import IntroButton from './IntroButton'
+import React from 'react';
 
 export const TypeVisualIntroSection = ({visualizationType, visualizationTypeDescription, link}) => {
     return(

@@ -5,6 +5,7 @@ import ScheduleCreationInput from './ScheduleCreationInput';
 import ScheduleCreationSelect from './ScheduleCreationSelect';
 import ScheduleCreationDropdownSelect from './ScheduleCreationDropdownSelect';
 import ScheduleCreationAsigActionsButton from './ScheduleCreationAsigActionsButton';
+import React from 'react';
 
 const ModifyCalendarEvent = ({event, backgroundColor, setEventClicked, 
     asigCodeMod, setAsigCodeMod,

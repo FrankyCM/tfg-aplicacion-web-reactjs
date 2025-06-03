@@ -2,6 +2,7 @@ import './CalendarEvent.css'
 import CalendarEventPopUp from './CalendarEventPopUp';
 import SubjectEventInfo from './SubjectEventInfo';
 import { useState } from 'react';
+import React from 'react';
 
 export const CalendarEvent = ({event}) => {
     const [hoveredEvent, setHoveredEvent] = useState(null);

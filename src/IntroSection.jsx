@@ -2,6 +2,7 @@ import ImageContainer from './ImageContainer'
 import './IntroSection.css'
 import './Common.css'
 import { TypeVisualIntroSection } from './TypeVisualIntroSection'
+import React from 'react';
 
 const IntroSection = () => {
     return(

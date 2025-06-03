@@ -4,6 +4,7 @@ import ScheduleCreationInput from './ScheduleCreationInput';
 import ScheduleCreationSelect from './ScheduleCreationSelect';
 import ScheduleCreationDropdownSelect from './ScheduleCreationDropdownSelect';
 import ScheduleCreationAsigActionsButton from './ScheduleCreationAsigActionsButton';
+import React from 'react';
 
 const ScheduleCreationMenuAsigTab = ({asigCode, setAsigCode, asigInitials,
     setAsigInitials, asigPossibleDays,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import { Label } from 'semantic-ui-react'
 import FiltersButton from './FiltersButton';

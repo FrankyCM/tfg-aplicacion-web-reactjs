@@ -2,6 +2,7 @@
 import { Button, Icon } from "semantic-ui-react";
 import { useAuth } from "./AuthProvider";
 import "./LogoutButton.css";
+import React from 'react';
 
 const LogoutButton = ({ color, text, iconName}) => {
     const { logout } = useAuth(); // Obtenemos la función logout del contexto

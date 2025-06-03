@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import FiltersButton from './FiltersButton';
 import './FiltersSection.css';

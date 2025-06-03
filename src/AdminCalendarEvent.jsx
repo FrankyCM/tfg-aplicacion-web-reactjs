@@ -3,6 +3,7 @@ import CalendarEventPopUp from './CalendarEventPopUp';
 import ModifyCalendarEvent from './ModifyCalendarEvent';
 import { useState, useEffect } from 'react';
 import { Icon } from 'semantic-ui-react';
+import React from 'react';
 
 export const AdminCalendarEvent = ({
     event, setAsigCodeMod, setAsigInitialsMod,
