@@ -629,7 +629,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         guardarAsignaturasJSON();
   }, [save]);*/
 
-  // Version para navegadores basados en Chromium
+  // Version para navegadores basados en Chromium (uso local del proyecto)
   useEffect(() => {
     if (!save) return;
   
@@ -659,7 +659,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             Color: evento.color
           };
         });
-  
+        
         // JSON convertido a string con indentación
         const jsonString = JSON.stringify(eventosActualizados, null, 2);
   
@@ -693,6 +693,78 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
   
     guardarAsignaturasJSON();
   }, [save]);
+
+  // Version para navegadores basados en Chromium (uso remoto del proyecto)
+  /*useEffect(() => {
+    if (!save) return;
+  
+    const guardarAsignaturasJSON = async () => {
+      try {
+        const eventosActualizados = events.map(evento => {
+          const hora = moment(evento.start).hour();
+          const horaInicioFormateada = hora < 10
+            ? moment(evento.start).format("H:mm")
+            : moment(evento.start).format("HH:mm");
+  
+          return {
+            Codigo: evento.codigo,
+            Dia: evento.dia,
+            HoraInicio: horaInicioFormateada,
+            Duracion: moment(evento.end).diff(moment(evento.start), "hours"),
+            Siglas: evento.siglas,
+            Nombre: evento.nombre,
+            Grado: evento.grado,
+            Semestre: evento.semestre,
+            Curso: evento.curso,
+            Grupo: evento.grupo,
+            GrupoLaboratorio: evento.grupoLaboratorio,
+            Mencion: evento.mencion,
+            Clase: evento.aula,
+            Profesor: evento.profesor,
+            Color: evento.color
+          };
+        });
+  
+        const jsonString = JSON.stringify(eventosActualizados, null, 2);
+  
+        // Paso 1: Guardar en servidor remoto
+        await fetch("https://157.88.123.20:5000/guardar-asignaturas", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: jsonString
+        });
+  
+        console.log("Guardado en servidor remoto correctamente.");
+  
+        // Paso 2: Solicitar nombre de archivo al usuario
+        const nombreArchivo = prompt("Introduce un nombre para guardar el archivo (sin extensión):", "asignaturas");
+  
+        if (!nombreArchivo) {
+          console.log("Descarga cancelada por el usuario.");
+          setSave(false);
+          return;
+        }
+  
+        const blob = new Blob([jsonString], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${nombreArchivo}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+  
+        console.log("Archivo descargado localmente como", `${nombreArchivo}.json`);
+      } catch (error) {
+        console.error("Error al guardar el archivo:", error);
+      }
+  
+      setSave(false);
+    };
+  
+    guardarAsignaturasJSON();
+  }, [save]);*/
 
      
   const actualizarEventos = (contenidoActualizado) => {

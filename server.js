@@ -48,6 +48,19 @@ app.put("/asignaturas", (req, res) => {
     
   });
 
+// 🔹 Guardar asignaturas
+app.post("/guardar-asignaturas", (req, res) => {
+  const data = req.body;
+
+  fs.writeFile("./public/asignaturas.json", JSON.stringify(data, null, 2), (err) => {
+    if (err) {
+      console.error("Error al guardar:", err);
+      return res.status(500).send("Error al guardar.");
+    }
+    res.send("Guardado correctamente.");
+  });
+});
+
 // 🔹 Añadir nuevas asignaturas
 app.post("/asignaturas", (req, res) => {
     const filePath = getFilePath(req.query.archivo);
@@ -112,4 +125,4 @@ app.delete("/asignaturas/:codigo", (req, res) => {
 });
 
 // 🔹 Iniciar servidor
-app.listen(PORT, () => console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`));
+app.listen(5000, () => console.log(`🚀 Servidor corriendo en http://localhost:${5000}`));
