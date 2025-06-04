@@ -30,7 +30,7 @@ const FloatingFilterScheduleMenu = ({
   asigCourse_INDat, setAsigCourse_INDat, asigCourse_Master,
   setAsigCourse_Master, asigPossibleTeacherOptions, asigTeacher, setAsigTeacher,
   asigIncidences, setAsigIncidences, incidenceOnCreatedAsig, setIncidenceOnCreatedAsig,
-  createAsig, setCreateAsig, clearFormulary, setClearFormulary, setOpenFile
+  createAsig, setCreateAsig, clearFormulary, setClearFormulary, setOpenFile, setDownloadFile
 }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [size, setSize] = useState({ width: 550, height: 400 }); // Estado del tamaño
@@ -42,6 +42,7 @@ const FloatingFilterScheduleMenu = ({
   const handleSave = () => setSave(true);
   const handleExportPDF = () => setExportPDF(true);
   const handleOpenFile = () => setOpenFile(true);
+  const handleDownloadFile = () => setDownloadFile(true);
 
   // Iniciar el redimensionamiento
   const handleMouseDownResize = (e) => {
@@ -140,6 +141,7 @@ const FloatingFilterScheduleMenu = ({
             <IconButton name="save outline" size={`big`} handleClick={handleSave} />
             <IconButton name="file pdf outline" size={`big`} handleClick={handleExportPDF} />
             <IconButton name="folder open outline" size={`big`} handleClick={handleOpenFile}/>
+            <IconButton name="download" size={`big`} handleClick={handleDownloadFile}/>
           </div>
 
           {/* Contenido del menú */}

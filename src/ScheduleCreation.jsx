@@ -21,9 +21,10 @@ import ModifyCalendarEvent from './ModifyCalendarEvent';
 
 const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
     
-    // APERTURA DE ARCHIVOS
+    // APERTURA O DESCARGA DE ARCHIVO
     const [openFile, setOpenFile] = useState(false);
     const [openedFile, setOpenedFile] = useState("");
+    const [downloadFile, setDownloadFile] = useState(false);
 
     // MODIFICAR HORARIO
     const [events, setEvents] = useState([]);
@@ -439,6 +440,120 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
     }, [exportPDF, filteredAsigs, subjects]);
 
+
+    //useEffect para descargar el archivo de asignaturas del servidor (uso local)
+    useEffect(() => {
+      if (!downloadFile) return;
+    
+      const camposEsperados = [
+        "Codigo", "Dia", "HoraInicio", "Duracion", "Siglas", "Nombre", "Grado",
+        "Semestre", "Curso", "Grupo", "GrupoLaboratorio", "Mencion", "Clase",
+        "Profesor", "Color"
+      ];
+    
+      const verificarEstructura = (obj) => {
+        if (typeof obj !== "object" || obj === null) return false;
+        return camposEsperados.every((campo) => obj.hasOwnProperty(campo));
+      };
+    
+      const buscarYDescargarArchivo = async () => {
+        try {
+          const resLista = await fetch("http://localhost:5000/listar-json");
+          const archivos = await resLista.json();
+    
+          for (const nombreArchivo of archivos) {
+            const res = await fetch(`http://localhost:5000/${nombreArchivo}`);
+            const contentType = res.headers.get("content-type");
+
+            if (!res.ok || !contentType || !contentType.includes("application/json")) {
+              throw new Error("Respuesta no válida o no es JSON");
+            }
+    
+            const contenido = await res.json();
+    
+            if (Array.isArray(contenido) && verificarEstructura(contenido[0])) {
+              const confirmar = prompt(`¿Quieres descargar el archivo "${nombreArchivo}"? Escribe "sí" o "no"`);
+    
+              if (confirmar && confirmar.toLowerCase().startsWith("s")) {
+                const blob = new Blob([JSON.stringify(contenido, null, 2)], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = nombreArchivo;
+                a.click();
+                URL.revokeObjectURL(url);
+              }
+    
+              break;
+            }
+          }
+        } catch (error) {
+          console.error("Error al buscar y descargar el archivo:", error);
+        } finally {
+          setDownloadFile(false);
+        }
+      };
+    
+      buscarYDescargarArchivo();
+    }, [downloadFile]);
+
+
+    //useEffect para descargar el archivo de asignaturas del servidor (uso remoto)
+    useEffect(() => {
+      if (!downloadFile) return;
+    
+      const camposEsperados = [
+        "Codigo", "Dia", "HoraInicio", "Duracion", "Siglas", "Nombre", "Grado",
+        "Semestre", "Curso", "Grupo", "GrupoLaboratorio", "Mencion", "Clase",
+        "Profesor", "Color"
+      ];
+    
+      const verificarEstructura = (obj) => {
+        if (typeof obj !== "object" || obj === null) return false;
+        return camposEsperados.every((campo) => obj.hasOwnProperty(campo));
+      };
+    
+      const buscarYDescargarArchivo = async () => {
+        try {
+          const resLista = await fetch("https://157.88.123.20:5000/listar-json");
+          const archivos = await resLista.json();
+    
+          for (const nombreArchivo of archivos) {
+            const res = await fetch(`https://157.88.123.20:5000/${nombreArchivo}`);
+            const contentType = res.headers.get("content-type");
+
+            if (!res.ok || !contentType || !contentType.includes("application/json")) {
+              throw new Error("Respuesta no válida o no es JSON");
+            }
+    
+            const contenido = await res.json();
+    
+            if (Array.isArray(contenido) && verificarEstructura(contenido[0])) {
+              const confirmar = prompt(`¿Quieres descargar el archivo "${nombreArchivo}"? Escribe "sí" o "no"`);
+    
+              if (confirmar && confirmar.toLowerCase().startsWith("s")) {
+                const blob = new Blob([JSON.stringify(contenido, null, 2)], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = nombreArchivo;
+                a.click();
+                URL.revokeObjectURL(url);
+              }
+    
+              break;
+            }
+          }
+        } catch (error) {
+          console.error("Error al buscar y descargar el archivo:", error);
+        } finally {
+          setDownloadFile(false);
+        }
+      };
+    
+      buscarYDescargarArchivo();
+    }, [downloadFile]);
+    
     // useEffect para la parte de visualizacion de calendarios genericos
     useEffect(() => {
         if (!selectedGrade || !selectedSemester) {
@@ -697,15 +812,31 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
   // Version para navegadores basados en Chromium (uso remoto del proyecto)
   /*useEffect(() => {
     if (!save) return;
-  
+
     const guardarAsignaturasJSON = async () => {
+      const camposEsperados = [
+        "Codigo", "Dia", "HoraInicio", "Duracion", "Siglas", "Nombre", "Grado",
+        "Semestre", "Curso", "Grupo", "GrupoLaboratorio", "Mencion", "Clase",
+        "Profesor", "Color"
+      ];
+
       try {
+        // Paso 1: Solicitar nombre del archivo al usuario
+        const nombreArchivo = prompt("Introduce un nombre para guardar el archivo (sin extensión):", "asignaturas");
+
+        if (!nombreArchivo) {
+          console.log("Guardado cancelado por el usuario.");
+          setSave(false);
+          return;
+        }
+
+        // Paso 2: Generar JSON desde los eventos
         const eventosActualizados = events.map(evento => {
           const hora = moment(evento.start).hour();
           const horaInicioFormateada = hora < 10
             ? moment(evento.start).format("H:mm")
             : moment(evento.start).format("HH:mm");
-  
+
           return {
             Codigo: evento.codigo,
             Dia: evento.dia,
@@ -724,29 +855,47 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             Color: evento.color
           };
         });
-  
+
         const jsonString = JSON.stringify(eventosActualizados, null, 2);
-  
-        // Paso 1: Guardar en servidor remoto
+
+        // Paso 3: Obtener lista de archivos JSON del backend
+        const listaResponse = await fetch("https://157.88.123.20:5000/listar-json");
+        const listaArchivos = await listaResponse.json();
+
+        // Paso 4: Buscar y eliminar archivo con estructura esperada
+        for (const archivo of listaArchivos) {
+          const archivoResponse = await fetch(`https://157.88.123.20:5000/public/${archivo}`);
+          const contenido = await archivoResponse.json();
+
+          if (Array.isArray(contenido) && contenido.length > 0) {
+            const keys = Object.keys(contenido[0]);
+            const coinciden = camposEsperados.every(campo => keys.includes(campo));
+            if (coinciden) {
+              // Eliminar archivo desde el backend
+              await fetch(`https://157.88.123.20:5000/eliminar-json`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nombre: archivo })
+              });
+              console.log(`Archivo eliminado: ${archivo}`);
+              break;
+            }
+          }
+        }
+
+        // Paso 5: Guardar nuevo archivo con nombre proporcionado
         await fetch("https://157.88.123.20:5000/guardar-asignaturas", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: jsonString
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombre: `${nombreArchivo}.json`,
+            contenido: eventosActualizados
+          })
         });
-  
-        console.log("Guardado en servidor remoto correctamente.");
-  
-        // Paso 2: Solicitar nombre de archivo al usuario
-        const nombreArchivo = prompt("Introduce un nombre para guardar el archivo (sin extensión):", "asignaturas");
-  
-        if (!nombreArchivo) {
-          console.log("Descarga cancelada por el usuario.");
-          setSave(false);
-          return;
-        }
-  
+
+        console.log(`Archivo guardado en el servidor como ${nombreArchivo}.json`);
+
+        // Paso 6: Descargar archivo en el navegador
         const blob = new Blob([jsonString], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -754,15 +903,15 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         a.download = `${nombreArchivo}.json`;
         a.click();
         URL.revokeObjectURL(url);
-  
-        console.log("Archivo descargado localmente como", `${nombreArchivo}.json`);
+
+        console.log("Archivo descargado localmente.");
       } catch (error) {
         console.error("Error al guardar el archivo:", error);
       }
-  
+
       setSave(false);
     };
-  
+
     guardarAsignaturasJSON();
   }, [save]);*/
 
@@ -2506,7 +2655,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                     setAsigCourse_Master={setAsigCourse_Master} asigPossibleTeacherOptions={asigPossibleTeacherOptions} asigTeacher={asigTeacher} setAsigTeacher={setAsigTeacher}
                     asigIncidences={asigIncidences} setAsigIncidences={setAsigIncidences} incidenceOnCreatedAsig={incidenceOnCreatedAsig} 
                     setIncidenceOnCreatedAsig={setIncidenceOnCreatedAsig} createAsig={createAsig} setCreateAsig={setCreateAsig}
-                    clearFormulary={clearFormulary} setClearFormulary={setClearFormulary} setOpenFile={setOpenFile}
+                    clearFormulary={clearFormulary} setClearFormulary={setClearFormulary} setOpenFile={setOpenFile} setDownloadFile={setDownloadFile}
                     />
                     <div className="creacion-horarios-horario" id="creacion-horarios-horario">
                         <div className="creacion-horarios-horario-cabeceraDocumento" id="creacion-horarios-horario-cabeceraDocumento">
