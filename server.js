@@ -196,15 +196,15 @@ app.get("/listar-json", (req, res) => {
   });
 });
 
-// 🔹 Iniciar servidor
-app.listen(5000, () => console.log(`🚀 Servidor corriendo en http://localhost:${5000}`));
+// 🔹 Iniciar servidor (uso local)
+//app.listen(5000, () => console.log(`🚀 Servidor corriendo en http://localhost:${5000}`));
 
-/* 🔹 Iniciar servidor (uso remoto, necesario previamente crear certificados)
+// 🔹 Iniciar servidor (uso remoto, necesario previamente crear certificados)
 const options = {
   key: fs.readFileSync("./cert/key.pem"),
   cert: fs.readFileSync("./cert/cert.pem")
 };
 
-https.createServer(options, app).listen(3000, () => {
-  console.log("Servidor HTTPS backend en https://157.88.123.20:3000");
-});*/
+https.createServer(options, app).listen(8081, "0.0.0.0", () => {
+  console.log("Servidor HTTPS backend en https://192.168.56.1:8081");
+});

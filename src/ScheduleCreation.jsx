@@ -1,7 +1,7 @@
 import './Common.css';
 import LogoutButton from './LogoutButton';
 import './ScheduleCreation.css';
-import { useState, useEffect, useCallback, React  } from 'react';
+import React, { useState, useEffect, useCallback  } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -16,7 +16,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import html2pdf from "html2pdf.js";
 import { AdminCalendarEvent } from './AdminCalendarEvent';
-import ModifyCalendarEvent from './ModifyCalendarEvent';
+import ModifyCalendarEvent from './ModifyCalendarEvent';  
 
 
 const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mentionMap}) => {
@@ -442,7 +442,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
 
     //useEffect para descargar el archivo de asignaturas del servidor (uso local)
-    useEffect(() => {
+    /*useEffect(() => {
       if (!downloadFile) return;
     
       const camposEsperados = [
@@ -495,7 +495,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       };
     
       buscarYDescargarArchivo();
-    }, [downloadFile]);
+    }, [downloadFile]);*/
 
 
     //useEffect para descargar el archivo de asignaturas del servidor (uso remoto)
@@ -515,11 +515,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     
       const buscarYDescargarArchivo = async () => {
         try {
-          const resLista = await fetch("https://157.88.123.20:5000/listar-json");
+          const resLista = await fetch("https://192.168.56.1:8081/listar-json");
           const archivos = await resLista.json();
     
           for (const nombreArchivo of archivos) {
-            const res = await fetch(`https://157.88.123.20:5000/${nombreArchivo}`);
+            const res = await fetch(`https://192.168.56.1:8081/${nombreArchivo}`);
             const contentType = res.headers.get("content-type");
 
             if (!res.ok || !contentType || !contentType.includes("application/json")) {
@@ -745,7 +745,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
   }, [save]);*/
 
   // Version para navegadores basados en Chromium (uso local del proyecto)
-  useEffect(() => {
+  /*useEffect(() => {
     if (!save) return;
   
     const guardarAsignaturasJSON = async () => {
@@ -807,10 +807,10 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     };
   
     guardarAsignaturasJSON();
-  }, [save]);
+  }, [save]);*/
 
   // Version para navegadores basados en Chromium (uso remoto del proyecto)
-  /*useEffect(() => {
+  useEffect(() => {
     if (!save) return;
 
     const guardarAsignaturasJSON = async () => {
@@ -859,12 +859,12 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         const jsonString = JSON.stringify(eventosActualizados, null, 2);
 
         // Paso 3: Obtener lista de archivos JSON del backend
-        const listaResponse = await fetch("https://157.88.123.20:5000/listar-json");
+        const listaResponse = await fetch("https://192.168.56.1:8081/listar-json");
         const listaArchivos = await listaResponse.json();
 
         // Paso 4: Buscar y eliminar archivo con estructura esperada
         for (const archivo of listaArchivos) {
-          const archivoResponse = await fetch(`https://157.88.123.20:5000/public/${archivo}`);
+          const archivoResponse = await fetch(`https://192.168.56.1:8081/${archivo}`);
           const contenido = await archivoResponse.json();
 
           if (Array.isArray(contenido) && contenido.length > 0) {
@@ -872,7 +872,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             const coinciden = camposEsperados.every(campo => keys.includes(campo));
             if (coinciden) {
               // Eliminar archivo desde el backend
-              await fetch(`https://157.88.123.20:5000/eliminar-json`, {
+              await fetch(`https://192.168.56.1:8081/eliminar-json`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ nombre: archivo })
@@ -884,7 +884,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         }
 
         // Paso 5: Guardar nuevo archivo con nombre proporcionado
-        await fetch("https://157.88.123.20:5000/guardar-asignaturas", {
+        await fetch("https://192.168.56.1:8081/guardar-asignaturas", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -913,7 +913,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     };
 
     guardarAsignaturasJSON();
-  }, [save]);*/
+  }, [save]);
 
      
   const actualizarEventos = (contenidoActualizado) => {
