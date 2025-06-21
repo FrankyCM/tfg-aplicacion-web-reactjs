@@ -6,8 +6,8 @@ const ScheduleCreationInput = ({placeholder, className, setStatusOnChange, value
     
     const handleInputChange = (e) => {
         const value = e.target.value
-        console.log(value) // 👉 imprime el valor actual del input
-        setStatusOnChange(value)    // 👉 actualiza el estado desde el componente padre
+        //console.log(value) 
+        setStatusOnChange(value)    // actualiza el valor del input
     }
 
     return(

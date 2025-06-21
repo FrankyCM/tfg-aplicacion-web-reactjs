@@ -529,9 +529,6 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             const contenido = await res.json();
     
             if (Array.isArray(contenido) && verificarEstructura(contenido[0])) {
-              const confirmar = prompt(`¿Quieres descargar el archivo "${nombreArchivo}"? Escribe "sí" o "no"`);
-    
-              if (confirmar && confirmar.toLowerCase().startsWith("s")) {
                 const blob = new Blob([JSON.stringify(contenido, null, 2)], { type: "application/json" });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement("a");
@@ -539,7 +536,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 a.download = nombreArchivo;
                 a.click();
                 URL.revokeObjectURL(url);
-              }
+              
     
               break;
             }
@@ -682,7 +679,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 );
             }
             
-            console.log("Eventos filtrados:", asignaturasFiltradas);
+            //console.log("Eventos filtrados:", asignaturasFiltradas);
             setFilteredAsigs(asignaturasFiltradas);
         }
     }, [selectedGrade, selectedSemester, selectedCourse, selectedGroup, selectedMention, events]);
@@ -825,7 +822,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         const nombreArchivo = prompt("Introduce un nombre para guardar el archivo (sin extensión):", "asignaturas");
 
         if (!nombreArchivo) {
-          console.log("Guardado cancelado por el usuario.");
+          //console.log("Guardado cancelado por el usuario.");
           setSave(false);
           return;
         }
@@ -877,7 +874,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ nombre: archivo })
               });
-              console.log(`Archivo eliminado: ${archivo}`);
+              //console.log(`Archivo eliminado: ${archivo}`);
               break;
             }
           }
@@ -893,7 +890,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           })
         });
 
-        console.log(`Archivo guardado en el servidor como ${nombreArchivo}.json`);
+        //console.log(`Archivo guardado en el servidor como ${nombreArchivo}.json`);
 
         // Paso 6: Descargar archivo en el navegador
         const blob = new Blob([jsonString], { type: "application/json" });
@@ -904,7 +901,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         a.click();
         URL.revokeObjectURL(url);
 
-        console.log("Archivo descargado localmente.");
+        //console.log("Archivo descargado localmente.");
       } catch (error) {
         console.error("Error al guardar el archivo:", error);
       }
@@ -975,8 +972,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               if (curso.estado && curso.estado !== "-") {
                 
                 const grupo = `${asigGroupType ?? ""}${asigGroupNumber ?? ""}`;
-                console.log(asigCourseGII_IS);
-                console.log(selectedEvent);
+                //console.log(asigCourseGII_IS);
+                //console.log(selectedEvent);
                 //console.log(Array.isArray(subjects), subjects);
 
                 const diaSemana = diasSemana[asigDay];
@@ -1014,7 +1011,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                   end: fin
                 };
                 
-                console.log("nueva asignatura:", nuevaAsignatura);
+                //console.log("nueva asignatura:", nuevaAsignatura);
 
                 const horaInicioNuevaAsignatura = nuevaAsignatura.start.getHours() < 10
                   ? nuevaAsignatura.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // H:mm
@@ -1108,8 +1105,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
       const checkNewAsigIncompatibility = (nuevaAsignatura, eventosActualizados) => {
 
-        console.log("entra checkNewAsig");
-        console.log("nueva asig Creada:", nuevaAsignatura);
+        //console.log("entra checkNewAsig");
+        //console.log("nueva asig Creada:", nuevaAsignatura);
       
         const horaInicioNueva = moment(nuevaAsignatura.start);
         const horaFinNueva = moment(nuevaAsignatura.end);
@@ -1254,7 +1251,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             nuevaAsignatura.grupo.startsWith("T") &&
             evento.grupo.startsWith("T")
           ) {
-            console.log("entra if gordo");
+            //console.log("entra if gordo");
 
             const generatedId = `${nuevaAsignatura.dia} - ${nuevaAsignatura.siglas} - ${nuevaAsignatura.grupo} - ${nuevaAsignatura.grupoLaboratorio} - ${nuevaAsignatura.aula} - ${horaInicioNuevaAsignatura}`;
             
@@ -1272,8 +1269,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teóricas");
 
               setIncidenceOnCreatedAsig(mensaje);
-              console.log("id de nueva:", generatedId);
-              console.log("id de evento:", evento.id);
+              //console.log("id de nueva:", generatedId);
+              //console.log("id de evento:", evento.id);
 
               setAsigIncompatibilitiesIds(prev => ({
                 ...prev,
@@ -1281,7 +1278,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 [evento.id]: mensaje,
               }));
 
-              console.log("entra primer if", incidenceOnCreatedAsig);
+              //console.log("entra primer if", incidenceOnCreatedAsig);
               return true;
             }
       
@@ -1294,8 +1291,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         
               setIncidenceOnCreatedAsig(mensaje);
 
-              console.log("id de nueva:", generatedId);
-              console.log("id de evento:", evento.id);
+              //console.log("id de nueva:", generatedId);
+              //console.log("id de evento:", evento.id);
 
               setAsigIncompatibilitiesIds(prev => ({
                 ...prev,
@@ -1303,7 +1300,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 [evento.id]: mensaje,
               }));
 
-              console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
+              //console.log("entra segundo/tercer if", incidenceOnCreatedAsig);
               return true;
             }
 
@@ -1315,8 +1312,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               if(mensaje !== mensajeOriginal) {
                 setIncidenceOnCreatedAsig(mensaje);
 
-                console.log("id de nueva:", generatedId);
-                console.log("id de evento:", evento.id);
+                //console.log("id de nueva:", generatedId);
+                //console.log("id de evento:", evento.id);
 
                 setAsigIncompatibilitiesIds(prev => ({
                   ...prev,
@@ -1324,7 +1321,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                   [evento.id]: mensaje,
                 }));
 
-                console.log("entra cuarto if", incidenceOnCreatedAsig);
+                //console.log("entra cuarto if", incidenceOnCreatedAsig);
                 return true;
               }
 
@@ -1372,14 +1369,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
     const handleEventSelect = (event) => {
         setSelectedEvent(event); // Actualiza el estado con el evento seleccionado
-        console.info('[handleEventSelect - event]', event); // Imprime el evento en consola (opcional)
+        //console.info('[handleEventSelect - event]', event); // Imprime el evento en consola (opcional)
     };
 
 
     useEffect(() => {
         const modificarAsignatura = async () => {
           try {
-            console.log("archivo donde se mod:", openedFile);
+            //console.log("archivo donde se mod:", openedFile);
             const cursos = [
               { estado: asigCourseGII_ISMod, grado: "INF", mencion: "IS" },
               { estado: asigCourseGII_TIMod, grado: "INF", mencion: "TI" },
@@ -1391,17 +1388,17 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
             let asignaturaModificada;
 
-            console.log(asigCourseGII_TIMod);
+            /*console.log(asigCourseGII_TIMod);
             console.log(asigCourseGII_COMod);
             console.log(asigCourse_ESTMod);
             console.log(asigCourse_INDatMod);
-            console.log(asigCourse_MasterMod);
+            console.log(asigCourse_MasterMod);*/
 
             cursos.forEach((curso) => {
               if (curso.estado && curso.estado !== "-") {
                 const grupo = `${asigGroupTypeMod ?? ""}${asigGroupNumberMod ?? ""}`;
-                console.log(asigCourseGII_ISMod);
-                console.log(selectedEvent);
+                //console.log(asigCourseGII_ISMod);
+                //console.log(selectedEvent);
                 //console.log(Array.isArray(subjects), subjects);
 
                 const diaSemana = diasSemana[asigDayMod];
@@ -1451,7 +1448,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 .concat(asignaturaModificada); // añade el nuevo
 
               setEvents(eventosActualizados);
-              console.log("evnetos modificados mod asig: ", eventosActualizados);
+              //console.log("evnetos modificados mod asig: ", eventosActualizados);
               checkEventsCompatibilitiesAfterDelete(eventosActualizados);
             }
       
@@ -1473,9 +1470,9 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
       const checkModifiedAsigIncompatibility = (asignaturaModificada, idAntiguoAsigModificada) => {
         
-        console.log("entra checkModifiedAsigIncompatibility");
-        console.log("asig Modificada:", asignaturaModificada);
-        console.log("id antiguo asig Mod:", idAntiguoAsigModificada);
+        //console.log("entra checkModifiedAsigIncompatibility");
+        //console.log("asig Modificada:", asignaturaModificada);
+        //console.log("id antiguo asig Mod:", idAntiguoAsigModificada);
 
         
       
@@ -1618,7 +1615,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         }
 
         
-        console.log("eventos checkMod: ", eventosFiltrados);
+        //console.log("eventos checkMod: ", eventosFiltrados);
         const nuevoIdAsigModificada = `${asignaturaModificada.dia} - ${asignaturaModificada.siglas} - ${asignaturaModificada.grupo} - ${asignaturaModificada.grupoLaboratorio} - ${asignaturaModificada.aula} - ${horaInicioAsignaturaModificada}`;
         
         for (const evento of eventosFiltrados) {    // Es necesario que se realice sobre los eventos que compartan grado, cuatri y curso, para poder
@@ -1636,7 +1633,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             evento.grupo.startsWith("T")  && 
             nuevoIdAsigModificada !== evento.id 
           ) {
-            console.log("entra if gordo");
+            //console.log("entra if gordo");
 
             
             
@@ -1654,8 +1651,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teóricas");
 
               setIncidenceOnCreatedAsig(mensaje);
-              console.log("id de evento mod:", nuevoIdAsigModificada);
-              console.log("id de evento:", evento.id);
+              //console.log("id de evento mod:", nuevoIdAsigModificada);
+              //console.log("id de evento:", evento.id);
 
               setAsigIncompatibilitiesIds(prev => ({
                 ...prev,
@@ -1663,7 +1660,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 [evento.id]: mensaje,
               }));
 
-              console.log("entra primer if", mensaje);
+              //console.log("entra primer if", mensaje);
               return true;
             }
       
@@ -1676,8 +1673,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         
               setIncidenceOnCreatedAsig(mensaje);
 
-              console.log("id de evento mod:", nuevoIdAsigModificada);
-              console.log("id de evento:", evento.id);
+              //console.log("id de evento mod:", nuevoIdAsigModificada);
+              //console.log("id de evento:", evento.id);
 
               setAsigIncompatibilitiesIds(prev => ({
                 ...prev,
@@ -1685,7 +1682,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 [evento.id]: mensaje,
               }));
 
-              console.log("entra segundo/tercer if", mensaje);
+              //console.log("entra segundo/tercer if", mensaje);
               return true;
             }
 
@@ -1695,8 +1692,8 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               const mensajeOriginal = "Incompatibilidad por coincidencia de";
 
               if(mensaje !== mensajeOriginal){
-                console.log("id de evento mod:", nuevoIdAsigModificada);
-                console.log("id de evento:", evento.id);
+                //console.log("id de evento mod:", nuevoIdAsigModificada);
+                //console.log("id de evento:", evento.id);
 
                 setIncidenceOnCreatedAsig(mensaje);
                 
@@ -1706,7 +1703,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                   [evento.id]: mensaje,
                 }));
 
-                console.log("entra cuarto if", mensaje);
+                //console.log("entra cuarto if", mensaje);
                 return true;
               }
 
@@ -1726,7 +1723,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
             const duracionEventoSelect = (selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60);
 
-            console.log("eventos antes de borrar:", events);  
+            //console.log("eventos antes de borrar:", events);  
 
             const eventoAEliminar = events.find((evento) => {
               const horaInicioEvento = evento.start.getHours() < 10
@@ -1772,14 +1769,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               asig.HoraInicio === horaInicioEvento &&
               ((evento.end - evento.start) / (1000 * 60 * 60)) === ((selectedEvent.end - selectedEvent.start) / (1000 * 60 * 60)) // horas
             );*/
-            console.log("evento a eliminar:", eventoAEliminar);
+            //console.log("evento a eliminar:", eventoAEliminar);
             if (!eventoAEliminar) {
               console.warn("⚠️ No se encontró el evento a eliminar");
               return;
             }
             
             const eventosActualizados = events.filter(ev => ev !== eventoAEliminar);
-            console.log("eventos despues de borrar: ", eventosActualizados);
+            //console.log("eventos despues de borrar: ", eventosActualizados);
             setEvents(eventosActualizados);
             checkEventsCompatibilitiesAfterDelete(eventosActualizados);
 
@@ -1863,11 +1860,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               : start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
       const nuevoId = `${nuevoDia} - ${event.siglas} - ${event.grupo} - ${event.grupoLaboratorio} - ${event.aula} - ${horaInicioEvento}`;
       const eventoActualizado = { ...event, start, end, dia: nuevoDia, id: nuevoId };
-      console.log("evento actualizado:", eventoActualizado);
+      //console.log("evento actualizado:", eventoActualizado);
       const eventosActualizados = events.map(e =>
         e.id === event.id ? eventoActualizado : e
       );
-      console.log("eventos actualizados:", eventosActualizados);
+      //console.log("eventos actualizados:", eventosActualizados);
       let eventosFiltrados;
 
       if(selectedGrade === "INF"){
@@ -1992,7 +1989,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       }
 
       setEvents(eventosActualizados);
-      console.log("Eventos filtrados d&d:", eventosFiltrados);
+      //console.log("Eventos filtrados d&d:", eventosFiltrados);
 
       const nuevasIncompatibilidades = { ...asigIncompatibilitiesIds };
 
@@ -2012,11 +2009,11 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               : start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // HH:mm
       const nuevoId = `${nuevoDia} - ${event.siglas} - ${event.grupo} - ${event.grupoLaboratorio} - ${event.aula} - ${horaInicioEvento}`;
       const eventoActualizado = { ...event, start, end, dia: nuevoDia, id: nuevoId };
-      console.log("evento actualizado:", eventoActualizado);
+      //console.log("evento actualizado:", eventoActualizado);
       const eventosActualizados = events.map(e =>
         e.id === event.id ? eventoActualizado : e
       );
-      console.log("eventos actualizados:", eventosActualizados);
+      //console.log("eventos actualizados:", eventosActualizados);
       let eventosFiltrados;
 
       if(selectedGrade === "INF"){
@@ -2141,7 +2138,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       }
 
       setEvents(eventosActualizados);
-      console.log("Eventos filtrados resize:", eventosFiltrados);
+      ("Eventos filtrados resize:", eventosFiltrados);
       
       const nuevasIncompatibilidades = { ...asigIncompatibilitiesIds };
 
@@ -2155,7 +2152,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
     const checkEventsCompatibilitiesAfterDelete = (eventosActualizados) => {
       let newIncompatibilities = {};
-      console.log("eventos after del: ", eventosActualizados);
+      //console.log("eventos after del: ", eventosActualizados);
 
 
       let eventosFiltrados;
@@ -2280,7 +2277,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                evento.grupoLaboratorio === ""))
           );
       }
-      console.log("eventos filtrados after del:", eventosFiltrados);
+      //console.log("eventos filtrados after del:", eventosFiltrados);
 
       for(const evento1 of eventosFiltrados){
 
@@ -2303,7 +2300,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
               evento1.grupo.startsWith("T") &&
               evento2.grupo.startsWith("T") 
             ) {
-              console.log("entra if gordo");
+              //console.log("entra if gordo");
     
               //const generatedId = `${nuevaAsignatura.dia} - ${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${nuevaAsignatura.GrupoLaboratorio} - ${nuevaAsignatura.Clase} - ${nuevaAsignatura.HoraInicio}`;
               
@@ -2321,13 +2318,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teóricas");
     
                 setIncidenceOnCreatedAsig(mensaje);
-                console.log("id de evento1:", evento1.id);
-                console.log("id de evento2:", evento2.id);
+                //console.log("id de evento1:", evento1.id);
+                //console.log("id de evento2:", evento2.id);
     
                 newIncompatibilities[evento1.id] = mensaje;
                 newIncompatibilities[evento2.id] = mensaje;
     
-                console.log("entra primer if", mensaje);
+                //console.log("entra primer if", mensaje);
                 return true;
               }
         
@@ -2340,14 +2337,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           
                 setIncidenceOnCreatedAsig(mensaje);
     
-                console.log("id de evento1:", evento1.id);
-                console.log("id de evento2:", evento2.id);
+                //console.log("id de evento1:", evento1.id);
+                //console.log("id de evento2:", evento2.id);
     
                 newIncompatibilities[evento1.id] = mensaje;
                 newIncompatibilities[evento2.id] = mensaje;
     
     
-                console.log("entra segundo/tercer if", mensaje);
+                //console.log("entra segundo/tercer if", mensaje);
                 return true;
               }
     
@@ -2359,14 +2356,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
                 if(mensaje !== mensajeOriginal){
                   setIncidenceOnCreatedAsig(mensaje);
     
-                console.log("id de evento1:", evento1.id);
-                console.log("id de evento2:", evento2.id);
+                //console.log("id de evento1:", evento1.id);
+                //console.log("id de evento2:", evento2.id);
     
                 newIncompatibilities[evento1.id] = mensaje;
                 newIncompatibilities[evento2.id] = mensaje;
     
     
-                console.log("entra cuarto if", mensaje);
+                //console.log("entra cuarto if", mensaje);
                 return true;
                 } 
               }
@@ -2375,13 +2372,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
         }
       }
 
-      console.log("nuevas inc:", newIncompatibilities);
+      //console.log("nuevas inc:", newIncompatibilities);
       setAsigIncompatibilitiesIds(newIncompatibilities);
     }
 
 
     const checkEventCompatibility = (nuevaAsignatura, eventosActualizados, incompatibilities) => {
-      console.log("entra checkEventCompatibility");
+      //console.log("entra checkEventCompatibility");
     
       const diaSemanaNueva = diasSemana[nuevaAsignatura.dia];
       if (diaSemanaNueva === undefined) return false;
@@ -2404,7 +2401,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
           evento.grupo.startsWith("T")  && 
           nuevaAsignatura.id !== evento.id 
         ) {
-          console.log("entra if gordo");
+          //console.log("entra if gordo");
 
           //const generatedId = `${nuevaAsignatura.dia} - ${nuevaAsignatura.Siglas} - ${nuevaAsignatura.Grupo} - ${nuevaAsignatura.GrupoLaboratorio} - ${nuevaAsignatura.Clase} - ${nuevaAsignatura.HoraInicio}`;
           
@@ -2422,13 +2419,13 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             const mensaje = buildMessage("Incompatibilidad por coincidencia de sesiones teóricas");
 
             setIncidenceOnCreatedAsig(mensaje);
-            console.log("id de evento d&d:", nuevaAsignatura.id);
-            console.log("id de evento:", evento.id);
+            //console.log("id de evento d&d:", nuevaAsignatura.id);
+            //console.log("id de evento:", evento.id);
 
             incompatibilities[nuevaAsignatura.id] = mensaje;
             incompatibilities[evento.id] = mensaje;
 
-            console.log("entra primer if", mensaje);
+            //console.log("entra primer if", mensaje);
             return true;
           }
     
@@ -2441,14 +2438,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
       
             setIncidenceOnCreatedAsig(mensaje);
 
-            console.log("id de evento d&d:", nuevaAsignatura.id);
-            console.log("id de evento:", evento.id);
+            //console.log("id de evento d&d:", nuevaAsignatura.id);
+            //console.log("id de evento:", evento.id);
 
             incompatibilities[nuevaAsignatura.id] = mensaje;
             incompatibilities[evento.id] = mensaje;
 
 
-            console.log("entra segundo/tercer if", mensaje);
+            //console.log("entra segundo/tercer if", mensaje);
             return true;
           }
 
@@ -2460,14 +2457,14 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
             if(mensaje !== mensajeOriginal){
               setIncidenceOnCreatedAsig(mensaje);
 
-            console.log("id de evento d&d:", nuevaAsignatura.id);
-            console.log("id de evento:", evento.id);
+            //console.log("id de evento d&d:", nuevaAsignatura.id);
+            //console.log("id de evento:", evento.id);
 
             incompatibilities[nuevaAsignatura.id] = mensaje;
             incompatibilities[evento.id] = mensaje;
 
 
-            console.log("entra cuarto if", mensaje);
+            //console.log("entra cuarto if", mensaje);
             return true;
             } 
           }
@@ -2479,7 +2476,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
 
     const checkAllEventsCompatibilities = (eventosFiltrados, previasIdsIncompatibles) => {
       const nuevasIdsIncompatibles = {};
-      console.log("incompatibilidades anadidas?:", previasIdsIncompatibles);
+      //console.log("incompatibilidades anadidas?:", previasIdsIncompatibles);
 
       const buildMessage = (base, asignaturaIncompatibilidad, evento) => {
         const extras = [];
@@ -2552,7 +2549,7 @@ const ScheduleCreation = ({diasSemana, gradeMap, semesterMap, courseMap, mention
     
 
       }
-      console.log("Incompatibilidades def:", nuevasIdsIncompatibles);
+      //console.log("Incompatibilidades def:", nuevasIdsIncompatibles);
       setAsigIncompatibilitiesIds(nuevasIdsIncompatibles);
     }
 

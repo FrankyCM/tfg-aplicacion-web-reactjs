@@ -89,7 +89,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const handleFirstGroupSelect = (group) => {
     setSelectedFirstGroup(selectedFirstGroup === group ? "" : group);
     if(selectedFirstGroup === group && checkNoSelectedGroups()){
-        console.log("no grupos select");
+        //console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     }
@@ -99,7 +99,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const handleSecondGroupSelect = (group) => {
     setSelectedSecondGroup(selectedSecondGroup === group ? "" : group);
     if(selectedSecondGroup === group && checkNoSelectedGroups()){
-        console.log("no grupos select");
+        //console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     }  
@@ -109,7 +109,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const handleThirdMentionSelect = (mention) => {
     setSelectedThirdMention(selectedThirdMention === mention ? "" : mention);
     if(selectedThirdMention === mention && checkNoSelectedGroups()){
-        console.log("no grupos select");
+        //console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     }
@@ -119,7 +119,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const handleFourthMentionSelect = (mention) => {
     setSelectedFourthMention(selectedFourthMention === mention ? "" : mention);
     if(selectedFourthMention === mention && checkNoSelectedGroups()){
-        console.log("no grupos select");
+        //console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     }
@@ -145,7 +145,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const handleFifthGroupSelect = (group) => {
     setSelectedFifthGroup(selectedFifthGroup === group ? "" : group);
     if(selectedFifthGroup === group && checkNoSelectedGroups()){
-        console.log("no grupos select");
+        //console.log("no grupos select");
         setSelectedAsigs([]);
         setSelectedAsigValue("");
     } // convertir actualizacion de estado en actualizacion sincrona
@@ -169,7 +169,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
 
   const handleAsigSelect = (_, data) => {  
     const selectedKey = data.options.find(option => option.value === data.value)?.key;
-    console.log("asignatura anadida", selectedKey);
+    //console.log("asignatura anadida", selectedKey);
     if (selectedKey && !selectedAsigs.includes(selectedKey)) {
       setSelectedAsigs([...selectedAsigs, selectedKey]);
       setSelectedAsigValue(data.value);
@@ -179,7 +179,7 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
   const handleRemoveAsig = (asig) => {
     const newAsigs = selectedAsigs.filter((item) => item !== asig);
     setSelectedAsigs(newAsigs);
-    console.log("asignatura: " + asig + " borrada");
+    //console.log("asignatura: " + asig + " borrada");
     if (newAsigs.length === 0) {
       setSelectedAsigValue("");
     }
@@ -244,13 +244,13 @@ const FiltersSectionCustom = ({selectedGrade, setSelectedGrade, selectedSemester
     if (selectedCourses.length !== 0) {
       newHeight += 110 * selectedCourses.length;
       if (selectedFirstGroup || selectedSecondGroup || selectedThirdMention || selectedFourthMention) {
-          newHeight += 150;
+          newHeight += 350;
       }
     }
     
 
     if (selectedAsigs.length > 0) {
-      newHeight += 40 * selectedAsigs.length;
+      newHeight += 100;
     }
   
     if (includeLabs) {

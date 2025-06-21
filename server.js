@@ -73,7 +73,7 @@ app.post("/guardar-asignaturas", (req, res) => {
       return res.status(500).json({ error: "No se pudo guardar el archivo." });
     }
 
-    console.log(`Archivo guardado exitosamente como ${nombre}`);
+    //console.log(`Archivo guardado exitosamente como ${nombre}`);
     res.json({ mensaje: "Archivo guardado exitosamente." });
   });
 });
@@ -93,7 +93,7 @@ app.post("/eliminar-json", (req, res) => {
       console.error("Error al eliminar el archivo:", err);
       return res.status(500).json({ error: "Error al eliminar el archivo." });
     }
-    console.log(`Archivo eliminado correctamente: ${nombre}`);
+    //console.log(`Archivo eliminado correctamente: ${nombre}`);
     res.json({ mensaje: "Archivo eliminado correctamente." });
   });
 });
@@ -206,5 +206,5 @@ const options = {
 };
 
 https.createServer(options, app).listen(8081, "0.0.0.0", () => {
-  console.log("Servidor HTTPS backend en https://192.168.56.1:8081");
+  //console.log("Servidor HTTPS backend en https://192.168.56.1:8081");
 });

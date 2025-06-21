@@ -101,71 +101,104 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
     const [asigColors, setAsigColors] = useState({});
 
     useEffect(() => {
-          const cargarAsignaturas = async () => {
-            try {
-              const response = await fetch("/asignaturas.json");
-              const data = await response.json();
-      
-              const asigColorObject = {};
-              data.forEach((asig) => {
-                const sigla = asig.Siglas;
-                const color = asig.Color;
-                if (sigla && color && !asigColorObject[sigla]) {
-                  asigColorObject[sigla] = color;
+        const camposEsperados = [ 
+          "Codigo", "Dia", "HoraInicio", "Duracion", "Siglas", "Nombre", "Grado",
+          "Semestre", "Curso", "Grupo", "GrupoLaboratorio", "Mencion", "Clase",
+          "Profesor", "Color"
+        ];
+
+        const cargarAsignaturas = async () => {
+          try {
+            // Paso 1: Obtener la lista de archivos desde el backend
+            const listaResponse = await fetch("https://192.168.56.1:8081/listar-json");
+            const listaArchivos = await listaResponse.json();
+
+            let archivoValido = null;
+            let dataValida = null;
+
+            // Paso 2: Buscar un archivo con la estructura esperada
+            for (const archivo of listaArchivos) {
+              try {
+                const archivoResponse = await fetch(`https://192.168.56.1:8081/${archivo}`);
+                const contenido = await archivoResponse.json();
+
+                if (Array.isArray(contenido) && contenido.length > 0) {
+                  const keys = Object.keys(contenido[0]);
+                  const coinciden = camposEsperados.every(campo => keys.includes(campo));
+
+                  if (coinciden) {
+                    archivoValido = archivo;
+                    dataValida = contenido;
+                    break;
+                  }
                 }
-              });
-
-              setAsigColors(asigColorObject);
-
-              console.log("asigColors:", asigColorObject);
-
-              const eventos = data.map((asignatura) => {
-                const diaSemana = diasSemana[asignatura.Dia];
-                if (diaSemana === undefined) return null;
-      
-                const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
-      
-                // Obtener el lunes de la semana actual
-                const hoy = moment();
-                const lunesSemanaActual = hoy.clone().startOf("isoWeek");
-      
-                // Calcular la fecha del día de la asignatura dentro de esta semana
-                const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
-                  hour: hora,
-                  minute: minutos,
-                  second: 0,
-                }).toDate();
-      
-                const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
-      
-                return {
-                  id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.GrupoLaboratorio} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
-                  title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
-                  start: inicio,
-                  end: fin,
-                  nombre: asignatura.Nombre,
-                  siglas: asignatura.Siglas,
-                  grado: asignatura.Grado,
-                  semestre: asignatura.Semestre,
-                  curso: asignatura.Curso,
-                  grupo: asignatura.Grupo,
-                  grupoLaboratorio: asignatura.GrupoLaboratorio,
-                  mencion: asignatura.Mencion,
-                  aula: asignatura.Clase,
-                  profesor: asignatura.Profesor,
-                  color: asignatura.Color,
-                  dia: asignatura.Dia,
-                  codigo: asignatura.Codigo
-                };
-              }).filter(Boolean);
-      
-              setEvents(eventos);
-            } catch (error) {
-              console.error("Error cargando los datos del JSON:", error);
+              } catch (err) {
+                console.warn(`No se pudo procesar el archivo ${archivo}:`, err);
+              }
             }
-          };
-      
-          cargarAsignaturas();
+
+            if (!dataValida) {
+              console.error("❌ No se encontró ningún archivo JSON con los campos esperados.");
+              return;
+            }
+
+            // Paso 3: Procesar colores
+            const asigColorObject = {};
+            dataValida.forEach((asig) => {
+              const sigla = asig.Siglas;
+              const color = asig.Color;
+              if (sigla && color && !asigColorObject[sigla]) {
+                asigColorObject[sigla] = color;
+              }
+            });
+            setAsigColors(asigColorObject);
+            //console.log("✅ Archivo cargado:", archivoValido);
+
+            // Paso 4: Generar eventos
+            const eventos = dataValida.map((asignatura) => {
+              const diaSemana = diasSemana[asignatura.Dia];
+              if (diaSemana === undefined) return null;
+
+              const [hora, minutos] = asignatura.HoraInicio.split(":").map(Number);
+              const hoy = moment();
+              const lunesSemanaActual = hoy.clone().startOf("isoWeek");
+
+              const inicio = lunesSemanaActual.clone().add(diaSemana - 1, "days").set({
+                hour: hora,
+                minute: minutos,
+                second: 0,
+              }).toDate();
+
+              const fin = moment(inicio).add(parseInt(asignatura.Duracion), "hours").toDate();
+
+              return {
+                id: `${asignatura.Dia} - ${asignatura.Siglas} - ${asignatura.Grupo} - ${asignatura.GrupoLaboratorio} - ${asignatura.Clase} - ${asignatura.HoraInicio}`,
+                title: `${asignatura.Siglas} \n \n ${asignatura.Grupo} - ${asignatura.Clase}`,
+                start: inicio,
+                end: fin,
+                nombre: asignatura.Nombre,
+                siglas: asignatura.Siglas,
+                grado: asignatura.Grado,
+                semestre: asignatura.Semestre,
+                curso: asignatura.Curso,
+                grupo: asignatura.Grupo,
+                grupoLaboratorio: asignatura.GrupoLaboratorio,
+                mencion: asignatura.Mencion,
+                aula: asignatura.Clase,
+                profesor: asignatura.Profesor,
+                color: asignatura.Color,
+                dia: asignatura.Dia,
+                codigo: asignatura.Codigo
+              };
+            }).filter(Boolean);
+
+            setEvents(eventos);
+          } catch (error) {
+            console.error("Error general al cargar asignaturas:", error);
+          }
+        };
+
+        cargarAsignaturas();
     }, []);
 
     useEffect(() => {
@@ -368,7 +401,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
               }
               
             }
-            console.log(eventosFiltrados);
+            //console.log(eventosFiltrados);
             // Crear la lista de opciones de asignaturas con el formato adecuado
             const asigOptions = eventosFiltrados.map(evento => {
                 
@@ -418,7 +451,7 @@ export const CustomVisualization = ({ diasSemana, gradeMap, semesterMap, courseM
             });
     
             setFilteredEvents(eventosFiltrados);
-            console.log("selectedAsigs", selectedAsigs);
+            //console.log("selectedAsigs", selectedAsigs);
             //console.log("Asignaturas filtradas:");
             eventosFiltrados.forEach(evento => {
                 //console.log(`${evento.siglas} - ${evento.nombre} - ${evento.grupo}`);

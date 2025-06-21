@@ -50,7 +50,7 @@ export const AdminCalendarEvent = ({
 
         // Establecer el tiempo en el estado
         setAsigStartTimeMod(formattedTime);
-        console.log("tiempo formateado", formattedTime);
+        //console.log("tiempo formateado", formattedTime);
         setAsigColorMod(event.color);
         setAsigFullNameMod(event.nombre);
         setAsigSemesterMod(event.semestre);

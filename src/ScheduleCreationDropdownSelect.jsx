@@ -13,8 +13,8 @@ const ScheduleCreationDropdownSelect = ({ selectOptions, placeholder, setStatusO
 
   // Manejar el cambio de selección
   const handleChange = (e, { value }) => {
-    console.log(value) // 👉 imprime el valor seleccionado
-    setStatusOnChange(value) // 👉 actualiza el estado recibido
+    //console.log(value) 
+    setStatusOnChange(value) // Actualiza el estado recibido
   };
 
   return (

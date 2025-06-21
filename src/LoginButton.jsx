@@ -16,7 +16,7 @@ const LoginButton = ({ color, text, credential, setFailedAttempt }) => {
             const response = await fetch("/credenciales.json");
             const data = await response.json();
             const hashedInput = await hashCredential(credential);
-            console.log(hashedInput);
+            //console.log(hashedInput);
             if (hashedInput === data.admin.credenciales) {
                 login();
             } else {

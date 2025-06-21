@@ -59,12 +59,12 @@ const ScheduleCreationMenuTabs = ({
   // ✅ Esta función ahora está dentro del componente y puede acceder a las props
   const handleTabChange = (e, { activeIndex }) => {
     if (activeIndex === 0) {
-      console.log("selectedGrade:", selectedGrade);
+      /*console.log("selectedGrade:", selectedGrade);
       console.log("selectedSemester:", selectedSemester);
       console.log("selectedCourse:", selectedCourse);
       console.log("selectedGroup:", selectedGroup);
       console.log("selectedMention:", selectedMention);
-      console.log("warningMessage:", warningMessage);
+      console.log("warningMessage:", warningMessage);*/
       setSize(() => ({
         width: 550,
         height: calculateNewHeight(),

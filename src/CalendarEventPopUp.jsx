@@ -6,14 +6,14 @@ const CalendarEventPopUp = ({ event, position, backgroundColor, setHoveredEvent 
 
   const handleMouseEnter = () => {
     setHoveredEvent(event);
-    console.log("encima evento popup");
+    //console.log("encima evento popup");
 };
 
 const handleMouseLeave = () => {
     setTimeout(() => {
         setHoveredEvent(null); 
     }, 100);
-    console.log("salida evento popup");
+    //console.log("salida evento popup");
 };
 
   return (

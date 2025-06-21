@@ -41,7 +41,7 @@ const FiltersTab = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSelected
 
   const handleAsigSelect = (_, data) => {  
     const selectedKey = data.options.find(option => option.value === data.value)?.key;
-    console.log(selectedKey)
+    //console.log(selectedKey)
     if (selectedKey && !selectedAsigs.includes(selectedKey)) {
         setSelectedAsigs([...selectedAsigs, selectedKey]);
         setSelectedAsigValue(data.value);
@@ -52,7 +52,7 @@ const FiltersTab = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSelected
   const handleRemoveAsig = (asig) => {
     const newAsigs = selectedAsigs.filter((item) => item !== asig);
     setSelectedAsigs(newAsigs);
-    console.log("asignatura: "  +asig + " borrada");
+    //console.log("asignatura: "  +asig + " borrada");
     if (newAsigs.length === 0) {
       setSelectedAsigValue("");
   }
@@ -60,23 +60,23 @@ const FiltersTab = ({selectedAsigs, setSelectedAsigs, selectedGroup, setSelected
 
   const handleGroupSelect = (group) => {
     setSelectedGroup(group);
-    console.log("Grupo seleccionado:", group);
+    //console.log("Grupo seleccionado:", group);
   };
 
 
   const handleCourseSelect = (course) => {
     setSelectedCourse(course);
-    console.log(course);
+    //console.log(course);
   };
 
   const handleClassSelect = (_, data) => {
     setSelectedClass(data.value);
-    console.log("Aula seleccionada:", data.value);
+    //console.log("Aula seleccionada:", data.value);
   };
 
   const handleGradeSelect = (grade) => {
     setSelectedGrade(grade);
-    console.log(grade);
+    //console.log(grade);
   };
 
   const tabs = [
